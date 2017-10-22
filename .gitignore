@@ -4,7 +4,6 @@
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
 # User-specific stuff:
-.idea/*
 .idea/**/workspace.xml
 .idea/**/tasks.xml
 .idea/dictionaries
@@ -53,6 +52,7 @@ fabric.properties
 ### Vagrant template
 # General
 .vagrant/
+*/.vagrant/
 
 # Log files (if you are creating logs in debug mode, uncomment this)
 *.logs
