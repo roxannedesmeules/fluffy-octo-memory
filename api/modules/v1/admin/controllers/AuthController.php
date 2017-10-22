@@ -32,7 +32,15 @@ class AuthController extends Controller
 		$this->request  = \Yii::$app->request;
 		$this->response = \Yii::$app->response;
 	}
-	
+
+	protected function verbs ()
+	{
+		return [
+			"login"  => [ "OPTIONS", "POST" ],
+			"logout" => [ "OPTIONS", "DELETE" ],
+		];
+	}
+
 	public function behaviors ()
 	{
 		return [
@@ -64,10 +72,6 @@ class AuthController extends Controller
 	{
 		$form = new UserAuth();
 		$form->attributes = $this->request->getBodyParams();
-
-		var_dump($this->request->getBodyParams()); die();
-
-		var_dump($form->attributes); die();
 		
 		if ( !$form->validate() ) {
 			$this->response->setStatusCode(422);
