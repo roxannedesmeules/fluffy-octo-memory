@@ -1,0 +1,37 @@
+//
+//  Forms Input
+//
+
+//  invalid
+.form-group.is-invalid {
+	label { @extend .text-danger; }
+	
+	.form-control { @extend .is-invalid; }
+	
+	//  add invalid styling for input group
+	.input-group {
+		.input-group-addon {
+			border-color : $form-feedback-invalid-color;
+			background   : theme-color-level('danger', -10);
+		}
+	}
+}
+
+//  valid
+.form-group.is-valid {
+	label {
+		@extend .text-success;
+	}
+	
+	.form-control {
+		@extend .is-valid;
+	}
+	
+	//  add invalid styling for input group
+	.input-group {
+		.input-group-addon {
+			border-color : $form-feedback-valid-color;
+			background   : theme-color-level('success', -10);
+		}
+	}
+}

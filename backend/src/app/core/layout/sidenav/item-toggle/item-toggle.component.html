@@ -1,0 +1,12 @@
+<li class="menu-item parent">
+	<a (click)="isCollapsed = !isCollapsed">
+		<span class="icon"> <i class="material-icons">{{ icon }}</i> </span>
+		<span class="text"> {{ name }} </span>
+	</a>
+	
+	<ul class="nav-sub" [ngbCollapse]="isCollapsed">
+		<li *ngFor="let child of children" class="menu-item">
+			<a [routerLink]="child.link">{{ child.name }}</a>
+		</li>
+	</ul>
+</li>
