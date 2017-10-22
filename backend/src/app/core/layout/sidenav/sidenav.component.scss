@@ -1,0 +1,58 @@
+//  import bootstrap variables
+@import "../../../../assets/theme/bootstrap";
+
+//
+//  Sidenav
+//
+
+.sidebar {
+	position   : absolute;
+	z-index    : $zindex-sidenav;
+	margin-top : $navbar-brand-height;
+	width      : $sidenav-width;
+	height     : $sidenav-height;
+	
+	background: $white;
+	
+	@include box-shadow(0 2px 4px rgba(0,0,0,.2), 0 -1px 0 rgba(0,0,0,.02));
+}
+
+.sidebar .sidebar-menu {
+	@extend .mt-2;
+	
+	& > ul {
+		@extend .list-unstyled;
+	}
+}
+
+.sidebar .sidebar-footer {
+	position: absolute;
+	bottom  : 0;
+	
+	width      : $sidenav-width;
+	background : $sidenav-footer-bg;
+	
+	@extend .m-0;
+	@extend .list-unstyled;
+	
+	& > a.sidebar-footer-item {
+		float : left;
+		clear : none;
+
+		display : block;
+		width   : calc(#{$sidenav-width} / 3);
+		
+		text-align : center;
+		font-size  : $sidenav-footer-icon-size;
+		color      : $sidenav-footer-icon-color;
+		
+		@extend .py-3;
+		
+		&:hover, &:active { background: $sidenav-footer-bg-hover; }
+		
+		.material-icons {
+			font-size  : $sidenav-footer-icon-size;
+			color      : $sidenav-footer-icon-color;
+		}
+	}
+}

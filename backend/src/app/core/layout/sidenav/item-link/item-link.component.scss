@@ -1,0 +1,44 @@
+//  import bootstrap variables
+@import "../../../../../assets/theme/bootstrap";
+
+.menu-item {
+	border-bottom: $sidenav-item-border;
+	
+	@extend .text-capitalize;
+	
+	.icon {
+		float        : left;
+		line-height  : inherit;
+		margin-right : 1rem;
+		top          : 0;
+		min-width    : 1.5rem;
+		padding-top  : 0.175rem;
+		
+		& > i {
+			position  : relative;
+			font-size : $sidenav-item-icon-size;
+		}
+	}
+	.text {
+		line-height : 1.125rem;
+		padding     : .5625rem 0;
+	}
+	
+	//  menu item links (parent link & sub menu link)
+	a {
+		display  : block;
+		position : relative;
+		padding  : $sidenav-menu-item-padding;
+		color    : $body-color;
+		
+		cursor   : pointer;
+		
+		//  on hover
+		&:hover {
+			text-decoration: $link-decoration;
+			
+			.icon { color: theme-color('primary'); }
+			.text { color: theme-color('primary'); }
+		}
+	}
+}

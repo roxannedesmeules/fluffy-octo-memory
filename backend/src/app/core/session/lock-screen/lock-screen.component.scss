@@ -1,0 +1,26 @@
+//  import bootstrap variables
+@import "../../../../assets/theme/bootstrap";
+
+//
+//  Login
+//
+
+.login-container {
+  width     : 100%;
+  position  : absolute;
+  top       : 50%;
+  transform : translateY(-50%);
+
+  .content {
+    @extend .bg-white;
+    @extend .p-4;
+  }
+
+  .footer {
+    font-size: ($font-size-sm * 0.85);
+
+    @extend .mt-3;
+    @extend .text-center;
+    @extend .text-muted;
+  }
+}

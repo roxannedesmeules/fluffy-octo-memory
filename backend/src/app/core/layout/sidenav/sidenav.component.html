@@ -1,0 +1,38 @@
+<div id="sidemenu" class="sidebar">
+	<!-- START : USER -->
+	<!-- END : USER -->
+	
+	<!-- START : MENU -->
+	<div class="sidebar-menu">
+		<ul>
+			<sidenav-item-link name="dashboard" icon="dashboard" link="/"></sidenav-item-link>
+			<sidenav-item-header name="blog"></sidenav-item-header>
+			<sidenav-item-toggle
+					name="categories"
+					icon="collections_bookmark"
+					[children]="categories">
+			</sidenav-item-toggle>
+			<sidenav-item-toggle
+					name="posts"
+					icon="text_fields"
+					[children]="posts">
+			</sidenav-item-toggle>
+			<sidenav-item-header name="system"></sidenav-item-header>
+		</ul>
+	</div>
+	<!-- END : MENU -->
+	
+	<!-- START : NAV-FOOTER -->
+	<div class="sidebar-footer">
+		<a class="sidebar-footer-item" ngbTooltip="settings">
+			<i class="material-icons">settings</i>
+		</a>
+		<a routerLink="/locked" class="sidebar-footer-item" ngbTooltip="lock session">
+			<i class="material-icons">lock_outline</i>
+		</a>
+		<a class="sidebar-footer-item" ngbTooltip="logout">
+			<i class="material-icons">power_settings_new</i>
+		</a>
+	</div>
+	<!-- END   : NAV-FOOTER -->
+</div>

@@ -1,0 +1,21 @@
+.breadcrumb {
+	background : $breadcrumb-bg;
+	padding    : 0;
+	
+	.breadcrumb-item {
+		& + .breadcrumb-item::before {
+			content     : $breadcrumb-divider;
+			font-family : FontAwesome;
+			
+			padding-left  : $breadcrumb-item-padding-left;
+			padding-right : $breadcrumb-item-padding-right;
+		}
+		
+		&.active { font-weight: 700; }
+		
+		& > a {
+			color           : $headings-color;
+			text-decoration : $link-decoration;
+		}
+	}
+}

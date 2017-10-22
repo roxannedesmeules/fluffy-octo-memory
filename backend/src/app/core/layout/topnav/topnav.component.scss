@@ -1,0 +1,70 @@
+//  import bootstrap variables
+@import "../../../../assets/theme/bootstrap";
+
+//  Topnav  - navbar itself
+#topnav.navbar {
+	@include box-shadow(0 2px 4px rgba(0,0,0,.1), 0 -1px 0 rgba(0,0,0,.02));
+	
+	@extend .p-0;
+}
+
+//  Topnav  - brand
+#topnav {
+	.navbar-brand {
+		display: inline-block;
+		width  : $navbar-brand-width;
+		height : $navbar-brand-height;
+		background: $navbar-brand-bgcolor;
+		
+		text-align: center;
+		color: $white;
+		
+		@extend .py-2;
+	}
+}
+
+//  Topnav  - menu
+#topnav .navbar-nav {
+	& > .nav-item {
+		padding-top    : $navbar-link-padding-top;
+		padding-bottom : $navbar-link-padding-bottom;
+		cursor         : pointer;
+		
+		@extend .px-3;
+		
+		//  give more space to the right for the last item
+		&:last-of-type { @extend .pr-4; }
+		
+		//  change background on hover and active
+		//&:hover, &:active { background: $navbar-link-hover-color; }
+		&:hover i, &:active i { color: theme-color('primary'); }
+		&:hover > a, &:active > a { color: theme-color('primary'); }
+		
+		//  in case of icons, increase font size
+		&.icon {
+			font-size : $navbar-icon-size;
+			color     : $navbar-icon-color;
+		}
+	}
+}
+
+//  Topnav  - any dropdown menu
+#topnav .dropdown-menu {
+	&::before {
+		content: "";
+		width: 15px;
+		height: 15px;
+		
+		border-top:  $dropdown-border-width solid $dropdown-border-color;
+		border-left: $dropdown-border-width solid $dropdown-border-color;
+		background: white;
+		margin: -15px 10px 0 0;
+		
+		@extend .float-right;
+		@include rotate(45);
+	}
+	
+	&.show {
+		top: ($navbar-brand-height) !important;
+	}
+}

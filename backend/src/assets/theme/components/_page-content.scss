@@ -1,0 +1,38 @@
+//
+//  Page Content
+//
+
+.page-content {
+	position   : absolute;
+	top        : $content-top-position;
+	left       : $content-left-position;
+	width      : $content-width;
+	height     : $content-height;
+	background : $content-bg;
+}
+
+//  content header
+.page-content .content-header {
+	background: $white;
+	
+	@extend .px-4;
+	@extend .pt-4;
+	
+	& > h1 { margin-bottom: 0px; }
+	
+	.breadcrumb {
+		position: absolute;
+		bottom  : 0;
+	}
+}
+
+.page-content .content {
+	width     : auto;
+	background: $white;
+	
+	@include box-shadow(1px 2px 4px rgba(0,0,0,.1));
+	
+	@extend .mx-4;
+	@extend .mt-4;
+	@extend .p-3;
+}
