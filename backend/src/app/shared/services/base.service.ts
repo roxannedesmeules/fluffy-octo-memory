@@ -1,5 +1,6 @@
 import { Inject, Injectable } from "@angular/core";
 import { Http } from "@angular/http";
+import { ErrorResponse } from "models/error-response.model";
 
 @Injectable()
 export abstract class BaseService {
@@ -44,6 +45,14 @@ export abstract class BaseService {
 	 */
 	protected _url (id?: number): string {
 		return this.baseUrl + "/" + this.modelName + ((id) ? "/" + id : "");
+	}
+
+	protected _parseResponseBody (response: any) {
+		return new Promise((resolve, reject) => { resolve(JSON.parse(response._body)); });
+	}
+
+	protected _parseErrorBody (error: any) {
+		return new Promise((resolve, reject) => { reject(new ErrorResponse(JSON.parse(error._body))); });
 	}
 
 	mapListToModelList (list: any) {
