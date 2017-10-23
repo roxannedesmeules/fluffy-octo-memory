@@ -20,7 +20,7 @@ export class AuthService extends BaseService {
 		return this.create(body).then(this._parseResponseBody).catch(this._parseErrorBody);
 	}
 
-	public logout () {
+	public logout (): Promise<any> {
 		return this.http.delete(this._url()).toPromise().then((result: any) => {
 			this.userService.removeAppUser();
 		});
@@ -29,11 +29,23 @@ export class AuthService extends BaseService {
 	/**
 	 * Set the "is_locked" value for the authenticated user to true.
 	 */
-	public lockSession () {
-		const user     = this.userService.getAppUser();
-		user.is_locked = true;
+	public lockSession (): Promise<any> {
+		return this.http.delete(this._url()).toPromise().then((result: any) => {
+			const user     = this.userService.getAppUser();
+			user.is_locked = true;
 
-		this.userService.saveAppUser(user);
+			this.userService.saveAppUser(user);
+		});
+	}
+
+	/**
+	 *
+	 * @param {UserAuthForm} body
+	 *
+	 * @return {Promise<any>}
+	 */
+	public unlockSession (body: UserAuthForm): Promise<any> {
+		return this.create(body).then(this._parseResponseBody).catch(this._parseErrorBody);
 	}
 
 	/**

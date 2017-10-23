@@ -1,23 +1,26 @@
 <div class="login-container">
-  <div class="content">
-    <div class="col-md-4 m-auto">
-      <h1 class="text-primary text-center"> admin </h1>
-      <form>
-        <div class="form-group">
-          <label> Password </label>
-          <div class="input-group input-group-sm">
-            <div class="input-group-addon"><i class="material-icons">lock_open</i></div>
-            <input type="text" class="form-control" placeholder="your password">
-          </div>
-        </div>
+    <div class="content">
+        <div class="col-md-4 m-auto">
+            <h1 class="text-primary text-center"> admin </h1>
+            <form [formGroup]="form" (ngSubmit)="unlock()" novalidate>
+                <div class="form-group"
+                     [class.is-invalid]="form.get('password').invalid && (form.get('password').dirty || form.get('password').touched || submitted)">
+                    <label> Password </label>
+                    <div class="input-group input-group-sm">
+                        <div class="input-group-addon"><i class="material-icons">lock_open</i></div>
+                        <input type="password" class="form-control" placeholder="your password" formControlName="password">
+                    </div>
+                </div>
 
-        <div class="col-6 m-auto">
-          <button type="submit" class="btn btn-outline-primary btn-block"> Unlock </button>
+                <div class="col-6 m-auto">
+                    <button type="submit" class="btn btn-outline-primary btn-block">
+                        Unlock
+                    </button>
+                </div>
+            </form>
         </div>
-      </form>
     </div>
-  </div>
-  <div class="footer">
-    built with love & tears © <b>mlleDesmeules</b> - v.0.1.0
-  </div>
+    <div class="footer">
+        built with love & tears © <b>mlleDesmeules</b> - v.0.1.0
+    </div>
 </div>

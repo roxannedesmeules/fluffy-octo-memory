@@ -13,7 +13,7 @@ import { UserService } from "services/user/user.service";
 	styleUrls   : [ "./login.component.scss" ],
 })
 export class LoginComponent {
-	public loginForm: FormGroup;
+	public form: FormGroup;
 
 	constructor (private _builder: FormBuilder,
 	             private _logger: LoggerComponent,
@@ -24,19 +24,19 @@ export class LoginComponent {
 	}
 
 	private _buildform () {
-		this.loginForm = this._builder.group({
+		this.form = this._builder.group({
 			username : this._builder.control("", [ Validators.required ]),
 			password : this._builder.control("", [ Validators.required ]),
 		});
 	}
 
 	public login () {
-		if (this.loginForm.invalid) {
+		if (this.form.invalid) {
 			return;
 		}
 
 		this.authService
-			.login(new UserAuthForm(this.loginForm.value))
+			.login(new UserAuthForm(this.form.value))
 			.then((result: any) => {
 				this.userService.saveAppUser(this.authService.mapModel(result));
 				this._router.navigate([ "/" ]);
