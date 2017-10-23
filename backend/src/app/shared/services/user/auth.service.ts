@@ -20,10 +20,19 @@ export class AuthService extends BaseService {
 		return this.create(body).then(this._parseResponseBody).catch(this._parseErrorBody);
 	}
 
-	public logout () {}
+	public logout () {
+		return this.http.delete(this._url()).toPromise().then((result: any) => {
+			this.userService.removeAppUser();
+		});
+	}
 
 	public lockSession () {}
 
+	/**
+	 * Check if a user is logged in.
+	 *
+	 * @return {boolean}
+	 */
 	public isLoggedIn () {
 		if (this.userService.getAppUser()) {
 			return true;

@@ -19,6 +19,9 @@ import { LoggerModule } from "./shared/widgets/logger/logger.module";
 
 //  Providers
 import { HttpExProvider } from "./shared/helpers/http-ex";
+import { UserService } from "services/user/user.service";
+import { AuthService } from "services/user/auth.service";
+import { AuthGuard } from "./shared/helpers/guards/auth.guard";
 
 @NgModule({
 	imports      : [
@@ -42,6 +45,9 @@ import { HttpExProvider } from "./shared/helpers/http-ex";
 	],
 	providers    : [
 		HttpExProvider,
+		UserService,
+		AuthService,
+		AuthGuard,
 	],
 	bootstrap    : [ AppComponent ],
 })

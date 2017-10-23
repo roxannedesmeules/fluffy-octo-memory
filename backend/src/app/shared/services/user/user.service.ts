@@ -23,6 +23,10 @@ export class UserService extends BaseService {
 		return JSON.parse(localStorage.getItem(this.STORAGE_KEY));
 	}
 
+	public removeAppUser () {
+		localStorage.removeItem(this.STORAGE_KEY);
+	}
+
 	/**
 	 *
 	 * @param {User} user

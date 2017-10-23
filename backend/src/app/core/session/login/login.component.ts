@@ -3,6 +3,9 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AuthService } from "services/user/auth.service";
 import { UserAuthForm } from "models/users/user-auth-form.model";
 import { LoggerComponent } from "../../../shared/widgets/logger/logger.component";
+import { ErrorResponse } from "models/error-response.model";
+import { Router } from "@angular/router";
+import { UserService } from "services/user/user.service";
 
 @Component({
 	selector    : "app-login",
@@ -13,8 +16,10 @@ export class LoginComponent {
 	public loginForm: FormGroup;
 
 	constructor (private _builder: FormBuilder,
+	             private _logger: LoggerComponent,
+	             private _router: Router,
 	             private authService: AuthService,
-	             private _logger: LoggerComponent) {
+	             private userService: UserService) {
 		this._buildform();
 	}
 
@@ -33,13 +38,11 @@ export class LoginComponent {
 		this.authService
 			.login(new UserAuthForm(this.loginForm.value))
 			.then((result: any) => {
-				console.log("fulfilled");
-				console.log(result);
+				this.userService.saveAppUser(this.authService.mapModel(result));
+				this._router.navigate([ "/" ]);
 			})
-			.catch((error: any) => {
-				console.log("rejected");
-				console.log(error);
-				this._logger.error("error", "error");
+			.catch((error: ErrorResponse) => {
+				this._logger.error("", error.message);
 			});
 	}
 }

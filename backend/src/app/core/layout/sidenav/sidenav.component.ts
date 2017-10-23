@@ -1,19 +1,26 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component } from "@angular/core";
+import { AuthService } from "services/user/auth.service";
+import { Router } from "@angular/router";
 
 @Component({
-    selector    : 'layout-sidenav',
-    templateUrl : './sidenav.component.html',
-    styleUrls   : [ './sidenav.component.scss' ],
+	selector    : "layout-sidenav",
+	templateUrl : "./sidenav.component.html",
+	styleUrls   : [ "./sidenav.component.scss" ],
 })
-export class SidenavComponent implements OnInit {
+export class SidenavComponent {
 
-    categories = [ { name: 'create' }, { name: 'see all', link : '/categories' }, ];
-    posts      = [ { name: 'create' }, { name: 'see all' }, ];
+	categories = [ { name : "create" }, { name : "see all", link : "/categories" }, ];
+	posts      = [ { name : "create" }, { name : "see all" }, ];
 
-    constructor () {
-    }
+	constructor (private _router: Router,
+	             private authService: AuthService) {
+	}
 
-    ngOnInit () {
-    }
+	logout () {
+		//  log the user out
+		this.authService.logout();
 
+		//  redirect the user to login page
+		this._router.navigate([ "/login" ]);
+	}
 }
