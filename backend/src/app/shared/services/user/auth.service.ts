@@ -26,7 +26,15 @@ export class AuthService extends BaseService {
 		});
 	}
 
-	public lockSession () {}
+	/**
+	 * Set the "is_locked" value for the authenticated user to true.
+	 */
+	public lockSession () {
+		const user     = this.userService.getAppUser();
+		user.is_locked = true;
+
+		this.userService.saveAppUser(user);
+	}
 
 	/**
 	 * Check if a user is logged in.
@@ -41,5 +49,7 @@ export class AuthService extends BaseService {
 		}
 	}
 
-	public isLockedOut () {}
+	public isLockedOut () {
+		return this.userService.getAppUser().is_locked;
+	}
 }

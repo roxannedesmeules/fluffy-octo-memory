@@ -23,4 +23,12 @@ export class SidenavComponent {
 		//  redirect the user to login page
 		this._router.navigate([ "/login" ]);
 	}
+
+	lockSession () {
+		//  lock the user out
+		this.authService.lockSession();
+
+		//  redirect the user to lock page
+		this._router.navigate([ "/locked" ]);
+	}
 }

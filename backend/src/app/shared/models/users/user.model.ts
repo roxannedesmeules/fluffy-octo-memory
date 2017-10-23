@@ -7,6 +7,7 @@ export class User {
 	public username: string;
 	public auth_token: string;
 	public last_login: string;
+	public is_locked: boolean = false;
 	public profile: UserProfile;
 	
 	constructor ( model: any = null ) {
