@@ -14,27 +14,39 @@ export abstract class BaseService {
 	}
 
 	public findAll () {
-		return this.http.get(this._url()).toPromise();
+		return this.http.get(this._url()).toPromise()
+					.then(this._parseResponseBody)
+					.catch(this._parseErrorBody);
 	}
 
 	public findOne () {
-		return this.http.get(this._url()).toPromise();
+		return this.http.get(this._url()).toPromise()
+					.then(this._parseResponseBody)
+					.catch(this._parseErrorBody);
 	}
 
 	public findById (id: number) {
-		return this.http.get(this._url(id)).toPromise();
+		return this.http.get(this._url(id)).toPromise()
+					.then(this._parseResponseBody)
+					.catch(this._parseErrorBody);
 	}
 
 	public create (body: any) {
-		return this.http.post(this._url(), body).toPromise();
+		return this.http.post(this._url(), body).toPromise()
+					.then(this._parseResponseBody)
+					.catch(this._parseErrorBody);
 	}
 
 	public update (id: number, body: any) {
-		return this.http.put(this._url(id), body).toPromise();
+		return this.http.put(this._url(id), body).toPromise()
+					.then(this._parseResponseBody)
+					.catch(this._parseErrorBody);
 	}
 
 	public delete (id: number) {
-		return this.http.delete(this._url(id)).toPromise();
+		return this.http.delete(this._url(id)).toPromise()
+					.then(this._parseResponseBody)
+					.catch(this._parseErrorBody);
 	}
 
 	/**
