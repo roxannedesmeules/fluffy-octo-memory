@@ -54,7 +54,12 @@ export class HttpEx extends Http {
 		//  client authorization header
 		options.headers.append("Api-Client", environment.api.client_token);
 
-		//  TODO  add logged in user token
+		//  add logged in user token
+		const user = JSON.parse(localStorage.getItem("user"));
+
+		if (user && user.auth_token) {
+			options.headers.append("Authorization", `Basic ${btoa(user.auth_token + ':')}`);
+		}
 
 		//  content type headers
 		options.headers.append("Content-type", "application/json");

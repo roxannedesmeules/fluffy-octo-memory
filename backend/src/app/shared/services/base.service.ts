@@ -43,7 +43,7 @@ export abstract class BaseService {
 	 * @return {string}
 	 * @private
 	 */
-	protected _url (id?: number): string {
+	protected _url (id?: number | string): string {
 		return this.baseUrl + "/" + this.modelName + ((id) ? "/" + id : "");
 	}
 
