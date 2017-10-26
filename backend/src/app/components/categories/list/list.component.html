@@ -1,3 +1,20 @@
-<p>
-  Categories List
-</p>
+<table class="table">
+    <thead>
+    <tr>
+        <th>id</th>
+        <th>name</th>
+        <th>is active</th>
+        <th>created at</th>
+        <th>last update</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let category of list;let i = index;">
+        <td>{{ category.id }}</td>
+        <td>{{ category.translations[ 0 ]?.name || '--' }}</td>
+        <td>{{ (category.is_active) ? 'Yes' : 'No' }}</td>
+        <td>{{ category.created_on }}</td>
+        <td>{{ category.updated_on || '--' }}</td>
+    </tr>
+    </tbody>
+</table>

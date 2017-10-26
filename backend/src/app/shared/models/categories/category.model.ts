@@ -30,7 +30,7 @@ export class Category {
 	 * @return {CategoryLang[]}
 	 */
 	mapTranslations (list: any): CategoryLang[] {
-		list.for((val, idx) => {
+		list.forEach((val, idx) => {
 			list[ idx ] = this.translationModel(val);
 		});
 
