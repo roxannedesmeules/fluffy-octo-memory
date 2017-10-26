@@ -18,7 +18,6 @@ export class ListComponent implements OnInit {
 		title      : "Categories",
 		subTitle   : "List of categories",
 		breadcrumb : [
-			new BreadcrumbItems({ name : "Dashboard" }),
 			new BreadcrumbItems({ name : "Categories", isActive : true }),
 		],
 	};

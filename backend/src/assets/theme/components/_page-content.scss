@@ -34,5 +34,5 @@
 	
 	@extend .mx-4;
 	@extend .mt-4;
-	@extend .p-3;
+	@extend .p-0;   // set padding to 0, content will add it when necessary
 }
