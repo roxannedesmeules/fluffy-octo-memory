@@ -86,6 +86,11 @@ $config = [
 				"DELETE  v1/admin/auth" => "v1/admin/auth/logout",
 
 				[ "class" => 'yii\rest\UrlRule', "controller" => [ "v1/admin/category" ] ],
+				[
+					"class"      => 'yii\rest\UrlRule',
+					"controller" => [ "v1/admin/language" ],
+					"except"     => [ "view", "create", "update", "delete" ],
+				],
 			],
 		],
 		//  Comment whole response block to use Gii
