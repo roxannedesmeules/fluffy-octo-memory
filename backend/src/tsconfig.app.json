@@ -8,6 +8,7 @@
 		"paths" : {
 			"core/*"       : [ "app/core/*" ],
 			"components/*" : [ "app/components/*" ],
+			"widgets/*"    : [ "app/widgets/*" ],
 			"services/*"   : [ "app/shared/services/*" ],
 			"models/*"     : [ "app/shared/models/*" ],
 			"node/*"       : [ "../node_modules/*" ]

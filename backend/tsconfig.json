@@ -19,6 +19,7 @@
 		"paths" : {
 			"core/*"       : [ "src/app/core/*" ],
 			"components/*" : [ "src/app/components/*" ],
+			"widgets/*"    : [ "src/app/widgets/*" ],
 			"services/*"   : [ "src/app/shared/services/*" ],
 			"models/*"     : [ "src/app/shared/models/*" ],
 			"node/*"       : [ "node_modules/*" ]
