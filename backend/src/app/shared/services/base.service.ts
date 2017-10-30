@@ -25,7 +25,7 @@ export abstract class BaseService {
 					.catch(this._parseErrorBody);
 	}
 
-	public findById (id: number) {
+	public findById (id: any) {
 		return this.http.get(this._url(id)).toPromise()
 					.then(this._parseResponseBody)
 					.catch(this._parseErrorBody);
