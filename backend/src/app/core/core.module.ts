@@ -2,7 +2,6 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { LayoutModule } from "./layout/layout.module";
 import { SessionModule } from "./session/session.module";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
 	imports      : [

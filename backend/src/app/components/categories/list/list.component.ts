@@ -1,14 +1,16 @@
 import { Component, OnInit } from "@angular/core";
 import { BreadcrumbItems } from "core/layout/breadcrumb/breadcrumb-items.model";
 import { PageHeaderService } from "core/layout/page-header/page-header.service";
-import { CategoriesService } from "services/categories/categories.service";
-import { ActivatedRoute, ActivatedRouteSnapshot } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 import { Category } from "models/categories/category.model";
+import { fadeInAnimation } from "../../../shared/helpers/animations/fade-in.animation";
 
 @Component({
 	selector    : "app-categories-list",
 	templateUrl : "./list.component.html",
 	styleUrls   : [ "./list.component.scss" ],
+	animations  : [ fadeInAnimation ],
+	host        : { "[@fadeInAnimation]" : "" },
 })
 export class ListComponent implements OnInit {
 

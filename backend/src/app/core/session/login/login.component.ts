@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AuthService } from "services/user/auth.service";
 import { UserAuthForm } from "models/users/user-auth-form.model";
-import { LoggerComponent } from "../../../shared/widgets/logger/logger.component";
+import { LoggerComponent } from "../../../widgets/logger/logger.component";
 import { ErrorResponse } from "models/error-response.model";
 import { Router } from "@angular/router";
 import { UserService } from "services/user/user.service";

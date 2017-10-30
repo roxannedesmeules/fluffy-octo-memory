@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-import { LoggerComponent } from "../../../shared/widgets/logger/logger.component";
+import { LoggerComponent } from "../../../widgets/logger/logger.component";
 import { AuthService } from "services/user/auth.service";
 import { UserService } from "services/user/user.service";
 import { User } from "models/users/user.model";
