@@ -4,7 +4,7 @@
 		<ngb-tabset formArrayName="translations">
 			<ngb-tab *ngFor="let translation of getTranslations().controls; let i = index;" [formGroupName]="i">
 				<ng-template ngbTabTitle>
-					{{ translation.get('lang').value | atIndexOf:languages:'icu':'name' }}
+					{{ translation.get('lang_id').value | atIndexOf:languages:'id':'name' }}
 				</ng-template>
 				<ng-template ngbTabContent>
 					<div class="pt-2">

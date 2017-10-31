@@ -7,6 +7,8 @@ import { PageHeaderService } from "core/layout/page-header/page-header.service";
 
 import { Category } from "models/categories/category.model";
 import { Lang } from "models/lang/lang.model";
+import { CategoriesService } from "services/categories/categories.service";
+import { ErrorResponse } from "models/error-response.model";
 
 @Component({
 	selector    : "app-categories-details",
@@ -29,7 +31,8 @@ export class DetailsComponent implements OnInit {
 
 	constructor (private _route: ActivatedRoute,
 	             private _builder: FormBuilder,
-	             private headerService: PageHeaderService) { }
+	             private headerService: PageHeaderService,
+	             private categoriesService: CategoriesService) { }
 
 	ngOnInit () {
 		this.headerService.setPageHeader(this.header);
@@ -47,7 +50,7 @@ export class DetailsComponent implements OnInit {
 
 		this.languages.forEach((val, idx) => {
 			let control = this._builder.group({
-				lang : this._builder.control(val.icu, [ Validators.required ]),
+				lang_id : this._builder.control(val.id, [ Validators.required ]),
 				name : this._builder.control('', [ Validators.required ]),
 				slug : this._builder.control('', [ Validators.required ]),
 			});
@@ -61,6 +64,18 @@ export class DetailsComponent implements OnInit {
 	}
 
 	public save () {
+		let body = new Category();
+			body = body.form(this.form.value);
 
+			console.log(body);
+
+		this.categoriesService
+			.create(body)
+			.then((result: any) => {
+				console.log(result);
+			})
+			.catch((error: ErrorResponse) => {
+				console.log(error);
+			});
 	}
 }

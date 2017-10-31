@@ -45,4 +45,33 @@ export class Category {
 	translationModel (model: any): CategoryLang {
 		return new CategoryLang(model);
 	}
+
+	/**
+	 *
+	 * @param model
+	 */
+	form (model: any): Category {
+		this.is_active  = model.is_active;
+
+		this.translations = this.mapFormTranslations(model.translations);
+
+		return this;
+	}
+
+	/**
+	 *
+	 * @param list
+	 * @return {CategoryLang[]}
+	 */
+	mapFormTranslations (list: any): CategoryLang[] {
+		let result: CategoryLang[] = [];
+
+		list.forEach((val, idx) => {
+			if ( val.name || val.slug ) {
+				result.push(this.translationModel(val));
+			}
+		});
+
+		return result;
+	}
 }
