@@ -22,7 +22,9 @@ abstract class CategoryBase extends \yii\db\ActiveRecord
 {
 	
 	const DATE_FORMAT = "Y-m-d H:i:s";
-	
+
+	const SCENARIO_UPDATE = "update";
+
 	const INACTIVE = 0;
 	const ACTIVE   = 1;
 	
