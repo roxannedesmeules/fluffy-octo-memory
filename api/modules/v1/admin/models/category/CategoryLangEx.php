@@ -27,8 +27,7 @@ class CategoryLangEx extends CategoryLang
 	{
 		return [
 			[ "lang_id", "required" ],
-			[ "lang_id", "string" ],
-			[ "lang_id", "exist", 'targetClass' => Lang::className(), [ "lang_id" => "id" ] ],
+			[ "lang_id", "exist", 'targetClass' => Lang::className(), "targetAttribute" => [ "lang_id" => "id" ] ],
 			
 			[ "name", "required" ],
 			[ "name", "string", "max" => 255 ],
