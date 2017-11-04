@@ -20,7 +20,7 @@ class ArrayUniqueValidator extends Validator
 	
 	public function validateAttribute ( $model, $attribute )
 	{
-		$values = ArrayHelperEx::getColumn($model->$attribute, $this->key);
+		$values = ArrayHelperEx::getColumn($model->$attribute, $this->uniqueKey);
 		
 		if (ArrayHelperEx::hasDuplicates($values)) {
 			$model->addError($attribute, $this->message);
