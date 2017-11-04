@@ -39,7 +39,7 @@ class CategoryEx extends Category
 			
 			[ "translations", "required" ],
 			[ "translations", TranslationValidator::className(), "validator" => CategoryLangEx::className() ],
-			[ "translations", ArrayUniqueValidator::className(), "uniqueKey" => "language" ],
+			[ "translations", ArrayUniqueValidator::className(), "uniqueKey" => "lang_id" ],
 		];
 	}
 	

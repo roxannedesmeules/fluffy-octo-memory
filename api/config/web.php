@@ -97,16 +97,19 @@ $config = [
 		"response"   => [
 			"class"         => \yii\web\Response::className(),
 			"on beforeSend" => function ( $event ) {
-				//  get sender object
+				/** @var \yii\web\Response $response */
 				$response = $event->sender;
 
 				if ( !is_null($response->data) ) {
-
-					//  if there is an error, format data correctly
 					if ( !is_null(Yii::$app->getErrorHandler()->exception) ) {
 						$response->data = [
-							"code"    => $response->statusCode,
+							"code"    => $response->getStatusCode(),
 							"message" => $response->data[ "message" ],
+						];
+					} else if ( !$response->getIsSuccessful() ) {
+						$response->data = [
+							"code"  => $response->getStatusCode(),
+							"error" => $response->data,
 						];
 					}
 				}
