@@ -7,6 +7,16 @@ use app\models\user\User;
  * Class UserEx
  *
  * @package app\modules\v1\admin\models\user
+ *
+ * @SWG\Definition(
+ *     definition = "User",
+ *
+ *     @SWG\Property( property = "id", type = "integer" ),
+ *     @SWG\Property( property = "username", type = "string" ),
+ *     @SWG\Property( property = "auth_token", type = "string" ),
+ *     @SWG\Property( property = "last_login", type = "string" ),
+ *     @SWG\Property( property = "profile", ref = "#/definitions/UserProfile", ),
+ * )
  */
 class UserEx extends User
 {

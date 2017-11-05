@@ -5,7 +5,7 @@ namespace app\modules\v1\admin\swagger;
 /**
  * @SWG\Tag(
  *    name = "Authentication",
- *    description = "All endpoints related to user authentication to the admin panel",
+ *    description = "All endpoints related to user authentication",
  * )
  */
 

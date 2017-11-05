@@ -8,6 +8,15 @@ use app\models\user\UserProfile;
  * Class UserProfileEx
  *
  * @package app\modules\v1\admin\models\user
+ *
+ * @SWG\Definition(
+ *     definition = "UserProfile",
+ *
+ *     @SWG\Property( property = "firstname", type = "string" ),
+ *     @SWG\Property( property = "lastname", type = "string" ),
+ *     @SWG\Property( property = "fullname", type = "string" ),
+ *     @SWG\Property( property = "birthday", type = "string" ),
+ * )
  */
 class UserProfileEx extends UserProfile
 {

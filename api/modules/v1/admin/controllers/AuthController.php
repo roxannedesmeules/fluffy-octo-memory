@@ -68,6 +68,21 @@ class AuthController extends Controller
 		return ArrayHelperEx::merge(parent::actions(), [ "options" => OptionsAction::className(), ]);
 	}
 
+	/**
+	 * @SWG\Post(
+	 *     path     = "/v1/admin/auth",
+	 *     tags     = { "Authentication" },
+	 *     summary  = "Login",
+	 *     description = "Authenticate a user to have access to the admin panel",
+	 *     security    = { "ApiClientSecurity" },
+	 *
+	 *     @SWG\Parameter( name = "user", in = "body", @SWG\Schema( ref = "#/definitions/UserAuth" ),),
+	 *
+	 *     @SWG\Response( response = 200, description = "authenticated user", @SWG\Schema( ref = "#/definitions/User" ), ),
+	 *     @SWG\Response( response = 400, description = "wrong user/password or inactive", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
+	 *     @SWG\Response( response = 422, description = "invalid data for authentication", @SWG\Schema( ref = "#/definitions/UnprocessableError" ), ),
+	 * )
+	 */
 	public function actionLogin ()
 	{
 		$form = new UserAuth();
@@ -89,7 +104,18 @@ class AuthController extends Controller
 				return $result[ "user" ];
 		}
 	}
-	
+
+	/**
+	 * @SWG\Delete(
+	 *     path    = "/v1/admin/auth",
+	 *     tags    = { "Authentication" },
+	 *     summary = "Logout",
+	 *     description = "Invalidate authenticated user to force her to login again",
+	 *     
+	 *     @SWG\Response( response = 204, description = "user was correctly logout" ),
+	 *     @SWG\Response( response = 401, description = "user can't be authenticated", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
+	 * )
+	 */
 	public function actionLogout ()
 	{
 		$form = new UserAuth();
