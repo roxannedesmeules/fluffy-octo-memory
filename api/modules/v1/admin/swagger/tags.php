@@ -5,7 +5,14 @@ namespace app\modules\v1\admin\swagger;
 /**
  * @SWG\Tag(
  *    name = "Authentication",
- *    description = "All endpoints related to user authentication",
+ *    description = "All endpoints managing user authentication",
+ * )
+ */
+
+/**
+ *  @SWG\Tag(
+ *    name = "Languages",
+ *    description = "All endpoints managing languages",
  * )
  */
 
