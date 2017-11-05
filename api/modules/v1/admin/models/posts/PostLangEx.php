@@ -50,7 +50,7 @@ class PostLangEx extends PostLang
 	{
 		return [
 			[ "lang_id", "required" ],
-			[ "lang_id", "exist", "targetClass" => Lang::className(), "targetAttributes" => [ "lang_id" => "id" ] ],
+			[ "lang_id", "exist", "targetClass" => Lang::className(), "targetAttribute" => [ "lang_id" => "id" ] ],
 
 			[ "title", "required" ],
 			[ "title", "string", "max" => 255 ],
