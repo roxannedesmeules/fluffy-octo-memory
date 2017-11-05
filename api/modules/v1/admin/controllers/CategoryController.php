@@ -17,6 +17,17 @@ use yii\web\UnprocessableEntityHttpException;
  */
 class CategoryController extends ControllerAdminEx
 {
+	/**
+	 * @SWG\Get(
+	 *     path = "/v1/admin/categories",
+	 *     tags = { "Categories" },
+	 *     summary = "Get all Categories",
+	 *     description = "Get list of all categories, returned with sorting and pagination",
+	 *
+	 *     @SWG\Response( response = 200, description = "list of categories", @SWG\Schema( ref = "#/definitions/Categories" ), ),
+	 *     @SWG\Response( response = 401, description = "user can't be authenticated", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
+	 * )
+	 */
 	public function actionIndex ()
 	{
 		return new ArrayDataProvider([
@@ -26,11 +37,40 @@ class CategoryController extends ControllerAdminEx
 		                             ]);
 	}
 
+	/**
+	 * @SWG\Get(
+	 *     path = "/v1/admin/categories/:id",
+	 *     tags = { "Categories" },
+	 *     summary = "Get a single category",
+	 *     description = "Get a category with a specific ID",
+	 *
+	 *     @SWG\Parameter( name = "id", in = "path", type = "integer", required = true ),
+	 *
+	 *     @SWG\Response( response = 200, description = "single category", @SWG\Schema( ref = "#/definitions/Category" ), ),
+	 *     @SWG\Response( response = 401, description = "user can't be authenticated", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
+	 *     @SWG\Response( response = 404, description = "category not found", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
+	 * )
+	 */
 	public function actionView ( $id )
 	{
 		return CategoryEx::getOneWithTranslations($id);
 	}
 
+	/**
+	 * @SWG\Post(
+	 *     path = "/v1/admin/categories",
+	 *     tags = { "Categories" },
+	 *     summary = "Create a category",
+	 *     description = "Create a new category with translations",
+	 *     
+	 *     @SWG\Parameter( name = "category", in = "body", required = true, @SWG\Schema( ref = "#/definitions/CategoryForm" ), ),
+	 *
+	 *     @SWG\Response( response = 201, description = "category id", @SWG\Schema( @SWG\Property( property = "category_id", type = "integer" ), ),),
+	 *     @SWG\Response( response = 401, description = "user can't be authenticated", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
+	 *     @SWG\Response( response = 422, description = "category to be created isn't valid", @SWG\Schema( ref = "#/definitions/UnprocessableError" ), ),
+	 *     @SWG\Response( response = 500, description = "error while creating category", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
+	 * )
+	 */
 	public function actionCreate ()
 	{
 		//  get request data and create a Category with it
@@ -66,6 +106,23 @@ class CategoryController extends ControllerAdminEx
 		return [ "category_id" => $result[ "category_id" ] ];
 	}
 
+	/**
+	 * @SWG\Put(
+	 *     path = "/v1/admin/categories/:id",
+	 *     tags = { "Categories" },
+	 *     summary = "Update a category",
+	 *     description = "Update an existing category and its translations",
+	 *
+	 *     @SWG\Parameter( name = "id", in = "path", type = "integer", required = true ),
+	 *     @SWG\Parameter( name = "category", in = "body", required = true, @SWG\Schema( ref = "#/definitions/CategoryForm" ), ),
+	 *     
+	 *     @SWG\Response( response = 200, description = "updated category", @SWG\Schema( ref = "#/definitions/Category" ), ),
+	 *     @SWG\Response( response = 401, description = "user can't be authenticated", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
+	 *     @SWG\Response( response = 404, description = "category not found", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
+	 *     @SWG\Response( response = 422, description = "category to be created isn't valid", @SWG\Schema( ref = "#/definitions/UnprocessableError" ), ),
+	 *     @SWG\Response( response = 500, description = "error while updating category", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
+	 * )
+	 */
 	public function actionUpdate ( $id )
 	{
 		//  get request data and create a Category with it so it can be validated
@@ -107,6 +164,19 @@ class CategoryController extends ControllerAdminEx
 		return [ "category" => $result[ "category" ] ];
 	}
 
+	/**
+	 * @SWG\Delete(
+	 *     path = "/v1/admin/category/:id",
+	 *     tags = { "Categories" },
+	 *     summary = "Delete a category",
+	 *     description = "Delete an existing category and its translations",
+	 *
+	 *     @SWG\Response( response = 204, description = "category correctly deleted" ),
+	 *     @SWG\Response( response = 401, description = "user can't be authenticated", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
+	 *     @SWG\Response( response = 404, description = "category not found", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
+	 *     @SWG\Response( response = 500, description = "error while updating category", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
+	 * )
+	 */
 	public function actionDelete ( $id )
 	{
 		$result = CategoryEx::deleteWithTranslations($id);
