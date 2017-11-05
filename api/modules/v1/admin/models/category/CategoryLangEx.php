@@ -7,12 +7,23 @@ use app\models\category\CategoryLang;
 
 /**
  * Class CategoryLangEx
+ * 
  * @package app\modules\v1\admin\models\category
  */
 class CategoryLangEx extends CategoryLang
 {
-	
-	/** @inheritdoc */
+
+	/**
+	 * @inheritdoc
+	 *
+	 * @SWG\Definition(
+	 *     definition = "CategoryTranslation",
+	 *
+	 *     @SWG\Property( property = "language", type = "string" ),
+	 *     @SWG\Property( property = "name", type = "string" ),
+	 *     @SWG\Property( property = "slug", type = "string" ),
+	 * )
+	 */
 	public function fields ()
 	{
 		return [
@@ -21,8 +32,19 @@ class CategoryLangEx extends CategoryLang
 			"slug",
 		];
 	}
-	
-	/** @inheritdoc */
+
+	/**
+	 * @inheritdoc
+	 *
+	 * @SWG\Definition(
+	 *       definition = "CategoryTranslationForm",
+	 *       required   = { "lang_id", "name", "slug" },
+	 *
+	 *     @SWG\Property( property = "lang_id", type = "integer" ),
+	 *     @SWG\Property( property = "name", type = "string" ),
+	 *     @SWG\Property( property = "slug", type = "string" ),
+	 * )
+	 */
 	public function rules ()
 	{
 		return [

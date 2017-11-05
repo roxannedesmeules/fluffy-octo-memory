@@ -7,7 +7,15 @@ use app\models\category\Category;
 
 /**
  * Class CategoryEx
+ *
  * @package app\modules\v1\admin\models\category
+ *
+ * @SWG\Definition(
+ *     definition = "Categories",
+ *     type = "array",
+ *
+ *     @SWG\Items( ref = "#/definitions/Category" ),
+ * )
  */
 class CategoryEx extends Category
 {
@@ -17,8 +25,20 @@ class CategoryEx extends Category
 	{
 		return $this->hasMany(CategoryLangEx::className(), [ "category_id" => "id" ]);
 	}
-	
-	/** @inheritdoc */
+
+	/**
+	 * @inheritdoc
+	 *
+	 * @SWG\Definition(
+	 *     definition = "Category",
+	 *
+	 *     @SWG\Property( property = "id", type = "integer" ),
+	 *     @SWG\Property( property = "is_active", type = "integer" ),
+	 *     @SWG\Property( property = "translations", type = "array", @SWG\Items( ref = "#/definitions/CategoryTranslation" ) ),
+	 *     @SWG\Property( property = "created_on", type = "string" ),
+	 *     @SWG\Property( property = "updated_on", type = "string" ),
+	 * )
+	 */
 	public function fields ()
 	{
 		return [
@@ -29,8 +49,18 @@ class CategoryEx extends Category
 			"updated_on",
 		];
 	}
-	
-	/** @inheritdoc */
+
+	/**
+	 * @inheritdoc
+	 *
+	 * @SWG\Definition(
+	 *     definition = "CategoryForm",
+	 *     required   = { "translations" },
+	 *
+	 *     @SWG\Property( property = "is_active", type = "integer" ),
+	 *     @SWG\Property( property = "translations", type = "array", @SWG\Items( ref = "#/definitions/CategoryTranslationForm" ) ),
+	 * )
+	 */
 	public function rules ()
 	{
 		return [

@@ -8,6 +8,14 @@ use yii\base\Model;
  * Class UserAuth
  *
  * @package app\modules\v1\admin\models\user\forms
+ *          
+ * @SWG\Definition(
+ *     definition = "UserAuth",
+ *     required   = { "username", "password" },
+ *
+ *     @SWG\Property( property = "username", type = "string" ),
+ *     @SWG\Property( property = "password", type = "string" ),
+ * )
  */
 class UserAuth extends Model
 {
@@ -22,7 +30,8 @@ class UserAuth extends Model
 	
 	public $username;
 	public $password;
-	
+
+	/** @inheritdoc */
 	public function rules ()
 	{
 		return [
