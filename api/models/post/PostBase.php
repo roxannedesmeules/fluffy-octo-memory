@@ -24,7 +24,10 @@ use Yii;
 abstract class PostBase extends \yii\db\ActiveRecord
 {
 	const DATE_FORMAT = 'Y-m-d H:i:s';
-	
+
+	const ERROR   = 0;
+	const SUCCESS = 1;
+
 	/** @inheritdoc */
 	public static function tableName () { return 'post'; }
 	
@@ -133,5 +136,43 @@ abstract class PostBase extends \yii\db\ActiveRecord
 		}
 		
 		return true;
+	}
+
+	/**
+	 * Build an array to use when returning from another method. The status will automatically
+	 * set to ERROR, then $error passed in param will be associated to the error key.
+	 *
+	 * @param $error
+	 *
+	 * @return array
+	 */
+	public static function buildError ( $error )
+	{
+		return [ "status" => self::ERROR, "error" => $error ];
+	}
+
+	/**
+	 * Build an array to use when returning from another method. The status will be automatically
+	 * set to SUCCESS, then the $params will be merged with the array and be returned.
+	 *
+	 * @param array $params
+	 *
+	 * @return array
+	 */
+	public static function buildSuccess ( $params )
+	{
+		return ArrayHelperEx::merge([ "status" => self::SUCCESS ], $params);
+	}
+
+	/**
+	 * TODO add comments
+	 *
+	 * @param $postId
+	 *
+	 * @return bool
+	 */
+	public static function idExists ( $postId )
+	{
+		return self::find()->where([ "id" => $postId ])->exists();
 	}
 }
