@@ -25,4 +25,9 @@ class PostLangQuery extends \yii\db\ActiveQuery
 	{
 		return $this->andWhere([ "post_id" => $postId ]);
 	}
+
+	public function byLang ( $langId )
+	{
+		return $this->andWhere([ "lang_id" => $langId ]);
+	}
 }

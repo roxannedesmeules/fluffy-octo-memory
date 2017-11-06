@@ -45,6 +45,7 @@ class PostLang extends PostLangBase
 			return self::buildError($model->getErrors());
 		}
 
+		//  if the model couldn't be saved, then return an error
 		if ( !$model->save() ) {
 			return self::buildError(self::ERR_ON_SAVE);
 		}
@@ -80,5 +81,40 @@ class PostLang extends PostLangBase
 		return $result;
 	}
 
-	public static function updateTranslation ( $postId, $langId, $data ) { }
+	/**
+	 * TODO add comments
+	 *
+	 * @param integer $postId
+	 * @param integer $langId
+	 * @param self    $data
+	 *
+	 * @return array
+	 */
+	public static function updateTranslation ( $postId, $langId, $data )
+	{
+		//  if the translation doesn't exists, then return error
+		if (!self::translationExists($postId, $langId)) {
+			return self::buildError(self::ERR_NOT_FOUND);
+		}
+
+		//  find the translation to update
+		$model = self::find()->byPost($postId)->byLang($langId)->one();
+
+		$model->title   = ArrayHelperEx::getValue($data, "title", $model->title);
+		$model->slug    = ArrayHelperEx::getValue($data, "slug", $model->slug);
+		$model->content = ArrayHelperEx::getValue($data, "content", $model->content);
+
+		//  if the model isn't valid, then return all errors
+		if ( !$model->validate() ) {
+			return self::buildError($model->getErrors());
+		}
+
+		//  if the model couldn't be saved, then return an error
+		if ( !$model->save() ) {
+			return self::buildError(self::ERR_ON_SAVE);
+		}
+
+		//  return success
+		return self::buildSuccess([]);
+	}
 }

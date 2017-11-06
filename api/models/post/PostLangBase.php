@@ -29,11 +29,12 @@ abstract class PostLangBase extends \yii\db\ActiveRecord
 	const ERROR   = 0;
 	const SUCCESS = 1;
 
+	const ERR_ON_SAVE        = "ERR_ON_SAVE";
+	const ERR_ON_DELETE      = "ERR_ON_DELETE";
+	const ERR_NOT_FOUND      = "ERR_NOT_FOUND";
 	const ERR_POST_NOT_FOUND = "ERR_POST_NOT_FOUND";
 	const ERR_LANG_NOT_FOUND = "ERR_LANG_NOT_FOUND";
-	const ERR_ON_SAVE = "ERR_ON_SAVE";
-	const ERR_ON_DELETE = "ERR_ON_DELETE";
-	
+
 	/** @inheritdoc */
 	public static function tableName () { return 'post_lang'; }
 	
@@ -169,5 +170,10 @@ abstract class PostLangBase extends \yii\db\ActiveRecord
 	public static function buildSuccess ( $params )
 	{
 		return ArrayHelperEx::merge([ "status" => self::SUCCESS ], $params);
+	}
+
+	public static function translationExists ( $postId, $langId )
+	{
+		return self::find()->byPost($postId)->byLang($langId)->exists();
 	}
 }
