@@ -79,7 +79,7 @@ $config = [
 			'enableStrictParsing' => true,
 			'showScriptName'      => false,
 			'rules'               => [
-				""                      => "site",
+				"" => "site",
 
 				//  V1 rules
 
@@ -98,6 +98,11 @@ $config = [
 					"controller" => [ "v1/admin/language" ],
 					"except"     => [ "view", "create", "update", "delete" ],
 				],
+				[
+					"class"      => 'yii\rest\UrlRule',
+					"controller" => [ "v1/admin/posts/statuses" => "v1/admin/post-status" ],
+					"except"     => [ "view", "create", "update", "delete" ],
+				]
 			],
 		],
 		//  Comment whole response block to use Gii
