@@ -91,7 +91,7 @@ class PostEx extends Post
 	 *
 	 * @return array
 	 */
-	public function createWithTranslations ( $post, $translations )
+	public static function createWithTranslations ( $post, $translations )
 	{
 		//  start a transaction to rollback at any moment if there is a problem
 		$transaction = self::$db->beginTransaction();
@@ -135,7 +135,7 @@ class PostEx extends Post
 	 *
 	 * @return array
 	 */
-	public function deleteWithTranslations ( $postId )
+	public static function deleteWithTranslations ( $postId )
 	{
 		//  start a transaction to rollback at any moment if there is a problem
 		$transaction = self::$db->beginTransaction();
@@ -171,7 +171,7 @@ class PostEx extends Post
 	 *
 	 * @return PostEx[]|array
 	 */
-	public function getAllWithTranslations ()
+	public static function getAllWithTranslations ()
 	{
 		return self::find()->withTranslations()->all();
 	}
@@ -183,7 +183,7 @@ class PostEx extends Post
 	 *
 	 * @return Post|array|null
 	 */
-	public function getOneWithTranslations ( $postId )
+	public static function getOneWithTranslations ( $postId )
 	{
 		return self::find()->id($postId)->withTranslations()->one();
 	}
@@ -195,7 +195,7 @@ class PostEx extends Post
 	 *
 	 * @return array
 	 */
-	public function updateWithTranslations ( $postId, $post, $translations )
+	public static function updateWithTranslations ( $postId, $post, $translations )
 	{
 		//  start a transaction to rollback at any moment if there is a problem
 		$transaction = self::$db->beginTransaction();

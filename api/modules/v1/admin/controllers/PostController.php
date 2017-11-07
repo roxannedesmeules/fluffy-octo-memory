@@ -1,7 +1,12 @@
 <?php
+
 namespace app\modules\v1\admin\controllers;
 
 use app\modules\v1\admin\components\ControllerAdminEx;
+use app\modules\v1\admin\models\posts\PostEx;
+use yii\data\ArrayDataProvider;
+use yii\web\NotFoundHttpException;
+use yii\web\ServerErrorHttpException;
 
 /**
  * Class PostController
@@ -21,7 +26,14 @@ class PostController extends ControllerAdminEx
 	 *     @SWG\Response( response = 401, description = "user can't be authenticated", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
 	 * )
 	 */
-	public function actionIndex () {}
+	public function actionIndex ()
+	{
+		return new ArrayDataProvider([
+			                             "allModels" => PostEx::getAllWithTranslations(),
+			                             //  TODO    add sorting
+			                             //  TODo    add pagination
+		                             ]);
+	}
 
 	/**
 	 * @SWG\Post(
@@ -30,11 +42,44 @@ class PostController extends ControllerAdminEx
 	 *     summary  = "Create a post",
 	 *     description = "create a post with translations",
 	 *
+	 *     @SWG\Parameter( name = "post", in = "body", required = true, @SWG\Schema( ref = "#/definitions/PostForm" ),),
 	 *
+	 *     @SWG\Response( response = 201, description = "post created succesfully", @SWG\Schema( @SWG\Property( property = "post_id", type = "integer" ), ), ),
 	 *     @SWG\Response( response = 401, description = "user can't be authenticated", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
+	 *     @SWG\Response( response = 422, description = "category to be created isn't valid", @SWG\Schema( ref = "#/definitions/UnprocessableError" ), ),
+	 *     @SWG\Response( response = 500, description = "error while creating category", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
 	 * )
 	 */
-	public function actionCreate () {}
+	public function actionCreate ()
+	{
+		//  get the request data and create a Post model with it
+		$form = new PostEx($this->request->getBodyParams());
+
+		//  validate the form content and return 422 error if not valid
+		if ( !$form->validate() ) {
+			return $this->unprocessableResult($form->getErrors());
+		}
+
+		//  create the post with translations and keep the result
+		$result = PostEx::createWithTranslations($form, $form->translations);
+
+		//  in case of error, trigger the right one
+		if ( $result[ "status" ] === PostEx::ERROR ) {
+			switch ( $result[ "error" ] ) {
+				case PostEx::ERR_ON_SAVE :
+					throw new ServerErrorHttpException(PostEx::ERR_ON_SAVE);
+
+				case PostEx::ERR_CATEGORY_NOT_FOUND :
+					//  no break;
+				case PostEx::ERR_STATUS_NOT_FOUND :
+					//  no break;
+				default :
+					return $this->unprocessableResult($result[ "error" ]);
+			}
+		}
+
+		return $this->createdResult($result);
+	}
 
 	/**
 	 * @SWG\Get(
@@ -43,10 +88,21 @@ class PostController extends ControllerAdminEx
 	 *     summary  = "Get a single post",
 	 *     description = "Get a post with a specific ID",
 	 *
+	 *     @SWG\Parameter( name = "id", in = "path", type = "integer", required = true ),
+	 *
+	 *     @SWG\Response( response = 200, description = "single post with translation", @SWG\Schema( ref = "#/definitions/Post" ), ),
 	 *     @SWG\Response( response = 401, description = "user can't be authenticated", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
+	 *     @SWG\Response( response = 404, description = "post can't be found", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
 	 * )
 	 */
-	public function actionView ( $id ) {}
+	public function actionView ( $id )
+	{
+		if (!PostEx::idExists($id)) {
+			throw new NotFoundHttpException(PostEx::ERR_NOT_FOUND);
+		}
+
+		return PostEx::getOneWithTranslations($id);
+	}
 
 	/**
 	 * @SWG\Put(
@@ -58,7 +114,7 @@ class PostController extends ControllerAdminEx
 	 *     @SWG\Response( response = 401, description = "user can't be authenticated", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
 	 * )
 	 */
-	public function actionUpdate ( $id ) {}
+	public function actionUpdate ( $id ) { }
 
 	/**
 	 * @SWG\Delete(
@@ -70,5 +126,5 @@ class PostController extends ControllerAdminEx
 	 *     @SWG\Response( response = 401, description = "user can't be authenticated", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
 	 * )
 	 */
-	public function actionDelete ( $id ) {}
+	public function actionDelete ( $id ) { }
 }
