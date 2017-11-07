@@ -136,6 +136,7 @@ abstract class PostLangBase extends \yii\db\ActiveRecord
 		switch ($insert) {
 			case true:
 				$this->created_on = date(self::DATE_FORMAT);
+				$this->user_id    = Yii::$app->getUser()->getId();
 				break;
 			
 			case false:
