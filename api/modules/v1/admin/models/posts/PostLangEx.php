@@ -1,8 +1,10 @@
 <?php
 namespace app\modules\v1\admin\models\posts;
 
+use app\helpers\ArrayHelperEx;
 use app\models\app\Lang;
 use app\models\post\PostLang;
+use app\modules\v1\admin\models\LangEx;
 
 /**
  * Class PostLangEx
@@ -61,5 +63,43 @@ class PostLangEx extends PostLang
 
 			[ "content", "string" ],
 		];
+	}
+
+	/**
+	 * @param integer $postId
+	 * @param self[]  $translations
+	 *
+	 * @return array
+	 */
+	public static function manageTranslations ( $postId, $translations )
+	{
+		//  if the post doesn't exists, then return an error
+		if (!PostEx::idExists($postId)) {
+			return self::buildError(self::ERR_POST_NOT_FOUND);
+		}
+
+		//  define result as success, it will be overwritten by an error when necessary
+		$result = [];
+
+		//  define which translations needs to be created and which ones needs to be updated
+		foreach ($translations as $idx => $translation) {
+			$langId = ArrayHelperEx::getValue($translation, "lang_id");
+
+			//  verify if the language exists, return an error if it doesn't
+			if (!LangEx::idExists($langId)) {
+				$result[ $idx ] = self::buildError(self::ERR_LANG_NOT_FOUND);
+				continue;
+			}
+
+			//  if the translation exists, then update it, otherwise create it
+			if (self::translationExists($postId, $langId)) {
+				$result[ $idx ] = self::updateTranslation($postId, $langId, $translation);
+			} else {
+				$result[ $idx ] = self::createTranslation($postId, $translation);
+			}
+		}
+
+		//  return result of each translation
+		return $result;
 	}
 }

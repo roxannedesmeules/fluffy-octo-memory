@@ -81,13 +81,13 @@ class ArrayHelperEx extends ArrayHelper
 	 */
 	public static function filterInArrayAtIndex ( $needle, $haystack, $index )
 	{
-		return array_values(array_filter($haystack, function ($val) use ($needle, $index) {
+		return array_filter($haystack, function ($val) use ($needle, $index) {
 			if (is_array($needle)) {
 				return (in_array($val[$index], $needle));
 			} else {
 				return ($val[$index] == $needle);
 			}
-		}));
+		});
 	}
 
 	public static function getValue ( $array, $key, $default = null )

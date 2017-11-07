@@ -34,6 +34,17 @@ abstract class PostBase extends \yii\db\ActiveRecord
 	const ERR_CATEGORY_NOT_FOUND = "ERR_CATEGORY_NOT_FOUND";
 	const ERR_STATUS_NOT_FOUND = "ERR_POST_STATUS_NOT_FOUND";
 
+	/** @var yii\db\Connection */
+	protected static $db;
+
+	/** @inheritdoc */
+	public function init ()
+	{
+		parent::init();
+
+		self::$db = Yii::$app->db;
+	}
+
 	/** @inheritdoc */
 	public static function tableName () { return 'post'; }
 	
