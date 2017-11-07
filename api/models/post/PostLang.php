@@ -8,12 +8,15 @@ use app\models\app\Lang;
 
 /**
  * Class PostLang
+ * Manage Post translations
+ *
  * @package app\models\post
  */
 class PostLang extends PostLangBase
 {
 	/**
-	 * TODO add comments
+	 * This method will create a single translation for a specific post. First, we will make sure the post itself exists,
+	 * then verify that the language is valid and create the translation.
 	 *
 	 * @param integer $postId
 	 * @param self    $data
@@ -55,7 +58,8 @@ class PostLang extends PostLangBase
 	}
 
 	/**
-	 * TODO add comments
+	 * This method will delete all translation for a specific post. Translations will be deleted one by one to make sure
+	 * that any events that should be triggered are triggered.
 	 *
 	 * @param integer $postId
 	 *
@@ -82,7 +86,8 @@ class PostLang extends PostLangBase
 	}
 
 	/**
-	 * TODO add comments
+	 * This method will update a single post translation. It will first make sure the translation exists, then will find
+	 * the entry and update it.
 	 *
 	 * @param integer $postId
 	 * @param integer $langId

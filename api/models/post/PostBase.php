@@ -28,6 +28,12 @@ abstract class PostBase extends \yii\db\ActiveRecord
 	const ERROR   = 0;
 	const SUCCESS = 1;
 
+	const ERR_ON_SAVE   = "ERR_ON_SAVE";
+	const ERR_ON_DELETE = "ERR_ON_DELETE";
+	const ERR_NOT_FOUND = "ERR_NOT_FOUND";
+	const ERR_CATEGORY_NOT_FOUND = "ERR_CATEGORY_NOT_FOUND";
+	const ERR_STATUS_NOT_FOUND = "ERR_POST_STATUS_NOT_FOUND";
+
 	/** @inheritdoc */
 	public static function tableName () { return 'post'; }
 	
@@ -173,6 +179,6 @@ abstract class PostBase extends \yii\db\ActiveRecord
 	 */
 	public static function idExists ( $postId )
 	{
-		return self::find()->where([ "id" => $postId ])->exists();
+		return self::find()->id($postId)->exists();
 	}
 }
