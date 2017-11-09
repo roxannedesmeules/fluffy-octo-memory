@@ -62,6 +62,13 @@ class ControllerAdminEx extends Controller
 		return ArrayHelperEx::merge(parent::actions(), [ "options" => OptionsAction::className(), ]);
 	}
 
+	protected function createdResult ( $result )
+	{
+		$this->response->setStatusCode(201);
+
+		return $result;
+	}
+
 	protected function unprocessableResult ( $errors )
 	{
 		$this->response->setStatusCode(422);

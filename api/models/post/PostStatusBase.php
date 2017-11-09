@@ -15,6 +15,11 @@ use Yii;
  */
 abstract class PostStatusBase extends \yii\db\ActiveRecord
 {
+	const DRAFT       = 1;
+	const UNPUBLISHED = 2;
+	const PUBLISHED   = 3;
+	const ARCHIVED    = 4;
+
 	/** @inheritdoc */
 	public static function tableName () { return 'post_status'; }
 	
@@ -50,5 +55,17 @@ abstract class PostStatusBase extends \yii\db\ActiveRecord
 	public static function find ()
 	{
 		return new PostStatusQuery(get_called_class());
+	}
+
+	/**
+	 * This method will verify if a specific project status ID exists in the database.
+	 *
+	 * @param integer $statusId
+	 *
+	 * @return bool
+	 */
+	public static function idExists ( $statusId )
+	{
+		return self::find()->andWhere([ "id" => $statusId ])->exists();
 	}
 }

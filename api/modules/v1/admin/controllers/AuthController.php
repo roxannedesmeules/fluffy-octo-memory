@@ -70,7 +70,7 @@ class AuthController extends Controller
 
 	/**
 	 * @SWG\Post(
-	 *     path     = "/v1/admin/auth",
+	 *     path     = "/auth",
 	 *     tags     = { "Authentication" },
 	 *     summary  = "Login",
 	 *     description = "Authenticate a user to have access to the admin panel",
@@ -107,7 +107,7 @@ class AuthController extends Controller
 
 	/**
 	 * @SWG\Delete(
-	 *     path    = "/v1/admin/auth",
+	 *     path    = "/auth",
 	 *     tags    = { "Authentication" },
 	 *     summary = "Logout",
 	 *     description = "Invalidate authenticated user to force her to login again",
