@@ -19,7 +19,7 @@ class CategoryController extends ControllerAdminEx
 {
 	/**
 	 * @SWG\Get(
-	 *     path = "/v1/admin/categories",
+	 *     path = "/categories",
 	 *     tags = { "Categories" },
 	 *     summary = "Get all Categories",
 	 *     description = "Get list of all categories, returned with sorting and pagination",
@@ -39,7 +39,7 @@ class CategoryController extends ControllerAdminEx
 
 	/**
 	 * @SWG\Get(
-	 *     path = "/v1/admin/categories/:id",
+	 *     path = "/categories/:id",
 	 *     tags = { "Categories" },
 	 *     summary = "Get a single category",
 	 *     description = "Get a category with a specific ID",
@@ -58,7 +58,7 @@ class CategoryController extends ControllerAdminEx
 
 	/**
 	 * @SWG\Post(
-	 *     path = "/v1/admin/categories",
+	 *     path = "/categories",
 	 *     tags = { "Categories" },
 	 *     summary = "Create a category",
 	 *     description = "Create a new category with translations",
@@ -108,7 +108,7 @@ class CategoryController extends ControllerAdminEx
 
 	/**
 	 * @SWG\Put(
-	 *     path = "/v1/admin/categories/:id",
+	 *     path = "/categories/:id",
 	 *     tags = { "Categories" },
 	 *     summary = "Update a category",
 	 *     description = "Update an existing category and its translations",
@@ -166,7 +166,7 @@ class CategoryController extends ControllerAdminEx
 
 	/**
 	 * @SWG\Delete(
-	 *     path = "/v1/admin/category/:id",
+	 *     path = "/category/:id",
 	 *     tags = { "Categories" },
 	 *     summary = "Delete a category",
 	 *     description = "Delete an existing category and its translations",
@@ -201,5 +201,7 @@ class CategoryController extends ControllerAdminEx
 					throw new ServerErrorHttpException(json_encode($result[ "error" ]));
 			}
 		}
+
+		$this->response->setStatusCode(204);
 	}
 }

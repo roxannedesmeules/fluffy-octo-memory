@@ -15,7 +15,7 @@ class LanguageController extends ControllerAdminEx
 
 	/**
 	 * @SWG\Get(
-	 *     path     = "/v1/admin/languages",
+	 *     path     = "/languages",
 	 *     tags     = { "Languages" },
 	 *     summary  = "Get all languages",
 	 *     description = "Get a list of all languages supported by the application",

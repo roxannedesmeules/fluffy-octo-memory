@@ -15,8 +15,8 @@ class PostStatusController extends ControllerAdminEx
 
 	/**
 	 * @SWG\Get(
-	 *     path     = "/v1/admin/posts/statuses",
-	 *     tags     = { "Posts", "Post Status" },
+	 *     path     = "/posts/statuses",
+	 *     tags     = { "Posts", "Post Statuses" },
 	 *     summary  = "Get all post status",
 	 *     description = "Return list of post statuses",
 	 *     
