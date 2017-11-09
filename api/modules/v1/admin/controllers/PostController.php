@@ -111,10 +111,48 @@ class PostController extends ControllerAdminEx
 	 *     summary  = "Update a post",
 	 *     description = "Update a post and its translations",
 	 *
+	 *     @SWG\Parameter( name = "id", in = "path", type = "integer", required = true ),
+	 *     @SWG\Parameter( name = "post", in = "body", required = true, @SWG\Schema( ref = "#/definitions/PostForm" ), ),
+	 *
+	 *     @SWG\Response( response = 200, description = "post correctly updated", @SWG\Schema( ref = "#/definitions/Post" ), ),
 	 *     @SWG\Response( response = 401, description = "user can't be authenticated", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
+	 *     @SWG\Response( response = 404, description = "post not found", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
+	 *     @SWG\Response( response = 422, description = "category to be created isn't valid", @SWG\Schema( ref = "#/definitions/UnprocessableError" ), ),
+	 *     @SWG\Response( response = 500, description = "error while creating category", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
 	 * )
 	 */
-	public function actionUpdate ( $id ) { }
+	public function actionUpdate ( $id )
+	{
+		//  get request data and create post model with it
+		$form = new PostEx($this->request->getBodyParams());
+
+		if ( !$form->validate() ) {
+			return $this->unprocessableResult($form->getErrors());
+		}
+
+		//  update the post with translation and return result
+		$result = PostEx::updateWithTranslations($id, $form, $form->translations);
+
+		if ($result[ "status" ] === PostEx::ERROR) {
+			switch ($result[ "error" ]) {
+				case PostEx::ERR_NOT_FOUND :
+					throw new NotFoundHttpException(PostEx::ERR_NOT_FOUND);
+
+				case PostEx::ERR_ON_SAVE :
+					throw new ServerErrorHttpException(PostEx::ERR_ON_SAVE);
+
+				default :
+					if ( is_array($result[ "error" ]) ) {
+						$this->unprocessableResult($result[ "error" ]);
+					}
+
+					//  if here, then error wasn't handled properly but should still be thrown
+					throw new ServerErrorHttpException(json_encode($result[ "error" ]));
+			}
+		}
+
+		return [ "post" => $result[ "post" ] ];
+	}
 
 	/**
 	 * @SWG\Delete(
@@ -123,8 +161,39 @@ class PostController extends ControllerAdminEx
 	 *     summary  = "Delete a post",
 	 *     description = "Delete a post and its translations",
 	 *
+	 *     @SWG\Parameter( name = "id", in = "path", type = "integer", required = true ),
+	 *
+	 *     @SWG\Response( response = 204, description = "post correctly deleted", ),
 	 *     @SWG\Response( response = 401, description = "user can't be authenticated", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
+	 *     @SWG\Response( response = 404, description = "post not found", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
+	 *     @SWG\Response( response = 500, description = "error while deleting post", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
 	 * )
 	 */
-	public function actionDelete ( $id ) { }
+	public function actionDelete ( $id )
+	{
+		$result = PostEx::deleteWithTranslations($id);
+
+		//  if the status is an error, then define what to do depending on the content
+		if ( $result[ "status" ] === CategoryEx::ERROR ) {
+			switch ( $result[ "error" ] ) {
+				case CategoryEx::ERR_NOT_FOUND :
+					throw new NotFoundHttpException(CategoryEx::ERR_NOT_FOUND);
+
+				case CategoryEx::ERR_ON_DELETE :
+					throw new ServerErrorHttpException(CategoryEx::ERR_ON_DELETE);
+
+				default :
+					if ( is_array($result[ "error" ]) ) {
+						$this->response->setStatusCode(500);
+
+						return $result[ "error" ];
+					}
+
+					//  if here, then error wasn't handled properly but should still be thrown
+					throw new ServerErrorHttpException(json_encode($result[ "error" ]));
+			}
+		}
+		
+		$this->response->setStatusCode(204);
+	}
 }
