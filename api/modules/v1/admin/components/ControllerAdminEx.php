@@ -69,6 +69,11 @@ class ControllerAdminEx extends Controller
 		return $result;
 	}
 
+	protected function emptySuccess ()
+	{
+		$this->response->setStatusCode(204);
+	}
+
 	protected function unprocessableResult ( $errors )
 	{
 		$this->response->setStatusCode(422);

@@ -21,6 +21,7 @@ class PostStatusController extends ControllerAdminEx
 	 *     description = "Return list of post statuses",
 	 *     
 	 *     @SWG\Response( response = 200, description = "post statuses list", @SWG\Schema( ref = "#/definitions/PostStatusList" ), ),
+	 *     @SWG\Response( response = 401, description = "user can't be authenticated", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
 	 * )
 	 */
 	public function actionIndex ()
