@@ -116,4 +116,16 @@ abstract class UserBase extends \yii\db\ActiveRecord
 		
 		return true;
 	}
+
+	/**
+	 * Verify if a user exists with specific id
+	 *
+	 * @param $userId
+	 *
+	 * @return bool
+	 */
+	public static function exists ( $userId )
+	{
+		return self::find()->id($userId)->exists();
+	}
 }

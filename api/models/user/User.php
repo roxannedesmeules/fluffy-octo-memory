@@ -55,6 +55,20 @@ class User extends UserBase implements IdentityInterface
 		$this->auth_token = self::generateToken();
 		$this->save();
 	}
+
+	/**
+	 * This method will generate the hash from the password and save it.
+	 *
+	 * @param string $password
+	 *
+	 * @return bool
+	 */
+	public function updatePassword ( $password )
+	{
+		$this->password_hash = \Yii::$app->getSecurity()->generatePasswordHash($password);
+
+		return $this->save();
+	}
 	
 	public function validateAuthKey ( $authKey )
 	{

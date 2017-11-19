@@ -46,8 +46,8 @@ class PostController extends ControllerAdminEx
 	 *
 	 *     @SWG\Response( response = 201, description = "post created succesfully", @SWG\Schema( @SWG\Property( property = "post_id", type = "integer" ), ), ),
 	 *     @SWG\Response( response = 401, description = "user can't be authenticated", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
-	 *     @SWG\Response( response = 422, description = "category to be created isn't valid", @SWG\Schema( ref = "#/definitions/UnprocessableError" ), ),
-	 *     @SWG\Response( response = 500, description = "error while creating category", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
+	 *     @SWG\Response( response = 422, description = "post to be created isn't valid", @SWG\Schema( ref = "#/definitions/UnprocessableError" ), ),
+	 *     @SWG\Response( response = 500, description = "error while creating post", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
 	 * )
 	 */
 	public function actionCreate ()

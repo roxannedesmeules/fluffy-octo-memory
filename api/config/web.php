@@ -102,6 +102,16 @@ $config = [
 					"class"      => 'yii\rest\UrlRule',
 					"controller" => [ "v1/admin/posts/statuses" => "v1/admin/post-status" ],
 					"except"     => [ "view", "create", "update", "delete" ],
+				],
+				[
+					"class"         => 'yii\rest\UrlRule',
+					"controller"    => [ "v1/admin/user/me" => "v1/admin/user-profile" ],
+					"except"        => [ "index", "view", "create", "delete" ],
+					"tokens"        => [],
+					"extraPatterns" => [
+						"PUT /password" => "updatePassword",
+						"PUT /picture"  => "uploadPicture",
+					],
 				]
 			],
 		],
