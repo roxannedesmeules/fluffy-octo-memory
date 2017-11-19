@@ -16,6 +16,14 @@ use Yii;
  */
 abstract class UserProfileBase extends \yii\db\ActiveRecord
 {
+	const DATE_FORMAT = "Y-m-d";
+
+	const ERROR   = 0;
+	const SUCCESS = 1;
+
+	const ERR_ON_SAVE   = "ERR_ON_SAVE";
+	const ERR_NOT_FOUND = "ERR_NOT_FOUND";
+
 	/** @inheritdoc */
 	public static function tableName () { return 'user_profile'; }
 	
@@ -60,5 +68,43 @@ abstract class UserProfileBase extends \yii\db\ActiveRecord
 	public static function find ()
 	{
 		return new UserProfileQuery(get_called_class());
+	}
+
+	/**
+	 * Verify if a user exists with specific id
+	 *
+	 * @param $userId
+	 *
+	 * @return bool
+	 */
+	public static function exists ( $userId )
+	{
+		return self::find()->user($userId)->exists();
+	}
+
+	/**
+	 * Build an array to use when returning from another method. The status will automatically
+	 * set to ERROR, then $error passed in param will be associated to the error key.
+	 *
+	 * @param $error
+	 *
+	 * @return array
+	 */
+	public static function buildError ( $error )
+	{
+		return [ "status" => self::ERROR, "error" => $error ];
+	}
+
+	/**
+	 * Build an array to use when returning from another method. The status will be automatically
+	 * set to SUCCESS, then the $params will be merged with the array and be returned.
+	 *
+	 * @param array $params
+	 *
+	 * @return array
+	 */
+	public static function buildSuccess ( $params )
+	{
+		return ArrayHelperEx::merge([ "status" => self::SUCCESS ], $params);
 	}
 }
