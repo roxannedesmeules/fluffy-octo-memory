@@ -27,7 +27,7 @@ class UserProfileController extends ControllerAdminEx
 	 *     
 	 *     @SWG\Parameter( name = "profile", in = "body", required = true, @SWG\Schema( ref = "#/definitions/UserProfileForm" ), ),
 	 *
-	 *     @SWG\Response( response = 200, description = "user profile updated correctly", @SWG\Schema( ref = "#/definitions/userProfile" ), ),
+	 *     @SWG\Response( response = 200, description = "user profile updated correctly", @SWG\Schema( ref = "#/definitions/UserProfile" ), ),
 	 *     @SWG\Response( response = 401, description = "user can't be authenticated", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
 	 *     @SWG\Response( response = 404, description = "user profile couldn't be found", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
 	 *     @SWG\Response( response = 422, description = "profile information aren't valid", @SWG\Schema( ref = "#/definitions/UnprocessableError" ), ),
