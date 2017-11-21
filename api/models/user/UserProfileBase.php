@@ -2,6 +2,7 @@
 
 namespace app\models\user;
 
+use app\models\app\File;
 use Yii;
 
 /**
@@ -11,8 +12,10 @@ use Yii;
  * @property string   $firstname
  * @property string   $lastname
  * @property string   $birthday
+ * @property int      $file_id
  *
  * @property UserBase $user
+ * @property File     $file
  */
 abstract class UserProfileBase extends \yii\db\ActiveRecord
 {
@@ -32,14 +35,25 @@ abstract class UserProfileBase extends \yii\db\ActiveRecord
 	{
 		return [
 			[ "birthday", "safe" ],
+
 			[ "firstname", "string", "max" => 255 ],
+
 			[ "lastname", "string", "max" => 255 ],
+
 			[
 				[ 'user_id' ],
 				'exist',
 				'skipOnError'     => true,
-				'targetClass'     => UserBase::className(),
+				'targetClass'     => User::className(),
 				'targetAttribute' => [ 'user_id' => 'id' ],
+			],
+
+			[ "file_id", "integer" ],
+			[
+				[ "file_id" ], "exist",
+				"skipOnError"     => true,
+				"targetClass"     => File::className(),
+				"targetAttribute" => [ "file_id" => "id" ],
 			],
 		];
 	}
@@ -59,6 +73,12 @@ abstract class UserProfileBase extends \yii\db\ActiveRecord
 	public function getUser ()
 	{
 		return $this->hasOne(UserBase::className(), [ 'id' => 'user_id' ]);
+	}
+
+	/** @return \yii\db\ActiveQuery */
+	public function getFile ()
+	{
+		return $this->hasOne(File::className(), [ "id" => "file_id" ]);
 	}
 	
 	/**

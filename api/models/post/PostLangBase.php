@@ -1,7 +1,7 @@
 <?php
-
 namespace app\models\post;
 
+use app\models\app\File;
 use Yii;
 
 /**
@@ -13,6 +13,8 @@ use Yii;
  * @property string $title
  * @property string $slug
  * @property string $content
+ * @property int    $file_id
+ * @property string $file_alt
  * @property string $created_on
  * @property string $updated_on
  *
@@ -20,10 +22,10 @@ use Yii;
  * @property Lang   $lang
  * @property Post   $post
  * @property User   $user
+ * @property File   $file
  */
 abstract class PostLangBase extends \yii\db\ActiveRecord
 {
-	
 	const DATE_FORMAT = 'Y-m-d H:i:s';
 
 	const ERROR   = 0;
@@ -78,7 +80,17 @@ abstract class PostLangBase extends \yii\db\ActiveRecord
 			[ "slug", "unique" ],
 			
 			[ "content", "string" ],
-			
+
+			[ "file_id", "integer" ],
+			[
+				[ "file_id" ], "exist",
+				"skipOnError"     => true,
+				"targetClass"     => File::className(),
+				"targetAttribute" => [ "file_id" => "id" ],
+			],
+
+			[ "file_alt", "string" ],
+
 			[ "created_on", "safe" ],
 			[ "updated_on", "safe" ],
 		];
@@ -115,6 +127,12 @@ abstract class PostLangBase extends \yii\db\ActiveRecord
 	public function getUser ()
 	{
 		return $this->hasOne(User::className(), [ 'id' => 'user_id' ]);
+	}
+
+	/** @return \yii\db\ActiveQuery */
+	public function getFile ()
+	{
+		return $this->hasOne(File::className(), [ "id" => "file_id" ]);
 	}
 	
 	/**
