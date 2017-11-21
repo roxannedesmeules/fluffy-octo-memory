@@ -15,7 +15,7 @@ class m171119_210127_add_file_column_to_user_profile_table extends Migration
      */
     public function up()
     {
-        $this->addColumn('user_profile', 'file_id', $this->integer()->defaultValue(null));
+        $this->addColumn('user_profile', 'file_id', $this->integer()->defaultValue(null)->after("birthday"));
 
         // creates index for column `file_id`
         $this->createIndex(
