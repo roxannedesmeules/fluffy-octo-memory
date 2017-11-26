@@ -27,6 +27,9 @@ abstract class UserProfileBase extends \yii\db\ActiveRecord
 	const ERR_ON_SAVE   = "ERR_ON_SAVE";
 	const ERR_NOT_FOUND = "ERR_NOT_FOUND";
 
+	/** @var array      list of extensions allowed */
+	public static $extensions = [ "jpg", "jpeg", "gif", "png", ];
+
 	/** @inheritdoc */
 	public static function tableName () { return 'user_profile'; }
 	
@@ -63,9 +66,11 @@ abstract class UserProfileBase extends \yii\db\ActiveRecord
 	{
 		return [
 			'user_id'   => Yii::t('app.user', 'User ID'),
-			'firstname' => Yii::t('app.user', 'Firstname'),
-			'lastname'  => Yii::t('app.user', 'Lastname'),
+			'firstname' => Yii::t('app.user', 'First name'),
+			'lastname'  => Yii::t('app.user', 'Last name'),
 			'birthday'  => Yii::t('app.user', 'Birthday'),
+			"file_id"   => Yii::t("app.user", "Picture ID"),
+			"file"      => Yii::t("app.user", "User picture"),
 		];
 	}
 	
