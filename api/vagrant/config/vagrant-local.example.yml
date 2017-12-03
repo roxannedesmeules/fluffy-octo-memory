@@ -4,19 +4,19 @@ github_token: <your-personal-github-token>
 # You can generate it here: https://github.com/settings/tokens
 
 # Guest OS timezone
-timezone: Europe/London
+timezone: America/Montreal
 
 # Are we need check box updates for every 'vagrant up'?
 box_check_update: false
 
 # Virtual machine name
-machine_name: y2aa
+machine_name: blog
 
 # Virtual machine IP
 ip: 192.168.83.137
 
 # Virtual machine CPU cores number
-cpus: 1
+cpus: 2
 
 # Virtual machine RAM
-memory: 512
+memory: 1024
