@@ -20,6 +20,16 @@ class UserProfileController extends ControllerAdminEx
 {
 	public $corsMethods = [ "OPTIONS", "PUT" ];
 
+	/** @inheritdoc */
+	protected function verbs ()
+	{
+		return [
+			"update"          => [ "OPTIONS", "PUT" ],
+			"update-password" => [ "OPTIONS", "PUT" ],
+			"upload-picture"  => [ "OPTIONS", "PUT" ],
+		];
+	}
+
 	/**
 	 * @SWG\Put(
 	 *     path     = "/user/me",
@@ -134,7 +144,7 @@ class UserProfileController extends ControllerAdminEx
 	 *     @SWG\Response( response = 500, description = "error while updating profile", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
 	 * )
 	 */
-	public function actionUpdatePicture ()
+	public function actionUploadPicture ()
 	{
 		$form       = new UserPicture();
 		$form->file = UploadedFile::getInstanceByName("picture");

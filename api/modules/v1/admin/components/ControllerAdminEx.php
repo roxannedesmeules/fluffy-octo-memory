@@ -57,9 +57,22 @@ class ControllerAdminEx extends Controller
 		]);
 	}
 
+	/** @inheritdoc */
 	public function actions ()
 	{
 		return ArrayHelperEx::merge(parent::actions(), [ "options" => OptionsAction::className(), ]);
+	}
+
+	/** @inheritdoc */
+	protected function verbs ()
+	{
+		return [
+			"index"  => [ "OPTIONS", "GET" ],
+			"view"   => [ "OPTIONS", "GET" ],
+			"create" => [ "OPTIONS", "POST" ],
+			"update" => [ "OPTIONS", "PUT" ],
+			"delete" => [ "OPTIONS", "DELETE" ],
+		];
 	}
 
 	protected function createdResult ( $result )

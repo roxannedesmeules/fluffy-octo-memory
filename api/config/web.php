@@ -106,12 +106,13 @@ $config = [
 				[
 					"class"         => 'yii\rest\UrlRule',
 					"controller"    => [ "v1/admin/user/me" => "v1/admin/user-profile" ],
+					'pluralize'     => false,
 					"except"        => [ "index", "view", "create", "delete" ],
-					"tokens"        => [],
 					"extraPatterns" => [
-						"PUT /password" => "updatePassword",
-						"PUT /picture"  => "uploadPicture",
+						"PUT password" => "update-password",
+						"PUT picture"  => "upload-picture",
 					],
+					"tokens" => [],
 				]
 			],
 		],
