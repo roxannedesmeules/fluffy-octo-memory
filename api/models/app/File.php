@@ -1,5 +1,6 @@
 <?php
 namespace app\models\app;
+use yii\web\UploadedFile;
 
 /**
  * Class File
@@ -63,12 +64,12 @@ class File extends \yii\db\ActiveRecord
 	{
 		$model = new File();
 
-		$model->name       = $file->getBaseName();
+		$model->name       = $file->getBaseName() . "." . $file->getExtension();
 		$model->path       = $path;
 		$model->created_on = date(self::DATE_FORMAT);
 		$model->is_deleted = self::NOT_DELETED;
 
-		if ($model->save()) {
+		if (!$model->save()) {
 			return self::ERR_ON_SAVE;
 		}
 
@@ -88,6 +89,7 @@ class File extends \yii\db\ActiveRecord
 
 	/**
 	 * @return string
+	 * @throws \yii\base\Exception
 	 */
 	private static function generateFilename ( $extension )
 	{
@@ -95,7 +97,7 @@ class File extends \yii\db\ActiveRecord
 			$filename      = \Yii::$app->getSecurity()->generateRandomString(32);
 			$filename     .= ".$extension";
 			$alreadyExists = self::find()->andWhere([ "LIKE", "path", $filename ])->exists();
-		} while (!$alreadyExists);
+		} while ($alreadyExists);
 
 		return $filename;
 	}
@@ -111,9 +113,10 @@ class File extends \yii\db\ActiveRecord
 	}
 
 	/**
-	 * @param \yii\web\UploadedFile $file
+	 * @param UploadedFile $file
 	 *
-	 * @return bool
+	 * @return int|string
+	 * @throws \yii\base\Exception
 	 */
 	public static function uploadProfileLocally ( $file )
 	{
