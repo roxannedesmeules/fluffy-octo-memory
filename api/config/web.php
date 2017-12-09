@@ -27,6 +27,7 @@ $config = [
 		'@npm'    => '@vendor/npm-asset',
 		"@v1"     => "/app/modules/v1",
 		"@models" => "/app/models",
+		"@upload" => "/app/upload",
 	],
 	"modules"    => [
 		'v1' => [
@@ -110,7 +111,7 @@ $config = [
 					"except"        => [ "index", "view", "create", "delete" ],
 					"extraPatterns" => [
 						"PUT password" => "update-password",
-						"PUT picture"  => "upload-picture",
+						"POST picture" => "upload-picture",
 					],
 					"tokens" => [],
 				]

@@ -26,7 +26,7 @@ class UserProfileController extends ControllerAdminEx
 		return [
 			"update"          => [ "OPTIONS", "PUT" ],
 			"update-password" => [ "OPTIONS", "PUT" ],
-			"upload-picture"  => [ "OPTIONS", "PUT" ],
+			"upload-picture"  => [ "OPTIONS", "POST" ],
 		];
 	}
 
@@ -129,7 +129,7 @@ class UserProfileController extends ControllerAdminEx
 	}
 
 	/**
-	 * @SWG\Put(
+	 * @SWG\Post(
 	 *     path     = "/user/me/picture",
 	 *     tags     = { "User Profile" },
 	 *     summary  = "Updated user picture",

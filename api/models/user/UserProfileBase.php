@@ -2,6 +2,7 @@
 
 namespace app\models\user;
 
+use app\helpers\ArrayHelperEx;
 use app\models\app\File;
 use Yii;
 
@@ -29,6 +30,9 @@ abstract class UserProfileBase extends \yii\db\ActiveRecord
 
 	/** @var array      list of extensions allowed */
 	public static $extensions = [ "jpg", "jpeg", "gif", "png", ];
+
+	/** @var int        size limit for each file upload */
+	public static $maxsize = 10485760;
 
 	/** @inheritdoc */
 	public static function tableName () { return 'user_profile'; }

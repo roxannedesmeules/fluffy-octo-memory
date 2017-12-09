@@ -21,8 +21,9 @@ class UserPicture extends Model
 			[ "file", "required" ],
 			[
 				"file", "file",
-				"maxFile"                  => 1,
+				"maxFiles"                 => 1,
 				"extensions"               => UserProfileEx::$extensions,
+				"maxSize"                  => UserProfileEx::$maxsize,
 				"checkExtensionByMimeType" => false,
 			]
 		];

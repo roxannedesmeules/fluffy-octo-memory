@@ -57,7 +57,8 @@ class UserProfile extends UserProfileBase
 	 * @param $userId
 	 * @param $file
 	 *
-	 * @return array|bool
+	 * @return array
+	 * @throws \yii\base\Exception
 	 */
 	public static function uploadPicture ( $userId, $file )
 	{
