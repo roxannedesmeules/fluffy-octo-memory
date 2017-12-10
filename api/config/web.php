@@ -27,6 +27,7 @@ $config = [
 		'@npm'    => '@vendor/npm-asset',
 		"@v1"     => "/app/modules/v1",
 		"@models" => "/app/models",
+		"@upload" => "/app/web/upload",
 	],
 	"modules"    => [
 		'v1' => [
@@ -82,8 +83,6 @@ $config = [
 				"" => "site",
 
 				//  V1 rules
-
-
 				//  V1 Admin rules
 				"v1/admin/doc" => "v1/admin/default/doc",
 				"v1/admin/api" => "v1/admin/default/api",
@@ -106,12 +105,13 @@ $config = [
 				[
 					"class"         => 'yii\rest\UrlRule',
 					"controller"    => [ "v1/admin/user/me" => "v1/admin/user-profile" ],
+					'pluralize'     => false,
 					"except"        => [ "index", "view", "create", "delete" ],
-					"tokens"        => [],
 					"extraPatterns" => [
-						"PUT /password" => "updatePassword",
-						"PUT /picture"  => "uploadPicture",
+						"PUT password" => "update-password",
+						"POST picture" => "upload-picture",
 					],
+					"tokens" => [],
 				]
 			],
 		],

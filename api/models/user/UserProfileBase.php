@@ -2,6 +2,8 @@
 
 namespace app\models\user;
 
+use app\helpers\ArrayHelperEx;
+use app\models\app\File;
 use Yii;
 
 /**
@@ -11,8 +13,10 @@ use Yii;
  * @property string   $firstname
  * @property string   $lastname
  * @property string   $birthday
+ * @property int      $file_id
  *
  * @property UserBase $user
+ * @property File     $file
  */
 abstract class UserProfileBase extends \yii\db\ActiveRecord
 {
@@ -24,6 +28,12 @@ abstract class UserProfileBase extends \yii\db\ActiveRecord
 	const ERR_ON_SAVE   = "ERR_ON_SAVE";
 	const ERR_NOT_FOUND = "ERR_NOT_FOUND";
 
+	/** @var array      list of extensions allowed */
+	public static $extensions = [ "jpg", "jpeg", "gif", "png", ];
+
+	/** @var int        size limit for each file upload */
+	public static $maxsize = 10485760;
+
 	/** @inheritdoc */
 	public static function tableName () { return 'user_profile'; }
 	
@@ -32,14 +42,25 @@ abstract class UserProfileBase extends \yii\db\ActiveRecord
 	{
 		return [
 			[ "birthday", "safe" ],
+
 			[ "firstname", "string", "max" => 255 ],
+
 			[ "lastname", "string", "max" => 255 ],
+
 			[
 				[ 'user_id' ],
 				'exist',
 				'skipOnError'     => true,
-				'targetClass'     => UserBase::className(),
+				'targetClass'     => User::className(),
 				'targetAttribute' => [ 'user_id' => 'id' ],
+			],
+
+			[ "file_id", "integer" ],
+			[
+				[ "file_id" ], "exist",
+				"skipOnError"     => true,
+				"targetClass"     => File::className(),
+				"targetAttribute" => [ "file_id" => "id" ],
 			],
 		];
 	}
@@ -49,9 +70,11 @@ abstract class UserProfileBase extends \yii\db\ActiveRecord
 	{
 		return [
 			'user_id'   => Yii::t('app.user', 'User ID'),
-			'firstname' => Yii::t('app.user', 'Firstname'),
-			'lastname'  => Yii::t('app.user', 'Lastname'),
+			'firstname' => Yii::t('app.user', 'First name'),
+			'lastname'  => Yii::t('app.user', 'Last name'),
 			'birthday'  => Yii::t('app.user', 'Birthday'),
+			"file_id"   => Yii::t("app.user", "Picture ID"),
+			"file"      => Yii::t("app.user", "User picture"),
 		];
 	}
 	
@@ -59,6 +82,12 @@ abstract class UserProfileBase extends \yii\db\ActiveRecord
 	public function getUser ()
 	{
 		return $this->hasOne(UserBase::className(), [ 'id' => 'user_id' ]);
+	}
+
+	/** @return \yii\db\ActiveQuery */
+	public function getFile ()
+	{
+		return $this->hasOne(File::className(), [ "id" => "file_id" ]);
 	}
 	
 	/**

@@ -2,7 +2,7 @@ require 'yaml'
 require 'fileutils'
 
 domains = {
-  api: 'api.website.dev'
+  api: 'api.blog.local'
 }
 
 config = {
@@ -67,5 +67,5 @@ Vagrant.configure(2) do |config|
   config.vm.provision 'shell', path: './vagrant/provision/always-as-root.sh', run: 'always'
 
   # post-install message (vagrant console)
-  config.vm.post_up_message = "Frontend URL: http://#{domains[:frontend]}\nBackend URL: http://#{domains[:backend]}\n API URL: http://#{domains[:api]}"
+  config.vm.post_up_message = "API URL: http://#{domains[:api]}"
 end

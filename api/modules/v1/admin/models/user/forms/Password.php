@@ -56,7 +56,7 @@ class Password extends Model
 
 	protected function oldPasswordMatch ()
 	{
-		return \Yii::$app->getSecurity()->validatePassword($this->password, $this->_user->password_hash);
+		return \Yii::$app->getSecurity()->validatePassword($this->current, $this->_user->password_hash);
 	}
 
 	protected function confirmationMatch ()
