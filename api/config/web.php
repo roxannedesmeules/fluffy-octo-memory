@@ -27,7 +27,7 @@ $config = [
 		'@npm'    => '@vendor/npm-asset',
 		"@v1"     => "/app/modules/v1",
 		"@models" => "/app/models",
-		"@upload" => "/app/upload",
+		"@upload" => "/app/web/upload",
 	],
 	"modules"    => [
 		'v1' => [
@@ -83,8 +83,6 @@ $config = [
 				"" => "site",
 
 				//  V1 rules
-
-
 				//  V1 Admin rules
 				"v1/admin/doc" => "v1/admin/default/doc",
 				"v1/admin/api" => "v1/admin/default/api",

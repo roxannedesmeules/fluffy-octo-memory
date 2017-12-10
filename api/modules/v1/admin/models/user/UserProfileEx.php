@@ -22,6 +22,7 @@ class UserProfileEx extends UserProfile
 	 *     @SWG\Property( property = "lastname", type = "string" ),
 	 *     @SWG\Property( property = "fullname", type = "string" ),
 	 *     @SWG\Property( property = "birthday", type = "string" ),
+	 *     @SWG\Property( property = "picture", type = "string" ),
 	 * )
 	 */
 	public function fields ()
@@ -31,6 +32,7 @@ class UserProfileEx extends UserProfile
 			"lastname",
 			"fullname" => function ( self $model ) { return "$model->firstname $model->lastname"; },
 			"birthday" => function ( self $model ) { return date(self::DATE_FORMAT, strtotime($model->birthday)); },
+			"picture"  => function ( self $model ) { return $model->file->getFullPath(); },
 		];
 	}
 

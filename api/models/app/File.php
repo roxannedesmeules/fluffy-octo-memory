@@ -1,5 +1,6 @@
 <?php
 namespace app\models\app;
+use app\helpers\ParamsHelper;
 use yii\web\UploadedFile;
 
 /**
@@ -77,17 +78,26 @@ class File extends \yii\db\ActiveRecord
 	}
 
 	/**
-	 * @param string $folder
-	 * @param string $filename
+	 * Create the full path to be used in order to access the file from the outside.
 	 *
-	 * @return bool|string
+	 * @return string
 	 */
-	private static function generateLocalPath ( $folder, $filename )
+	public function getFullPath ()
 	{
-		return \Yii::getAlias("@upload/$folder/$filename");
+		$url  = ParamsHelper::get("domainName");
+		$url .= self::BASEPATH;
+		$url .= $this->path;
+
+		return $url;
 	}
 
 	/**
+	 * This method will create a random string as filename to avoid overwriting files. A verification will obviously be
+	 * made to make sure it doesn't already exists. The filename and verification will be made over and over again until
+	 * the filename isn't found.
+	 *
+	 * @param string $extension
+	 *
 	 * @return string
 	 * @throws \yii\base\Exception
 	 */
@@ -103,7 +113,8 @@ class File extends \yii\db\ActiveRecord
 	}
 
 	/**
-	 *
+	 * Mark a file as deleted. The file isn't actually deleted to avoid deleting the wrong file, but this flag is set so
+	 * we know it can later be removed during cleanup.
 	 */
 	public function markAsDeleted ()
 	{
@@ -121,9 +132,9 @@ class File extends \yii\db\ActiveRecord
 	public static function uploadProfileLocally ( $file )
 	{
 		$filename = self::generateFilename($file->getExtension());
-		$path     = self::generateLocalPath(self::FOLDER_PROFILE, $filename);
+		$path     = self::FOLDER_PROFILE . "/$filename";
 
-		if (!$file->saveAs($path)) {
+		if (!$file->saveAs(\Yii::getAlias("@upload/$path"))) {
 			return self::ERR_ON_UPLOAD;
 		}
 
