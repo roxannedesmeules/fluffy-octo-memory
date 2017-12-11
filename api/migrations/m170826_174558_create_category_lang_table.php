@@ -19,8 +19,8 @@ class m170826_174558_create_category_lang_table extends Migration
 		$this->createTable('category_lang', [
 			'category_id' => $this->integer()->notNull(),
 			'lang_id'     => $this->integer()->notNull(),
-			'name'        => $this->string()->unique()->notNull(),
-			'slug'        => $this->string()->unique()->notNull(),
+			'name'        => $this->string()->notNull(),
+			'slug'        => $this->string()->notNull(),
 		]);
 		
 		$this->addPrimaryKey('pk-category_lang', "category_lang", [ "category_id", "lang_id" ]);

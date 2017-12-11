@@ -20,7 +20,7 @@ class m170826_180708_create_tag_lang_table extends Migration
 			'tag_id'  => $this->integer()->notNull(),
 			'lang_id' => $this->integer()->notNull(),
 			'name'    => $this->string(),
-			'slug'    => $this->string()->unique(),
+			'slug'    => $this->string(),
 		]);
 		
 		$this->addPrimaryKey("pk-tag_lang", "tag_lang", [ "tag_id", "lang_id" ]);

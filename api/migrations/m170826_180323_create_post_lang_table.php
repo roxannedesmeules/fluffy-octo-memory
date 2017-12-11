@@ -22,7 +22,7 @@ class m170826_180323_create_post_lang_table extends Migration
 			'lang_id'    => $this->integer()->notNull(),
 			'user_id'    => $this->integer()->notNull(),
 			'title'      => $this->string()->notNull(),
-			'slug'       => $this->string()->unique(),
+			'slug'       => $this->string(),
 			'content'    => $this->text(),
 			'created_on' => $this->dateTime(),
 			'updated_on' => $this->dateTime(),
