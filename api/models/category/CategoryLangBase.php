@@ -17,7 +17,7 @@ use Yii;
  * @property Category $category
  * @property Lang     $lang
  */
-class CategoryLangBase extends \yii\db\ActiveRecord
+abstract class CategoryLangBase extends \yii\db\ActiveRecord
 {
 	
 	const ERROR   = 0;
@@ -28,6 +28,12 @@ class CategoryLangBase extends \yii\db\ActiveRecord
 	const ERR_NOT_FOUND          = "ERR_NOT_FOUND";
 	const ERR_CATEGORY_NOT_FOUND = "ERR_CATEGORY_NOT_FOUND";
 	const ERR_LANG_NOT_FOUND     = "ERR_LANG_NOT_FOUND";
+
+	const ERR_FIELD_REQUIRED   = "ERR_FIELD_REQUIRED";
+	const ERR_FIELD_TYPE       = "ERR_FIELD_WRONG_TYPE";
+	const ERR_FIELD_TOO_LONG   = "ERR_FIELD_TOO_LONG";
+	const ERR_FIELD_NOT_FOUND  = "ERR_FIELD_NOT_FOUND";
+	const ERR_FIELD_NOT_UNIQUE = "ERR_FIELD_NOT_UNIQUE";
 	
 	/** @inheritdoc */
 	public static function tableName () { return 'category_lang'; }
@@ -36,33 +42,39 @@ class CategoryLangBase extends \yii\db\ActiveRecord
 	public function rules ()
 	{
 		return [
-			[ "category_id", "required" ],
-			[ "category_id", "integer" ],
+			[ "category_id", "required", "message" => self::ERR_FIELD_REQUIRED ],
+			[ "category_id", "integer",  "message" => self::ERR_FIELD_TYPE ],
 			[
 				[ 'category_id' ], 'exist',
 				'skipOnError'     => true,
 				'targetClass'     => Category::className(),
 				'targetAttribute' => [ 'category_id' => 'id' ],
+				"message"         => self::ERR_FIELD_NOT_FOUND,
 			],
 			
-			[ "lang_id", "required" ],
-			[ "lang_id", "integer" ],
+			[ "lang_id", "required", "message" => self::ERR_FIELD_REQUIRED ],
+			[ "lang_id", "integer",  "message" => self::ERR_FIELD_TYPE ],
 			[
 				[ 'lang_id' ], 'exist',
 				'skipOnError'     => true,
 				'targetClass'     => Lang::className(),
 				'targetAttribute' => [ 'lang_id' => 'id' ],
+				"message"         => self::ERR_FIELD_NOT_FOUND,
 			],
 			
-			[ [ 'category_id', 'lang_id' ], 'unique', 'targetAttribute' => [ 'category_id', 'lang_id' ] ],
+			[
+				[ 'category_id', 'lang_id' ], 'unique',
+				'targetAttribute' => [ 'category_id', 'lang_id' ],
+				"message"         => self::ERR_FIELD_NOT_UNIQUE,
+			],
 			
-			[ "name", "required" ],
-			[ "name", "string", "max" => 255 ],
-			[ "name", "unique" ],
+			[ "name", "required", "message" => self::ERR_FIELD_REQUIRED ],
+			[ "name", "string", "max" => 255, "message" => self::ERR_FIELD_TYPE, "tooLong" => self::ERR_FIELD_TOO_LONG ],
+			[ "name", "unique", "message" => self::ERR_FIELD_NOT_UNIQUE ],
 			
-			[ "slug", "required" ],
-			[ "slug", "string", "max" => 255 ],
-			[ "slug", "unique" ],
+			[ "slug", "required", "message" => self::ERR_FIELD_REQUIRED ],
+			[ "slug", "string", "max" => 255, "message" => self::ERR_FIELD_TYPE, "tooLong" => self::ERR_FIELD_TOO_LONG ],
+			[ "slug", "unique", "message" => self::ERR_FIELD_NOT_UNIQUE ],
 		];
 	}
 	
