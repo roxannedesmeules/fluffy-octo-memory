@@ -37,7 +37,7 @@ info "Configure MySQL"
 sed -i "s/.*bind-address.*/bind-address = 0.0.0.0/" /etc/mysql/mysql.conf.d/mysqld.cnf
 mysql -uroot <<< "CREATE USER 'blog_user'@'%' IDENTIFIED BY '1234'"
 mysql -uroot <<< "GRANT ALL PRIVILEGES ON *.* TO 'blog_user'@'%'"
-## mysql -uroot <<< "DROP USER vag'root'@'localhost'"
+## mysql -uroot <<< "DROP USER vag 'root'@'localhost'"
 ## mysql -uroot <<< "FLUSH PRIVILEGES"
 echo "Done!"
 
