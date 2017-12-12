@@ -134,6 +134,15 @@ class CategoryLangTest extends \Codeception\Test\Unit
 	{
 		$this->model = new Model();
 
+		$this->specify("not create with invalid category", function () {
+			$this->model = CategoryLangFixture::build(1000, 2);
+
+			$result      = Model::createTranslation($this->model[ "category_id" ], $this->model);
+
+			$this->tester->assertTrue(($result[ "status" ] === Model::ERROR), "should not create with invalid category");
+			$this->tester->assertTrue(($result[ "error" ] === Model::ERR_CATEGORY_NOT_FOUND), "should return ERR_CATEGORY_NOT_FOUND");
+		});
+
 		$this->specify("not create with invalid model", function () {
 			$this->model = CategoryLangFixture::build(2, 1, false);
 
@@ -161,7 +170,34 @@ class CategoryLangTest extends \Codeception\Test\Unit
 		});
 	}
 
-	public function testUpdate () {}
+	public function testUpdate ()
+	{
+		$this->model = $this->tester->grabFixture("categoryLang", "inactive-fr");
+
+		$this->specify("not update a non-existing translation", function () {
+			$result = Model::updateTranslation(1000, 1000, $this->model);
+
+			$this->tester->assertTrue(($result[ "status" ] === Model::ERROR), "should not update non-existing translation");
+			$this->tester->assertTrue(($result[ "error" ] === Model::ERR_NOT_FOUND), "should return ERR_NOT_FOUND");
+		});
+
+		$this->specify("not update an invalid translation", function () {
+			$this->model->name = \Yii::$app->getSecurity()->generateRandomString(256);
+
+			$result = Model::updateTranslation($this->model->category_id, $this->model->lang_id, $this->model);
+
+			$this->tester->assertTrue(($result[ "status" ] === Model::ERROR), "should not update an invalid translation");
+			$this->tester->assertTrue(is_array($result[ "error" ]), "should return list of errors for each fields");
+		});
+
+		$this->specify("update translation", function () {
+			$this->model->name = $this->faker->text();
+
+			$result = Model::updateTranslation($this->model->category_id, $this->model->lang_id, $this->model);
+
+			$this->tester->assertTrue(($result[ "status" ] === Model::SUCCESS));
+		});
+	}
 
 	public function testDelete () {}
 }
