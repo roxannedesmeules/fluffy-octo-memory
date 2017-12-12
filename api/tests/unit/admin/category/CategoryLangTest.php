@@ -1,8 +1,8 @@
 <?php
 namespace app\tests\unit\admin\category;
 
-use app\models\category\CategoryLang as Model;
 use app\tests\_support\_fixtures\CategoryLangFixture;
+use app\models\category\CategoryLang as Model;
 use Faker\Factory as Faker;
 
 /**
@@ -92,11 +92,17 @@ class CategoryLangTest extends \Codeception\Test\Unit
 			$this->tester->assertFalse($this->model->validate([ "name" ]));
 			$this->tester->assertContains(Model::ERR_FIELD_TOO_LONG, $this->model->getErrors("name"));
 		});
-		$this->specify("name is expected to be unique", function () {
-			$this->model->name = "not-unique";
+		$this->specify("name is expected to be unique in a language", function () {
+			$this->model->lang_id = 2;
+			$this->model->name    = $this->tester->grabFixture("categoryLang", "inactive-fr")->name;
 
 			$this->tester->assertFalse($this->model->validate([ "name" ]));
 			$this->tester->assertContains(Model::ERR_FIELD_NOT_UNIQUE, $this->model->getErrors("name"));
+
+			//  this name should work even though it exists, since it's for another language
+			$this->model->lang_id = 1;
+
+			$this->tester->assertTrue($this->model->validate([ "name" ]), "name should only be unique by language");
 		});
 
 		$this->specify("slug is required", function () {
@@ -109,11 +115,17 @@ class CategoryLangTest extends \Codeception\Test\Unit
 			$this->tester->assertFalse($this->model->validate([ "slug" ]));
 			$this->tester->assertContains(Model::ERR_FIELD_TOO_LONG, $this->model->getErrors("slug"));
 		});
-		$this->specify("slug is expected to be unique", function () {
-			$this->model->slug = "unique";
+		$this->specify("slug is expected to be unique in a language", function () {
+			$this->model->lang_id = 2;
+			$this->model->slug    = $this->tester->grabFixture("categoryLang", "inactive-fr")->slug;
 
 			$this->tester->assertFalse($this->model->validate([ "slug" ]));
 			$this->tester->assertContains(Model::ERR_FIELD_NOT_UNIQUE, $this->model->getErrors("slug"));
+
+			//  this slug should work even though it exists, since it's for another language
+			$this->model->lang_id = 1;
+
+			$this->tester->assertTrue($this->model->validate([ "slug" ]), "slug should only be unique by language");
 		});
 	}
 
