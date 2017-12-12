@@ -28,6 +28,7 @@ abstract class CategoryLangBase extends \yii\db\ActiveRecord
 	const ERR_NOT_FOUND          = "ERR_NOT_FOUND";
 	const ERR_CATEGORY_NOT_FOUND = "ERR_CATEGORY_NOT_FOUND";
 	const ERR_LANG_NOT_FOUND     = "ERR_LANG_NOT_FOUND";
+	const ERR_TRANSLATION_EXISTS = "ERR_TRANSLATION_ALREADY_EXISTS";
 
 	const ERR_FIELD_REQUIRED   = "ERR_FIELD_REQUIRED";
 	const ERR_FIELD_TYPE       = "ERR_FIELD_WRONG_TYPE";

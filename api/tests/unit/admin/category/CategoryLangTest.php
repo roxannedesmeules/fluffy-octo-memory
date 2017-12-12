@@ -129,7 +129,37 @@ class CategoryLangTest extends \Codeception\Test\Unit
 		});
 	}
 
-	public function testCreate () {}
+
+	public function testCreate ()
+	{
+		$this->model = new Model();
+
+		$this->specify("not create with invalid model", function () {
+			$this->model = CategoryLangFixture::build(2, 1, false);
+
+			$result      = Model::createTranslation($this->model[ "category_id" ], $this->model);
+
+			$this->tester->assertTrue(($result[ "status" ] === Model::ERROR));
+			$this->tester->assertTrue(is_array($result[ "error" ]));
+		});
+
+		$this->specify("not create an existing translation", function () {
+			$this->model = CategoryLangFixture::build(1, 1);
+
+			$result      = Model::createTranslation($this->model[ "category_id" ], $this->model);
+
+			$this->tester->assertTrue(($result[ "status" ] === Model::ERROR), "should not create an existing translation");
+			$this->tester->assertTrue(($result[ "error" ] === Model::ERR_TRANSLATION_EXISTS), "should return ERR_TRANSLATION_ALREADY_EXISTS");
+		});
+
+		$this->specify("create translation", function () {
+			$this->model = CategoryLangFixture::build(2, 1);
+
+			$result      = Model::createTranslation($this->model[ "category_id" ], $this->model);
+
+			$this->tester->assertTrue(($result[ "status" ] === Model::SUCCESS));
+		});
+	}
 
 	public function testUpdate () {}
 

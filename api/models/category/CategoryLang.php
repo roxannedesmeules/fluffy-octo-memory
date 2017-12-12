@@ -28,6 +28,10 @@ class CategoryLang extends CategoryLangBase
 		if (!Lang::idExists(ArrayHelperEx::getValue($data, "lang_id"))) {
 			return self::buildError(self::ERR_LANG_NOT_FOUND);
 		}
+
+		if (self::translationExists($categoryId, ArrayHelperEx::getValue($data, "lang_id"))) {
+			return self::buildError(self::ERR_TRANSLATION_EXISTS);
+		}
 		
 		//  create translation with all attributes from data
 		$model = new self();
