@@ -199,5 +199,14 @@ class CategoryLangTest extends \Codeception\Test\Unit
 		});
 	}
 
-	public function testDelete () {}
+	public function testDelete ()
+	{
+		$this->model = $this->tester->grabFixture("categoryLang", "inactive-en");
+
+		$this->specify("delete all translations of category", function () {
+			$result = Model::deleteTranslations($this->model->category_id);
+
+			$this->tester->assertTrue(($result[ "status" ] === Model::SUCCESS));
+		});
+	}
 }
