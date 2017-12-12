@@ -1,5 +1,5 @@
 <?php
-namespace app\tests\unit\admin\category;
+namespace app\tests\unit\category;
 
 use app\tests\_support\_fixtures\CategoryLangFixture;
 use app\models\category\CategoryLang as Model;
@@ -8,9 +8,8 @@ use Faker\Factory as Faker;
 /**
  * Class ModelTest
  *
- * @package admin\category
+ * @package app\tests\unit\category
  *
- * @group   admin
  * @group   category
  */
 class CategoryLangTest extends \Codeception\Test\Unit
