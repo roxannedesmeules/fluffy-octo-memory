@@ -35,11 +35,14 @@ class Category extends CategoryBase
 		//  return the category_id
 		return self::buildSuccess([ "category_id" => $model->id ]);
 	}
-	
+
 	/**
-	 * @param int $categoryId
+	 * @param $categoryId
 	 *
 	 * @return array
+	 * @throws \Exception
+	 * @throws \Throwable
+	 * @throws \yii\db\StaleObjectException
 	 */
 	public static function deleteCategory ( $categoryId )
 	{
@@ -47,10 +50,14 @@ class Category extends CategoryBase
 		if ( !self::idExists($categoryId) ) {
 			return self::buildError(self::ERR_NOT_FOUND);
 		}
-		
+
 		//  find the model to delete
 		$model = self::find()->id($categoryId)->one();
-		
+
+		if ($model->is_active) {
+			return self::buildError(self::ERR_DELETE_ACTIVE);
+		}
+
 		//  delete model, in case of error, return it
 		if ( !$model->delete() ) {
 			return self::buildError(self::ERR_ON_DELETE);

@@ -29,10 +29,13 @@ abstract class CategoryBase extends \yii\db\ActiveRecord
 	const ERROR   = 0;
 	const SUCCESS = 1;
 	
-	const ERR_ON_SAVE   = "ERR_ON_SAVE";
-	const ERR_ON_DELETE = "ERR_ON_DELETE";
-	const ERR_NOT_FOUND = "ERR_NOT_FOUND";
-	
+	const ERR_ON_SAVE       = "ERR_ON_SAVE";
+	const ERR_ON_DELETE     = "ERR_ON_DELETE";
+	const ERR_NOT_FOUND     = "ERR_NOT_FOUND";
+	const ERR_DELETE_ACTIVE = "ERR_DELETE_ACTIVE";
+
+	const ERR_FIELD_TYPE = "ERR_FIELD_WRONG_TYPE";
+
 	/** @var yii\db\Connection */
 	public static $db;
 	
@@ -51,7 +54,9 @@ abstract class CategoryBase extends \yii\db\ActiveRecord
 	public function rules ()
 	{
 		return [
-			[ "is_active", "integer" ],
+			[ "is_active", "integer", "message" => self::ERR_FIELD_TYPE ],
+			[ "is_active", "default", "value" => 0 ],
+
 			[ "created_on", "safe" ],
 			[ "updated_on", "safe" ],
 		];

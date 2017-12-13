@@ -1,6 +1,7 @@
 <?php
 
 return [
-	"cat-inactive" => [ "id" => 1, "is_active" => 0, ],
-	"cat-active"   => [ "id" => 2, "is_active" => 1, ],
+	"inactive" => [ "is_active" => 0, ],
+	"active"   => [ "is_active" => 1, ],
+	"nolang"   => [ "is_active" => 0, ],
 ];
