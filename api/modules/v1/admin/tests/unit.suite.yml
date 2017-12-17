@@ -1,0 +1,15 @@
+# Codeception Test Suite Configuration
+#
+# Suite for unit or integration tests.
+
+actor: UnitTester
+modules:
+    enabled:
+        - \Helper\Unit
+        - Asserts
+        - Db :
+            dsn : mysql:host=localhost;dbname=blog_test
+            user: blog_user
+            password : "1234"
+        - Yii2:
+            part: [ init, orm, fixtures ]

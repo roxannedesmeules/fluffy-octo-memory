@@ -48,16 +48,16 @@ class CategoryLangEx extends CategoryLang
 	public function rules ()
 	{
 		return [
-			[ "lang_id", "required" ],
-			[ "lang_id", "exist", 'targetClass' => Lang::className(), "targetAttribute" => [ "lang_id" => "id" ] ],
+			[ "lang_id", "required", "message" => self::ERR_FIELD_REQUIRED ],
+			[ "lang_id", "exist", 'targetClass' => Lang::className(), "targetAttribute" => [ "lang_id" => "id" ], "message" => self::ERR_FIELD_NOT_FOUND ],
 			
-			[ "name", "required" ],
-			[ "name", "string", "max" => 255 ],
-			[ "name", "unique" ],
+			[ "name", "required", "message" => self::ERR_FIELD_REQUIRED ],
+			[ "name", "string", "max" => 255, "message" => self::ERR_FIELD_TYPE, "tooLong" => self::ERR_FIELD_TOO_LONG ],
+			[ "name", "unique", "targetAttribute" => [ "name", "lang_id" ], "message" => self::ERR_FIELD_NOT_UNIQUE ],
 			
-			[ "slug", "required" ],
-			[ "slug", "string", "max" => 255 ],
-			[ "slug", "unique" ],
+			[ "slug", "required", "message" => self::ERR_FIELD_REQUIRED ],
+			[ "slug", "string", "max" => 255, "message" => self::ERR_FIELD_TYPE, "tooLong" => self::ERR_FIELD_TOO_LONG ],
+			[ "slug", "unique", "targetAttribute" => [ "slug", "lang_id" ], "message" => self::ERR_FIELD_NOT_UNIQUE ],
 		];
 	}
 	
