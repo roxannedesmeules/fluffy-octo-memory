@@ -49,14 +49,12 @@ class CategoryLangTest extends \Codeception\Test\Unit
 			$this->tester->assertFalse($this->model->validate([ "lang_id" ]));
 			$this->tester->assertContains(Model::ERR_FIELD_REQUIRED, $this->model->getErrors("lang_id"));
 		});
-
 		$this->specify("lang_id is expected to be an integer", function () {
 			$this->model->lang_id = "en";
 
 			$this->tester->assertFalse($this->model->validate([ "lang_id" ]));
 			$this->tester->assertContains(Model::ERR_FIELD_TYPE, $this->model->getErrors("lang_id"));
 		});
-
 		$this->specify("lang_id is expected to exists in table lang", function () {
 			$this->model->lang_id = 1000;
 

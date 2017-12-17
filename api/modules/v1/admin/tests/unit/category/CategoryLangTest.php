@@ -75,7 +75,18 @@ class CategoryLangTest extends \Codeception\Test\Unit
 			$this->tester->assertFalse($this->model->validate([ "name" ]));
 			$this->tester->assertContains(Model::ERR_FIELD_TOO_LONG, $this->model->getErrors("name"));
 		});
-		$this->specify("name is expected to be unique for the language");
+		$this->specify("name is expected to be unique for the language", function () {
+			$this->model->lang_id = 2;
+			$this->model->name    = $this->tester->grabFixture("categoryLang", "inactive-fr")->name;
+
+			$this->tester->assertFalse($this->model->validate([ "name" ]));
+			$this->tester->assertContains(Model::ERR_FIELD_NOT_UNIQUE, $this->model->getErrors("name"));
+
+			//  this name should work even though it exists, since it's for another language
+			$this->model->lang_id = 1;
+
+			$this->tester->assertTrue($this->model->validate([ "name" ]), "name should only be unique by language");
+		});
 
 		$this->specify("slug is required", function () {
 			$this->tester->assertFalse($this->model->validate([ "slug" ]));
@@ -87,7 +98,18 @@ class CategoryLangTest extends \Codeception\Test\Unit
 			$this->tester->assertFalse($this->model->validate([ "slug" ]));
 			$this->tester->assertContains(Model::ERR_FIELD_TOO_LONG, $this->model->getErrors("slug"));
 		});
-		$this->specify("slug is expected to be unique for the language");
+		$this->specify("slug is expected to be unique for the language", function () {
+			$this->model->lang_id = 2;
+			$this->model->slug    = $this->tester->grabFixture("categoryLang", "inactive-fr")->slug;
+
+			$this->tester->assertFalse($this->model->validate([ "slug" ]));
+			$this->tester->assertContains(Model::ERR_FIELD_NOT_UNIQUE, $this->model->getErrors("slug"));
+
+			//  this name should work even though it exists, since it's for another language
+			$this->model->lang_id = 1;
+
+			$this->tester->assertTrue($this->model->validate([ "slug" ]), "name should only be unique by language");
+		});
 
 		$this->specify("valid model", function () {
 			$this->model->lang_id = 2;
@@ -130,9 +152,53 @@ class CategoryLangTest extends \Codeception\Test\Unit
 			$this->tester->assertTrue(is_array($result[ "error" ]));
 		});
 
-		$this->specify("create one model, then update it if same language");
-		$this->specify("create both model in list");
-		$this->specify("create one and update one model in list");
-		$this->specify("update both model in list");
+		$this->specify("create one model, then update it if same language", function () {
+			$categoryId = $this->tester->grabFixture("category", "nolang")->id;
+			$models     = [
+				[ "lang_id" => 1, "name" => $this->faker->text(), "slug" => $this->faker->slug() ],
+				[ "lang_id" => 1, "name" => $this->faker->text(), "slug" => $this->faker->slug() ],
+			];
+
+			$result = Model::manageTranslations($categoryId, $models);
+
+			$this->tester->assertEquals(Model::SUCCESS, $result[ "status" ]);
+			$this->tester->seeNumRecords(1, Model::tableName(), [ "category_id" => $categoryId ]);
+		});
+		$this->specify("create both model in list", function () {
+			$categoryId = $this->tester->grabFixture("category", "nolang")->id;
+			$models     = [
+				[ "lang_id" => 1, "name" => $this->faker->text(), "slug" => $this->faker->slug() ],
+				[ "lang_id" => 2, "name" => $this->faker->text(), "slug" => $this->faker->slug() ],
+			];
+
+			$result = Model::manageTranslations($categoryId, $models);
+
+			$this->tester->assertEquals(Model::SUCCESS, $result[ "status" ]);
+			$this->tester->seeNumRecords(2, Model::tableName(), [ "category_id" => $categoryId ]);
+		});
+		$this->specify("create one and update one model in list", function () {
+			$categoryId = $this->tester->grabFixture("category", "active")->id;
+			$models     = [
+				$this->tester->grabFixture("categoryLang", "active-fr"),
+				[ "lang_id" => 1, "name" => $this->faker->text(), "slug" => $this->faker->slug() ],
+			];
+
+			$result = Model::manageTranslations($categoryId, $models);
+
+			$this->tester->assertEquals(Model::SUCCESS, $result[ "status" ]);
+			$this->tester->seeNumRecords(2, Model::tableName(), [ "category_id" => $categoryId ]);
+		});
+		$this->specify("update both model in list", function () {
+			$categoryId = $this->tester->grabFixture("category", "inactive")->id;
+			$models     = [
+				$this->tester->grabFixture("categoryLang", "inactive-en"),
+				$this->tester->grabFixture("categoryLang", "inactive-fr"),
+			];
+
+			$result = Model::manageTranslations($categoryId, $models);
+
+			$this->tester->assertEquals(Model::SUCCESS, $result[ "status" ]);
+			$this->tester->seeNumRecords(2, Model::tableName(), [ "category_id" => $categoryId ]);
+		});
 	}
 }
