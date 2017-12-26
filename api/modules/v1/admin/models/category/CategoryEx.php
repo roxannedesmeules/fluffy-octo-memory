@@ -16,11 +16,15 @@ use app\models\category\Category;
  *
  *     @SWG\Items( ref = "#/definitions/Category" ),
  * )
+ *
+ * @property array $translations
  */
 class CategoryEx extends Category
 {
+	/** @var array */
 	public $translations;
-	
+
+	/** @inheritdoc */
 	public function getCategoryLangs ()
 	{
 		return $this->hasMany(CategoryLangEx::className(), [ "category_id" => "id" ]);
@@ -64,12 +68,12 @@ class CategoryEx extends Category
 	public function rules ()
 	{
 		return [
-			[ "is_active", "integer" ],
+			[ "is_active", "integer", "message" => self::ERR_FIELD_TYPE ],
 			[ "is_active", "default", "value" => self::INACTIVE ],
 			
-			[ "translations", "required" ],
+			[ "translations", "required", "strict" => true, "message" => self::ERR_FIELD_REQUIRED ],
 			[ "translations", TranslationValidator::className(), "validator" => CategoryLangEx::className() ],
-			[ "translations", ArrayUniqueValidator::className(), "uniqueKey" => "lang_id" ],
+			[ "translations", ArrayUniqueValidator::className(), "uniqueKey" => "lang_id", "message" => self::ERR_FIELD_UNIQUE_LANG ],
 		];
 	}
 	

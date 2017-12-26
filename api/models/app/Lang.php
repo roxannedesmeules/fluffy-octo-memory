@@ -14,6 +14,9 @@ use Yii;
  */
 class Lang extends \yii\db\ActiveRecord
 {
+	const EN = 1;
+	const FR = 2;
+
 	/** @inheritdoc */
 	public static function tableName () { return 'lang'; }
 	
