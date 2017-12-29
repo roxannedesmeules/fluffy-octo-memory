@@ -3,8 +3,8 @@
 namespace app\modules\v1\admin\tests\category;
 
 use app\modules\v1\admin\models\category\CategoryLangEx as Model;
-use app\tests\_support\_fixtures\CategoryFixture;
-use app\tests\_support\_fixtures\CategoryLangFixture;
+use app\modules\v1\admin\tests\_support\_fixtures\CategoryExFixture;
+use app\modules\v1\admin\tests\_support\_fixtures\CategoryLangExFixture;
 use Faker\Factory as Faker;
 
 /**
@@ -32,23 +32,15 @@ class CategoryLangTest extends \Codeception\Test\Unit
 	protected function _before ()
 	{
 		$this->faker = Faker::create();
+
+		$this->tester->haveFixtures([
+			                            "categoryLang" => CategoryLangExFixture::className(),
+			                            "category"     => CategoryExFixture::className(),
+		                            ]);
 	}
 
 	/** @inheritdoc */
 	protected function _after () { }
-
-	/** @inheritdoc */
-	public function _fixtures()
-	{
-		return [
-			"categoryLang" => [
-				"class" => CategoryLangFixture::className(),
-			],
-			"category"     => [
-				"class" => CategoryFixture::className(),
-			],
-		];
-	}
 
 	public function testValidation ()
 	{

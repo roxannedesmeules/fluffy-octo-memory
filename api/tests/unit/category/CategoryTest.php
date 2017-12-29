@@ -2,7 +2,7 @@
 namespace app\tests\unit\category;
 
 use app\models\category\Category;
-use app\tests\_support\_fixtures\CategoryFixture;
+use app\tests\_support\_fixtures\CategoryExFixture;
 
 /**
  * Class CategoryTest
@@ -31,7 +31,7 @@ class CategoryTest extends \Codeception\Test\Unit
 	{
 		return [
 			"category" => [
-				"class" => CategoryFixture::className(),
+				"class" => CategoryExFixture::className(),
 			],
 		];
 	}
@@ -75,7 +75,7 @@ class CategoryTest extends \Codeception\Test\Unit
 
 	public function testUpdate ()
 	{
-		$this->model = $this->tester->grabFixture('app\tests\_support\_fixtures\CategoryFixture', "inactive");
+		$this->model = $this->tester->grabFixture('app\tests\_support\_fixtures\CategoryExFixture', "inactive");
 
 		$this->specify("not update a non-existing category", function () {
 			$result = Category::updateCategory(1000, $this->model);
@@ -114,7 +114,7 @@ class CategoryTest extends \Codeception\Test\Unit
 		});
 
 		$this->specify("not delete active category", function () {
-			$model  = $this->tester->grabFixture('app\tests\_support\_fixtures\CategoryFixture', "active");
+			$model  = $this->tester->grabFixture('app\tests\_support\_fixtures\CategoryExFixture', "active");
 			$result = Category::deleteCategory($model->id);
 
 			$this->tester->assertEquals(Category::ERROR, $result[ "status" ]);
@@ -122,7 +122,7 @@ class CategoryTest extends \Codeception\Test\Unit
 		});
 
 		$this->specify("delete an existing category", function () {
-			$model  = $this->tester->grabFixture('app\tests\_support\_fixtures\CategoryFixture', "nolang");
+			$model  = $this->tester->grabFixture('app\tests\_support\_fixtures\CategoryExFixture', "nolang");
 			$result = Category::deleteCategory($model->id);
 
 			$this->tester->assertEquals(Category::SUCCESS, $result[ "status" ]);

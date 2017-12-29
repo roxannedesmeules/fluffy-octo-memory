@@ -4,6 +4,8 @@ namespace app\modules\v1\admin\tests\category;
 use app\models\app\Lang;
 use app\modules\v1\admin\models\category\CategoryEx;
 use app\modules\v1\admin\models\category\CategoryLangEx;
+use app\modules\v1\admin\tests\_support\_fixtures\CategoryExFixture;
+use app\modules\v1\admin\tests\_support\_fixtures\CategoryLangExFixture;
 use Faker\Factory as Faker;
 
 /**
@@ -28,25 +30,16 @@ class CategoryTest extends \Codeception\Test\Unit
 	protected function _before ()
 	{
 		$this->faker = Faker::create();
+
+		$this->tester->haveFixtures([
+			                            "categoryLang" => CategoryLangExFixture::className(),
+			                            "category"     => CategoryExFixture::className(),
+		                            ]);
 	}
 
 	/** @inheritdoc */
 	protected function _after () { }
 
-	/** @inheritdoc */
-	public function _fixtures()
-	{
-		return [
-			"categoryLang" => [
-				"class" => CategoryLangFixture::className(),
-			],
-			"category"     => [
-				"class" => CategoryFixture::className(),
-			],
-		];
-	}
-
-	// tests
 	public function testValidation ()
 	{
 		$this->model = new CategoryEx();
@@ -58,10 +51,6 @@ class CategoryTest extends \Codeception\Test\Unit
 			$this->tester->assertContains(CategoryEx::ERR_FIELD_TYPE, $this->model->getErrors("is_active"));
 		});
 
-		$this->specify("translations is required", function () {
-			$this->tester->assertFalse($this->model->validate([ "translations" ]));
-			$this->tester->assertContains(CategoryEx::ERR_FIELD_REQUIRED, $this->model->getErrors("translations"));
-		});
 		$this->specify("each translations should have a different language", function () {
 			$this->model->translations = [
 				[ "lang_id" => Lang::FR, "name" => $this->faker->text(), "slug" => $this->faker->text() ],
@@ -158,11 +147,126 @@ class CategoryTest extends \Codeception\Test\Unit
 
 	public function testUpdateWithTranslation ()
 	{
+		/** @var CategoryEx model */
+		$this->model = $this->tester->grabFixture("category", "active");
 
+		$this->specify("not update invalid category id", function () {
+			$this->model->translations = [];
+
+			$result = CategoryEx::updateWithTranslations(1000, $this->model, $this->model->translations);
+
+			$this->tester->assertEquals(CategoryEx::ERROR, $result[ "status" ]);
+			$this->tester->assertEquals(CategoryEx::ERR_NOT_FOUND, $result[ "error" ]);
+		});
+		$this->specify("not update invalid category model", function () {
+			$this->model->is_active    = false;
+			$this->model->translations = [];
+
+			$result = CategoryEx::updateWithTranslations($this->model->id, $this->model, $this->model->translations);
+
+			$this->tester->assertEquals(CategoryEx::ERROR, $result[ "status" ]);
+			$this->tester->assertArrayHasKey("is_active", $result[ "error" ]);
+		});
+		$this->specify("not update invalid translation model", function () {
+			$this->model->is_active    = CategoryEx::ACTIVE;
+			$this->model->translations = [
+				[ "lang_id" => Lang::EN, "name" => $this->faker->text(), ],
+			];
+
+			$result = CategoryEx::updateWithTranslations($this->model->id, $this->model, $this->model->translations);
+
+			$this->tester->assertEquals(CategoryEx::ERROR, $result[ "status" ]);
+			$this->tester->assertArrayHasKey("translations", $result[ "error" ]);
+			$this->tester->assertArrayHasKey("slug", $result[ "error" ][ "translations" ]);
+		});
+
+		$this->specify("update category and create 2 translations", function () {
+			$this->model = $this->tester->grabFixture("category", "nolang");
+
+			$this->model->translations = [
+				[ "lang_id" => Lang::FR, "name" => $this->faker->text(), "slug" => $this->faker->slug() ],
+				[ "lang_id" => Lang::EN, "name" => $this->faker->text(), "slug" => $this->faker->slug() ],
+			];
+
+			$this->tester->canSeeNumRecords(0, CategoryLangEx::tableName(), [ "category_id" => $this->model->id ]);
+
+			$result = CategoryEx::updateWithTranslations($this->model->id, $this->model, $this->model->translations);
+
+			$this->tester->assertEquals(CategoryEx::SUCCESS, $result[ "status" ]);
+			$this->tester->assertArrayHasKey("category", $result);
+
+			$this->tester->canSeeNumRecords(2, CategoryLangEx::tableName(), [ "category_id" => $this->model->id ]);
+		});
+		$this->specify("update category and create 1 translation, update 1 translations", function () {
+			$this->model->translations = [
+				[ "lang_id" => Lang::FR, "name" => $this->faker->text(), "slug" => $this->faker->slug() ],
+				[ "lang_id" => Lang::EN, "name" => $this->faker->text(), "slug" => $this->faker->slug() ],
+			];
+
+			$this->tester->canSeeNumRecords(1, CategoryLangEx::tableName(), [ "category_id" => $this->model->id ]);
+
+			$result = CategoryEx::updateWithTranslations($this->model->id, $this->model, $this->model->translations);
+
+			$this->tester->assertEquals(CategoryEx::SUCCESS, $result[ "status" ]);
+			$this->tester->assertArrayHasKey("category", $result);
+
+			$this->tester->canSeeNumRecords(2, CategoryLangEx::tableName(), [ "category_id" => $this->model->id ]);
+		});
+		$this->specify("update category and update 2 translations", function () {
+			$this->model = $this->tester->grabFixture("category", "inactive");
+
+			$this->model->translations = [
+				[ "lang_id" => Lang::FR, "name" => $this->faker->text(), "slug" => $this->faker->slug() ],
+				[ "lang_id" => Lang::EN, "name" => $this->faker->text(), "slug" => $this->faker->slug() ],
+			];
+
+			$this->tester->canSeeNumRecords(2, CategoryLangEx::tableName(), [ "category_id" => $this->model->id ]);
+
+			$result = CategoryEx::updateWithTranslations($this->model->id, $this->model, $this->model->translations);
+
+			$this->tester->assertEquals(CategoryEx::SUCCESS, $result[ "status" ]);
+			$this->tester->assertArrayHasKey("category", $result);
+
+			$this->tester->canSeeNumRecords(2, CategoryLangEx::tableName(), [ "category_id" => $this->model->id ]);
+		});
 	}
 
 	public function testDeleteWithTranslation ()
 	{
+		$this->specify("not delete an invalid category ID", function () {
+			$result = CategoryEx::deleteWithTranslations(1000);
 
+			$this->tester->assertEquals(CategoryEx::ERROR, $result[ "status" ]);
+			$this->tester->assertEquals(CategoryEx::ERR_NOT_FOUND, $result[ "error" ]);
+		});
+		$this->specify("not delete a category with associated post", function () {
+			$this->tester->fail("not implemented");
+		});
+		$this->specify("delete category with all translations", function () {
+			$this->model = $this->tester->grabFixture("category", "inactive");
+
+			$this->tester->canSeeNumRecords(1, CategoryEx::tableName(), [ "id" => $this->model->id ]);
+			$this->tester->canSeeNumRecords(2, CategoryLangEx::tableName(), [ "category_id" => $this->model->id ]);
+
+			$result = CategoryEx::deleteWithTranslations($this->model->id);
+
+			$this->tester->assertEquals(CategoryEx::SUCCESS, $result[ "status" ]);
+
+			$this->tester->canSeeNumRecords(0, CategoryEx::tableName(), [ "id" => $this->model->id ]);
+			$this->tester->canSeeNumRecords(0, CategoryLangEx::tableName(), [ "category_id" => $this->model->id ]);
+		});
+		$this->specify("delete category with no translations", function () {
+			$this->model = $this->tester->grabFixture("category", "nolang");
+
+			$this->tester->canSeeNumRecords(1, CategoryEx::tableName(), [ "id" => $this->model->id ]);
+			$this->tester->canSeeNumRecords(0, CategoryLangEx::tableName(), [ "category_id" => $this->model->id ]);
+
+			$result = CategoryEx::deleteWithTranslations($this->model->id);
+
+			$this->tester->assertEquals(CategoryEx::SUCCESS, $result[ "status" ]);
+
+			$this->tester->canSeeNumRecords(0, CategoryEx::tableName(), [ "id" => $this->model->id ]);
+			$this->tester->canSeeNumRecords(0, CategoryLangEx::tableName(), [ "category_id" => $this->model->id ]);
+		});
 	}
 }

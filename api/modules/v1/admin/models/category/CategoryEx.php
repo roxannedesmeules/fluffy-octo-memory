@@ -22,7 +22,7 @@ use app\models\category\Category;
 class CategoryEx extends Category
 {
 	/** @var array */
-	public $translations;
+	public $translations = [];
 
 	/** @inheritdoc */
 	public function getCategoryLangs ()
@@ -200,7 +200,7 @@ class CategoryEx extends Category
 		//  in case of error, rollback and return error
 		if ($result[ "status" ] === CategoryLangEx::ERROR) {
 			$transaction->rollBack();
-			
+
 			return self::buildError([ "translations" => $result[ "error" ] ]);
 		}
 		
