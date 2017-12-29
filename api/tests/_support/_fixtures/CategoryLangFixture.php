@@ -13,10 +13,10 @@ class CategoryLangFixture extends ActiveFixture
 {
 	public $modelClass = 'app\models\category\CategoryLang';
 
-	public $dataFile   = 'tests/_data/category_lang.php';
+	public $dataFile   = '/app/tests/_data/category_lang.php';
 
 	public $depends    = [
-		'app\tests\_support\_fixtures\CategoryFixture',
+		'app\tests\_support\_fixtures\CategoryExFixture',
 	];
 
 	public static function build ( $cat, $lang, $valid = true )

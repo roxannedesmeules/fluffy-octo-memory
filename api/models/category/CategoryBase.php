@@ -34,7 +34,9 @@ abstract class CategoryBase extends \yii\db\ActiveRecord
 	const ERR_NOT_FOUND     = "ERR_NOT_FOUND";
 	const ERR_DELETE_ACTIVE = "ERR_DELETE_ACTIVE";
 
-	const ERR_FIELD_TYPE = "ERR_FIELD_WRONG_TYPE";
+	const ERR_FIELD_REQUIRED    = "ERR_FIELD_REQUIRED";
+	const ERR_FIELD_TYPE        = "ERR_FIELD_WRONG_TYPE";
+	const ERR_FIELD_UNIQUE_LANG = "ERR_FIELD_UNIQUE_LANG";
 
 	/** @var yii\db\Connection */
 	public static $db;

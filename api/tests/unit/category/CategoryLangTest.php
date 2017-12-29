@@ -1,7 +1,7 @@
 <?php
 namespace app\tests\unit\category;
 
-use app\tests\_support\_fixtures\CategoryLangFixture;
+use app\tests\_support\_fixtures\CategoryLangExFixture;
 use app\models\category\CategoryLang as Model;
 use Faker\Factory as Faker;
 
@@ -36,7 +36,7 @@ class CategoryLangTest extends \Codeception\Test\Unit
 	{
 		return [
 			'categoryLang' => [
-				'class' => CategoryLangFixture::className(),
+				'class' => CategoryLangExFixture::className(),
 			],
 		];
 	}
@@ -49,14 +49,12 @@ class CategoryLangTest extends \Codeception\Test\Unit
 			$this->tester->assertFalse($this->model->validate([ "lang_id" ]));
 			$this->tester->assertContains(Model::ERR_FIELD_REQUIRED, $this->model->getErrors("lang_id"));
 		});
-
 		$this->specify("lang_id is expected to be an integer", function () {
 			$this->model->lang_id = "en";
 
 			$this->tester->assertFalse($this->model->validate([ "lang_id" ]));
 			$this->tester->assertContains(Model::ERR_FIELD_TYPE, $this->model->getErrors("lang_id"));
 		});
-
 		$this->specify("lang_id is expected to exists in table lang", function () {
 			$this->model->lang_id = 1000;
 
@@ -134,7 +132,7 @@ class CategoryLangTest extends \Codeception\Test\Unit
 		$this->model = new Model();
 
 		$this->specify("not create with invalid category", function () {
-			$this->model = CategoryLangFixture::build(1000, 2);
+			$this->model = CategoryLangExFixture::build(1000, 2);
 
 			$result      = Model::createTranslation($this->model[ "category_id" ], $this->model);
 
@@ -143,7 +141,7 @@ class CategoryLangTest extends \Codeception\Test\Unit
 		});
 
 		$this->specify("not create with invalid model", function () {
-			$this->model = CategoryLangFixture::build(2, 1, false);
+			$this->model = CategoryLangExFixture::build(2, 1, false);
 
 			$result      = Model::createTranslation($this->model[ "category_id" ], $this->model);
 
@@ -152,7 +150,7 @@ class CategoryLangTest extends \Codeception\Test\Unit
 		});
 
 		$this->specify("not create an existing translation", function () {
-			$this->model = CategoryLangFixture::build(1, 1);
+			$this->model = CategoryLangExFixture::build(1, 1);
 
 			$result      = Model::createTranslation($this->model[ "category_id" ], $this->model);
 
@@ -161,7 +159,7 @@ class CategoryLangTest extends \Codeception\Test\Unit
 		});
 
 		$this->specify("create translation", function () {
-			$this->model = CategoryLangFixture::build(2, 1);
+			$this->model = CategoryLangExFixture::build(2, 1);
 
 			$result      = Model::createTranslation($this->model[ "category_id" ], $this->model);
 
