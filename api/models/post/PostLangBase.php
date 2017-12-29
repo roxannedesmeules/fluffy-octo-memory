@@ -1,7 +1,10 @@
 <?php
 namespace app\models\post;
 
+use app\helpers\ArrayHelperEx;
 use app\models\app\File;
+use app\models\app\Lang;
+use app\models\user\User;
 use Yii;
 
 /**
@@ -31,11 +34,18 @@ abstract class PostLangBase extends \yii\db\ActiveRecord
 	const ERROR   = 0;
 	const SUCCESS = 1;
 
-	const ERR_ON_SAVE        = "ERR_ON_SAVE";
-	const ERR_ON_DELETE      = "ERR_ON_DELETE";
-	const ERR_NOT_FOUND      = "ERR_NOT_FOUND";
-	const ERR_POST_NOT_FOUND = "ERR_POST_NOT_FOUND";
-	const ERR_LANG_NOT_FOUND = "ERR_LANG_NOT_FOUND";
+	const ERR_ON_SAVE            = "ERR_ON_SAVE";
+	const ERR_ON_DELETE          = "ERR_ON_DELETE";
+	const ERR_NOT_FOUND          = "ERR_NOT_FOUND";
+	const ERR_POST_NOT_FOUND     = "ERR_POST_NOT_FOUND";
+	const ERR_LANG_NOT_FOUND     = "ERR_LANG_NOT_FOUND";
+	const ERR_TRANSLATION_EXISTS = "ERR_TRANSLATION_ALREADY_EXISTS";
+
+	const ERR_FIELD_REQUIRED   = "ERR_FIELD_REQUIRED";
+	const ERR_FIELD_TYPE       = "ERR_FIELD_WRONG_TYPE";
+	const ERR_FIELD_TOO_LONG   = "ERR_FIELD_TOO_LONG";
+	const ERR_FIELD_NOT_FOUND  = "ERR_FIELD_NOT_FOUND";
+	const ERR_FIELD_NOT_UNIQUE = "ERR_FIELD_NOT_UNIQUE";
 
 	/** @inheritdoc */
 	public static function tableName () { return 'post_lang'; }
@@ -44,52 +54,56 @@ abstract class PostLangBase extends \yii\db\ActiveRecord
 	public function rules ()
 	{
 		return [
-			[ "post_id", "required" ],
-			[ "post_id", "integer" ],
+			[ "post_id", "required", "message" => self::ERR_FIELD_REQUIRED ],
+			[ "post_id", "integer",  "message" => self::ERR_FIELD_TYPE ],
 			[
 				[ 'post_id' ], 'exist',
 				'skipOnError'     => true,
 				'targetClass'     => Post::className(),
 				'targetAttribute' => [ 'post_id' => 'id' ],
+				"message"         => self::ERR_FIELD_NOT_FOUND,
 			],
 			
-			[ "lang_id", "required" ],
-			[ "lang_id", "integer" ],
+			[ "lang_id", "required", "message" => self::ERR_FIELD_REQUIRED ],
+			[ "lang_id", "integer",  "message" => self::ERR_FIELD_TYPE ],
 			[
 				[ 'lang_id' ], 'exist',
 				'skipOnError'     => true,
 				'targetClass'     => Lang::className(),
 				'targetAttribute' => [ 'lang_id' => 'id' ],
+				"message"         => self::ERR_FIELD_NOT_FOUND,
 			],
 			
-			[ [ 'post_id', 'lang_id' ], 'unique', 'targetAttribute' => [ 'post_id', 'lang_id' ] ],
+			[ [ 'post_id', 'lang_id' ], 'unique', 'targetAttribute' => [ 'post_id', 'lang_id' ], "message" => self::ERR_FIELD_NOT_UNIQUE ],
 			
-			[ "user_id", "required" ],
-			[ "user_id", "integer" ],
+			[ "user_id", "required", "message" => self::ERR_FIELD_REQUIRED ],
+			[ "user_id", "integer",  "message" => self::ERR_FIELD_TYPE ],
 			[
 				[ 'user_id' ], 'exist',
 				'skipOnError'     => true,
 				'targetClass'     => User::className(),
 				'targetAttribute' => [ 'user_id' => 'id' ],
+				"message"         => self::ERR_FIELD_NOT_FOUND,
 			],
 			
-			[ "title", "required" ],
-			[ "title", "string", "max" => 255 ],
+			[ "title", "required", "message" => self::ERR_FIELD_REQUIRED ],
+			[ "title", "string", "max" => 255, "tooLong" => self::ERR_FIELD_TOO_LONG, ],
 			
-			[ "slug", "string", "max" => 255 ],
-			[ "slug", "unique" ],
+			[ "slug", "string", "max" => 255, "tooLong" => self::ERR_FIELD_TOO_LONG, ],
+			[ "slug", "unique", "targetAttribute" => [ "slug", "lang_id" ], "message" => self::ERR_FIELD_NOT_UNIQUE ],
 			
-			[ "content", "string" ],
+			[ "content", "string", "message" => self::ERR_FIELD_TYPE ],
 
-			[ "file_id", "integer" ],
+			[ "file_id", "integer", "message" => self::ERR_FIELD_TYPE ],
 			[
 				[ "file_id" ], "exist",
 				"skipOnError"     => true,
 				"targetClass"     => File::className(),
 				"targetAttribute" => [ "file_id" => "id" ],
+				"message"         => self::ERR_FIELD_NOT_FOUND,
 			],
 
-			[ "file_alt", "string" ],
+			[ "file_alt", "string", "message" => self::ERR_FIELD_TYPE ],
 
 			[ "created_on", "safe" ],
 			[ "updated_on", "safe" ],
@@ -145,21 +159,25 @@ abstract class PostLangBase extends \yii\db\ActiveRecord
 	}
 	
 	/** @inheritdoc */
-	public function beforeSave ( $insert )
+	public function beforeValidate ( )
 	{
-		if (!parent::beforeSave($insert)) {
-			return false;
-		}
-		
-		switch ($insert) {
+		switch ($this->isNewRecord) {
 			case true:
 				$this->created_on = date(self::DATE_FORMAT);
 				$this->user_id    = Yii::$app->getUser()->getId();
+
+				if (YII_ENV === 'test') {
+					$this->user_id = 1;
+				}
 				break;
 			
 			case false:
 				$this->updated_on = date(self::DATE_FORMAT);
 				break;
+		}
+
+		if (!parent::beforeValidate($this->isNewRecord)) {
+			return false;
 		}
 		
 		return true;
