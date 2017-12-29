@@ -16,7 +16,7 @@ class CategoryLangFixture extends ActiveFixture
 	public $dataFile   = '/app/tests/_data/category_lang.php';
 
 	public $depends    = [
-		'app\tests\_support\_fixtures\CategoryExFixture',
+		'app\tests\_support\_fixtures\CategoryFixture',
 	];
 
 	public static function build ( $cat, $lang, $valid = true )
