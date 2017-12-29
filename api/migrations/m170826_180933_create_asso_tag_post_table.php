@@ -36,8 +36,7 @@ class m170826_180933_create_asso_tag_post_table extends Migration
 			'asso_tag_post',
 			'tag_id',
 			'tag',
-			'id',
-			'CASCADE'
+			'id'
 		);
 		
 		// creates index for column `post_id`
@@ -53,8 +52,7 @@ class m170826_180933_create_asso_tag_post_table extends Migration
 			'asso_tag_post',
 			'post_id',
 			'post',
-			'id',
-			'CASCADE'
+			'id'
 		);
 	}
 	

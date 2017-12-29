@@ -35,8 +35,7 @@ class m170826_172431_create_user_profile_table extends Migration
 			'user_profile',
 			'user_id',
 			'user',
-			'id',
-			'CASCADE'
+			'id'
 		);
 		
 		$this->insert('user_profile', [
