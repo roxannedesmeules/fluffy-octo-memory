@@ -4,6 +4,7 @@ namespace app\models\post;
 
 use app\helpers\ArrayHelperEx;
 use app\models\app\Lang;
+use yii\db\Exception;
 
 
 /**
@@ -35,10 +36,17 @@ class PostLang extends PostLangBase
 			return self::buildError(self::ERR_LANG_NOT_FOUND);
 		}
 
+		$langId = ArrayHelperEx::getValue($data, "lang_id");
+
+		if ( self::translationExists($postId, $langId)) {
+			return self::buildError(self::ERR_TRANSLATION_EXISTS);
+		}
+
 		//  create translation with all attributes from data
 		$model = new self();
 
-		$model->lang_id = ArrayHelperEx::getValue($data, "lang_id");
+		$model->post_id = $postId;
+		$model->lang_id = $langId;
 		$model->title   = ArrayHelperEx::getValue($data, "title");
 		$model->slug    = ArrayHelperEx::getValue($data, "slug");
 		$model->content = ArrayHelperEx::getValue($data, "content");
@@ -64,9 +72,18 @@ class PostLang extends PostLangBase
 	 * @param integer $postId
 	 *
 	 * @return array
+	 *
+	 * @throws \Exception
+	 * @throws \Throwable
+	 * @throws \yii\db\StaleObjectException
 	 */
 	public static function deleteTranslations ( $postId )
 	{
+		//  make sure to not delete translations of a published post
+		if (Post::isPublished($postId)) {
+			return self::buildError(self::ERR_POST_PUBLISHED);
+		}
+
 		//  define result as success, will be overwritten by an error when necessary
 		$result = self::buildSuccess([]);
 

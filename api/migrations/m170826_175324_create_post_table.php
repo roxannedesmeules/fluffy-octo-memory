@@ -37,8 +37,7 @@ class m170826_175324_create_post_table extends Migration
 			'post',
 			'category_id',
 			'category',
-			'id',
-			'CASCADE'
+			'id'
 		);
 		
 		// creates index for column `post_status_id`
@@ -54,8 +53,7 @@ class m170826_175324_create_post_table extends Migration
 			'post',
 			'post_status_id',
 			'post_status',
-			'id',
-			'CASCADE'
+			'id'
 		);
 	}
 	

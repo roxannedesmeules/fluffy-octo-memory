@@ -38,8 +38,7 @@ class m170826_180708_create_tag_lang_table extends Migration
 			'tag_lang',
 			'tag_id',
 			'tag',
-			'id',
-			'CASCADE'
+			'id'
 		);
 		
 		// creates index for column `lang_id`
@@ -55,8 +54,7 @@ class m170826_180708_create_tag_lang_table extends Migration
 			'tag_lang',
 			'lang_id',
 			'lang',
-			'id',
-			'CASCADE'
+			'id'
 		);
 	}
 	

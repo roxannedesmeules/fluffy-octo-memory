@@ -21,7 +21,7 @@ class Post extends PostBase
 	 *
 	 * @return array
 	 */
-	public function createPost ( $data )
+	public static function createPost ( $data )
 	{
 		//  make sure category id exists
 		if (!Category::idExists(ArrayHelperEx::getValue($data, "category_id"))) {
@@ -64,11 +64,15 @@ class Post extends PostBase
 	 *
 	 * @return array
 	 */
-	public function deletePost ( $postId )
+	public static function deletePost ( $postId )
 	{
 		//  check if the post id exists
 		if (!self::idExists($postId)) {
 			return self::buildError(self::ERR_NOT_FOUND);
+		}
+
+		if (self::isPublished($postId)) {
+			return self::buildError(self::ERR_POST_PUBLISHED);
 		}
 
 		//  find the model to delete
@@ -84,6 +88,24 @@ class Post extends PostBase
 	}
 
 	/**
+	 * Verify if the post associated to the postId passed in parameter is published.
+	 *
+	 * @param integer $postId
+	 *
+	 * @return bool
+	 */
+	public static function isPublished ( $postId )
+	{
+		if (!self::idExists($postId)) {
+			return false;
+		}
+
+		$post = self::find()->id($postId)->one();
+
+		return ($post->post_status_id == PostStatus::PUBLISHED);
+	}
+
+	/**
 	 * This method will update the post entry. It will first make sure the post ID exists, then verify that the category
 	 * ID and post status ID also exists in database, then the entry will be updated.
 	 *
@@ -92,7 +114,7 @@ class Post extends PostBase
 	 *
 	 * @return array
 	 */
-	public function updatePost ( $postId, $data )
+	public static function updatePost ( $postId, $data )
 	{
 		//  check if the post id exists
 		if (!self::idExists($postId)) {

@@ -38,8 +38,7 @@ class m170826_174558_create_category_lang_table extends Migration
 			'category_lang',
 			'category_id',
 			'category',
-			'id',
-			'CASCADE'
+			'id'
 		);
 		
 		// creates index for column `lang_id`
@@ -55,8 +54,7 @@ class m170826_174558_create_category_lang_table extends Migration
 			'category_lang',
 			'lang_id',
 			'lang',
-			'id',
-			'CASCADE'
+			'id'
 		);
 	}
 	

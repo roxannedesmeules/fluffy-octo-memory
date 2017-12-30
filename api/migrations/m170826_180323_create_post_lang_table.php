@@ -43,8 +43,7 @@ class m170826_180323_create_post_lang_table extends Migration
 			'post_lang',
 			'post_id',
 			'post',
-			'id',
-			'CASCADE'
+			'id'
 		);
 		
 		// creates index for column `lang_id`
@@ -60,8 +59,7 @@ class m170826_180323_create_post_lang_table extends Migration
 			'post_lang',
 			'lang_id',
 			'lang',
-			'id',
-			'CASCADE'
+			'id'
 		);
 		
 		// creates index for column `user_id`
@@ -77,8 +75,7 @@ class m170826_180323_create_post_lang_table extends Migration
 			'post_lang',
 			'user_id',
 			'user',
-			'id',
-			'CASCADE'
+			'id'
 		);
 	}
 	
