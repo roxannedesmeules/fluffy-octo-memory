@@ -21,7 +21,7 @@ class Post extends PostBase
 	 *
 	 * @return array
 	 */
-	public function createPost ( $data )
+	public static function createPost ( $data )
 	{
 		//  make sure category id exists
 		if (!Category::idExists(ArrayHelperEx::getValue($data, "category_id"))) {
@@ -64,7 +64,7 @@ class Post extends PostBase
 	 *
 	 * @return array
 	 */
-	public function deletePost ( $postId )
+	public static function deletePost ( $postId )
 	{
 		//  check if the post id exists
 		if (!self::idExists($postId)) {
@@ -110,7 +110,7 @@ class Post extends PostBase
 	 *
 	 * @return array
 	 */
-	public function updatePost ( $postId, $data )
+	public static function updatePost ( $postId, $data )
 	{
 		//  check if the post id exists
 		if (!self::idExists($postId)) {

@@ -2,6 +2,10 @@
 
 namespace app\models\post;
 
+use app\helpers\ArrayHelperEx;
+use app\models\app\Lang;
+use app\models\category\Category;
+use app\models\tag\Tag;
 use Yii;
 
 /**
@@ -28,11 +32,15 @@ abstract class PostBase extends \yii\db\ActiveRecord
 	const ERROR   = 0;
 	const SUCCESS = 1;
 
-	const ERR_ON_SAVE   = "ERR_ON_SAVE";
-	const ERR_ON_DELETE = "ERR_ON_DELETE";
-	const ERR_NOT_FOUND = "ERR_NOT_FOUND";
+	const ERR_ON_SAVE            = "ERR_ON_SAVE";
+	const ERR_ON_DELETE          = "ERR_ON_DELETE";
+	const ERR_NOT_FOUND          = "ERR_NOT_FOUND";
 	const ERR_CATEGORY_NOT_FOUND = "ERR_CATEGORY_NOT_FOUND";
-	const ERR_STATUS_NOT_FOUND = "ERR_POST_STATUS_NOT_FOUND";
+	const ERR_STATUS_NOT_FOUND   = "ERR_POST_STATUS_NOT_FOUND";
+
+	const ERR_FIELD_REQUIRED   = "ERR_FIELD_VALUE_REQUIRED";
+	const ERR_FIELD_TYPE       = "ERR_FIELD_VALUE_WRONG_TYPE";
+	const ERR_FIELD_NOT_FOUND  = "ERR_FIELD_VALUE_NOT_FOUND";
 
 	/** @var yii\db\Connection */
 	protected static $db;
@@ -52,23 +60,25 @@ abstract class PostBase extends \yii\db\ActiveRecord
 	public function rules ()
 	{
 		return [
-			[ "category_id", "required" ],
-			[ "category_id", "integer" ],
+			[ "category_id", "required", "message" => self::ERR_FIELD_REQUIRED ],
+			[ "category_id", "integer",  "message" => self::ERR_FIELD_TYPE ],
 			[
 				[ 'category_id' ],
 				'exist',
 				'skipOnError'     => true,
 				'targetClass'     => Category::className(),
 				'targetAttribute' => [ 'category_id' => 'id' ],
+				"message"         => self::ERR_FIELD_NOT_FOUND
 			],
 			
-			[ "post_status_id", "integer" ],
+			[ "post_status_id", "integer", "message" => self::ERR_FIELD_TYPE ],
 			[
 				[ 'post_status_id' ],
 				'exist',
 				'skipOnError'     => true,
-				'targetClass'     => PostStatusBase::className(),
+				'targetClass'     => PostStatus::className(),
 				'targetAttribute' => [ 'post_status_id' => 'id' ],
+				"message"         => self::ERR_FIELD_NOT_FOUND
 			],
 			
 			[ "created_on", "safe" ],
@@ -110,13 +120,13 @@ abstract class PostBase extends \yii\db\ActiveRecord
 	/** @return \yii\db\ActiveQuery */
 	public function getPostStatus ()
 	{
-		return $this->hasOne(PostStatusBase::className(), [ 'id' => 'post_status_id' ]);
+		return $this->hasOne(PostStatus::className(), [ 'id' => 'post_status_id' ]);
 	}
 	
 	/** @return \yii\db\ActiveQuery */
 	public function getPostLangs ()
 	{
-		return $this->hasMany(PostLangBase::className(), [ 'post_id' => 'id' ]);
+		return $this->hasMany(PostLang::className(), [ 'post_id' => 'id' ]);
 	}
 	
 	/** @return \yii\db\ActiveQuery */

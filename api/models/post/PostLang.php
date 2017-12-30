@@ -4,6 +4,7 @@ namespace app\models\post;
 
 use app\helpers\ArrayHelperEx;
 use app\models\app\Lang;
+use yii\db\Exception;
 
 
 /**
