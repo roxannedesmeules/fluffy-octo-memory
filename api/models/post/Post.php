@@ -71,6 +71,10 @@ class Post extends PostBase
 			return self::buildError(self::ERR_NOT_FOUND);
 		}
 
+		if (self::isPublished($postId)) {
+			return self::buildError(self::ERR_POST_PUBLISHED);
+		}
+
 		//  find the model to delete
 		$model = self::find()->id($postId)->one();
 

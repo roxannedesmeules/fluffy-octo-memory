@@ -120,7 +120,31 @@ class PostTest extends \Codeception\Test\Unit
 			$this->tester->canSeeInDatabase(Post::tableName(), [ "id" => $result[ "post_id" ], "post_status_id" => PostStatus::DRAFT ]);
 		});
 	}
-	public function testDelete () {}
+	public function testDelete () {
+		$this->specify("not delete a invalid post id", function () {
+			$result = Post::deletePost(1000);
+
+			$this->tester->assertEquals(Post::ERROR, $result[ "status" ]);
+			$this->tester->assertEquals(Post::ERR_NOT_FOUND, $result[ "error" ]);
+		});
+		$this->specify("not delete a published post", function () {
+			$model  = $this->tester->grabFixture("post", "published");
+			$result = Post::deletePost($model->id);
+
+			$this->tester->assertEquals(Post::ERROR, $result[ "status" ]);
+			$this->tester->assertEquals(Post::ERR_POST_PUBLISHED, $result[ "error" ]);
+
+			$this->tester->canSeeInDatabase(Post::tableName(), [ "id" => $model->id ]);
+		});
+		$this->specify("delete a post", function () {
+			$model  = $this->tester->grabFixture("post", "unpublished");
+			$result = Post::deletePost($model->id);
+
+			$this->tester->assertEquals(Post::SUCCESS, $result[ "status" ]);
+			$this->tester->cantSeeInDatabase(Post::tableName(), [ "id" => $model->id ]);
+		});
+	}
+
 	public function testUpdate () {}
 
 	/**
