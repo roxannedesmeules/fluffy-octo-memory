@@ -71,9 +71,18 @@ class PostLang extends PostLangBase
 	 * @param integer $postId
 	 *
 	 * @return array
+	 *
+	 * @throws \Exception
+	 * @throws \Throwable
+	 * @throws \yii\db\StaleObjectException
 	 */
 	public static function deleteTranslations ( $postId )
 	{
+		//  make sure to not delete translations of a published post
+		if (Post::isPublished($postId)) {
+			return self::buildError(self::ERR_POST_PUBLISHED);
+		}
+
 		//  define result as success, will be overwritten by an error when necessary
 		$result = self::buildSuccess([]);
 

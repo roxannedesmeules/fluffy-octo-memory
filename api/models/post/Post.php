@@ -84,6 +84,24 @@ class Post extends PostBase
 	}
 
 	/**
+	 * Verify if the post associated to the postId passed in parameter is published.
+	 *
+	 * @param integer $postId
+	 *
+	 * @return bool
+	 */
+	public static function isPublished ( $postId )
+	{
+		if (!self::idExists($postId)) {
+			return false;
+		}
+
+		$post = self::find()->id($postId)->one();
+
+		return ($post->post_status_id == PostStatus::PUBLISHED);
+	}
+
+	/**
 	 * This method will update the post entry. It will first make sure the post ID exists, then verify that the category
 	 * ID and post status ID also exists in database, then the entry will be updated.
 	 *
