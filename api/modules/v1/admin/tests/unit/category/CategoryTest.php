@@ -12,6 +12,8 @@ use Faker\Factory as Faker;
  * Class CategoryTest
  *
  * @package app\modules\v1\admin\tests\category
+ *
+ * @group   category
  */
 class CategoryTest extends \Codeception\Test\Unit
 {
@@ -239,14 +241,25 @@ class CategoryTest extends \Codeception\Test\Unit
 			$this->tester->assertEquals(CategoryEx::ERROR, $result[ "status" ]);
 			$this->tester->assertEquals(CategoryEx::ERR_NOT_FOUND, $result[ "error" ]);
 		});
+		$this->specify("not delete an active category", function () {
+			$model  = $this->tester->grabFixture("category", "nopostactive");
+			$result = CategoryEx::deleteWithTranslations($model->id);
+
+			$this->tester->assertEquals(CategoryEx::ERROR, $result[ "status" ]);
+			$this->tester->assertEquals(CategoryEx::ERR_DELETE_ACTIVE, $result[ "error" ]);
+		});
 		$this->specify("not delete a category with associated post", function () {
-			$this->tester->fail("not implemented");
+			$model  = $this->tester->grabFixture("category", "inactive");
+			$result = CategoryEx::deleteWithTranslations($model->id);
+
+			$this->tester->assertEquals(CategoryEx::ERROR, $result[ "status" ]);
+			$this->tester->assertEquals(CategoryEx::ERR_DELETE_POSTS, $result[ "error" ]);
 		});
 		$this->specify("delete category with all translations", function () {
-			$this->model = $this->tester->grabFixture("category", "inactive");
+			$this->model = $this->tester->grabFixture("category", "nopost");
 
 			$this->tester->canSeeNumRecords(1, CategoryEx::tableName(), [ "id" => $this->model->id ]);
-			$this->tester->canSeeNumRecords(2, CategoryLangEx::tableName(), [ "category_id" => $this->model->id ]);
+			$this->tester->canSeeNumRecords(1, CategoryLangEx::tableName(), [ "category_id" => $this->model->id ]);
 
 			$result = CategoryEx::deleteWithTranslations($this->model->id);
 
@@ -256,7 +269,7 @@ class CategoryTest extends \Codeception\Test\Unit
 			$this->tester->canSeeNumRecords(0, CategoryLangEx::tableName(), [ "category_id" => $this->model->id ]);
 		});
 		$this->specify("delete category with no translations", function () {
-			$this->model = $this->tester->grabFixture("category", "nolang");
+			$this->model = $this->tester->grabFixture("category", "nopostlang");
 
 			$this->tester->canSeeNumRecords(1, CategoryEx::tableName(), [ "id" => $this->model->id ]);
 			$this->tester->canSeeNumRecords(0, CategoryLangEx::tableName(), [ "category_id" => $this->model->id ]);
