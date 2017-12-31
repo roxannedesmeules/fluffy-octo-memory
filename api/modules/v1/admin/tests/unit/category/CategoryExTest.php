@@ -9,13 +9,13 @@ use app\modules\v1\admin\tests\_support\_fixtures\CategoryLangExFixture;
 use Faker\Factory as Faker;
 
 /**
- * Class CategoryTest
+ * Class CategoryExTest
  *
  * @package app\modules\v1\admin\tests\category
  *
  * @group   category
  */
-class CategoryTest extends \Codeception\Test\Unit
+class CategoryExTest extends \Codeception\Test\Unit
 {
 	use \Codeception\Specify;
 
