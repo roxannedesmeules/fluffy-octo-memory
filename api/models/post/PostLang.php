@@ -45,8 +45,8 @@ class PostLang extends PostLangBase
 		//  create translation with all attributes from data
 		$model = new self();
 
-		$model->post_id = $postId;
-		$model->lang_id = $langId;
+		$model->post_id = (int) $postId;
+		$model->lang_id = (int) $langId;
 		$model->title   = ArrayHelperEx::getValue($data, "title");
 		$model->slug    = ArrayHelperEx::getValue($data, "slug");
 		$model->content = ArrayHelperEx::getValue($data, "content");
