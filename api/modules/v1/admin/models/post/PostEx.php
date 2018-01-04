@@ -1,5 +1,5 @@
 <?php
-namespace app\modules\v1\admin\models\posts;
+namespace app\modules\v1\admin\models\post;
 
 use app\components\validators\ArrayUniqueValidator;
 use app\components\validators\TranslationValidator;
@@ -12,7 +12,7 @@ use app\models\post\PostStatus;
 /**
  * Class PostEx
  *
- * @package app\modules\v1\admin\models\posts
+ * @package app\modules\v1\admin\models\post
  *
  * @SWG\Definition(
  *     definition = "PostList",
