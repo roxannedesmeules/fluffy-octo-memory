@@ -1,21 +1,21 @@
 {
-	"extends"         : "../tsconfig.json",
-	"compilerOptions" : {
-		"outDir"  : "../out-tsc/app",
-		"baseUrl" : "./",
-		"module"  : "es2015",
-		"types"   : [ ],
-		"paths" : {
-			"core/*"       : [ "app/core/*" ],
-			"components/*" : [ "app/components/*" ],
-			"widgets/*"    : [ "app/widgets/*" ],
-			"services/*"   : [ "app/shared/services/*" ],
-			"models/*"     : [ "app/shared/models/*" ],
-			"node/*"       : [ "../node_modules/*" ]
-		}
-	},
-	"exclude"         : [
-		"test.ts",
-		"**/*.spec.ts"
-	]
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../out-tsc/app",
+    "module": "es2015",
+    "baseUrl": "./",
+    "types": [],
+    "paths": {
+      "@angular/*": [
+        "../node_modules/@angular/*"
+      ],
+      "@nebular/*": [
+        "../node_modules/@nebular/*"
+      ]
+    }
+  },
+  "exclude": [
+    "test.ts",
+    "**/*.spec.ts"
+  ]
 }

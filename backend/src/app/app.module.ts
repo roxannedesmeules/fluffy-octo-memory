@@ -1,59 +1,36 @@
-//  Angular Core
-import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
-import { HttpModule } from "@angular/http";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+/**
+ * @license
+ * Copyright Akveo. All Rights Reserved.
+ * Licensed under the MIT License. See License.txt in the project root for license information.
+ */
+import { APP_BASE_HREF } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgModule } from '@angular/core';
+import { HttpModule } from '@angular/http';
+import { CoreModule } from './@core/core.module';
 
-//  Library Modules
-import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
-
-//  Application Modules
-import { AppRoutingModule } from "./app-routing.module";
-import { CoreModule } from "./core/core.module";
-import { ComponentsModule } from "./components/components.module";
-
-//  Application components
-import { AppComponent } from "./app.component";
-
-//  Widgets
-import { LoggerModule } from "./widgets/logger/logger.module";
-
-//  Providers
-import { HttpExProvider } from "./shared/helpers/http-ex";
-import { UserService } from "services/user/user.service";
-import { AuthService } from "services/user/auth.service";
-import { AuthGuard } from "./shared/helpers/guards/auth.guard";
-import { LangService } from "services/lang/lang.service";
+import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+import { ThemeModule } from './@theme/theme.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
-	imports      : [
-		//  angular
-		BrowserModule,
-		BrowserAnimationsModule,
-		HttpModule,
+  declarations: [AppComponent],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    HttpModule,
+    AppRoutingModule,
 
-		//  library
-		NgbModule.forRoot(),
-
-		//  application modules
-		AppRoutingModule,
-		CoreModule,
-		ComponentsModule,
-
-		//  Widgets
-		LoggerModule,
-	],
-	declarations : [
-		AppComponent,
-	],
-	providers    : [
-		HttpExProvider,
-		UserService,
-		AuthService,
-		AuthGuard,
-		LangService,
-	],
-	bootstrap    : [ AppComponent ],
+    NgbModule.forRoot(),
+    ThemeModule.forRoot(),
+    CoreModule.forRoot(),
+  ],
+  bootstrap: [AppComponent],
+  providers: [
+    { provide: APP_BASE_HREF, useValue: '/' },
+  ],
 })
 export class AppModule {
 }

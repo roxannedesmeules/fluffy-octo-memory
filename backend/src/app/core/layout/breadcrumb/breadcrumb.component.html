@@ -1,9 +1,0 @@
-<ol class="breadcrumb">
-	<li class="breadcrumb-item"><a routerLink="/">Dashboard</a></li>
-	<li *ngFor="let crumb of breadcrumb"
-	    class="breadcrumb-item" [class.active]="crumb.isActive">
-		
-		<a *ngIf="crumb.link !== ''" [routerLink]="crumb.link"> {{ crumb.name }} </a>
-		<span *ngIf="crumb.link === ''">{{ crumb.name }}</span>
-	</li>
-</ol>
