@@ -25,12 +25,7 @@ import {
 	TinyMCEComponent,
 } from "./components";
 import { CapitalizePipe, PluralPipe, RoundPipe, TimingPipe } from "./pipes";
-import {
-	OneColumnLayoutComponent,
-	SampleLayoutComponent,
-	ThreeColumnsLayoutComponent,
-	TwoColumnsLayoutComponent,
-} from "./layouts";
+import { OneColumnLayoutComponent } from "./layouts";
 
 const BASE_MODULES = [ CommonModule, FormsModule, ReactiveFormsModule ];
 
@@ -55,9 +50,6 @@ const COMPONENTS = [
 	ThemeSettingsComponent,
 	TinyMCEComponent,
 	OneColumnLayoutComponent,
-	SampleLayoutComponent,
-	ThreeColumnsLayoutComponent,
-	TwoColumnsLayoutComponent,
 ];
 
 const PIPES = [
