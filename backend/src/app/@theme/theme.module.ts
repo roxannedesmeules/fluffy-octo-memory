@@ -21,7 +21,6 @@ import {
 	FooterComponent,
 	HeaderComponent,
 	SearchInputComponent,
-	ThemeSettingsComponent,
 	TinyMCEComponent,
 } from "./components";
 import { CapitalizePipe, PluralPipe, RoundPipe, TimingPipe } from "./pipes";
@@ -47,7 +46,6 @@ const COMPONENTS = [
 	HeaderComponent,
 	FooterComponent,
 	SearchInputComponent,
-	ThemeSettingsComponent,
 	TinyMCEComponent,
 	OneColumnLayoutComponent,
 ];
