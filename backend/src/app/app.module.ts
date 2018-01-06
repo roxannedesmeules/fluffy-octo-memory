@@ -7,6 +7,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 
 // third party modules
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { ToasterModule } from "angular2-toaster";
 
 // application modules
 import { AppRoutingModule } from "./app-routing.module";
@@ -32,6 +33,8 @@ import { HttpExInterceptor } from "@core/utils/http-ex.interceptor";
 		ReactiveFormsModule,
 
 		AppRoutingModule,
+
+		ToasterModule,
 
 		NgbModule.forRoot(),
 		ThemeModule.forRoot(),

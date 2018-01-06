@@ -1,11 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { ErrorResponse } from "@core/data/error-response.model";
 
+import { Toast, ToasterService } from "angular2-toaster";
 import { AuthService } from "@core/data/users/auth.service";
 import { UserService } from "@core/data/users/user.service";
 import { UserAuthForm } from "@core/data/users/auth.form";
+import { ErrorResponse } from "@core/data/error-response.model";
 
 @Component({
 	selector    : "ngx-login",
@@ -22,6 +23,7 @@ export class LoginComponent implements OnInit {
 
 	constructor ( private _builder: FormBuilder,
 				  private _router: Router,
+				  private toastService: ToasterService,
 				  private authService: AuthService,
 				  private userService: UserService ) { }
 
@@ -56,11 +58,15 @@ export class LoginComponent implements OnInit {
 		this.authService
 				.login(new UserAuthForm(this.form.getRawValue()))
 				.then(( result: any ) => {
+					this.submitted = false;
+
 					this.userService.saveAppUser(this.authService.mapModel(result));
 					this._router.navigate([ "/" ]);
 				})
 				.catch(( error: ErrorResponse ) => {
-					console.log(error);
+					this.submitted = false;
+
+					this.toastService.pop(<Toast> { type : "error", title : null, body : error.message });
 				});
 	}
 
