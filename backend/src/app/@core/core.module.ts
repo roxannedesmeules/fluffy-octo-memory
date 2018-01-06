@@ -1,5 +1,6 @@
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { RegularAuthGuard } from "@core/guards/regular-auth.guard";
 
 import { throwIfAlreadyLoaded } from "./module-import-guard";
 import { DataModule } from "./data/data.module";
@@ -11,6 +12,7 @@ import { UserService } from "@core/data/users/user.service";
 const NB_CORE_PROVIDERS = [
 	... DataModule.forRoot().providers,
 	AnalyticsService,
+	RegularAuthGuard,
 	AuthService,
 	UserService,
 ];
