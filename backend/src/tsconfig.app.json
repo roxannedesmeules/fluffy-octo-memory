@@ -19,6 +19,9 @@
 			],
 			"env/*"      : [
 				"./environments/*"
+			],
+			"@admin/*"   : [
+				"./app/admin/*"
 			]
 		}
 	},

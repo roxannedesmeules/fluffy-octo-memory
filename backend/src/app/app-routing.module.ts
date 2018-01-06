@@ -2,10 +2,16 @@ import { ExtraOptions, RouterModule, Routes } from "@angular/router";
 import { NgModule } from "@angular/core";
 
 const routes: Routes = [
-	{ path : "", loadChildren : "app/session/session.module#SessionModule" },
-	{ path : "pages", loadChildren : "app/pages/pages.module#PagesModule" },
-	{ path : "", redirectTo : "pages", pathMatch : "full" },
-	{ path : "**", redirectTo : "pages" },
+	{
+		path         : "",
+		loadChildren : "app/session/session.module#SessionModule",
+	},
+	{
+		path         : "admin",
+		loadChildren : "app/admin/admin.module#AdminModule",
+	},
+
+	{ path : "", redirectTo : "admin", pathMatch : "full" },
 ];
 
 const config: ExtraOptions = {
