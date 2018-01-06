@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit {
 					this.submitted = false;
 
 					this.userService.saveAppUser(this.authService.mapModel(result));
-					this._router.navigate([ "/" ]);
+					// this._router.navigate([ "/" ]);
 				})
 				.catch(( error: ErrorResponse ) => {
 					this.submitted = false;

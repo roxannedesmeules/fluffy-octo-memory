@@ -1,5 +1,5 @@
 import { Inject, Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 
 import { ErrorResponse } from "./error-response.model";
 
@@ -61,10 +61,10 @@ export abstract class BaseService {
 	}
 
 	protected _parseResponseBody (response: any) {
-		return new Promise(( resolve, reject ) => { resolve(response._body); });
+		return new Promise(( resolve, reject ) => { resolve(response); });
 	}
 
-	protected _parseErrorBody (error: any) {
+	protected _parseErrorBody ( error: HttpErrorResponse ) {
 		return new Promise(( resolve, reject ) => { reject(new ErrorResponse(error.error)); });
 	}
 
