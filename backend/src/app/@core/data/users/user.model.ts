@@ -24,7 +24,7 @@ export class User {
 		this.is_locked = true;
 	}
 
-	public unlockSession () {
-		this.is_locked = false;
+	public isSessionLock () {
+		return this.is_locked;
 	}
 }
