@@ -1,5 +1,7 @@
 import { Component } from "@angular/core";
 
+import { environment } from "../../../../environments/environment";
+
 @Component({
 	selector    : "ngx-footer",
 	styleUrls   : [ "./footer.component.scss" ],
@@ -7,6 +9,6 @@ import { Component } from "@angular/core";
 })
 export class FooterComponent {
 
-	public version = "0.2.0";
+	public version = environment.version;
 
 }
