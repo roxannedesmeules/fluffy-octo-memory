@@ -9,7 +9,7 @@ export const environment = {
 	version    : "0.2.0",
 
 	api : {
-		url          : "http://api.website.local/v1/admin",
-		client_token : "z2B1E68QXtGvQieIsom00ycoAe7P7-T0",
+		url          : "http://api.blog.local/v1/admin",
+		client_token : "GHnbVRwZFiMwTJX6TGU-KDutPXbbPYWR",
 	},
 };

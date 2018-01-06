@@ -20,7 +20,11 @@
 				"name" : "tslint-language-service"
 			}
 		],
-		"paths" : {
+		"baseUrl"                : "./",
+		"paths"                  : {
+			"env/*"    : [
+				"./src/environments/*"
+			],
 			"@pages/*" : [ "./src/app/pages/*" ],
 			"@core/*"  : [ "./src/app/@core/*" ],
 			"@theme/*" : [ "./src/app/@theme/*" ]

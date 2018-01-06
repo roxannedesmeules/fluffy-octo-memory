@@ -61,11 +61,11 @@ export abstract class BaseService {
 	}
 
 	protected _parseResponseBody (response: any) {
-		return new Promise((resolve, reject) => { resolve(JSON.parse(response._body)); });
+		return new Promise(( resolve, reject ) => { resolve(response._body); });
 	}
 
 	protected _parseErrorBody (error: any) {
-		return new Promise((resolve, reject) => { reject(new ErrorResponse(JSON.parse(error._body))); });
+		return new Promise(( resolve, reject ) => { reject(new ErrorResponse(error.error)); });
 	}
 
 	mapListToModelList (list: any) {

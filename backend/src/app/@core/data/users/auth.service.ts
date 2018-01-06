@@ -24,7 +24,7 @@ export class AuthService extends BaseService {
 	 * @return {Promise<any>}
 	 */
 	public login (body: UserAuthForm): Promise<any> {
-		return this.create(body).then(this._parseResponseBody).catch(this._parseErrorBody);
+		return this.create(body);
 	}
 
 	/**
@@ -69,11 +69,7 @@ export class AuthService extends BaseService {
 	 * @return {boolean}
 	 */
 	public isLoggedIn () {
-		if (this.userService.getAppUser()) {
-			return true;
-		} else {
-			return false;
-		}
+		return (this.userService.getAppUser()) ? true : false;
 	}
 
 	/**

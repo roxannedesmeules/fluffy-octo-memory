@@ -1,5 +1,11 @@
 import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { ErrorResponse } from "@core/data/error-response.model";
+
+import { AuthService } from "@core/data/users/auth.service";
+import { UserService } from "@core/data/users/user.service";
+import { UserAuthForm } from "@core/data/users/auth.form";
 
 @Component({
 	selector    : "ngx-login",
@@ -14,7 +20,10 @@ export class LoginComponent implements OnInit {
 
 	public form: FormGroup;
 
-	constructor (private _builder: FormBuilder, private _service: any) { }
+	constructor ( private _builder: FormBuilder,
+				  private _router: Router,
+				  private authService: AuthService,
+				  private userService: UserService ) { }
 
 	ngOnInit () {
 		this._createForm();
@@ -40,7 +49,19 @@ export class LoginComponent implements OnInit {
 
 		this.submitted = true;
 
-		this._service.login();
+		if (this.form.invalid) {
+			return;
+		}
+
+		this.authService
+				.login(new UserAuthForm(this.form.getRawValue()))
+				.then(( result: any ) => {
+					this.userService.saveAppUser(this.authService.mapModel(result));
+					this._router.navigate([ "/" ]);
+				})
+				.catch(( error: ErrorResponse ) => {
+					console.log(error);
+				});
 	}
 
 	/**

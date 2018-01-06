@@ -8,9 +8,18 @@
 		"paths"   : {
 			"@angular/*" : [ "../node_modules/@angular/*" ],
 			"@nebular/*" : [ "../node_modules/@nebular/*" ],
-			"@pages/*"   : [ "app/pages/*" ],
-			"@core/*"    : [ "app/@core/*" ],
-			"@theme/*"   : [ "app/@theme/*" ]
+			"@pages/*"   : [
+				"./app/pages/*"
+			],
+			"@core/*"    : [
+				"./app/@core/*"
+			],
+			"@theme/*"   : [
+				"./app/@theme/*"
+			],
+			"env/*"      : [
+				"./environments/*"
+			]
 		}
 	},
 	"exclude"         : [

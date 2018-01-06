@@ -5,9 +5,14 @@ import { throwIfAlreadyLoaded } from "./module-import-guard";
 import { DataModule } from "./data/data.module";
 import { AnalyticsService } from "./utils/analytics.service";
 
+import { AuthService } from "@core/data/users/auth.service";
+import { UserService } from "@core/data/users/user.service";
+
 const NB_CORE_PROVIDERS = [
 	... DataModule.forRoot().providers,
 	AnalyticsService,
+	AuthService,
+	UserService,
 ];
 
 @NgModule({
