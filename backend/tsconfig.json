@@ -32,6 +32,9 @@
 			],
 			"@admin/*" : [
 				"./src/app/admin/*"
+			],
+			"@shared/*" : [
+				"./src/app/@shared/*"
 			]
 		}
 	}

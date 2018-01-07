@@ -22,6 +22,9 @@
 			],
 			"@admin/*"   : [
 				"./app/admin/*"
+			],
+			"@shared/*"  : [
+				"./app/@shared/*"
 			]
 		}
 	},
