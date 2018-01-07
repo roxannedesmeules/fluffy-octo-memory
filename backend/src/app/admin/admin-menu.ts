@@ -9,12 +9,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
 	},
 	{
 		title    : "Categories",
-		icon     : "nb-list",
-		link     : "/admin/categories",
+		icon     : "nb-grid-b-outline",
+		link     : "/admin/category",
 		children : [
-			{ title : "Create category", link : "/admin/categories/create" },
-			{ title : "View all", link : "/admin/categories" },
-			{ title : "View active", link : "/admin/categories" },
+			{ title : "Create category", link : "/admin/category/create" },
+			{ title : "View all", link : "/admin/category/list" },
 		],
 	},
 	{
@@ -22,9 +21,8 @@ export const MENU_ITEMS: NbMenuItem[] = [
 		icon     : "nb-compose",
 		link     : "/admin/posts",
 		children : [
-			{ title : "Create post", link : "/admin/posts/create" },
-			{ title : "View all", link : "/admin/posts" },
-			{ title : "View published", link : "/admin/posts" },
+			{ title : "Create post", link : "/admin/post/create" },
+			{ title : "View all", link : "/admin/post" },
 		],
 	},
 ];

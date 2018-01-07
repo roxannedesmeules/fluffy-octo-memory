@@ -9,6 +9,7 @@ import { AnalyticsService } from "./utils/analytics.service";
 
 import { AuthService } from "@core/data/users/auth.service";
 import { UserService } from "@core/data/users/user.service";
+import { CategoryService } from "@core/data/categories/category.service";
 
 const NB_CORE_PROVIDERS = [
 	... DataModule.forRoot().providers,
@@ -17,6 +18,7 @@ const NB_CORE_PROVIDERS = [
 
 	AuthService,
 	UserService,
+	CategoryService,
 ];
 
 @NgModule({

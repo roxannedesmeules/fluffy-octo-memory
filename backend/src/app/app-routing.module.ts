@@ -3,7 +3,7 @@ import { NgModule } from "@angular/core";
 
 const routes: Routes = [
 	{
-		path         : "",
+		path         : "auth",
 		loadChildren : "app/session/session.module#SessionModule",
 	},
 	{
@@ -11,7 +11,7 @@ const routes: Routes = [
 		loadChildren : "app/admin/admin.module#AdminModule",
 	},
 
-	{ path : "", redirectTo : "admin", pathMatch : "full" },
+	{ path : "", redirectTo : "admin/dashboard", pathMatch : "full" },
 ];
 
 const config: ExtraOptions = {

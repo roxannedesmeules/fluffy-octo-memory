@@ -15,8 +15,8 @@ const routes: Routes = [
 				path      : "dashboard",
 				component : DashboardComponent,
 			}, {
-				path         : "categories",
-				loadChildren : "",
+				path         : "category",
+				loadChildren : "./category/category.module#CategoryModule",
 			}, {
 				path       : "",
 				redirectTo : "dashboard",
