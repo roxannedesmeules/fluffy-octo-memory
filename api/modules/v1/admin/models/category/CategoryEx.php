@@ -169,7 +169,7 @@ class CategoryEx extends Category
 	 */
 	public static function getOneWithTranslations ( $categoryId )
 	{
-		return self::find()->id($categoryId)->withTranslations()->all();
+		return self::find()->id($categoryId)->withTranslations()->one();
 	}
 	
 	/**
