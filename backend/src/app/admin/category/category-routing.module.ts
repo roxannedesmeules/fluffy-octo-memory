@@ -1,11 +1,16 @@
-import { CategoryComponent } from "@admin/category/category.component";
-import { ListComponent } from "@admin/category/list/list.component";
-import { ListResolve } from "@admin/category/list/list.resolve";
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
+import { CategoryComponent } from "@admin/category/category.component";
+import { DetailComponent } from "@admin/category/detail/detail.component";
+import { ListComponent } from "@admin/category/list/list.component";
+
+import { ListResolve } from "@admin/category/list/list.resolve";
+import { LanguageResolve } from "@shared/resolver/language.resolve";
+
 const RESOLVERS = [
 	ListResolve,
+	LanguageResolve,
 ];
 
 const routes: Routes = [
@@ -17,9 +22,11 @@ const routes: Routes = [
 				path      : "list",
 				component : ListComponent,
 				resolve   : { list : ListResolve },
-			}, /*{
-			 path : "create",
-			 },*/
+			}, {
+				path      : "create",
+				component : DetailComponent,
+				resolve   : { languages : LanguageResolve },
+			},
 		],
 	},
 ];
