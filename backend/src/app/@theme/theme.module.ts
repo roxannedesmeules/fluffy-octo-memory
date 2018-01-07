@@ -25,6 +25,7 @@ import {
 } from "./components";
 import { CapitalizePipe, PluralPipe, RoundPipe, TimingPipe } from "./pipes";
 import { OneColumnLayoutComponent } from "./layouts";
+import { PageHeaderComponent } from "./components/page-header/page-header.component";
 
 const BASE_MODULES = [ CommonModule, FormsModule, ReactiveFormsModule ];
 
@@ -48,6 +49,7 @@ const COMPONENTS = [
 	SearchInputComponent,
 	TinyMCEComponent,
 	OneColumnLayoutComponent,
+	PageHeaderComponent,
 ];
 
 const PIPES = [
@@ -66,7 +68,7 @@ const NB_THEME_PROVIDERS = [
 @NgModule({
 	imports      : [ ... BASE_MODULES, ... NB_MODULES ],
 	exports      : [ ... BASE_MODULES, ... NB_MODULES, ... COMPONENTS, ... PIPES ],
-	declarations : [ ... COMPONENTS, ... PIPES ],
+	declarations : [ ... COMPONENTS, ... PIPES, PageHeaderComponent ],
 })
 export class ThemeModule {
 	static forRoot (): ModuleWithProviders {
