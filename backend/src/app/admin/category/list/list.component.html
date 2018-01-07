@@ -1,0 +1,40 @@
+<ngx-page-header title="Categories" subtitle="List of categories"></ngx-page-header>
+
+<div class="row">
+	<div class="col-12">
+		<nb-card>
+			<nb-card-body class="px-0 table-responsive">
+				<table class="table table-striped">
+					<thead>
+					<tr>
+						<th scope="col" width="10%" class="action-create">
+							<a routerLink="/admin/category/create" class="btn btn-hero-primary btn-block btn-tn">
+								Create </a>
+						</th>
+						<th scope="col" width="10%">ID</th>
+						<th scope="col" width="25%">Name</th>
+						<th scope="col" width="20%">Languages</th>
+						<th scope="col" width="15%">Active</th>
+						<th scope="col" width="20%">Last update</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr *ngFor="let category of list">
+						<td scope="row" class="p-0 pt-1">
+							<nb-actions size="medium">
+								<nb-action icon="nb-edit"></nb-action>
+								<nb-action icon="nb-trash"></nb-action>
+							</nb-actions>
+						</td>
+						<td> {{ category.id }}</td>
+						<td> {{ category.translations[ 0 ].name }}</td>
+						<td> {{ category.translations[ 0 ].language }}</td>
+						<td> {{ category.is_active }}</td>
+						<td> {{ category.updated_on || 'never' }}</td>
+					</tr>
+					</tbody>
+				</table>
+			</nb-card-body>
+		</nb-card>
+	</div>
+</div>

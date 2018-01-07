@@ -1,3 +1,4 @@
+
 // The file contents for the current environment will overwrite these during build.
 // The build system defaults to the dev environment which uses `environment.ts`, but if you do
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
@@ -5,9 +6,10 @@
 
 export const environment = {
 	production : false,
+	version    : "0.2.0",
 
 	api : {
-		url          : "http://api.website.dev/v1/admin",
-		client_token : "H-uMZVpndft3RlODwzCJJOn0vbt_5rSm",
+		url          : "http://api.blog.local/v1/admin",
+		client_token : "GHnbVRwZFiMwTJX6TGU-KDutPXbbPYWR",
 	},
 };

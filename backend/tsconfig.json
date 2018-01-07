@@ -15,14 +15,27 @@
 			"es2017",
 			"dom"
 		],
-		"baseUrl" : ".",
-		"paths" : {
-			"core/*"       : [ "src/app/core/*" ],
-			"components/*" : [ "src/app/components/*" ],
-			"widgets/*"    : [ "src/app/widgets/*" ],
-			"services/*"   : [ "src/app/shared/services/*" ],
-			"models/*"     : [ "src/app/shared/models/*" ],
-			"node/*"       : [ "node_modules/*" ]
+		"plugins"                : [
+			{
+				"name" : "tslint-language-service"
+			}
+		],
+		"baseUrl"                : "./",
+		"paths"                  : {
+			"env/*" : [
+				"./src/environments/*"
+			],
+			"@pages/*" : [ "./src/app/pages/*" ],
+			"@core/*" : [ "./src/app/@core/*" ],
+			"@theme/*" : [
+				"./src/app/@theme/*"
+			],
+			"@admin/*" : [
+				"./src/app/admin/*"
+			],
+			"@shared/*" : [
+				"./src/app/@shared/*"
+			]
 		}
 	}
 }

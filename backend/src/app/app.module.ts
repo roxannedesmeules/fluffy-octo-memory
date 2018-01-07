@@ -1,59 +1,50 @@
-//  Angular Core
+// angular core
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-import { HttpModule } from "@angular/http";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 
-//  Library Modules
+// third party modules
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { ToasterModule } from "angular2-toaster";
 
-//  Application Modules
+// application modules
 import { AppRoutingModule } from "./app-routing.module";
-import { CoreModule } from "./core/core.module";
-import { ComponentsModule } from "./components/components.module";
+import { ThemeModule } from "@theme/theme.module";
+import { CoreModule } from "@core/core.module";
 
-//  Application components
+// application components
 import { AppComponent } from "./app.component";
 
-//  Widgets
-import { LoggerModule } from "./widgets/logger/logger.module";
+// application widgets
 
-//  Providers
-import { HttpExProvider } from "./shared/helpers/http-ex";
-import { UserService } from "services/user/user.service";
-import { AuthService } from "services/user/auth.service";
-import { AuthGuard } from "./shared/helpers/guards/auth.guard";
-import { LangService } from "services/lang/lang.service";
+// providers
+import { APP_BASE_HREF } from "@angular/common";
+import { HttpExInterceptor } from "@core/utils/http-ex.interceptor";
 
 @NgModule({
+	bootstrap    : [ AppComponent ],
 	imports      : [
-		//  angular
 		BrowserModule,
 		BrowserAnimationsModule,
-		HttpModule,
+		HttpClientModule,
+		FormsModule,
+		ReactiveFormsModule,
 
-		//  library
-		NgbModule.forRoot(),
-
-		//  application modules
 		AppRoutingModule,
-		CoreModule,
-		ComponentsModule,
 
-		//  Widgets
-		LoggerModule,
+		ToasterModule,
+
+		NgbModule.forRoot(),
+		ThemeModule.forRoot(),
+		CoreModule.forRoot(),
 	],
-	declarations : [
-		AppComponent,
-	],
+	declarations : [ AppComponent ],
 	providers    : [
-		HttpExProvider,
-		UserService,
-		AuthService,
-		AuthGuard,
-		LangService,
+		{ provide : HTTP_INTERCEPTORS, useClass : HttpExInterceptor, multi : true },
+		{ provide : APP_BASE_HREF, useValue : "/" },
 	],
-	bootstrap    : [ AppComponent ],
 })
 export class AppModule {
 }
