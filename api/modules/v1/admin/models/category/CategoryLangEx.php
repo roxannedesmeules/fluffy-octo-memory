@@ -50,14 +50,28 @@ class CategoryLangEx extends CategoryLang
 		return [
 			[ "lang_id", "required", "message" => self::ERR_FIELD_REQUIRED ],
 			[ "lang_id", "exist", 'targetClass' => Lang::className(), "targetAttribute" => [ "lang_id" => "id" ], "message" => self::ERR_FIELD_NOT_FOUND ],
-			
+
 			[ "name", "required", "message" => self::ERR_FIELD_REQUIRED ],
 			[ "name", "string", "max" => 255, "message" => self::ERR_FIELD_TYPE, "tooLong" => self::ERR_FIELD_TOO_LONG ],
-			[ "name", "unique", "targetAttribute" => [ "name", "lang_id" ], "message" => self::ERR_FIELD_NOT_UNIQUE ],
-			
+			[
+				"name",
+				"unique",
+				"targetAttribute" => [ "name", "lang_id" ],
+				"message"         => self::ERR_FIELD_NOT_UNIQUE,
+				"on"              => "update",
+				"when"            => function ( self $model ) { return $model->isAttributeChanged("name"); },
+			],
+
 			[ "slug", "required", "message" => self::ERR_FIELD_REQUIRED ],
 			[ "slug", "string", "max" => 255, "message" => self::ERR_FIELD_TYPE, "tooLong" => self::ERR_FIELD_TOO_LONG ],
-			[ "slug", "unique", "targetAttribute" => [ "slug", "lang_id" ], "message" => self::ERR_FIELD_NOT_UNIQUE ],
+			[
+				"slug",
+				"unique",
+				"targetAttribute" => [ "slug", "lang_id" ],
+				"message"         => self::ERR_FIELD_NOT_UNIQUE,
+				"on"              => "update",
+				"when"            => function ( self $model ) { return $model->isAttributeChanged("name"); },
+			],
 		];
 	}
 	
