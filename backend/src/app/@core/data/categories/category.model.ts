@@ -26,9 +26,9 @@ export class Category {
 	 * @param list
 	 * @return {CategoryLang[]}
 	 */
-	mapTranslations ( list: any ): CategoryLang[] {
+	mapTranslations ( list: any[] ): CategoryLang[] {
 		list.forEach(( val, idx ) => {
-			list[ idx ] = this.translationModel(val);
+			list[ idx ] = Category.translationModel(val);
 		});
 
 		return list;
@@ -39,8 +39,34 @@ export class Category {
 	 * @param model
 	 * @return {CategoryLang}
 	 */
-	translationModel ( model: any ): CategoryLang {
+	static translationModel ( model: any ): CategoryLang {
 		return new CategoryLang(model);
+	}
+
+	/**
+	 *
+	 * @param {number | string} lang
+	 *
+	 * @return {CategoryLang}
+	 */
+	findTranslation ( lang: number | string ) {
+		let result = new CategoryLang();
+
+		if (!this.translations) {
+			return result;
+		}
+
+		this.translations.forEach(( val ) => {
+			if (typeof lang === "string" && val.language === lang) {
+				result = val;
+			}
+
+			if (typeof lang === "number" && val.lang_id === lang) {
+				result = val;
+			}
+		});
+
+		return result;
 	}
 
 	/**
@@ -61,9 +87,9 @@ export class Category {
 	 * @return {CategoryLang[]}
 	 */
 	mapFormTranslations ( list: any ): CategoryLang[] {
-		let result: CategoryLang[] = [];
+		const result: CategoryLang[] = [];
 
-		list.forEach(( val, idx ) => {
+		list.forEach(( val ) => {
 			if (val.name || val.slug) {
 				result.push(this.translationModel(val));
 			}

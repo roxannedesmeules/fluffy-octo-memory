@@ -13,5 +13,6 @@ const SHARED_PIPES = [
 	],
 	declarations : [ ... SHARED_PIPES ],
 	exports      : [ ... SHARED_PIPES ],
+	providers    : [ ... SHARED_PIPES ],
 })
 export class PipesModule {}
