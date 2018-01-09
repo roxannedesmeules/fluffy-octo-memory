@@ -1,11 +1,14 @@
 import { Component, OnInit } from "@angular/core";
 import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
-import { Category } from "@core/data/categories/category.model";
+
+import { ToasterService } from "angular2-toaster";
 import { CategoryService } from "@core/data/categories/category.service";
-import { ErrorResponse } from "@core/data/error-response.model";
 
 import { Lang } from "@core/data/languages/lang.model";
+import { Category } from "@core/data/categories/category.model";
+import { ErrorResponse } from "@core/data/error-response.model";
+import { AtIndexOfPipe } from "@shared/pipes/at-index-of.pipe";
 
 @Component({
 	selector    : "ngx-category-detail",
@@ -14,19 +17,28 @@ import { Lang } from "@core/data/languages/lang.model";
 })
 export class DetailComponent implements OnInit {
 
-	public languages: Lang[] = [];
+	public title    = "Categories";
+	public subtitle = "Create a new category";
+
+	public category: Category;
+	public languages: Lang[];
 
 	public form: FormGroup;
 	public errors: any = {};
 
 	constructor ( private _route: ActivatedRoute,
 				  private _builder: FormBuilder,
+				  private atIndexOf: AtIndexOfPipe,
+				  private toastService: ToasterService,
 				  private service: CategoryService ) { }
 
 	ngOnInit () {
-		this.languages = this._route.snapshot.data[ "languages" ];
-
+		this._setData();
 		this._createForm();
+
+		if (!this.isCreate()) {
+			this.subtitle = `Update category #${this.category.id}`;
+		}
 	}
 
 	/**
@@ -36,15 +48,16 @@ export class DetailComponent implements OnInit {
 	 */
 	private _createForm () {
 		this.form = this._builder.group({
-			is_active    : this._builder.control(0, [ Validators.required ]),
+			is_active    : this._builder.control(this.category.is_active, [ Validators.required ]),
 			translations : this._builder.array([]),
 		});
 
 		this.languages.forEach(( val ) => {
-			const control = this._builder.group({
+			const translation = this.category.findTranslation(val.icu);
+			const control     = this._builder.group({
 				lang_id : this._builder.control(val.id, [ Validators.required ]),
-				name    : this._builder.control("", [ Validators.required ]),
-				slug    : this._builder.control("", [ Validators.required ]),
+				name    : this._builder.control(translation.name, [ Validators.required ]),
+				slug    : this._builder.control(translation.slug, [ Validators.required ]),
 			});
 
 			this.getTranslations().push(control);
@@ -72,20 +85,8 @@ export class DetailComponent implements OnInit {
 		return this.form.get("translations") as FormArray;
 	}
 
-	/**
-	 * Verify if the field passed was touched and is still invalid.
-	 *
-	 * @param {string} field
-	 * @param {FormGroup} translation
-	 *
-	 * @return {boolean}
-	 */
-	public showError ( field: string, translation?: FormGroup ): boolean {
-		if (translation) {
-			return (translation.get(field).touched && translation.get(field).invalid);
-		}
-
-		return (this.form.get(field).touched && this.form.get(field).invalid);
+	public isCreate () {
+		return (typeof this.category === "undefined" || typeof this.category.id === "undefined");
 	}
 
 	/**
@@ -94,17 +95,56 @@ export class DetailComponent implements OnInit {
 	public save () {
 		this.errors = [];
 
+		let req  = null;
+		let msg  = "Changes to category where correctly saved";
 		let body = new Category();
 		body     = body.form(this.form.getRawValue());
 
-		this.service
-				.create(body)
-				.then(( result: any ) => {
-					console.log(result);
-				})
+		if (this.isCreate()) {
+			req = this.service.create(body);
+			msg = "A new category was successfully created";
+		} else {
+			req = this.service.update(this.category.id, body);
+			msg = `Category #${this.category.id} was successfully updated`;
+		}
+
+		req.then(( result: any ) => {
+			this.toastService.popAsync("success", "Yeah!", msg);
+		})
 				.catch(( error: ErrorResponse ) => {
 					this.errors = error.form_error;
+
+					this.toastService.popAsync("error", "Please try again...", "Check the form to correct these errors.");
 				});
+	}
+
+	/**
+	 *
+	 * @private
+	 */
+	private _setData () {
+		const routeLanguages = this._route.snapshot.data[ "languages" ];
+		const routeCategory  = this._route.snapshot.data[ "category" ];
+
+		this.languages = (routeLanguages) ? routeLanguages : [];
+		this.category  = (routeCategory) ? routeCategory : new Category();
+	}
+
+	/**
+	 * Verify if the field passed was touched and is still invalid.
+	 *
+	 * @param {string} field
+	 * @param {FormGroup} translation
+	 * @param {number} idx
+	 *
+	 * @return {boolean}
+	 */
+	public showError ( field: string, translation?: FormGroup, idx?: number ): boolean {
+		if (translation) {
+			return ((translation.get(field).touched && translation.get(field).invalid) || this.getErrors(idx, field).length > 0);
+		}
+
+		return (this.form.get(field).touched && this.form.get(field).invalid);
 	}
 
 }

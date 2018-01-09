@@ -5,8 +5,8 @@ import { CategoryLang } from "@core/data/categories/category-lang.model";
  */
 export class Category {
 	public id: number;
-	public is_active: boolean;
-	public translations: CategoryLang[];
+	public is_active: boolean           = false;
+	public translations: CategoryLang[] = [];
 	public created_on: string;
 	public updated_on: string;
 
@@ -91,7 +91,7 @@ export class Category {
 
 		list.forEach(( val ) => {
 			if (val.name || val.slug) {
-				result.push(this.translationModel(val));
+				result.push(Category.translationModel(val));
 			}
 		});
 
