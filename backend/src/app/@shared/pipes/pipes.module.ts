@@ -1,10 +1,10 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 
-import { AtIndexOfPipe } from "./at-index-of.pipe";
-import { ColumnPipe } from "./column.pipe";
-import { SlugPipe } from "./slug.pipe";
-import { VerbalBooleanPipe } from "./verbal-boolean.pipe";
+import { AtIndexOfPipe } from "./array/at-index-of.pipe";
+import { ColumnPipe } from "./array/column.pipe";
+import { SlugPipe } from "./string/slug.pipe";
+import { VerbalBooleanPipe } from "./string/verbal-boolean.pipe";
 
 const SHARED_PIPES = [
 	AtIndexOfPipe,

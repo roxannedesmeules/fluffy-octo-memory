@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
-import { SlugPipe } from "@shared/pipes/slug.pipe";
+import { SlugPipe } from "@shared/pipes/string/slug.pipe";
 
 import { ToasterService } from "angular2-toaster";
 import { CategoryService } from "@core/data/categories/category.service";
@@ -9,7 +9,7 @@ import { CategoryService } from "@core/data/categories/category.service";
 import { Lang } from "@core/data/languages/lang.model";
 import { Category } from "@core/data/categories/category.model";
 import { ErrorResponse } from "@core/data/error-response.model";
-import { AtIndexOfPipe } from "@shared/pipes/at-index-of.pipe";
+import { AtIndexOfPipe } from "@shared/pipes/array/at-index-of.pipe";
 
 @Component({
 	selector    : "ngx-category-detail",
