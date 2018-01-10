@@ -13,6 +13,12 @@ th.action-create {
 	}
 }
 
+tr:nth-of-type(odd) {
+	nb-actions nb-action {
+		border-left-color : #ffffff;
+	}
+}
+
 nb-action > a {
 	&:hover { text-decoration : none; }
 }
