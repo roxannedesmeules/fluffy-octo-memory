@@ -12,3 +12,7 @@ th.action-create {
 		line-height : calc((0.6rem * 1.25) + 4px) !important;
 	}
 }
+
+nb-action > a {
+	&:hover { text-decoration : none; }
+}
