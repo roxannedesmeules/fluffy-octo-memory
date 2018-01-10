@@ -27,7 +27,7 @@
 										<i class="control-icon nb-edit"></i>
 									</a>
 								</nb-action>
-								<nb-action icon="nb-trash"></nb-action>
+								<nb-action icon="nb-trash" (click)="deleteOne(category.id)"></nb-action>
 							</nb-actions>
 						</td>
 						<td> {{ category.id }}</td>

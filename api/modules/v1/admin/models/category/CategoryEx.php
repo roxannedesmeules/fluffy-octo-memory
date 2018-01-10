@@ -125,6 +125,9 @@ class CategoryEx extends Category
 	 */
 	public static function deleteWithTranslations ( $categoryId )
 	{
+		//  set the $db property
+		self::defineDbConnection();
+
 		//  start a transaction to rollback at any moment if there is a problem
 		$transaction = self::$db->beginTransaction();
 		

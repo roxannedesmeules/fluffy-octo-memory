@@ -73,12 +73,11 @@ export class Category {
 	 *
 	 * @param model
 	 */
-	form ( model: any ): Category {
-		this.is_active = model.is_active;
-
-		this.translations = this.mapFormTranslations(model.translations);
-
-		return this;
+	form ( model: any ): any {
+		return {
+			is_active    : (model.is_active) ? 1 : 0,
+			translations : this.mapFormTranslations(model.translations),
+		};
 	}
 
 	/**
