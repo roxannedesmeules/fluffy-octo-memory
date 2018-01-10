@@ -12,3 +12,13 @@ th.action-create {
 		line-height : calc((0.6rem * 1.25) + 4px) !important;
 	}
 }
+
+tr:nth-of-type(odd) {
+	nb-actions nb-action {
+		border-left-color : #ffffff;
+	}
+}
+
+nb-action > a {
+	&:hover { text-decoration : none; }
+}

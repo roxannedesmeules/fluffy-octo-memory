@@ -5,8 +5,8 @@ import { CategoryLang } from "@core/data/categories/category-lang.model";
  */
 export class Category {
 	public id: number;
-	public is_active: boolean;
-	public translations: CategoryLang[];
+	public is_active: boolean           = false;
+	public translations: CategoryLang[] = [];
 	public created_on: string;
 	public updated_on: string;
 
@@ -26,9 +26,9 @@ export class Category {
 	 * @param list
 	 * @return {CategoryLang[]}
 	 */
-	mapTranslations ( list: any ): CategoryLang[] {
+	mapTranslations ( list: any[] ): CategoryLang[] {
 		list.forEach(( val, idx ) => {
-			list[ idx ] = this.translationModel(val);
+			list[ idx ] = Category.translationModel(val);
 		});
 
 		return list;
@@ -39,20 +39,45 @@ export class Category {
 	 * @param model
 	 * @return {CategoryLang}
 	 */
-	translationModel ( model: any ): CategoryLang {
+	static translationModel ( model: any ): CategoryLang {
 		return new CategoryLang(model);
+	}
+
+	/**
+	 *
+	 * @param {number | string} lang
+	 *
+	 * @return {CategoryLang}
+	 */
+	findTranslation ( lang: number | string ) {
+		let result = new CategoryLang();
+
+		if (!this.translations) {
+			return result;
+		}
+
+		this.translations.forEach(( val ) => {
+			if (typeof lang === "string" && val.language === lang) {
+				result = val;
+			}
+
+			if (typeof lang === "number" && val.lang_id === lang) {
+				result = val;
+			}
+		});
+
+		return result;
 	}
 
 	/**
 	 *
 	 * @param model
 	 */
-	form ( model: any ): Category {
-		this.is_active = model.is_active;
-
-		this.translations = this.mapFormTranslations(model.translations);
-
-		return this;
+	form ( model: any ): any {
+		return {
+			is_active    : (model.is_active) ? 1 : 0,
+			translations : this.mapFormTranslations(model.translations),
+		};
 	}
 
 	/**
@@ -61,11 +86,11 @@ export class Category {
 	 * @return {CategoryLang[]}
 	 */
 	mapFormTranslations ( list: any ): CategoryLang[] {
-		let result: CategoryLang[] = [];
+		const result: CategoryLang[] = [];
 
-		list.forEach(( val, idx ) => {
+		list.forEach(( val ) => {
 			if (val.name || val.slug) {
-				result.push(this.translationModel(val));
+				result.push(Category.translationModel(val));
 			}
 		});
 

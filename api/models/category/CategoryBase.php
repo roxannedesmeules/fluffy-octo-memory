@@ -3,6 +3,8 @@
 namespace app\models\category;
 
 use app\helpers\ArrayHelperEx;
+use app\models\app\Lang;
+use app\models\post\Post;
 use Yii;
 
 /**
@@ -158,4 +160,9 @@ abstract class CategoryBase extends \yii\db\ActiveRecord
 	{
 		return self::find()->where([ "id" => $categoryId ])->exists();
 	}
+
+	/**
+	 *
+	 */
+	public static function defineDbConnection () { self::$db = Yii::$app->db; }
 }

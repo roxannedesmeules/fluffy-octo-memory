@@ -1,3 +1,4 @@
+import { DetailResolve } from "@admin/category/detail/detail.resolve";
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
@@ -9,6 +10,7 @@ import { ListResolve } from "@admin/category/list/list.resolve";
 import { LanguageResolve } from "@shared/resolver/language.resolve";
 
 const RESOLVERS = [
+	DetailResolve,
 	ListResolve,
 	LanguageResolve,
 ];
@@ -26,6 +28,13 @@ const routes: Routes = [
 				path      : "create",
 				component : DetailComponent,
 				resolve   : { languages : LanguageResolve },
+			}, {
+				path      : "update/:id",
+				component : DetailComponent,
+				resolve   : {
+					languages : LanguageResolve,
+					category  : DetailResolve,
+				},
 			},
 		],
 	},

@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
 		this.analytics.trackPageViews();
 
 		this.toastConfig = new ToasterConfig({
-			positionClass   : "toast-top-full-width",
+			positionClass   : "toast-top-right",
 			tapToDismiss    : true,
 			showCloseButton : false,
 		});
