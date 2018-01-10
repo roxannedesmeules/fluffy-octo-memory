@@ -43,6 +43,20 @@ export class DetailComponent implements OnInit {
 		}
 	}
 
+	public toggleActivation () {
+		let body = new Category();
+		body     = body.form({ is_active : !this.category.is_active, translations : [] });
+
+		this.service
+				.update(this.category.id, body)
+				.then(( result: any ) => {
+					this.category = this.service.mapModel(result.category);
+				})
+				.catch(( error: ErrorResponse ) => {
+					this.toastService.popAsync("error", "Oops..", error.message);
+				});
+	}
+
 	/**
 	 * Create the Category form with a translation object for each languages available.
 	 *

@@ -46,13 +46,22 @@
 					<div class="clearbox"></div>
 				</nb-card-body>
 
-				<nb-card-footer>
+				<nb-card-footer class="text-md-right">
 					<a routerLink="/admin/category/list" class="btn btn-hero-secondary">
 						Cancel
 					</a>
 					<button type="submit" class="btn btn-hero-success">
 						Save
 					</button>
+
+					<span *ngIf="!isCreate()" class="separator">
+						<button type="button" class="btn"
+						        [class.btn-hero-info]="!category.is_active"
+						        [class.btn-hero-primary]="category.is_active"
+						        (click)="toggleActivation()">
+							{{ (category.is_active) ? 'Deactivate' : 'Activate' }}
+						</button>
+					</span>
 				</nb-card-footer>
 			</nb-card>
 		</form>
