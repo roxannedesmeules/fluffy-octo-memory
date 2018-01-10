@@ -1,3 +1,7 @@
 nb-tabset.form-tabset nb-tab {
 	padding : 1.5rem;
 }
+
+.form-control:disabled {
+	cursor : not-allowed;
+}

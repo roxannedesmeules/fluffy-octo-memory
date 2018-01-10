@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
+import { SlugPipe } from "@shared/pipes/slug.pipe";
 
 import { ToasterService } from "angular2-toaster";
 import { CategoryService } from "@core/data/categories/category.service";
@@ -29,6 +30,7 @@ export class DetailComponent implements OnInit {
 	constructor ( private _route: ActivatedRoute,
 				  private _builder: FormBuilder,
 				  private atIndexOf: AtIndexOfPipe,
+				  private slugPipe: SlugPipe,
 				  private toastService: ToasterService,
 				  private service: CategoryService ) { }
 
@@ -85,8 +87,27 @@ export class DetailComponent implements OnInit {
 		return this.form.get("translations") as FormArray;
 	}
 
+	/**
+	 * Verify if the current page is the creation page.
+	 *
+	 * @return {boolean}
+	 */
 	public isCreate () {
 		return (typeof this.category === "undefined" || typeof this.category.id === "undefined");
+	}
+
+	/**
+	 * Reset the form to all empty values, so another category can easily be created.
+	 *
+	 * @private
+	 */
+	private _resetForm () {
+		this.form.get("is_active").reset();
+
+		this.languages.forEach(( val, idx ) => {
+			this.getTranslations().at(idx).reset();
+			this.getTranslations().at(idx).get("lang_id").setValue(val.id);
+		});
 	}
 
 	/**
@@ -110,15 +131,19 @@ export class DetailComponent implements OnInit {
 
 		req.then(( result: any ) => {
 			this.toastService.popAsync("success", "Yeah!", msg);
-		})
-				.catch(( error: ErrorResponse ) => {
-					this.errors = error.form_error;
 
-					this.toastService.popAsync("error", "Please try again...", "Check the form to correct these errors.");
-				});
+			if (this.isCreate()) {
+				this._resetForm();
+			}
+		}).catch(( error: ErrorResponse ) => {
+			this.errors = error.form_error;
+
+			this.toastService.popAsync("error", "Please try again...", "Check the form to correct these errors.");
+		});
 	}
 
 	/**
+	 * Get the data resolved by the route, then assign it to the right property.
 	 *
 	 * @private
 	 */
@@ -128,6 +153,16 @@ export class DetailComponent implements OnInit {
 
 		this.languages = (routeLanguages) ? routeLanguages : [];
 		this.category  = (routeCategory) ? routeCategory : new Category();
+	}
+
+	public setSlug ( translationIdx: number ) {
+		//  get the current name
+		const name = this.getTranslations().at(translationIdx).get("name").value;
+
+		//  transform the name to remove spaces, apostrophe and transform accents
+		const slug = this.slugPipe.transform(name);
+
+		this.getTranslations().at(translationIdx).get("slug").setValue(slug);
 	}
 
 	/**
