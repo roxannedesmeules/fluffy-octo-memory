@@ -1,4 +1,4 @@
-import { DetailResolve } from "@admin/category/detail/detail.resolve";
+import { DetailResolve } from "@admin/../../@shared/resolver/category/detail.resolve";
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
@@ -6,7 +6,7 @@ import { CategoryComponent } from "@admin/category/category.component";
 import { DetailComponent } from "@admin/category/detail/detail.component";
 import { ListComponent } from "@admin/category/list/list.component";
 
-import { ListResolve } from "@admin/category/list/list.resolve";
+import { ListResolve } from "@admin/../../@shared/resolver/category/list.resolve";
 import { LanguageResolve } from "@shared/resolver/language.resolve";
 
 const RESOLVERS = [
