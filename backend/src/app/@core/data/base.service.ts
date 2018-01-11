@@ -5,10 +5,10 @@ import { ErrorResponse } from "./error-response.model";
 
 @Injectable()
 export abstract class BaseService {
-	http: HttpClient;
-	model: any;
-	modelName: string;
-	baseUrl = "";
+	public http: HttpClient;
+	public model: any;
+	public modelName: string;
+	public baseUrl = "";
 
 	constructor (@Inject(HttpClient) http: HttpClient) {
 		this.http = http;
@@ -61,7 +61,7 @@ export abstract class BaseService {
 	}
 
 	protected _parseResponseBody (response: any) {
-		return new Promise(( resolve, reject ) => { resolve(response); });
+		return new Promise(( resolve ) => { resolve(response); });
 	}
 
 	protected _parseErrorBody ( error: HttpErrorResponse ) {
