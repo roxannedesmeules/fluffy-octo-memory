@@ -18,6 +18,9 @@ const routes: Routes = [
 				path         : "category",
 				loadChildren : "./category/category.module#CategoryModule",
 			}, {
+				path         : "post",
+				loadChildren : "./post/post.module#PostModule",
+			}, {
 				path       : "",
 				redirectTo : "dashboard",
 				pathMatch  : "full",
