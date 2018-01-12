@@ -1,6 +1,7 @@
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { LangService } from "@core/data/languages/lang.service";
+import { PostStatusService } from "@core/data/posts/post-status.service";
 import { PostService } from "@core/data/posts/post.service";
 
 import { RegularAuthGuard } from "@core/guards/regular-auth.guard";
@@ -23,6 +24,7 @@ const NB_CORE_PROVIDERS = [
 	CategoryService,
 	LangService,
 	PostService,
+	PostStatusService,
 	UserService,
 ];
 

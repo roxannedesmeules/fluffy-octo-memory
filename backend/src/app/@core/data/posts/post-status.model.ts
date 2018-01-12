@@ -5,7 +5,7 @@ export class PostStatus {
 	constructor ( model: any ) {
 		if (!model) { return; }
 
-		this.id   = model.id;
+		this.id   = parseInt(model.id, 10);
 		this.name = model.name;
 	}
 }

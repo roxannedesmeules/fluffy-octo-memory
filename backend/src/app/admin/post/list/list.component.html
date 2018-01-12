@@ -34,7 +34,7 @@
 						<td>{{ post.id }}</td>
 						<td>{{ post.translations[ 0 ]?.title }}</td>
 						<td>{{ post.translations | column:"language" }}</td>
-						<td>{{ post.post_status_id }}</td>
+						<td>{{ post.post_status_id | atIndexOf:statusList:"id":"name" | ngxCapitalize }}</td>
 						<td>{{ post.updated_on || "never" }}</td>
 					</tr>
 					</tbody>

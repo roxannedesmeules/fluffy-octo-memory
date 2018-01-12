@@ -6,7 +6,7 @@ import { PostStatus } from "@core/data/posts/post-status.model";
 
 @Injectable()
 export class PostStatusService extends BaseService {
-	public baseUrl   = "posts";
+	public baseUrl   = "/posts";
 	public modelName = "statuses";
 
 	constructor ( @Inject(HttpClient) http: HttpClient ) {
