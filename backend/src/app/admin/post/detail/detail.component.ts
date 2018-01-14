@@ -10,6 +10,7 @@ import { Lang } from "@core/data/languages/lang.model";
 
 import "./ckeditor.loader";
 import "ckeditor";
+import { SlugPipe } from "@shared/pipes/string/slug.pipe";
 
 @Component({
 	selector    : "ngx-post-detail",
@@ -24,14 +25,23 @@ export class DetailComponent implements OnInit {
 	public statuses: PostStatus[];
 
 	public form: FormGroup;
+	public submitted = false;
 
 	constructor ( private _route: ActivatedRoute,
 				  private _builder: FormBuilder,
+				  private slugPipe: SlugPipe,
 				  private service: PostService ) { }
 
 	ngOnInit () {
 		this._setData();
 		this._createForm();
+	}
+
+	public changeSlug ( translationIdx: number ) {
+		const title = this.getTranslations().at(translationIdx).get("title").value;
+		const slug  = this.slugPipe.transform(title);
+
+		this.getTranslations().at(translationIdx).get("slug").setValue(slug);
 	}
 
 	/**
@@ -72,6 +82,11 @@ export class DetailComponent implements OnInit {
 		return this._builder.array([]);
 	}
 
+	public save () {
+		console.log(this.form.getRawValue());
+		this.submitted = true;
+	}
+
 	/**
 	 * Will set the data from the route, if there is a need, a default value will be assigned.
 	 *
@@ -84,5 +99,22 @@ export class DetailComponent implements OnInit {
 
 		const routePost = this._route.snapshot.data[ "post" ];
 		this.post       = (routePost) ? routePost : new Post();
+	}
+
+	/**
+	 *
+	 * @param {string} field
+	 * @param {number} idx
+	 *
+	 * @return {boolean}
+	 */
+	public showErrors ( field: string, idx?: number ): boolean {
+		let control = this.form.get(field);
+
+		if (typeof idx !== "undefined") {
+			control = this.getTranslations().at(idx).get(field);
+		}
+
+		return ((this.submitted || control.touched) && control.invalid);
 	}
 }
