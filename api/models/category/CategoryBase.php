@@ -35,6 +35,7 @@ abstract class CategoryBase extends \yii\db\ActiveRecord
 	const ERR_ON_DELETE     = "ERR_ON_DELETE";
 	const ERR_NOT_FOUND     = "ERR_NOT_FOUND";
 	const ERR_DELETE_ACTIVE = "ERR_DELETE_ACTIVE";
+	const ERR_DELETE_POSTS  = "ERR_DELETE_HAS_POSTS";
 
 	const ERR_FIELD_REQUIRED    = "ERR_FIELD_REQUIRED";
 	const ERR_FIELD_TYPE        = "ERR_FIELD_WRONG_TYPE";
@@ -158,7 +159,23 @@ abstract class CategoryBase extends \yii\db\ActiveRecord
 	 */
 	public static function idExists ( $categoryId )
 	{
-		return self::find()->where([ "id" => $categoryId ])->exists();
+		return self::find()->id($categoryId)->exists();
+	}
+
+	/**
+	 * @param integer $categoryId
+	 *
+	 * @return bool
+	 */
+	public static function hasPosts ( $categoryId )
+	{
+		if (!self::idExists($categoryId)) {
+			return false;
+		}
+
+		$category = self::find()->id($categoryId)->one();
+
+		return !empty($category->posts);
 	}
 
 	/**

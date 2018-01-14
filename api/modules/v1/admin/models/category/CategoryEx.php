@@ -130,6 +130,12 @@ class CategoryEx extends Category
 
 		//  start a transaction to rollback at any moment if there is a problem
 		$transaction = self::$db->beginTransaction();
+
+		if (self::hasPosts($categoryId)) {
+			$transaction->rollBack();
+
+			return self::buildError(self::ERR_DELETE_POSTS);
+		}
 		
 		//  delete translation first
 		$result = CategoryLangEx::deleteTranslations($categoryId);

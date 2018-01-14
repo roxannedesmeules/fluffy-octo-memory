@@ -21,4 +21,10 @@ return [
 		"name"        => $faker->text(),
 		"slug"        => $faker->slug(),
 	],
+	"nopost-fr" => [
+		"category_id" => 4,
+		"lang_id"     => 2,
+		"name"        => $faker->text(),
+		"slug"        => $faker->slug(),
+	],
 ];

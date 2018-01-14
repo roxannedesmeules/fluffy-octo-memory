@@ -3,19 +3,19 @@
 namespace app\modules\v1\admin\tests\category;
 
 use app\modules\v1\admin\models\category\CategoryLangEx as Model;
+use app\modules\v1\admin\models\LangEx;
 use app\modules\v1\admin\tests\_support\_fixtures\CategoryExFixture;
 use app\modules\v1\admin\tests\_support\_fixtures\CategoryLangExFixture;
 use Faker\Factory as Faker;
 
 /**
- * Class CategoryLangTest
+ * Class CategoryLangExTest
  *
  * @package app\modules\v1\admin\tests\category
  *
- * @group admin
- * @group category
+ * @group   category
  */
-class CategoryLangTest extends \Codeception\Test\Unit
+class CategoryLangExTest extends \Codeception\Test\Unit
 {
 	use \Codeception\Specify;
 
@@ -147,8 +147,8 @@ class CategoryLangTest extends \Codeception\Test\Unit
 		$this->specify("create one model, then update it if same language", function () {
 			$categoryId = $this->tester->grabFixture("category", "nolang")->id;
 			$models     = [
-				[ "lang_id" => 1, "name" => $this->faker->text(), "slug" => $this->faker->slug() ],
-				[ "lang_id" => 1, "name" => $this->faker->text(), "slug" => $this->faker->slug() ],
+				[ "lang_id" => LangEx::FR, "name" => $this->faker->text(), "slug" => $this->faker->slug() ],
+				[ "lang_id" => LangEx::FR, "name" => $this->faker->text(), "slug" => $this->faker->slug() ],
 			];
 
 			$result = Model::manageTranslations($categoryId, $models);
@@ -159,8 +159,8 @@ class CategoryLangTest extends \Codeception\Test\Unit
 		$this->specify("create both model in list", function () {
 			$categoryId = $this->tester->grabFixture("category", "nolang")->id;
 			$models     = [
-				[ "lang_id" => 1, "name" => $this->faker->text(), "slug" => $this->faker->slug() ],
-				[ "lang_id" => 2, "name" => $this->faker->text(), "slug" => $this->faker->slug() ],
+				[ "lang_id" => LangEx::EN, "name" => $this->faker->text(), "slug" => $this->faker->slug() ],
+				[ "lang_id" => LangEx::FR, "name" => $this->faker->text(), "slug" => $this->faker->slug() ],
 			];
 
 			$result = Model::manageTranslations($categoryId, $models);
@@ -172,7 +172,7 @@ class CategoryLangTest extends \Codeception\Test\Unit
 			$categoryId = $this->tester->grabFixture("category", "active")->id;
 			$models     = [
 				$this->tester->grabFixture("categoryLang", "active-fr"),
-				[ "lang_id" => 1, "name" => $this->faker->text(), "slug" => $this->faker->slug() ],
+				[ "lang_id" => LangEx::EN, "name" => $this->faker->text(), "slug" => $this->faker->slug() ],
 			];
 
 			$result = Model::manageTranslations($categoryId, $models);
