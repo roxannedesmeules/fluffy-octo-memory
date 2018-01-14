@@ -9,6 +9,7 @@ import { DetailResolve } from "@shared/resolver/post/detail.resolve";
 import { LanguageResolve } from "@shared/resolver/language.resolve";
 import { ListResolve } from "@shared/resolver/post/list.resolve";
 import { ListResolve as StatusListResolve } from "@shared/resolver/post/status/list.resolve";
+import { ListResolve as CategoryListResolve } from "@shared/resolver/category/list.resolve";
 
 const RESOLVERS = [
 	LanguageResolve,
@@ -16,6 +17,7 @@ const RESOLVERS = [
 	DetailResolve,
 
 	StatusListResolve,
+	CategoryListResolve,
 ];
 
 const routes: Routes = [
@@ -27,14 +29,18 @@ const routes: Routes = [
 				path      : "list",
 				component : ListComponent,
 				resolve   : {
-					list       : ListResolve,
-					statusList : StatusListResolve,
+					posts    : ListResolve,
+					statuses : StatusListResolve,
+				},
+			}, {
+				path      : "create",
+				component : DetailComponent,
+				resolve   : {
+					categories : CategoryListResolve,
+					languages  : LanguageResolve,
+					statuses   : StatusListResolve,
 				},
 			}, /*{
-			 path      : "create",
-			 component : DetailComponent,
-			 resolve   : {},
-			 }, {
 			 path      : "update",
 			 component : DetailComponent,
 			 resolve   : {},

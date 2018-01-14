@@ -8,7 +8,7 @@
 					<thead>
 					<tr>
 						<th scope="col" width="10%" class="action-create">
-							<a routerLink="/admin/posts/create" class="btn btn-hero-primary btn-block btn-tn">
+							<a routerLink="/admin/post/create" class="btn btn-hero-primary btn-block btn-tn">
 								Create
 							</a>
 						</th>
@@ -20,11 +20,11 @@
 					</tr>
 					</thead>
 					<tbody>
-					<tr *ngFor="let post of list">
+					<tr *ngFor="let post of posts">
 						<td class="p-0 pt-1">
 							<nb-actions size="medium">
 								<nb-action>
-									<a routerLink="/admin/posts/update">
+									<a routerLink="/admin/post/update">
 										<i class="control-icon nb-edit"></i>
 									</a>
 								</nb-action>
@@ -34,7 +34,7 @@
 						<td>{{ post.id }}</td>
 						<td>{{ post.translations[ 0 ]?.title }}</td>
 						<td>{{ post.translations | column:"language" }}</td>
-						<td>{{ post.post_status_id | atIndexOf:statusList:"id":"name" | ngxCapitalize }}</td>
+						<td>{{ post.post_status_id | atIndexOf:statuses:"id":"name" | ngxCapitalize }}</td>
 						<td>{{ post.updated_on || "never" }}</td>
 					</tr>
 					</tbody>

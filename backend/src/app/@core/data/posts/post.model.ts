@@ -10,10 +10,10 @@ export class Post {
 	public user_id: number;
 	public username: string;
 	public translations: PostLang[] = [];
-	protected created_on: string;
-	protected updated_on: string;
+	public readonly created_on: string;
+	public readonly updated_on: string;
 
-	constructor ( model: any ) {
+	constructor ( model: any = null ) {
 		if (!model) { return; }
 
 		this.id             = model.id;

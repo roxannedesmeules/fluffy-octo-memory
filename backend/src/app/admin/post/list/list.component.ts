@@ -13,16 +13,16 @@ import { PostStatus } from "@core/data/posts/post-status.model";
 })
 export class ListComponent implements OnInit {
 
-	public list: Post[];
-	public statusList: PostStatus[];
+	public posts: Post[];
+	public statuses: PostStatus[];
 
 	constructor ( private _route: ActivatedRoute,
 				  private toastService: ToasterService,
 				  private service: PostService ) { }
 
 	ngOnInit () {
-		this.list       = this._route.snapshot.data[ "list" ];
-		this.statusList = this._route.snapshot.data[ "statusList" ];
+		this.posts    = this._route.snapshot.data[ "posts" ];
+		this.statuses = this._route.snapshot.data[ "statuses" ];
 	}
 
 }
