@@ -78,7 +78,7 @@ class PostController extends ControllerAdminEx
 			}
 		}
 
-		return $this->createdResult($result);
+		return $this->createdResult([ "post_id" => $result[ "post_id" ] ]);
 	}
 
 	/**
