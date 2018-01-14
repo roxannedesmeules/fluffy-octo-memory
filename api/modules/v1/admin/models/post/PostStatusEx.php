@@ -1,12 +1,12 @@
 <?php
-namespace app\modules\v1\admin\models\posts;
+namespace app\modules\v1\admin\models\post;
 
 use app\models\post\PostStatus;
 
 /**
  * Class PostStatusEx
  *
- * @package app\modules\v1\admin\models\posts
+ * @package app\modules\v1\admin\models\post
  *
  * @SWG\Definition(
  *     definition = "PostStatusList",

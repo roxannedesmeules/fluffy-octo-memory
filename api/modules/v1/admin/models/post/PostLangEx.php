@@ -1,5 +1,5 @@
 <?php
-namespace app\modules\v1\admin\models\posts;
+namespace app\modules\v1\admin\models\post;
 
 use app\helpers\ArrayHelperEx;
 use app\models\app\Lang;
@@ -9,7 +9,7 @@ use app\modules\v1\admin\models\LangEx;
 /**
  * Class PostLangEx
  *
- * @package app\modules\v1\admin\models\posts
+ * @package app\modules\v1\admin\models\post
  */
 class PostLangEx extends PostLang
 {
@@ -51,17 +51,22 @@ class PostLangEx extends PostLang
 	public function rules ()
 	{
 		return [
-			[ "lang_id", "required" ],
-			[ "lang_id", "exist", "targetClass" => Lang::className(), "targetAttribute" => [ "lang_id" => "id" ] ],
+			[ "lang_id", "required", "message" => self::ERR_FIELD_REQUIRED ],
+			[
+				"lang_id", "exist",
+				"targetClass"     => Lang::className(),
+				"targetAttribute" => [ "lang_id" => "id" ],
+				"message"         => self::ERR_FIELD_NOT_FOUND,
+			],
 
-			[ "title", "required" ],
-			[ "title", "string", "max" => 255 ],
+			[ "title", "required", "message" => self::ERR_FIELD_REQUIRED ],
+			[ "title", "string", "max" => 255, "tooLong" => self::ERR_FIELD_TOO_LONG ],
 
-			[ "slug", "required" ],
-			[ "slug", "string", "max" => 255 ],
-			[ "slug", "unique" ],
+			[ "slug", "required", "message" => self::ERR_FIELD_REQUIRED ],
+			[ "slug", "string", "max" => 255, "tooLong" => self::ERR_FIELD_TOO_LONG ],
+			[ "slug", "unique", "targetAttribute" => [ "slug", "lang_id" ], "message" => self::ERR_FIELD_NOT_UNIQUE ],
 
-			[ "content", "string" ],
+			[ "content", "string", "message" => self::ERR_FIELD_TYPE ],
 		];
 	}
 

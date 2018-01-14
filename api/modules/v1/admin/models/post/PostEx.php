@@ -1,5 +1,5 @@
 <?php
-namespace app\modules\v1\admin\models\posts;
+namespace app\modules\v1\admin\models\post;
 
 use app\components\validators\ArrayUniqueValidator;
 use app\components\validators\TranslationValidator;
@@ -12,17 +12,20 @@ use app\models\post\PostStatus;
 /**
  * Class PostEx
  *
- * @package app\modules\v1\admin\models\posts
+ * @package app\modules\v1\admin\models\post
  *
  * @SWG\Definition(
  *     definition = "PostList",
  *     type = "array",
  *     @SWG\Items( ref = "#/definitions/Post" )
  * )
+ *
+ * @property array $translations
  */
 class PostEx extends Post
 {
-	public $translations;
+	/** @var array  */
+	public $translations = [];
 
 	/** @inheritdoc */
 	public function getPostLangs ()
@@ -61,7 +64,7 @@ class PostEx extends Post
 	 *
 	 * @SWG\Definition(
 	 *     definition = "PostForm",
-	 *     required   = { "category_id", "post_status_id", "translations" },
+	 *     required   = { "category_id", "translations" },
 	 *
 	 *     @SWG\Property( property = "category_id", type = "integer" ),
 	 *     @SWG\Property( property = "post_status_id", type = "integer" ),
@@ -71,15 +74,26 @@ class PostEx extends Post
 	public function rules ()
 	{
 		return [
-			[ "category_id", "required" ],
-			[ "category_id", "exist", "targetClass" => Category::className(), "targetAttribute" => [ "category_id" => "id" ] ],
+			[ "category_id", "required", "message" => self::ERR_FIELD_REQUIRED ],
+			[ "category_id", "integer",  "message" => self::ERR_FIELD_TYPE ],
+			[
+				"category_id", "exist",
+				"targetClass"     => Category::className(),
+				"targetAttribute" => [ "category_id" => "id" ],
+				"message"         => self::ERR_FIELD_NOT_FOUND,
+			],
 
-			[ "post_status_id", "required" ],
-			[ "post_status_id", "exist", "targetClass" => PostStatus::className(), "targetAttribute" => [ "post_status_id" => "id" ] ],
+			[ "post_status_id", "integer", "message" => self::ERR_FIELD_TYPE ],
+			[
+				"post_status_id", "exist",
+				"targetClass"     => PostStatus::className(),
+				"targetAttribute" => [ "post_status_id" => "id" ],
+				"message"         => self::ERR_FIELD_NOT_FOUND,
+			],
 
-			[ "translations", "required" ],
+			[ "translations", "required", "strict" => true, "message" => self::ERR_FIELD_REQUIRED ],
 			[ "translations", TranslationValidator::className(), "validator" => PostLangEx::className() ],
-			[ "translations", ArrayUniqueValidator::className(), "uniqueKey" => "lang_id" ],
+			[ "translations", ArrayUniqueValidator::className(), "uniqueKey" => "lang_id", "message" => self::ERR_FIELD_UNIQUE_LANG ],
 		];
 	}
 

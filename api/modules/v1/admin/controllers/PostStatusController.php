@@ -2,7 +2,7 @@
 namespace app\modules\v1\admin\controllers;
 
 use app\modules\v1\admin\components\ControllerAdminEx;
-use app\modules\v1\admin\models\posts\PostStatusEx;
+use app\modules\v1\admin\models\post\PostStatusEx;
 
 /**
  * Class PostStatusController

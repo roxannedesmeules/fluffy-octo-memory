@@ -3,7 +3,7 @@
 namespace app\modules\v1\admin\controllers;
 
 use app\modules\v1\admin\components\ControllerAdminEx;
-use app\modules\v1\admin\models\posts\PostEx;
+use app\modules\v1\admin\models\post\PostEx;
 use yii\data\ArrayDataProvider;
 use yii\web\NotFoundHttpException;
 use yii\web\ServerErrorHttpException;
