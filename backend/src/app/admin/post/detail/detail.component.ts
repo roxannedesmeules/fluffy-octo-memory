@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
+import { ErrorResponse } from "@core/data/error-response.model";
 
 import { Post } from "@core/data/posts/post.model";
 import { PostStatus } from "@core/data/posts/post-status.model";
@@ -10,6 +11,7 @@ import { Lang } from "@core/data/languages/lang.model";
 
 import "./ckeditor.loader";
 import "ckeditor";
+import { AtIndexOfPipe } from "@shared/pipes/array/at-index-of.pipe";
 import { SlugPipe } from "@shared/pipes/string/slug.pipe";
 
 @Component({
@@ -29,6 +31,7 @@ export class DetailComponent implements OnInit {
 
 	constructor ( private _route: ActivatedRoute,
 				  private _builder: FormBuilder,
+				  private atIndexOfPipe: AtIndexOfPipe,
 				  private slugPipe: SlugPipe,
 				  private service: PostService ) { }
 
@@ -50,9 +53,11 @@ export class DetailComponent implements OnInit {
 	 * @private
 	 */
 	private _createForm () {
+		const draftStatus = this.atIndexOfPipe.transform("draft", this.statuses, "name", "id");
+
 		this.form = this._builder.group({
 			category_id    : this._builder.control(null, [ Validators.required ]),
-			post_status_id : this._builder.control(null, [ Validators.required ]),
+			post_status_id : this._builder.control(draftStatus, [ Validators.required ]),
 			translations   : this._builder.array([]),
 		});
 
@@ -82,9 +87,28 @@ export class DetailComponent implements OnInit {
 		return this._builder.array([]);
 	}
 
+	public isCreate () {
+		return (typeof this.post === "undefined" || typeof this.post.id === "undefined");
+	}
+
 	public save () {
-		console.log(this.form.getRawValue());
 		this.submitted = true;
+
+		let request = null;
+		let body    = new Post();
+		body        = body.form(this.form.getRawValue());
+
+		if (this.isCreate()) {
+			request = this.service.create(body);
+		}
+
+		request
+				.then(( result: any ) => {
+					console.log(result);
+				})
+				.catch(( error: ErrorResponse ) => {
+					console.log(error);
+				});
 	}
 
 	/**

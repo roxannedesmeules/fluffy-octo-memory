@@ -30,8 +30,8 @@ export class Post {
 
 	/**
 	 *
-	 * @param list
-	 * @return {CategoryLang[]}
+	 * @param {any[]} list
+	 * @return {PostLang[]}
 	 */
 	mapTranslations ( list: any[] ): PostLang[] {
 		list.forEach(( val, idx ) => {
@@ -44,9 +44,38 @@ export class Post {
 	/**
 	 *
 	 * @param model
-	 * @return {CategoryLang}
+	 * @return {PostLang}
 	 */
 	static translationModel ( model: any ): PostLang {
 		return new PostLang(model);
+	}
+
+	/**
+	 *
+	 * @param model
+	 */
+	form ( model: any ): any {
+		return {
+			category_id    : model.category_id,
+			post_status_id : model.post_status_id,
+			translations   : this.mapFormTranslations(model.translations),
+		};
+	}
+
+	/**
+	 *
+	 * @param list
+	 * @return {PostLang[]}
+	 */
+	mapFormTranslations ( list: any ): PostLang[] {
+		const result: PostLang[] = [];
+
+		list.forEach(( val ) => {
+			if (val.name || val.slug) {
+				result.push(Post.translationModel(val));
+			}
+		});
+
+		return result;
 	}
 }
