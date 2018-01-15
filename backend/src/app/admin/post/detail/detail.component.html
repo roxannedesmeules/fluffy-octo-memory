@@ -1,4 +1,4 @@
-<ngx-page-header title="Posts" subtitle="Create a post"></ngx-page-header>
+<ngx-page-header [title]="title" [subtitle]="subtitle"></ngx-page-header>
 
 <div class="row">
 	<div class="col-12">
@@ -41,7 +41,7 @@
 									</span>
 								</div>
 
-								<div class="form-group">
+								<div class="form-group" [class.has-danger]="showErrors('slug', idx)">
 									<label [for]="'input-idx-slug' | replace:{ idx: idx }" class="sr-only">
 										Slug
 									</label>
@@ -73,6 +73,20 @@
 				<nb-card-footer class="text-md-right">
 					<a routerLink="/admin/post/list" class="btn btn-hero-secondary"> Cancel </a>
 					<button type="submit" class="btn btn-hero-success"> Save </button>
+					<div class="separator" *ngIf="!isCreate()">
+						<button type="button" *ngIf="canMoveTo('unpublished')"
+						        class="btn btn-hero-primary" (click)="saveStatusChange('unpublished')">
+							Review
+						</button>
+						<button type="button" *ngIf="canMoveTo('published')"
+						        class="btn btn-hero-primary" (click)="saveStatusChange('published')">
+							Publish
+						</button>
+						<button type="button" *ngIf="canMoveTo('archived')"
+						        class="btn btn-hero-danger" (click)="saveStatusChange('archived')">
+							Archive
+						</button>
+					</div>
 				</nb-card-footer>
 			</nb-card>
 		</form>

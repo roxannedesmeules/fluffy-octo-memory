@@ -1,18 +1,20 @@
 import { Component, OnInit } from "@angular/core";
 import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
-import { ErrorResponse } from "@core/data/error-response.model";
+import { ToasterService } from "angular2-toaster";
+
+import { AtIndexOfPipe } from "@shared/pipes/array/at-index-of.pipe";
+import { SlugPipe } from "@shared/pipes/string/slug.pipe";
 
 import { Post } from "@core/data/posts/post.model";
-import { PostStatus } from "@core/data/posts/post-status.model";
+import { findStatusById, PostStatus } from "@core/data/posts/post-status.model";
 import { PostService } from "@core/data/posts/post.service";
 import { Category } from "@core/data/categories/category.model";
 import { Lang } from "@core/data/languages/lang.model";
+import { ErrorResponse } from "@core/data/error-response.model";
 
 import "./ckeditor.loader";
 import "ckeditor";
-import { AtIndexOfPipe } from "@shared/pipes/array/at-index-of.pipe";
-import { SlugPipe } from "@shared/pipes/string/slug.pipe";
 
 @Component({
 	selector    : "ngx-post-detail",
@@ -26,18 +28,36 @@ export class DetailComponent implements OnInit {
 	public languages: Lang[];
 	public statuses: PostStatus[];
 
+	public title    = "Posts";
+	public subtitle = "Create a post";
+
 	public form: FormGroup;
-	public submitted = false;
+
+	public errors: any = {};
+	public submitted   = false;
 
 	constructor ( private _route: ActivatedRoute,
 				  private _builder: FormBuilder,
 				  private atIndexOfPipe: AtIndexOfPipe,
 				  private slugPipe: SlugPipe,
+				  private toastService: ToasterService,
 				  private service: PostService ) { }
 
 	ngOnInit () {
 		this._setData();
 		this._createForm();
+
+		if (!this.isCreate()) {
+			this.subtitle = `Update post #${this.post.id}`;
+		}
+	}
+
+	public canMoveTo ( newStatus: string ): boolean {
+		//  find the status
+		const status = findStatusById(this.statuses, this.post.post_status_id);
+
+		//  return if the status can be moved
+		return status.canMoveToStatus(newStatus);
 	}
 
 	public changeSlug ( translationIdx: number ) {
@@ -53,21 +73,25 @@ export class DetailComponent implements OnInit {
 	 * @private
 	 */
 	private _createForm () {
-		const draftStatus = this.atIndexOfPipe.transform("draft", this.statuses, "name", "id");
+		let status = this.post.post_status_id;
+
+		if (this.isCreate()) {
+			status = this.atIndexOfPipe.transform("draft", this.statuses, "name", "id");
+		}
 
 		this.form = this._builder.group({
-			category_id    : this._builder.control(null, [ Validators.required ]),
-			post_status_id : this._builder.control(draftStatus, [ Validators.required ]),
+			category_id    : this._builder.control(this.post.category_id, [ Validators.required ]),
+			post_status_id : this._builder.control(status, [ Validators.required ]),
 			translations   : this._builder.array([]),
 		});
 
 		this.languages.forEach(( val, idx ) => {
-			//  TODO  find existing translation
-			const control = this._builder.group({
+			const translation = this.post.findTranslation(val.icu);
+			const control     = this._builder.group({
 				lang_id : this._builder.control(val.id),
-				title   : this._builder.control("", [ Validators.required ]),
-				slug    : this._builder.control("", [ Validators.required ]),
-				content : this._builder.control("", [ Validators.required ]),
+				title   : this._builder.control(translation.title, [ Validators.required ]),
+				slug    : this._builder.control(translation.slug, [ Validators.required ]),
+				content : this._builder.control(translation.content, [ Validators.required ]),
 			});
 
 			this.getTranslations().push(control);
@@ -87,28 +111,72 @@ export class DetailComponent implements OnInit {
 		return this._builder.array([]);
 	}
 
+	/**
+	 * Check if the current page load is for the create form. It will return false if it's for the update form.
+	 *
+	 * @return {boolean}
+	 */
 	public isCreate () {
 		return (typeof this.post === "undefined" || typeof this.post.id === "undefined");
 	}
 
+	/**
+	 * This method will reset the form to initial values.
+	 *
+	 * @private
+	 */
+	private _resetForm () {
+		this.form.get("category_id").reset();
+
+		this.languages.forEach(( val, idx ) => {
+			this.getTranslations().at(idx).reset();
+			this.getTranslations().at(idx).get("lang_id").setValue(val.id);
+		});
+	}
+
+	/**
+	 *
+	 */
 	public save () {
 		this.submitted = true;
 
 		let request = null;
+		let message = "";
 		let body    = new Post();
 		body        = body.form(this.form.getRawValue());
 
 		if (this.isCreate()) {
 			request = this.service.create(body);
+			message = "A new post was successfully created";
+		} else {
+			request = this.service.update(this.post.id, body);
+			message = `Post #${this.post.id} was successfully updated`;
 		}
 
 		request
 				.then(( result: any ) => {
-					console.log(result);
+					this.toastService.popAsync("success", "Yeah!", message);
+
+					if (this.isCreate()) {
+						this._resetForm();
+					}
 				})
 				.catch(( error: ErrorResponse ) => {
-					console.log(error);
+					this.errors = error.form_error;
+
+					this.toastService.popAsync("error", "Please try again...", "Check the form to correct these errors.");
 				});
+	}
+
+	public saveStatusChange ( status: string ) {
+		//  update the status change
+		const statusId = this.atIndexOfPipe.transform(status, this.statuses, "name", "id");
+
+		this.post.post_status_id = statusId;
+		this.form.get("post_status_id").setValue(statusId);
+
+		//  save changes
+		this.save();
 	}
 
 	/**

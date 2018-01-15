@@ -9,7 +9,7 @@ export class PostLang {
 
 	//  TODO   remember implementing file upload
 
-	constructor ( model: any ) {
+	constructor ( model: any = null ) {
 		if (!model) { return; }
 
 		this.lang_id    = model.lang_id;

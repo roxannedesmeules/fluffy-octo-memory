@@ -46,8 +46,32 @@ export class Post {
 	 * @param model
 	 * @return {PostLang}
 	 */
-	static translationModel ( model: any ): PostLang {
-		return new PostLang(model);
+	static translationModel ( model: any ): PostLang { return new PostLang(model); }
+
+	/**
+	 *
+	 * @param {number | string} lang
+	 *
+	 * @return {CategoryLang}
+	 */
+	findTranslation ( lang: number | string ) {
+		let result = new PostLang();
+
+		if (!this.translations) {
+			return result;
+		}
+
+		this.translations.forEach(( val ) => {
+			if (typeof lang === "string" && val.language === lang) {
+				result = val;
+			}
+
+			if (typeof lang === "number" && val.lang_id === lang) {
+				result = val;
+			}
+		});
+
+		return result;
 	}
 
 	/**

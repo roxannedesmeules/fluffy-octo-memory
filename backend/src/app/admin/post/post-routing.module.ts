@@ -40,11 +40,16 @@ const routes: Routes = [
 					languages  : LanguageResolve,
 					statuses   : StatusListResolve,
 				},
-			}, /*{
-			 path      : "update",
-			 component : DetailComponent,
-			 resolve   : {},
-			 },*/
+			}, {
+				path      : "update/:id",
+				component : DetailComponent,
+				resolve   : {
+					categories : CategoryListResolve,
+					languages  : LanguageResolve,
+					post       : DetailResolve,
+					statuses   : StatusListResolve,
+				},
+			},
 		],
 	},
 ];
