@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
+import { ErrorResponse } from "@core/data/error-response.model";
 import { ToasterService } from "angular2-toaster";
 
 import { PostService } from "@core/data/posts/post.service";
@@ -25,4 +26,25 @@ export class ListComponent implements OnInit {
 		this.statuses = this._route.snapshot.data[ "statuses" ];
 	}
 
+	public deleteOne ( postId ) {
+		this.service
+				.delete(postId)
+				.then(() => {
+					this.updateList();
+				})
+				.catch(( error: ErrorResponse ) => {
+					this.toastService.popAsync("error", "Ouch", error.message);
+				});
+	}
+
+	public updateList () {
+		this.service
+				.findAll()
+				.then(( result: any ) => {
+					this.posts = this.service.mapListToModelList(result);
+				})
+				.catch(( error: ErrorResponse ) => {
+					this.toastService.popAsync("error", "Ouch", error.message);
+				});
+	}
 }

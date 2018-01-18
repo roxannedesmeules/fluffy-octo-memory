@@ -174,13 +174,13 @@ class PostController extends ControllerAdminEx
 		$result = PostEx::deleteWithTranslations($id);
 
 		//  if the status is an error, then define what to do depending on the content
-		if ( $result[ "status" ] === CategoryEx::ERROR ) {
+		if ( $result[ "status" ] === PostEx::ERROR ) {
 			switch ( $result[ "error" ] ) {
-				case CategoryEx::ERR_NOT_FOUND :
-					throw new NotFoundHttpException(CategoryEx::ERR_NOT_FOUND);
+				case PostEx::ERR_NOT_FOUND :
+					throw new NotFoundHttpException(PostEx::ERR_NOT_FOUND);
 
-				case CategoryEx::ERR_ON_DELETE :
-					throw new ServerErrorHttpException(CategoryEx::ERR_ON_DELETE);
+				case PostEx::ERR_ON_DELETE :
+					throw new ServerErrorHttpException(PostEx::ERR_ON_DELETE);
 
 				default :
 					if ( is_array($result[ "error" ]) ) {

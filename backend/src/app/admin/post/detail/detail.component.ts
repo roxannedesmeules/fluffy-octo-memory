@@ -99,6 +99,26 @@ export class DetailComponent implements OnInit {
 	}
 
 	/**
+	 *
+	 * @param {string} field
+	 * @param {number} idx
+	 *
+	 * @return {any[]}
+	 */
+	public getErrors ( field: string, idx?: number ): any[] {
+		let error = [];
+
+		if (typeof idx !== "undefined") {
+			error = (this.errors.hasOwnProperty("translations") && this.errors.translations.hasOwnProperty(idx)) ?
+					this.errors.translations[ idx ][ field ] : [];
+		} else {
+			error = (this.errors.hasOwnProperty(field)) ? this.errors[ field ] : [];
+		}
+
+		return error;
+	}
+
+	/**
 	 * Shorthand method to easily get all translations from the form object.
 	 *
 	 * @return {FormArray}
@@ -109,6 +129,26 @@ export class DetailComponent implements OnInit {
 		}
 
 		return this._builder.array([]);
+	}
+
+	/**
+	 *
+	 * @param {string} field
+	 * @param {number} idx
+	 *
+	 * @return {boolean}
+	 */
+	public hasErrors ( field: string, idx?: number ): boolean {
+		let control = this.form.get(field);
+		let errors  = (this.errors.hasOwnProperty(field)) ? this.errors[ field ] : [];
+
+		if (typeof idx !== "undefined") {
+			control = this.getTranslations().at(idx).get(field);
+			errors  = (this.errors.hasOwnProperty("translations") && this.errors.translations.hasOwnProperty(idx)) ?
+					this.errors.translations[ idx ][ field ] : [];
+		}
+
+		return ((this.submitted || control.touched) && (control.invalid || errors.length > 0));
 	}
 
 	/**
@@ -155,6 +195,7 @@ export class DetailComponent implements OnInit {
 
 		request
 				.then(( result: any ) => {
+					this.submitted = false;
 					this.toastService.popAsync("success", "Yeah!", message);
 
 					if (this.isCreate()) {
@@ -191,22 +232,5 @@ export class DetailComponent implements OnInit {
 
 		const routePost = this._route.snapshot.data[ "post" ];
 		this.post       = (routePost) ? routePost : new Post();
-	}
-
-	/**
-	 *
-	 * @param {string} field
-	 * @param {number} idx
-	 *
-	 * @return {boolean}
-	 */
-	public showErrors ( field: string, idx?: number ): boolean {
-		let control = this.form.get(field);
-
-		if (typeof idx !== "undefined") {
-			control = this.getTranslations().at(idx).get(field);
-		}
-
-		return ((this.submitted || control.touched) && control.invalid);
 	}
 }

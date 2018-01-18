@@ -204,4 +204,9 @@ abstract class PostBase extends \yii\db\ActiveRecord
 	{
 		return self::find()->id($postId)->exists();
 	}
+
+	/**
+	 *
+	 */
+	public static function defineDbConnection () { self::$db = Yii::$app->db; }
 }

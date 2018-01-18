@@ -28,7 +28,7 @@
 										<i class="control-icon nb-edit"></i>
 									</a>
 								</nb-action>
-								<nb-action icon="nb-trash"></nb-action>
+								<nb-action icon="nb-trash" (click)="deleteOne(post.id)"></nb-action>
 							</nb-actions>
 						</td>
 						<td>{{ post.id }}</td>
