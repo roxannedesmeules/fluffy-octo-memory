@@ -22,7 +22,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
 		link     : "/admin/posts",
 		children : [
 			{ title : "Create post", link : "/admin/post/create" },
-			{ title : "View all", link : "/admin/post" },
+			{ title : "View all", link : "/admin/post/list" },
 		],
 	},
 ];

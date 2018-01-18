@@ -1,0 +1,104 @@
+<ngx-page-header [title]="title" [subtitle]="subtitle"></ngx-page-header>
+
+<div class="row">
+	<div class="col-12">
+		<form [formGroup]="form" (submit)="save()">
+			<nb-card>
+				<nb-card-body class="px-0">
+					<div class="mx-2 col-6">
+						<div class="form-group">
+							<label for="select-category" class="sr-only"> Category </label>
+							<select id="select-category" formControlName="category_id"
+							        class="form-control" [class.form-control-danger]="hasErrors('category_id')">
+								<option [value]="null" disabled> Please select a category </option>
+								<option *ngFor="let cat of categories" [value]="cat.id">
+									{{ cat.translations[ 0 ].name }}
+								</option>
+							</select>
+							<span class="form-text error" *ngIf="hasErrors('category_id')">
+								<span *ngIf="form.get('category_id').hasError('required')">
+									A category is required
+								</span>
+							</span>
+						</div>
+					</div>
+
+					<nb-tabset formArrayName="translations">
+						<nb-tab *ngFor="let translation of getTranslations().controls; let idx = index"
+						        [formGroupName]="idx"
+						        [tabTitle]="translation.get('lang_id').value | atIndexOf:languages:'id':'name'">
+
+							<div class="mx-2 mt-4 col-md-6 col-xs-12">
+								<div class="form-group" [class.has-danger]="hasErrors('title', idx)">
+									<label [for]="'input-idx-title' | replace:{ idx: idx }" class="sr-only">
+										Title
+									</label>
+
+									<input type="text" [id]="'input-idx-title' | replace:{ idx: idx }"
+									       placeholder="title" formControlName="title"
+									       class="form-control" [class.form-control-danger]="hasErrors('title', idx)"
+									       (change)="changeSlug(idx)">
+
+									<span class="form-text error" *ngIf="hasErrors('title', idx)">
+										<span *ngIf="translation.get('title').hasError('required')">
+											A title is required
+										</span>
+										<span *ngFor="let err of getErrors('title', idx)">
+											{{ err }}
+										</span>
+									</span>
+								</div>
+
+								<div class="form-group" [class.has-danger]="hasErrors('slug', idx)">
+									<label [for]="'input-idx-slug' | replace:{ idx: idx }" class="sr-only">
+										Slug
+									</label>
+
+									<input type="text" [id]="'input-idx-slug' | replace:{ idx: idx }"
+									       placeholder="slug" formControlName="slug"
+									       class="form-control" [class.form-control-danger]="hasErrors('slug', idx)"
+									       disabled>
+									<span class="form-text"> Slug is generated from the title </span>
+
+									<span class="form-text error" *ngIf="hasErrors('slug', idx)">
+										<span *ngIf="translation.get('slug').hasError('required')">
+											A slug is required
+										</span>
+
+
+									</span>
+								</div>
+							</div>
+
+							<div class="mx-2 col-11">
+								<div class="form-group">
+									<ckeditor formControlName="content"
+									          [config]="{ extraPlugins: 'divarea' }"></ckeditor>
+								</div>
+							</div>
+
+						</nb-tab>
+					</nb-tabset>
+				</nb-card-body>
+				<nb-card-footer class="text-md-right">
+					<a routerLink="/admin/post/list" class="btn btn-hero-secondary"> Cancel </a>
+					<button type="submit" class="btn btn-hero-success"> Save </button>
+					<div class="separator" *ngIf="!isCreate()">
+						<button type="button" *ngIf="canMoveTo('unpublished')"
+						        class="btn btn-hero-primary" (click)="saveStatusChange('unpublished')">
+							Review
+						</button>
+						<button type="button" *ngIf="canMoveTo('published')"
+						        class="btn btn-hero-primary" (click)="saveStatusChange('published')">
+							Publish
+						</button>
+						<button type="button" *ngIf="canMoveTo('archived')"
+						        class="btn btn-hero-danger" (click)="saveStatusChange('archived')">
+							Archive
+						</button>
+					</div>
+				</nb-card-footer>
+			</nb-card>
+		</form>
+	</div>
+</div>

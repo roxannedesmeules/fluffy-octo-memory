@@ -5,9 +5,8 @@ use app\components\validators\ArrayUniqueValidator;
 use app\components\validators\TranslationValidator;
 use app\helpers\ArrayHelperEx;
 use app\helpers\DateHelper;
-use app\models\category\Category;
 use app\models\post\Post;
-use app\models\post\PostStatus;
+use app\modules\v1\admin\models\category\CategoryEx;
 
 /**
  * Class PostEx
@@ -78,7 +77,7 @@ class PostEx extends Post
 			[ "category_id", "integer",  "message" => self::ERR_FIELD_TYPE ],
 			[
 				"category_id", "exist",
-				"targetClass"     => Category::className(),
+				"targetClass"     => CategoryEx::className(),
 				"targetAttribute" => [ "category_id" => "id" ],
 				"message"         => self::ERR_FIELD_NOT_FOUND,
 			],
@@ -86,7 +85,7 @@ class PostEx extends Post
 			[ "post_status_id", "integer", "message" => self::ERR_FIELD_TYPE ],
 			[
 				"post_status_id", "exist",
-				"targetClass"     => PostStatus::className(),
+				"targetClass"     => PostStatusEx::className(),
 				"targetAttribute" => [ "post_status_id" => "id" ],
 				"message"         => self::ERR_FIELD_NOT_FOUND,
 			],
@@ -151,6 +150,9 @@ class PostEx extends Post
 	 */
 	public static function deleteWithTranslations ( $postId )
 	{
+		//  set the $db property
+		self::defineDbConnection();
+
 		//  start a transaction to rollback at any moment if there is a problem
 		$transaction = self::$db->beginTransaction();
 
