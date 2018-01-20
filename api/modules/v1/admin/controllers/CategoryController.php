@@ -2,7 +2,9 @@
 
 namespace app\modules\v1\admin\controllers;
 
+use app\helpers\ArrayHelperEx;
 use app\modules\v1\admin\components\ControllerAdminEx;
+use app\modules\v1\admin\components\parameters\Active;
 use app\modules\v1\admin\models\category\CategoryEx;
 use app\modules\v1\admin\models\category\CategoryLangEx;
 use yii\data\ArrayDataProvider;
@@ -14,15 +16,31 @@ use yii\web\UnprocessableEntityHttpException;
  * Class CategoryController
  *
  * @package app\modules\v1\admin\controllers
+ *
+ * @property boolean $active  set from Active Parameter Component
  */
 class CategoryController extends ControllerAdminEx
 {
+	/** @inheritdoc */
+	public function behaviors ()
+	{
+		return ArrayHelperEx::merge(parent::behaviors(),
+									[
+										"Active" => Active::className(),
+									]);
+	}
+
 	/**
 	 * @SWG\Get(
 	 *     path = "/categories",
 	 *     tags = { "Categories" },
 	 *     summary = "Get all Categories",
 	 *     description = "Get list of all categories, returned with sorting and pagination",
+	 *
+	 *     @SWG\Parameter(
+	 *          name = "active", in = "query", type = "integer", default="-1", enum={ -1, 0, 1 },
+	 *          description = "Fetch active or inactive categories only, remove to fetch all"
+	 *     ),
 	 *
 	 *     @SWG\Response( response = 200, description = "list of categories", @SWG\Schema( ref = "#/definitions/Categories" ), ),
 	 *     @SWG\Response( response = 401, description = "user can't be authenticated", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
@@ -31,10 +49,10 @@ class CategoryController extends ControllerAdminEx
 	public function actionIndex ()
 	{
 		return new ArrayDataProvider([
-			                             "allModels" => CategoryEx::getAllWithTranslations(),
-			                             //  TODO    add sorting
-			                             //  TODO    add pagination
-		                             ]);
+										 "allModels" => CategoryEx::getAllWithTranslations($this->active),
+										 //  TODO    add sorting
+										 //  TODO    add pagination
+									 ]);
 	}
 
 	/**
@@ -62,7 +80,7 @@ class CategoryController extends ControllerAdminEx
 	 *     tags = { "Categories" },
 	 *     summary = "Create a category",
 	 *     description = "Create a new category with translations",
-	 *     
+	 *
 	 *     @SWG\Parameter( name = "category", in = "body", required = true, @SWG\Schema( ref = "#/definitions/CategoryForm" ), ),
 	 *
 	 *     @SWG\Response( response = 201, description = "category id", @SWG\Schema( @SWG\Property( property = "category_id", type = "integer" ), ),),
@@ -115,7 +133,7 @@ class CategoryController extends ControllerAdminEx
 	 *
 	 *     @SWG\Parameter( name = "id", in = "path", type = "integer", required = true ),
 	 *     @SWG\Parameter( name = "category", in = "body", required = true, @SWG\Schema( ref = "#/definitions/CategoryForm" ), ),
-	 *     
+	 *
 	 *     @SWG\Response( response = 200, description = "updated category", @SWG\Schema( ref = "#/definitions/Category" ), ),
 	 *     @SWG\Response( response = 401, description = "user can't be authenticated", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
 	 *     @SWG\Response( response = 404, description = "category not found", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),

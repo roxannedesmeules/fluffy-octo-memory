@@ -164,11 +164,31 @@ class CategoryEx extends Category
 	}
 	
 	/**
+	 *
+	 *
+	 * @param integer $active  define if we should check specifically for active or inactive categories
+	 *                         -1 will simply not be taken into consideration
+	 *
 	 * @return \app\models\category\CategoryBase[]|array
 	 */
-	public static function getAllWithTranslations ()
+	public static function getAllWithTranslations ( $active = -1 )
 	{
-		return self::find()->withTranslations()->all();
+		$query = self::find()->withTranslations();
+
+		switch ( $active ) {
+			case -1 :
+				//  do nothing - no active/inactive verification
+				break;
+
+			case 1 :
+				$query->active();
+				break;
+			case 0 :
+				$query->inactive();
+				break;
+		}
+
+		return $query->all();
 	}
 	
 	/**
