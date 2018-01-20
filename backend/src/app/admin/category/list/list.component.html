@@ -4,12 +4,18 @@
 	<div class="col-12">
 		<nb-card>
 			<nb-card-body class="px-0 table-responsive">
-				<table class="table table-striped">
+				<div class="col-2 filters">
+					<ngx-list-filter [size]="12" type="primary" [active]="false" title="Active"><i
+							class="ion-ios-settings"></i></ngx-list-filter>
+				</div>
+
+				<table class="table table-striped mt-4">
 					<thead>
 					<tr>
 						<th scope="col" width="10%" class="action-create">
 							<a routerLink="/admin/category/create" class="btn btn-hero-primary btn-block btn-tn">
-								Create </a>
+								Create
+							</a>
 						</th>
 						<th scope="col" width="10%">ID</th>
 						<th scope="col" width="25%">Name</th>

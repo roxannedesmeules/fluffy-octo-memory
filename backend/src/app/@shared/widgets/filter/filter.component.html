@@ -1,0 +1,11 @@
+<nb-card class="col-{{ size }} p-0" [class.off]="!active" (click)="active = !active">
+	<div class="icon-container">
+		<div class="icon {{ type }}">
+			<ng-content></ng-content>
+		</div>
+	</div>
+
+	<div class="details">
+		<div class="title">{{ title }}</div>
+	</div>
+</nb-card>
