@@ -1,35 +1,44 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule } from "@angular/common";
+import { NgModule, ModuleWithProviders } from "@angular/core";
 
-import { UserService } from './users.service';
-import { ElectricityService } from './electricity.service';
-import { StateService } from './state.service';
-import { SmartTableService } from './smart-table.service';
-import { PlayerService } from './player.service';
+import { AuthService } from "@core/data/users/auth.service";
+import { CategoryService } from "@core/data/categories/category.service";
+import { LanguageResolve } from "@shared/resolver/language.resolve";
+import { PostService } from "@core/data/posts/post.service";
+import { PostStatusService } from "@core/data/posts/post-status.service";
+import { UserService } from "@core/data/users/user.service";
 
 const SERVICES = [
-  UserService,
-  ElectricityService,
-  StateService,
-  SmartTableService,
-  PlayerService,
+	// categories
+	CategoryService,
+
+	// languages
+	LanguageResolve,
+
+	// posts
+	PostService,
+	PostStatusService,
+
+	// user's services
+	UserService,
+	AuthService,
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-  ],
-  providers: [
-    ...SERVICES,
-  ],
+	imports   : [
+		CommonModule,
+	],
+	providers : [
+		... SERVICES,
+	],
 })
 export class DataModule {
-  static forRoot(): ModuleWithProviders {
-    return <ModuleWithProviders>{
-      ngModule: DataModule,
-      providers: [
-        ...SERVICES,
-      ],
-    };
-  }
+	static forRoot (): ModuleWithProviders {
+		return <ModuleWithProviders>{
+			ngModule  : DataModule,
+			providers : [
+				... SERVICES,
+			],
+		};
+	}
 }

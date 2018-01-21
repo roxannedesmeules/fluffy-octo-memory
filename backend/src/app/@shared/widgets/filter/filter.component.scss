@@ -66,6 +66,19 @@
 			}
 		}
 		
+		&.disabled {
+			color : nb-theme(card-fg);
+			
+			.icon {
+				color : nb-theme(color-fg-text);
+				
+				&.primary, &.success, &.info, &.warning {
+					$left : lighten(btn-hero-secondary-middle-color(), 8%);
+					background-image : btn-hero-light-gradient($left, btn-hero-secondary-middle-color());
+				}
+			}
+		}
+		
 		&.off {
 			color : nb-theme(card-fg);
 			

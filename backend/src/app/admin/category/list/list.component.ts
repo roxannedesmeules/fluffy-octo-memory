@@ -13,6 +13,8 @@ import { CategoryService } from "@core/data/categories/category.service";
 })
 export class ListComponent implements OnInit {
 
+	public active = -1;
+
 	public list: Category[];
 
 	constructor ( private _route: ActivatedRoute,
@@ -34,7 +36,15 @@ export class ListComponent implements OnInit {
 				});
 	}
 
+	filter ( active ) {
+		this.active = active;
+
+		this.updateList();
+	}
+
 	updateList () {
+		this.service.filters.active = this.active;
+
 		this.service
 				.findAll()
 				.then(( result: any ) => {

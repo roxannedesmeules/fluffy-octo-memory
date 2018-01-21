@@ -5,8 +5,11 @@
 		<nb-card>
 			<nb-card-body class="px-0 table-responsive">
 				<div class="col-2 filters">
-					<ngx-list-filter [size]="12" type="primary" [active]="false" title="Active"><i
-							class="ion-ios-settings"></i></ngx-list-filter>
+					<ngx-list-filter size="12" type="primary" [active]="active"
+					                 title="{{ (!active) ? 'inactive' : 'active' }}"
+					                 (onChange)="filter($event)">
+						<i class="ion-ios-settings"></i>
+					</ngx-list-filter>
 				</div>
 
 				<table class="table table-striped mt-4">
