@@ -3,7 +3,7 @@ import { NgModule, ModuleWithProviders } from "@angular/core";
 
 import { AuthService } from "@core/data/users/auth.service";
 import { CategoryService } from "@core/data/categories/category.service";
-import { LanguageResolve } from "@shared/resolver/language.resolve";
+import { LangService } from "@core/data/languages/lang.service";
 import { PostService } from "@core/data/posts/post.service";
 import { PostStatusService } from "@core/data/posts/post-status.service";
 import { UserService } from "@core/data/users/user.service";
@@ -13,7 +13,7 @@ const SERVICES = [
 	CategoryService,
 
 	// languages
-	LanguageResolve,
+	LangService,
 
 	// posts
 	PostService,
