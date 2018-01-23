@@ -14,15 +14,17 @@ export class FilterComponent {
 	@Input() type: string;
 	@Input() active: number = -1;
 
+	@Input() options: any[];
+
 	constructor () { }
 
-	change () {
-		this.active += 1;
+	/**
+	 * select the item that was clicked.
+	 * @param value
+	 */
+	select ( value ) {
+		this.active = value;
 
-		if (this.active === 2) {
-			this.active = -1;
-		}
-
-		this.onChange.emit(this.active);
+		this.onChange.emit(value);
 	}
 }

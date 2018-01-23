@@ -2,16 +2,29 @@
 @import '~@nebular/theme/styles/global/bootstrap/hero-buttons';
 
 @include nb-install-component() {
+	$height : 2.75rem;
+	
 	nb-card {
 		$bevel : btn-hero-bevel(nb-theme(card-bg));
 		$shadow : nb-theme(btn-hero-shadow);
 		flex-direction : row;
 		align-items    : center;
-		height         : 2.75rem;
+		height         : $height;
 		overflow       : visible;
 		box-shadow     : $bevel, $shadow;
 		
+		.dropdown-toggle {
+			padding : 0;
+			height  : $height;
+			
+			& > span {
+				line-height  : 2.5;
+				padding-left : 0.75rem;
+			}
+		}
+		
 		.icon-container {
+			float  : left;
 			height : 100%;
 		}
 		

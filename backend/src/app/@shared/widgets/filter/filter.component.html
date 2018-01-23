@@ -1,12 +1,17 @@
-<nb-card class="col-{{ size }} p-0" [class.off]="active === -1" [class.disabled]="active === 0"
-         (click)="change()">
-	<div class="icon-container">
-		<div class="icon {{ type }}">
-			<ng-content></ng-content>
+<nb-card class="col-12 p-0 dropdown ghost-dropdown" [class.off]="active === -1" ngbDropdown>
+	<button class="btn btn-primary" type="button" ngbDropdownToggle>
+		<div class="icon-container">
+			<div class="icon {{ type }}">
+				<ng-content></ng-content>
+			</div>
 		</div>
-	</div>
-
-	<div class="details">
-		<div class="title">{{ title }}</div>
-	</div>
+		<span>{{ title }}</span>
+	</button>
+	<ul class="dropdown-menu" ngbDropdownMenu>
+		<li *ngFor="let item of options"
+		    class="dropdown-item" [class.dropdown-item-active]="item.id === active"
+		    (click)="select(item.id)">
+			{{ item.name }}
+		</li>
+	</ul>
 </nb-card>
