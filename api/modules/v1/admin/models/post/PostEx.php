@@ -185,11 +185,19 @@ class PostEx extends Post
 	/**
 	 * Get a list of all post with their translations
 	 *
+	 * @param integer $status
+	 *
 	 * @return PostEx[]|array
 	 */
-	public static function getAllWithTranslations ()
+	public static function getAllWithTranslations ( $status = -1 )
 	{
-		return self::find()->withTranslations()->all();
+		$query = self::find()->withTranslations();
+
+		if ( PostStatusEx::idExists($status) ) {
+			$query->status($status);
+		}
+
+		return $query->all();
 	}
 
 	/**

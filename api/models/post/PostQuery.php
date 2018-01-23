@@ -26,6 +26,11 @@ class PostQuery extends \yii\db\ActiveQuery
 		return $this->andWhere([ "id" => $postId]);
 	}
 
+	public function status ( $statusId )
+	{
+		return $this->andWhere([ "post_status_id" => $statusId ]);
+	}
+
 	public function withTranslations ()
 	{
 		return $this->with("postLangs");

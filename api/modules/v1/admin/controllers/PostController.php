@@ -2,7 +2,9 @@
 
 namespace app\modules\v1\admin\controllers;
 
+use app\helpers\ArrayHelperEx;
 use app\modules\v1\admin\components\ControllerAdminEx;
+use app\modules\v1\admin\components\parameters\Status;
 use app\modules\v1\admin\models\post\PostEx;
 use yii\data\ArrayDataProvider;
 use yii\web\NotFoundHttpException;
@@ -12,15 +14,31 @@ use yii\web\ServerErrorHttpException;
  * Class PostController
  *
  * @package app\modules\v1\admin\controllers
+ *
+ * @property integer $status
  */
 class PostController extends ControllerAdminEx
 {
+	/** @inheritdoc */
+	public function behaviors ()
+	{
+		return ArrayHelperEx::merge(parent::behaviors(),
+									[
+										"Status" => Status::className(),
+									]);
+	}
+
 	/**
 	 * @SWG\Get(
 	 *     path    = "/posts",
 	 *     tags    = { "Posts" },
 	 *     summary = "Get all posts",
 	 *     description = "Return list of all posts, with sorting and pagination",
+	 *
+	 *     @SWG\Parameter(
+	 *            name = "status", in = "query", type = "integer", default = "-1", enum = { -1, 1 , 2, 3, 4 },
+	 *            description = "filter by post statuses, either remove the parameter or set to -1 to get all",
+	 *       ),
 	 *
 	 *     @SWG\Response( response = 200, description = "list of posts", @SWG\Schema( ref = "#/definitions/PostList" ), ),
 	 *     @SWG\Response( response = 401, description = "user can't be authenticated", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
@@ -29,10 +47,10 @@ class PostController extends ControllerAdminEx
 	public function actionIndex ()
 	{
 		return new ArrayDataProvider([
-			                             "allModels" => PostEx::getAllWithTranslations(),
-			                             //  TODO    add sorting
-			                             //  TODo    add pagination
-		                             ]);
+										 "allModels" => PostEx::getAllWithTranslations($this->status),
+										 //  TODO    add sorting
+										 //  TODo    add pagination
+									 ]);
 	}
 
 	/**
@@ -193,7 +211,7 @@ class PostController extends ControllerAdminEx
 					throw new ServerErrorHttpException(json_encode($result[ "error" ]));
 			}
 		}
-		
+
 		$this->response->setStatusCode(204);
 	}
 }
