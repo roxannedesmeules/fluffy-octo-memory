@@ -4,6 +4,7 @@ namespace app\modules\v1\admin\models\category;
 use app\components\validators\ArrayUniqueValidator;
 use app\components\validators\TranslationValidator;
 use app\models\category\Category;
+use app\modules\v1\admin\models\LangEx;
 
 /**
  * Class CategoryEx
@@ -164,11 +165,33 @@ class CategoryEx extends Category
 	}
 	
 	/**
+	 *
+	 * @param array $filters
+	 *
 	 * @return \app\models\category\CategoryBase[]|array
 	 */
-	public static function getAllWithTranslations ()
+	public static function getAllWithTranslations ( $filters )
 	{
-		return self::find()->withTranslations()->all();
+		$query = self::find()->withTranslations();
+
+		switch ( $filters[ "active" ] ) {
+			case -1 :
+				//  do nothing - no active/inactive verification
+				break;
+
+			case 1 :
+				$query->active();
+				break;
+			case 0 :
+				$query->inactive();
+				break;
+		}
+
+		if ( LangEx::idExists($filters[ "language" ]) ) {
+			$query->withTranslationIn($filters[ "language" ]);
+		}
+
+		return $query->all();
 	}
 	
 	/**

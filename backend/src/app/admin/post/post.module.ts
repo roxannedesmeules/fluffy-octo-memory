@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { WidgetsModule } from "@shared/widgets/widgets.module";
 import { ThemeModule } from "@theme/theme.module";
 import { PipesModule } from "@shared/pipes/pipes.module";
 import { PostRoutingModule } from "@admin/post/post-routing.module";
@@ -15,6 +16,7 @@ import { DetailComponent } from "./detail/detail.component";
 		ThemeModule,
 		PostRoutingModule,
 		PipesModule,
+		WidgetsModule,
 		CKEditorModule,
 	],
 	declarations : [

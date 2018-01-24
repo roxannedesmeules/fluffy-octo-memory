@@ -1,24 +1,35 @@
-th.action-create {
-	padding    : {
-		left   : 0.75rem;
-		right  : 0.75rem;
-		top    : 0;
-		bottom : 0;
-	}
-	text-align     : center;
-	vertical-align : middle;
+nb-card-body {
+	overflow : visible;
 	
-	& > .btn-tn {
-		line-height : calc((0.6rem * 1.25) + 4px) !important;
+	.filters {
+		margin : { right : 0.75rem; }
+		position : absolute;
+		right    : 0.75rem;
+		top      : - 0.85rem;
 	}
-}
-
-tr:nth-of-type(odd) {
-	nb-actions nb-action {
-		border-left-color : #ffffff;
+	
+	th.action-create {
+		padding    : {
+			left   : 0.75rem;
+			right  : 0.75rem;
+			top    : 0;
+			bottom : 0;
+		}
+		text-align     : center;
+		vertical-align : middle;
+		
+		& > .btn-tn {
+			line-height : calc((0.6rem * 1.25) + 4px) !important;
+		}
 	}
-}
-
-nb-action > a {
-	&:hover { text-decoration : none; }
+	
+	tr:nth-of-type(odd) {
+		nb-actions nb-action {
+			border-left-color : #ffffff;
+		}
+	}
+	
+	nb-action > a {
+		&:hover { text-decoration : none; }
+	}
 }

@@ -4,7 +4,19 @@
 	<div class="col-12">
 		<nb-card>
 			<nb-card-body class="px-0 table-responsive">
-				<table class="table table-striped">
+				<div class="col-5 filters">
+					<div class="row">
+						<ngx-list-filter class="col-6 px-1" type="primary" title="Language"
+						                 [options]="languages" (onChange)="filter('lang', $event)">
+							<i class="ion-ios-chatboxes-outline"></i>
+						</ngx-list-filter>
+						<ngx-list-filter class="col-5 px-1" type="primary" title="Status"
+						                 [options]="statuses" (onChange)="filter('status', $event)">
+							<i class="ion-ios-bookmarks-outline"></i>
+						</ngx-list-filter>
+					</div>
+				</div>
+				<table class="table table-striped mt-4">
 					<thead>
 					<tr>
 						<th scope="col" width="10%" class="action-create">

@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { ErrorResponse } from "@core/data/error-response.model";
+import { Lang } from "@core/data/languages/lang.model";
 import { ToasterService } from "angular2-toaster";
 
 import { PostService } from "@core/data/posts/post.service";
@@ -16,14 +17,20 @@ export class ListComponent implements OnInit {
 
 	public posts: Post[];
 	public statuses: PostStatus[];
+	public languages: Lang[];
+
+	public filters = {
+		status : {},
+	};
 
 	constructor ( private _route: ActivatedRoute,
 				  private toastService: ToasterService,
 				  private service: PostService ) { }
 
 	ngOnInit () {
-		this.posts    = this._route.snapshot.data[ "posts" ];
-		this.statuses = this._route.snapshot.data[ "statuses" ];
+		this.posts     = this._route.snapshot.data[ "posts" ];
+		this.statuses  = this._route.snapshot.data[ "statuses" ];
+		this.languages = this._route.snapshot.data[ "languages" ];
 	}
 
 	public deleteOne ( postId ) {
@@ -46,5 +53,11 @@ export class ListComponent implements OnInit {
 				.catch(( error: ErrorResponse ) => {
 					this.toastService.popAsync("error", "Ouch", error.message);
 				});
+	}
+
+	public filter ( attr, statusId ) {
+		this.service.filters.set(attr, statusId);
+
+		this.updateList();
 	}
 }
