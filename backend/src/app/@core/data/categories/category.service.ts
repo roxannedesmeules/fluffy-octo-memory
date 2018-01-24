@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 
 import { BaseService } from "@core/data/base.service";
+import { CategoryFilters } from "@core/data/categories/category.filters";
 
 import { Category } from "@core/data/categories/category.model";
 
@@ -9,9 +10,7 @@ import { Category } from "@core/data/categories/category.model";
 export class CategoryService extends BaseService {
 	public modelName = "categories";
 
-	public filters = {
-		active : -1,
-	};
+	public filters = new CategoryFilters();
 
 	constructor ( @Inject(HttpClient) http: HttpClient ) {
 		super(http);
@@ -20,22 +19,9 @@ export class CategoryService extends BaseService {
 	}
 
 	public findAll () {
-		return this.http.get(this._url(), this._filters())
+		return this.http.get(this._url(), this.filters.formatRequest())
 				.toPromise()
 				.then(this._parseResponseBody)
 				.catch(this._parseErrorBody);
-	}
-
-	/**
-	 *
-	 * @return {object}
-	 * @private
-	 */
-	private _filters (): object {
-		return {
-			params : {
-				active : this.filters.active.toString(),
-			},
-		};
 	}
 }

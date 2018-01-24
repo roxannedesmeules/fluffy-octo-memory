@@ -4,12 +4,17 @@
 	<div class="col-12">
 		<nb-card>
 			<nb-card-body class="px-0 table-responsive">
-				<div class="col-2 filters">
-					<ngx-list-filter size="12" type="primary" [active]="active"
-					                 title="{{ (!active) ? 'inactive' : 'active' }}"
-					                 (onChange)="filter($event)">
-						<i class="ion-ios-settings"></i>
-					</ngx-list-filter>
+				<div class="col-5 filters">
+					<div class="row">
+						<ngx-list-filter class="col-6 px-1" type="primary" title="Language"
+						                 [options]="languages" (onChange)="filter('lang', $event)">
+							<i class="ion-ios-chatboxes-outline"></i>
+						</ngx-list-filter>
+						<ngx-list-filter class="col-5 px-1" type="primary" title="Active"
+						                 [options]="statuses" (onChange)="filter('active', $event)">
+							<i class="ion-ios-settings"></i>
+						</ngx-list-filter>
+					</div>
 				</div>
 
 				<table class="table table-striped mt-4">
@@ -28,7 +33,7 @@
 					</tr>
 					</thead>
 					<tbody>
-					<tr *ngFor="let category of list">
+					<tr *ngFor="let category of categories">
 						<td scope="row" class="p-0 pt-1">
 							<nb-actions size="medium">
 								<nb-action>

@@ -23,11 +23,16 @@ const routes: Routes = [
 			{
 				path      : "list",
 				component : ListComponent,
-				resolve   : { list : ListResolve },
+				resolve   : {
+					categories : ListResolve,
+					languages  : LanguageResolve,
+				},
 			}, {
 				path      : "create",
 				component : DetailComponent,
-				resolve   : { languages : LanguageResolve },
+				resolve   : {
+					languages : LanguageResolve,
+				},
 			}, {
 				path      : "update/:id",
 				component : DetailComponent,
