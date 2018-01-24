@@ -39,7 +39,7 @@ export class ListComponent implements OnInit {
 	}
 
 	filter ( attr, value ) {
-		this.service.filters.set("active", value);
+		this.service.filters.set(attr, value);
 
 		this.updateList();
 	}

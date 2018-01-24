@@ -1,5 +1,4 @@
 <?php
-
 namespace app\models\category;
 
 /**
@@ -51,6 +50,16 @@ class CategoryQuery extends \yii\db\ActiveQuery
 	public function inactive ()
 	{
 		return $this->andWhere([ "is_active" => Category::INACTIVE ]);
+	}
+
+	public function withTranslationIn ( $lang )
+	{
+		$subQuery = CategoryLang::find()
+								->select("category_id")
+								->where("category_id = " . Category::tableName() . ".id")
+								->andWhere([ "lang_id" => $lang ]);
+
+		return $this->andWhere([ "exists", $subQuery ]);
 	}
 
 	/**

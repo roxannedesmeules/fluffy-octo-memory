@@ -5,6 +5,7 @@ namespace app\modules\v1\admin\controllers;
 use app\helpers\ArrayHelperEx;
 use app\modules\v1\admin\components\ControllerAdminEx;
 use app\modules\v1\admin\components\parameters\Active;
+use app\modules\v1\admin\components\parameters\Language;
 use app\modules\v1\admin\models\category\CategoryEx;
 use app\modules\v1\admin\models\category\CategoryLangEx;
 use yii\data\ArrayDataProvider;
@@ -17,7 +18,8 @@ use yii\web\UnprocessableEntityHttpException;
  *
  * @package app\modules\v1\admin\controllers
  *
- * @property boolean $active  set from Active Parameter Component
+ * @property boolean $active   set from Active Parameter
+ * @property string  $language set from Language Parameter
  */
 class CategoryController extends ControllerAdminEx
 {
@@ -26,7 +28,8 @@ class CategoryController extends ControllerAdminEx
 	{
 		return ArrayHelperEx::merge(parent::behaviors(),
 									[
-										"Active" => Active::className(),
+										"Active"   => Active::className(),
+										"Language" => Language::className(),
 									]);
 	}
 
@@ -48,8 +51,13 @@ class CategoryController extends ControllerAdminEx
 	 */
 	public function actionIndex ()
 	{
+		$filters = [
+			"active"   => $this->active,
+			"language" => $this->language,
+		];
+
 		return new ArrayDataProvider([
-										 "allModels" => CategoryEx::getAllWithTranslations($this->active),
+										 "allModels" => CategoryEx::getAllWithTranslations($filters),
 										 //  TODO    add sorting
 										 //  TODO    add pagination
 									 ]);

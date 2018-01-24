@@ -1,5 +1,6 @@
 export class CategoryFilters {
 	public active: number = -1;
+	public lang: string;
 
 	// sorting
 	public orderBy: string;
@@ -20,10 +21,16 @@ export class CategoryFilters {
 	}
 
 	public formatRequest (): object {
-		return {
-			params : {
-				active : this.active,
-			},
-		};
+		const params: any = {};
+
+		if (this.active !== -1) {
+			params.active = this.active;
+		}
+
+		if (this.lang) {
+			params.lang = this.lang;
+		}
+
+		return { params : params };
 	}
 }
