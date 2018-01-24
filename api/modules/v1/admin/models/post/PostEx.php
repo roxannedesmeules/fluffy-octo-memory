@@ -7,6 +7,7 @@ use app\helpers\ArrayHelperEx;
 use app\helpers\DateHelper;
 use app\models\post\Post;
 use app\modules\v1\admin\models\category\CategoryEx;
+use app\modules\v1\admin\models\LangEx;
 
 /**
  * Class PostEx
@@ -185,16 +186,20 @@ class PostEx extends Post
 	/**
 	 * Get a list of all post with their translations
 	 *
-	 * @param integer $status
+	 * @param array $filters
 	 *
 	 * @return PostEx[]|array
 	 */
-	public static function getAllWithTranslations ( $status = -1 )
+	public static function getAllWithTranslations ( $filters )
 	{
 		$query = self::find()->withTranslations();
 
-		if ( PostStatusEx::idExists($status) ) {
-			$query->status($status);
+		if ( PostStatusEx::idExists($filters[ "status" ]) ) {
+			$query->status($filters[ "status" ]);
+		}
+
+		if ( LangEx::idExists($filters[ "language" ]) ) {
+			$query->withTranslationIn($filters[ "language" ]);
 		}
 
 		return $query->all();

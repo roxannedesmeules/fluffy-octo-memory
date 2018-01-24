@@ -31,6 +31,16 @@ class PostQuery extends \yii\db\ActiveQuery
 		return $this->andWhere([ "post_status_id" => $statusId ]);
 	}
 
+	public function withTranslationIn ( $lang )
+	{
+		$subQuery = PostLang::find()
+							->select("post_id")
+							->andWhere("post_id = " . Post::tableName() . ".id")
+							->andWhere([ "lang_id" => $lang ]);
+
+		return $this->andWhere([ "exists", $subQuery ]);
+	}
+
 	public function withTranslations ()
 	{
 		return $this->with("postLangs");

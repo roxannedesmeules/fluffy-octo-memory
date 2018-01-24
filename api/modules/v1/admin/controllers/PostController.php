@@ -4,6 +4,7 @@ namespace app\modules\v1\admin\controllers;
 
 use app\helpers\ArrayHelperEx;
 use app\modules\v1\admin\components\ControllerAdminEx;
+use app\modules\v1\admin\components\parameters\Language;
 use app\modules\v1\admin\components\parameters\Status;
 use app\modules\v1\admin\models\post\PostEx;
 use yii\data\ArrayDataProvider;
@@ -16,6 +17,7 @@ use yii\web\ServerErrorHttpException;
  * @package app\modules\v1\admin\controllers
  *
  * @property integer $status
+ * @property integer $language
  */
 class PostController extends ControllerAdminEx
 {
@@ -24,7 +26,8 @@ class PostController extends ControllerAdminEx
 	{
 		return ArrayHelperEx::merge(parent::behaviors(),
 									[
-										"Status" => Status::className(),
+										"Status"   => Status::className(),
+										"Language" => Language::className(),
 									]);
 	}
 
@@ -46,8 +49,13 @@ class PostController extends ControllerAdminEx
 	 */
 	public function actionIndex ()
 	{
+		$filters = [
+			"status"   => $this->status,
+			"language" => $this->language,
+		];
+
 		return new ArrayDataProvider([
-										 "allModels" => PostEx::getAllWithTranslations($this->status),
+										 "allModels" => PostEx::getAllWithTranslations($filters),
 										 //  TODO    add sorting
 										 //  TODo    add pagination
 									 ]);
