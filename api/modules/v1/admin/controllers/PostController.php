@@ -5,6 +5,7 @@ namespace app\modules\v1\admin\controllers;
 use app\helpers\ArrayHelperEx;
 use app\modules\v1\admin\components\ControllerAdminEx;
 use app\modules\v1\admin\components\parameters\Language;
+use app\modules\v1\admin\components\parameters\Pagination;
 use app\modules\v1\admin\components\parameters\Status;
 use app\modules\v1\admin\models\post\PostEx;
 use yii\data\ArrayDataProvider;
@@ -16,8 +17,9 @@ use yii\web\ServerErrorHttpException;
  *
  * @package app\modules\v1\admin\controllers
  *
- * @property integer $status
- * @property integer $language
+ * @property integer $status     set from Status Parameter
+ * @property integer $language   set from Language Parameter
+ * @property array   $pagination set from Pagination Parameter
  */
 class PostController extends ControllerAdminEx
 {
@@ -26,8 +28,9 @@ class PostController extends ControllerAdminEx
 	{
 		return ArrayHelperEx::merge(parent::behaviors(),
 									[
-										"Status"   => Status::className(),
-										"Language" => Language::className(),
+										"Status"     => Status::className(),
+										"Language"   => Language::className(),
+										"Pagination" => Pagination::className(),
 									]);
 	}
 
@@ -54,11 +57,13 @@ class PostController extends ControllerAdminEx
 			"language" => $this->language,
 		];
 
-		return new ArrayDataProvider([
-										 "allModels" => PostEx::getAllWithTranslations($filters),
-										 //  TODO    add sorting
-										 //  TODo    add pagination
-									 ]);
+		$data = [
+			"allModels"  => PostEx::getAllWithTranslations($filters),
+			//  TODO    add sorting
+			"pagination" => $this->pagination,
+		];
+
+		return new ArrayDataProvider($data);
 	}
 
 	/**
