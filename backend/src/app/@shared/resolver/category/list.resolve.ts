@@ -13,7 +13,8 @@ export class ListResolve implements Resolve<Category[]> {
 		return this.service
 				.findAll()
 				.then(( result: any ) => {
-					return this.service.mapListToModelList(result);
+					console.log(result);
+					return result;
 				});
 	}
 }

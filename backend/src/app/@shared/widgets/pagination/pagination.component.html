@@ -1,0 +1,6 @@
+<div class="btn-group btn-toggle-group btn-outline-toggle-group" data-toggle="buttons" ngbRadioGroup>
+	<label *ngFor="let page of pageNumbers()"
+	       ngbButtonLabel class="btn btn-outline-success">
+		<input ngbButton type="radio" [value]="page"> {{ page }}
+	</label>
+</div>

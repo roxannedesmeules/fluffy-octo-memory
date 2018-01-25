@@ -7,7 +7,7 @@ export class CategoryFilters {
 
 	// pagination
 	public pageNumber: number = 0;
-	public pageSize: number   = 20;
+	public perPage: number    = 10;
 
 	constructor () {}
 
@@ -20,6 +20,11 @@ export class CategoryFilters {
 		this[ attr ] = value;
 	}
 
+	public setPagination ( pagination ) {
+		this.pageNumber = pagination.currentPage;
+		this.perPage    = pagination.perPage;
+	}
+
 	public formatRequest (): object {
 		const params: any = {};
 
@@ -30,6 +35,9 @@ export class CategoryFilters {
 		if (this.lang) {
 			params.lang = this.lang;
 		}
+
+		params[ "per-page" ] = this.perPage;
+		params[ "page" ]     = this.pageNumber;
 
 		return { params : params };
 	}

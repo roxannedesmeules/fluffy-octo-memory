@@ -24,8 +24,8 @@ const routes: Routes = [
 				path      : "list",
 				component : ListComponent,
 				resolve   : {
-					categories : ListResolve,
-					languages  : LanguageResolve,
+					list      : ListResolve,
+					languages : LanguageResolve,
 				},
 			}, {
 				path      : "create",
