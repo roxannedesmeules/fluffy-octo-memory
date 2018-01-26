@@ -23,7 +23,7 @@ export class TrafficChartComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    this.themeSubscription = this.theme.getJsTheme().delay(1).subscribe(config => {
+    this.themeSubscription = this.theme.getJsTheme().subscribe(config => {
 
       const trafficTheme: any = config.variables.traffic;
 
