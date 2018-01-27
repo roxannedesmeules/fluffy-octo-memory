@@ -47,6 +47,12 @@ class ControllerAdminEx extends Controller
 					"Access-Control-Max-Age"         => 3600,
 					"Access-Control-Request-Headers" => [ "*" ],
 					'Access-Control-Allow-Credentials' => true,
+					"Access-Control-Expose-Headers"    => [
+						"X-Pagination-Current-Page",
+						"X-Pagination-Page-Count",
+						"X-Pagination-Per-Page",
+						"X-Pagination-Total-Count",
+					],
 				],
 			],
 			"ClientToken"   => ApiClientSecurity::className(),
