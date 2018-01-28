@@ -29,7 +29,7 @@ const routes: Routes = [
 				path      : "list",
 				component : ListComponent,
 				resolve   : {
-					posts     : ListResolve,
+					list      : ListResolve,
 					statuses  : StatusListResolve,
 					languages : LanguageResolve,
 				},

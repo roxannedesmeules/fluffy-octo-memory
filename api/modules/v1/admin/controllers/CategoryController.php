@@ -6,6 +6,7 @@ use app\helpers\ArrayHelperEx;
 use app\modules\v1\admin\components\ControllerAdminEx;
 use app\modules\v1\admin\components\parameters\Active;
 use app\modules\v1\admin\components\parameters\Language;
+use app\modules\v1\admin\components\parameters\Pagination;
 use app\modules\v1\admin\models\category\CategoryEx;
 use app\modules\v1\admin\models\category\CategoryLangEx;
 use yii\data\ArrayDataProvider;
@@ -18,8 +19,9 @@ use yii\web\UnprocessableEntityHttpException;
  *
  * @package app\modules\v1\admin\controllers
  *
- * @property boolean $active   set from Active Parameter
- * @property string  $language set from Language Parameter
+ * @property boolean $active     set from Active Parameter
+ * @property string  $language   set from Language Parameter
+ * @property array   $pagination set from Pagination Parameter
  */
 class CategoryController extends ControllerAdminEx
 {
@@ -28,8 +30,9 @@ class CategoryController extends ControllerAdminEx
 	{
 		return ArrayHelperEx::merge(parent::behaviors(),
 									[
-										"Active"   => Active::className(),
-										"Language" => Language::className(),
+										"Active"     => Active::className(),
+										"Language"   => Language::className(),
+										"Pagination" => Pagination::className(),
 									]);
 	}
 
@@ -56,11 +59,13 @@ class CategoryController extends ControllerAdminEx
 			"language" => $this->language,
 		];
 
-		return new ArrayDataProvider([
-										 "allModels" => CategoryEx::getAllWithTranslations($filters),
-										 //  TODO    add sorting
-										 //  TODO    add pagination
-									 ]);
+		$data = [
+			"allModels"  => CategoryEx::getAllWithTranslations($filters),
+			//  TODO    add sorting
+			"pagination" => $this->pagination,
+		];
+
+		return new ArrayDataProvider($data);
 	}
 
 	/**
