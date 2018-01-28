@@ -1,19 +1,29 @@
 <div class="btn-group btn-group-tn btn-toggle-group btn-outline-toggle-group" data-toggle="buttons"
 	 ngbRadioGroup [ngModel]="pagination.currentPage">
-	<label ngbButtonLabel class="btn btn-outline-primary btn-tn">
-		<input ngbButton type="radio" value="first"> <i class="fa fa-angle-double-left"></i>
+
+	<label ngbButtonLabel class="btn btn-outline-primary btn-tn"
+		   (click)="goToFirst()">
+		<i class="fa fa-angle-double-left"><input ngbButton type="radio"></i>
 	</label>
-	<label ngbButtonLabel class="btn btn-outline-primary btn-tn">
-		 <i class="fa fa-angle-left"></i>
+
+	<label ngbButtonLabel class="btn btn-outline-primary btn-tn"
+		   (click)="goToPrevious()">
+		 <i class="fa fa-angle-left"><input ngbButton type="radio"></i>
 	</label>
+
 	<label *ngFor="let page of pageNumbers()"
-	       ngbButtonLabel class="btn btn-outline-primary btn-tn">
+	       ngbButtonLabel class="btn btn-outline-primary btn-tn"
+		   (click)="goToPage(page)">
 		<input ngbButton type="radio" [value]="page"> {{ page }}
 	</label>
-	<label ngbButtonLabel class="btn btn-outline-primary btn-tn">
-		<i class="fa fa-angle-right"><input ngbButton type="radio" value="next"></i>
+
+	<label ngbButtonLabel class="btn btn-outline-primary btn-tn"
+		   (click)="goToNext()">
+		<i class="fa fa-angle-right"><input ngbButton type="radio"></i>
 	</label>
-	<label ngbButtonLabel class="btn btn-outline-primary btn-tn">
-		<i class="fa fa-angle-double-right"><input ngbButton type="radio" value="last"></i>
+
+	<label ngbButtonLabel class="btn btn-outline-primary btn-tn"
+		   (click)="goToLast()">
+		<i class="fa fa-angle-double-right"><input ngbButton type="radio"></i>
 	</label>
 </div>
