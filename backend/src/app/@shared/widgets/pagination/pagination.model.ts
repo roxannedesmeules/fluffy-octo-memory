@@ -46,6 +46,35 @@ export class Pagination {
 	}
 
 	/**
+	 * Verify if the current page is the first one.
+	 *
+	 * @returns {boolean}
+	 */
+	public isFirst (): boolean {
+		return this.isPage(1);
+	}
+
+	/**
+	 * Verify if the current page is the last.
+	 *
+	 * @returns {boolean}
+	 */
+	public isLast (): boolean {
+		return this.isPage(this.pageCount);
+	}
+
+	/**
+	 * Helper method to know if the current page is a specific page number
+	 *
+	 * @param {number} pageNumber
+	 *
+	 * @returns {boolean}
+	 */
+	public isPage (pageNumber: number): boolean {
+		return (this.currentPage === pageNumber);
+	}
+
+	/**
 	 * Defines the model information from the header object passed in parameter.
 	 *
 	 * @param {HttpHeaders} headers
@@ -63,7 +92,7 @@ export class Pagination {
 	 *
 	 * @param {number} pageNumber
 	 */
-	updateCurrentPage ( pageNumber: number ) {
+	public updateCurrentPage ( pageNumber: number ) {
 		this.currentPage = (pageNumber - 1);
 
 		this._subject.next( this.getData() );

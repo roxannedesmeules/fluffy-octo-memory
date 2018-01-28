@@ -60,11 +60,14 @@ export class ListComponent implements OnInit, OnDestroy {
 	}
 
 	/**
+	 * This method is called when filters are changed. The filter name is passed as first attribute, to allow this
+	 * method to be reusable. The service's filters object will be called to update the specific filter and set the
+	 * right value. The updateList() method will then be called.
 	 *
-	 * @param attr
+	 * @param {string} attr
 	 * @param value
 	 */
-	filter ( attr, value ) {
+	filter ( attr: string, value: any ) {
 		this.service.filters.set( attr, value );
 
 		this.updateList();
@@ -82,6 +85,10 @@ export class ListComponent implements OnInit, OnDestroy {
 		this.updateList();
 	}
 
+	/**
+	 * This method is called each time the list of categories should be updated, either because of the pagination or
+	 * because a filter was set or changed. The pagination object will be updated according to the response headers.
+	 */
 	updateList () {
 		this.service
 			.findAll()
