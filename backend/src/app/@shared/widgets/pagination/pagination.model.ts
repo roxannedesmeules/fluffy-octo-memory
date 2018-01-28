@@ -25,7 +25,6 @@ export class Pagination {
 	}
 
 	public setPagination ( headers ) {
-		console.log(headers);
 		this.totalCount  = Number(headers.get("X-Pagination-Total-Count"));
 		this.pageCount   = Number(headers.get("X-Pagination-Page-Count"));
 		this.currentPage = Number(headers.get("X-Pagination-Current-Page"));

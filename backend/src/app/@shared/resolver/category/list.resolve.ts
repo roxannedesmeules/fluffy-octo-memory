@@ -12,9 +12,6 @@ export class ListResolve implements Resolve<Category[]> {
 	resolve ( route: ActivatedRouteSnapshot ) {
 		return this.service
 				.findAll()
-				.then(( result: any ) => {
-					console.log(result);
-					return result;
-				});
+				.then(( result: any ) => result);
 	}
 }
