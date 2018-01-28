@@ -28,10 +28,15 @@ export class ListComponent implements OnInit, OnDestroy {
 					private service: CategoryService ) { }
 
 	ngOnInit () {
+		// set pagination from the ListResolver response headers
 		this.pagination.setPagination( this._route.snapshot.data[ "list" ].headers );
 
+		// set the categories and languages from route resolvers
 		this.categories = this._route.snapshot.data[ "list" ].body;
-		this.languages = this._route.snapshot.data[ "languages" ];
+		this.languages  = this._route.snapshot.data[ "languages" ];
+
+		// add "all" options to languages filters
+		this.languages.unshift({ id: -1, icu : "all", name: "All", native : "All" });
 
 		//  update list on pagination change
 		this._subscriptions[ "pagination" ] = this.pagination
@@ -40,7 +45,7 @@ export class ListComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy () {
-		this._subscriptions[ "pagination" ].removeAll();
+		this._subscriptions[ "pagination" ].unsubscribe();
 	}
 
 	/**

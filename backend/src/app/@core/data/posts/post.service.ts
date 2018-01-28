@@ -10,6 +10,9 @@ export class PostService extends BaseService {
 	public modelName = "posts";
 
 	public filters = new PostFilters();
+	public options = {
+		observe : "response",
+	};
 
 	constructor ( @Inject(HttpClient) http: HttpClient ) {
 		super(http);
@@ -18,7 +21,9 @@ export class PostService extends BaseService {
 	}
 
 	public findAll () {
-		return this.http.get(this._url(), this.filters.formatRequest())
+		const options = Object.assign({}, this.options, this.filters.formatRequest());
+
+		return this.http.get(this._url(), options)
 				.toPromise()
 				.then(this._parseResponseBody)
 				.catch(this._parseErrorBody);
