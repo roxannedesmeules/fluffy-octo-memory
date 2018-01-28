@@ -34,32 +34,50 @@ export class PaginationComponent implements OnInit {
 		}
 	}
 
+	/**
+	 * If not the first page (to avoid page reload for no reason), go to page number 1.
+	 */
 	public goToFirst () {
-		if (this.pagination.currentPage !== 1) {
+		if (!this.pagination.isFirst()) {
 			this.goToPage(1);
 		}
 	}
 
+	/**
+	 * If not the first page, go to the page before this one.
+	 */
 	public goToPrevious () {
-		if (this.pagination.currentPage > 1) {
+		if (!this.pagination.isFirst()) {
 			this.goToPage((this.pagination.currentPage - 1));
 		}
 	}
 
+	/**
+	 * Update the pagination object with a specific page number and also update the current property so the right page
+	 * number is selected.
+	 *
+	 * @param {number} pageNumber
+	 */
 	public goToPage ( pageNumber: number ) {
 		this.current = pageNumber;
 
 		this.pagination.updateCurrentPage(pageNumber);
 	}
 
+	/**
+	 * If not the last page, go to the next page.
+	 */
 	public goToNext () {
-		if (this.pagination.currentPage < this.pagination.pageCount) {
+		if (!this.pagination.isLast()) {
 			this.goToPage((this.pagination.currentPage + 1));
 		}
 	}
 
+	/**
+	 * If not the last page (to avoid page reload for no reason), go to the last page number.
+	 */
 	public goToLast () {
-		if (this.pagination.currentPage !== this.pagination.pageCount) {
+		if (!this.pagination.isLast()) {
 			this.goToPage(this.pagination.pageCount);
 		}
 	}
