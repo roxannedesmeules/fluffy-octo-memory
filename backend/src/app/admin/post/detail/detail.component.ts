@@ -227,7 +227,7 @@ export class DetailComponent implements OnInit {
 	 */
 	private _setData () {
 		this.languages  = this._route.snapshot.data[ "languages" ];
-		this.categories = this._route.snapshot.data[ "categories" ];
+		this.categories = this._route.snapshot.data[ "categories" ].body;
 		this.statuses   = this._route.snapshot.data[ "statuses" ];
 
 		const routePost = this._route.snapshot.data[ "post" ];
