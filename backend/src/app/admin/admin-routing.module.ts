@@ -21,6 +21,9 @@ const routes: Routes = [
 				path         : "post",
 				loadChildren : "./post/post.module#PostModule",
 			}, {
+				path : "user",
+				loadChildren : "./user/user.module#UserModule",
+			}, {
 				path       : "",
 				redirectTo : "dashboard",
 				pathMatch  : "full",
