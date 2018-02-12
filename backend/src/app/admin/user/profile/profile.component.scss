@@ -1,0 +1,41 @@
+$picture-size : 150px;
+
+nb-card {
+	margin-top : 5rem;
+	
+	nb-card-body {
+		overflow : visible;
+	}
+}
+
+.picture-container {
+	position : absolute;
+	top      : - ($picture-size / 2.35);
+	z-index  : 100;
+	
+	> div {
+		width      : $picture-size;
+		height     : $picture-size;
+		background : #9e9e9e;
+	}
+	
+	.initials {
+		padding-top : 40%;
+		font-size   : (1rem * 1.75);
+		color       : white;
+	}
+	
+	& + .content {
+		margin-top: 6rem;
+	}
+}
+
+.user-name {
+	position : absolute;
+	top      : - ($picture-size / 4);
+	left     : ($picture-size * 1.25);
+}
+
+.input-group-btn .fa {
+	font-size: 1.50rem;
+}

@@ -1,3 +1,57 @@
-<p>
-  profile works!
-</p>
+<div class="row">
+	<div class="col-12">
+		<nb-card>
+			<nb-card-body>
+				<div class="user-name"><h3> {{ user.profile.fullname }} </h3></div>
+				
+				<div class="picture-container">
+					<div class="initials rounded text-center ">
+						{{ user.profile.getInitials() }}
+					</div>
+				</div>
+				
+				<div class="content col-7 col-lg-offset-2" [formGroup]="form">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="firstname">First name</label>
+								
+								<input type="text" id="firstname" formControlName="firstname"
+								       class="form-control">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="lastname">Last name</label>
+								
+								<input type="text" id="lastname" formControlName="lastname"
+								       class="form-control">
+							</div>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="birthday">Birthday</label>
+						
+						<div class="input-group">
+							<input id="birthday" formControlName="birthday"
+							       class="form-control"
+							       ngbDatepicker #picker="ngbDatepicker">
+							
+							<div class="input-group-btn">
+								<button type="button" class="btn btn-primary" (click)="picker.toggle()">
+									<i class="fa fa-calendar-o"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="">Biography</label>
+					</div>
+				
+				</div>
+			</nb-card-body>
+		</nb-card>
+	</div>
+</div>
