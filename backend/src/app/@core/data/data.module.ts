@@ -6,6 +6,7 @@ import { CategoryService } from "@core/data/categories/category.service";
 import { LangService } from "@core/data/languages/lang.service";
 import { PostService } from "@core/data/posts/post.service";
 import { PostStatusService } from "@core/data/posts/post-status.service";
+import { UserProfileService } from "@core/data/users/user-profile.service";
 import { UserService } from "@core/data/users/user.service";
 
 const SERVICES = [
@@ -20,8 +21,9 @@ const SERVICES = [
 	PostStatusService,
 
 	// user's services
-	UserService,
 	AuthService,
+	UserService,
+	UserProfileService,
 ];
 
 @NgModule({

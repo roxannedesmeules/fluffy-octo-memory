@@ -3,7 +3,9 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 
 import { User } from "@core/data/users/user.model";
-import { UserService } from "@core/data/users/user.service";
+import { UserProfile } from "@core/data/users/user-profile.model";
+import { UserProfileService } from "@core/data/users/user-profile.service";
+import { ErrorResponse } from "@core/data/error-response.model";
 
 @Component({
 	selector    : "ngx-user-profile",
@@ -17,7 +19,7 @@ export class ProfileComponent implements OnInit {
 
 	constructor ( private _route: ActivatedRoute,
 				  private _builder: FormBuilder,
-				  private service: UserService ) {}
+				  private service: UserProfileService ) {}
 
 	ngOnInit () {
 		this.user = this._route.snapshot.data[ "user" ];
@@ -36,5 +38,18 @@ export class ProfileComponent implements OnInit {
 			lastname  : this._builder.control(this.user.profile.lastname, [ Validators.required ]),
 			birthday  : this._builder.control(this.user.profile.birthdayToDatepicker(), [ Validators.required ]),
 		});
+	}
+
+	public save () {
+		const body = new UserProfile(this.form.getRawValue());
+
+		this.service
+			.update(body.form())
+			.then((result: any) => {
+				console.log(result);
+			})
+			.catch((error: ErrorResponse) => {
+				console.log(error);
+			});
 	}
 }

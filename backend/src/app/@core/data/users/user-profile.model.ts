@@ -2,7 +2,7 @@ export class UserProfile {
 	public firstname: string;
 	public lastname: string;
 	public fullname: string;
-	public birthday: string;
+	public birthday: any;
 
 	constructor ( model: any = null ) {
 		if ( model ) {
@@ -24,9 +24,25 @@ export class UserProfile {
 		return { year : date.getFullYear(), month : date.getMonth() + 1, day : date.getDate() + 1 };
 	}
 
+	public birthdayToString (): string {
+		return this.birthday.year + "-" + this.birthday.month + "-" + this.birthday.day;
+	}
+
 	public  getInitials (): string {
 		const names = this.fullname.split(" ");
 
 		return names.map(n => n.charAt(0)).splice(0, 2).join("").toUpperCase();
+	}
+
+	/**
+	 *
+	 * @return {object}
+	 */
+	public form (): object {
+		return {
+			firstname : this.firstname,
+			lastname  : this.lastname,
+			birthday  : this.birthdayToString(),
+		}
 	}
 }
