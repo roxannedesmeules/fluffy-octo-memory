@@ -12,12 +12,10 @@ import { User } from "@core/data/users/user.model";
 })
 export class HeaderComponent implements OnInit {
 
-
 	@Input() position = "normal";
 
-	user: any;
-
-	userMenu = [ { title : "Profile" }, { title : "Log out" } ];
+	public user: any;
+	public userMenu = [ { title : "Profile", url : "/admin/user/me/profile" }, { title : "Log out" } ];
 
 	constructor ( private sidebarService: NbSidebarService,
 				  private menuService: NbMenuService,
