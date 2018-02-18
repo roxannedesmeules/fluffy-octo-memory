@@ -109,8 +109,10 @@ $config = [
 					'pluralize'     => false,
 					"except"        => [ "index", "view", "create", "delete" ],
 					"extraPatterns" => [
-						"PUT password" => "update-password",
-						"POST picture" => "upload-picture",
+						"PUT password"     => "update-password",
+						"OPTIONS password" => "options",
+						"POST picture"     => "upload-picture",
+						"OPTIONS picture"  => "options",
 					],
 					"tokens" => [],
 				]

@@ -9,9 +9,9 @@ namespace app\helpers;
  */
 class ParamsHelper
 {
-	private function _getParams () { return \Yii::$app->params; }
+	private static function _getParams () { return \Yii::$app->params; }
 	
-	public function get ( $key )
+	public static function get ( $key )
 	{
 		return ArrayHelperEx::getValue(self::_getParams(), $key);
 	}

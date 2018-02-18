@@ -57,7 +57,7 @@ class File extends \yii\db\ActiveRecord
 
 	/**
 	 * @param \yii\web\UploadedFile $file
-	 * @param sting                 $path
+	 * @param string                $path
 	 *
 	 * @return string|int
 	 */
@@ -85,8 +85,7 @@ class File extends \yii\db\ActiveRecord
 	public function getFullPath ()
 	{
 		$url  = ParamsHelper::get("domainName");
-		$url .= self::BASEPATH;
-		$url .= $this->path;
+		$url .= "/upload/$this->path";
 
 		return $url;
 	}
