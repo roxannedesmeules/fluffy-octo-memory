@@ -6,6 +6,7 @@ import { User } from "@core/data/users/user.model";
 import { UserProfile } from "@core/data/users/user-profile.model";
 import { UserProfileService } from "@core/data/users/user-profile.service";
 import { ErrorResponse } from "@core/data/error-response.model";
+import { UserService } from "@core/data/users/user.service";
 
 @Component({
 	selector    : "ngx-user-profile",
@@ -19,7 +20,8 @@ export class ProfileComponent implements OnInit {
 
 	constructor ( private _route: ActivatedRoute,
 				  private _builder: FormBuilder,
-				  private service: UserProfileService ) {}
+				  private service: UserProfileService,
+				  private userService: UserService ) {}
 
 	ngOnInit () {
 		this.user = this._route.snapshot.data[ "user" ];
@@ -40,6 +42,21 @@ export class ProfileComponent implements OnInit {
 		});
 	}
 
+	public uploadPicture (files: FileList) {
+		this.service.uploadPicture(files[ 0 ])
+			.then((result: any) => {
+				this.user.profile = this.service.mapModel(result);
+
+				this.userService.saveAppUser(this.user);
+			})
+			.catch((error: ErrorResponse) => {
+				console.log(error);
+			});
+	}
+
+	/**
+	 *
+	 */
 	public save () {
 		const body = new UserProfile(this.form.getRawValue());
 

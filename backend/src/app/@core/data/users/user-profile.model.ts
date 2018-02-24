@@ -3,6 +3,7 @@ export class UserProfile {
 	public lastname: string;
 	public fullname: string;
 	public birthday: any;
+	public picture: string;
 
 	constructor ( model: any = null ) {
 		if ( model ) {
@@ -10,6 +11,7 @@ export class UserProfile {
 			this.lastname  = model.lastname;
 			this.fullname  = model.fullname;
 			this.birthday  = model.birthday;
+			this.picture   = model.picture;
 		}
 	}
 
