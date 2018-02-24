@@ -94,6 +94,8 @@ export class DetailComponent implements OnInit {
 				content : this._builder.control(translation.content, [ Validators.required ]),
 			});
 
+			control.get("slug").disable(true);
+
 			this.getTranslations().push(control);
 		});
 	}

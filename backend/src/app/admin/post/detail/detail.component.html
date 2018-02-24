@@ -56,8 +56,7 @@
 
 									<input type="text" [id]="'input-idx-slug' | replace:{ idx: idx }"
 									       placeholder="slug" formControlName="slug"
-									       class="form-control" [class.form-control-danger]="hasErrors('slug', idx)"
-									       disabled>
+									       class="form-control" [class.form-control-danger]="hasErrors('slug', idx)">
 									<span class="form-text"> Slug is generated from the title </span>
 
 									<span class="form-text error" *ngIf="hasErrors('slug', idx)">
