@@ -98,9 +98,73 @@ class TagLangTest extends \Codeception\Test\Unit
 
 			$this->_fieldsError($this->model, "slug", TagLang::ERR_FIELD_NOT_UNIQUE);
 		});
+
+		$this->specify("valid model", function () {
+			$this->model->tag_id  = 3;
+			$this->model->lang_id = Lang::FR;
+			$this->model->name    = $this->faker->name();
+
+			$this->assertTrue($this->model->validate());
+
+			$this->model->slug = $this->faker->slug();
+
+			$this->assertTrue($this->model->validate());
+		});
 	}
 
-	public function testCreate () {}
+	/**
+	 * Create a single translation :
+	 * - invalid tag id
+	 * - invalid lang id
+	 * - invalid model
+	 * - existing translation
+	 */
+	public function testCreate ()
+	{
+		$this->model = new TagLang();
+
+		$this->specify("not create with invalid tag id", function () {
+			$result = TagLang::createTranslation(1000, $this->model);
+
+			$this->tester->assertEquals(TagLang::ERROR, $result[ "status" ]);
+			$this->tester->assertEquals(TagLang::ERR_TAG_NOT_FOUND, $result[ "error" ]);
+		});
+		$this->specify("not create with invalid lang id", function () {
+			$this->model->lang_id = 1000;
+
+			$result = TagLang::createTranslation(2, $this->model);
+
+			$this->tester->assertEquals(TagLang::ERROR, $result[ "status" ]);
+			$this->tester->assertEquals(TagLang::ERR_LANG_NOT_FOUND, $result[ "error" ]);
+		});
+		$this->specify("not create an existing translation", function () {
+			$this->model->lang_id = Lang::EN;
+
+			$result = TagLang::createTranslation(1, $this->model);
+
+			$this->tester->assertEquals(TagLang::ERROR, $result[ "status" ]);
+			$this->tester->assertEquals(TagLang::ERR_TRANSLATION_EXISTS, $result[ "error" ]);
+		});
+		$this->specify("not create with invalid model", function () {
+			$this->model->lang_id = Lang::EN;
+			$this->model->name    = \Yii::$app->getSecurity()->generateRandomString(256);
+
+			$result = TagLang::createTranslation(2, $this->model);
+
+			$this->tester->assertEquals(TagLang::ERROR, $result[ "status" ]);
+			$this->tester->assertArrayHasKey("name", $result[ "error" ]);
+		});
+
+		$this->specify("create valid translation", function () {
+			$this->model->lang_id = Lang::EN;
+			$this->model->name    = $this->faker->name();
+
+			$result = TagLang::createTranslation(2, $this->model);
+
+			$this->tester->assertEquals(TagLang::SUCCESS, $result[ "status" ]);
+		});
+	}
+
 	public function testDeleteAll () {}
 	public function testUpdate () {}
 
