@@ -56,7 +56,7 @@ class TagLangTest extends \Codeception\Test\Unit
 		});
 
 		$this->specify("lang_id is required", function () {
-			$this->_fieldError($this->model, "lang_id", TagLang::ERR_FIELD_REQUIRED);
+			$this->_fieldsError($this->model, "lang_id", TagLang::ERR_FIELD_REQUIRED);
 		});
 		$this->specify("lang_id is expected to exists in lang table", function () {
 			$this->model->lang_id = 1000;
@@ -73,11 +73,11 @@ class TagLangTest extends \Codeception\Test\Unit
 			$this->model->tag_id  = 2;
 			$this->model->lang_id = Lang::EN;
 
-			$this->tester->assertTrue($this->model->validate([ "post_id", "lang_id" ]));
+			$this->tester->assertTrue($this->model->validate([ "tag_id", "lang_id" ]));
 		});
 
 		$this->specify("name is required", function () {
-			$this->_fieldError($this->model, "name", TagLang::ERR_FIELD_REQUIRED);
+			$this->_fieldsError($this->model, "name", TagLang::ERR_FIELD_REQUIRED);
 		});
 		$this->specify("name is excepted to be a string of less than 255 characters", function () {
 			$this->model->name = \Yii::$app->getSecurity()->generateRandomString(256);

@@ -16,7 +16,7 @@ class TagLangFixture extends ActiveFixture
 	public $dataFile   = '/app/tests/_data/tag/lang.php';
 
 	public $depends    = [
-		// 'app\tests\_support\_fixtures\CategoryFixture',
+		'app\tests\_support\_fixtures\TagFixture',
 	];
 
 	public static function build ( $cat, $lang, $valid = true )
