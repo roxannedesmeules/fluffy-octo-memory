@@ -4,7 +4,7 @@ namespace app\tests\unit\tag;
 
 use app\models\app\Lang;
 use app\models\tag\TagLang;
-use app\tests\_support\_fixtures\TagLangFixture;
+	use app\tests\_support\_fixtures\TagLangFixture;
 use \Faker\Factory as Faker;
 
 /**
@@ -165,6 +165,11 @@ class TagLangTest extends \Codeception\Test\Unit
 		});
 	}
 
+	/**
+	 * Delete all translations :
+	 * - not delete linked tags
+	 * - delete translation
+	 */
 	public function testDeleteAll ()
 	{
 		$this->specify("not delete translations of a tag linked to a post", function () {});
@@ -180,7 +185,38 @@ class TagLangTest extends \Codeception\Test\Unit
 		});
 	}
 
-	public function testUpdate () {}
+	public function testUpdate ()
+	{
+		$this->model = $this->tester->grabFixture("tagLang", "2-fr");
+
+		$this->specify("not update invalid translation id", function () {
+			$result = TagLang::updateTranslation($this->model->tag_id, Lang::EN, $this->model);
+
+			$this->tester->assertEquals(TagLang::ERROR, $result[ "status" ]);
+			$this->tester->assertEquals(TagLang::ERR_NOT_FOUND, $result[ "error" ]);
+		});
+		$this->specify("not update invalid model", function () {
+			$this->model->slug = $this->tester->grabFixture("tagLang", "1-fr")->slug;
+
+			$result = TagLang::updateTranslation($this->model->tag_id, $this->model->lang_id, $this->model);
+
+			$this->tester->assertEquals(TagLang::ERROR, $result[ "status" ]);
+			$this->tester->assertArrayHasKey("slug", $result[ "error" ]);
+		});
+		$this->specify("update valid model", function () {
+			$this->model->slug = $this->faker->slug();
+
+			$result = TagLang::updateTranslation($this->model->tag_id, $this->model->lang_id, $this->model);
+
+			$this->tester->assertEquals(TagLang::SUCCESS, $result[ "status" ]);
+			$this->tester->canSeeInDatabase(TagLang::tableName(),
+				[
+					"tag_id"  => $this->model->tag_id,
+					"lang_id" => $this->model->lang_id,
+					"slug"    => $this->model->slug,
+				]);
+		});
+	}
 
 	/**
 	 * @param TagLang $model

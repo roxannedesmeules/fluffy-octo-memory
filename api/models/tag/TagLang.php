@@ -75,5 +75,30 @@ class TagLang extends TagLangBase
 		return $result;
 	}
 
-	public static function updateTranslation ( $tagId, $langId, $data ) {}
+	public static function updateTranslation ( $tagId, $langId, $data )
+	{
+		//  verify if translation doesn't exists
+		if (!self::translationExists($tagId, $langId)) {
+			return self::buildError(self::ERR_NOT_FOUND);
+		}
+
+		//  find the translation to update
+		$model = self::find()->tag($tagId)->lang($langId)->one();
+
+		$model->name = ArrayHelperEx::getValue($data, "name", $data->name);
+		$model->slug = ArrayHelperEx::getValue($data, "slug", $data->slug);
+
+		//  if the model isn't valid, return all errors
+		if (!$model->validate()) {
+			return self::buildError($model->getErrors());
+		}
+
+		//  if the model couldn't be saved, then return an error
+		if (!$model->save()) {
+			return self::buildError(self::ERR_ON_SAVE);
+		}
+
+		//  return success
+		return self::buildSuccess([]);
+	}
 }
