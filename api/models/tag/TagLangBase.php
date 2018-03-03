@@ -2,6 +2,7 @@
 
 namespace app\models\tag;
 
+use app\helpers\ArrayHelperEx;
 use app\models\app\Lang;
 use Yii;
 
@@ -113,5 +114,42 @@ abstract class TagLangBase extends \yii\db\ActiveRecord
 	public static function find ()
 	{
 		return new TagLangQuery(get_called_class());
+	}
+
+	/**
+	 * @param integer $tagId
+	 * @param integer $langId
+	 *
+	 * @return bool
+	 */
+	public static function translationExists ( $tagId, $langId )
+	{
+		return self::find()->tag($tagId)->lang($langId)->exists();
+	}
+
+	/**
+	 * Build an array to use when returning from another method. The status will automatically
+	 * set to ERROR, then $error passed in param will be associated to the error key.
+	 *
+	 * @param $error
+	 *
+	 * @return array
+	 */
+	public static function buildError ( $error )
+	{
+		return [ "status" => self::ERROR, "error" => $error ];
+	}
+
+	/**
+	 * Build an array to use when returning from another method. The status will be automatically
+	 * set to SUCCESS, then the $params will be merged with the array and be returned.
+	 *
+	 * @param array $params
+	 *
+	 * @return array
+	 */
+	public static function buildSuccess ( $params )
+	{
+		return ArrayHelperEx::merge([ "status" => self::SUCCESS ], $params);
 	}
 }
