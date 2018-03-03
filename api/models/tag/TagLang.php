@@ -53,7 +53,27 @@ class TagLang extends TagLangBase
 		return self::buildSuccess([]);
 	}
 
-	public static function deleteTranslations ( $tagId ) {}
+	public static function deleteTranslations ( $tagId )
+	{
+		//  TODO    verify there is no link
+
+		//  define the result as success, will be overwritten by an error when necessary
+		$result = self::buildSuccess([]);
+
+		//  find all translations to be deleted
+		$toDelete = self::find()->tag($tagId)->all();
+
+		//  delete translations one by one to correctly trigger all events
+		foreach ($toDelete as $translation) {
+			if (!$translation->delete()) {
+				$result = self::buildError(self::ERR_ON_DELETE);
+				break;
+			}
+		}
+
+		// return the result
+		return $result;
+	}
 
 	public static function updateTranslation ( $tagId, $langId, $data ) {}
 }

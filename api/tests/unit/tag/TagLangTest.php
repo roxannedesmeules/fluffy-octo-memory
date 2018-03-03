@@ -165,7 +165,21 @@ class TagLangTest extends \Codeception\Test\Unit
 		});
 	}
 
-	public function testDeleteAll () {}
+	public function testDeleteAll ()
+	{
+		$this->specify("not delete translations of a tag linked to a post", function () {});
+		$this->specify("delete translations of a tag", function () {
+			$model  = $this->tester->grabFixture("tagLang", "1-fr");
+
+			$this->tester->seeNumRecords(2, TagLang::tableName(), [ "tag_id" => $model->tag_id ]);
+
+			$result = TagLang::deleteTranslations($model->tag_id);
+
+			$this->tester->seeNumRecords(0, TagLang::tableName(), [ "tag_id" => $model->tag_id ]);
+			$this->tester->assertEquals(TagLang::SUCCESS, $result[ "status" ]);
+		});
+	}
+
 	public function testUpdate () {}
 
 	/**
