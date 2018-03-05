@@ -12,7 +12,7 @@ class PostLangFixture extends ActiveFixture
 {
 	public $modelClass = 'app\models\post\PostLang';
 
-	public $dataFile   = '/app/tests/_data/post_lang.php';
+	public $dataFile   = '/app/tests/_data/post/lang.php';
 
 	public $depends = [
 		'app\tests\_support\_fixtures\PostFixture',
