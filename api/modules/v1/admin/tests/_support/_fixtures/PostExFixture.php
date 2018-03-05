@@ -11,7 +11,7 @@ use yii\test\ActiveFixture;
 class PostExFixture extends ActiveFixture
 {
 	public $modelClass = 'app\modules\v1\admin\models\post\PostEx';
-	public $dataFile   = '/app/tests/_data/post.php';
+	public $dataFile   = '/app/tests/_data/post/post.php';
 
 	public $depends = [
 		'app\modules\v1\admin\tests\_support\_fixtures\CategoryExFixture',

@@ -11,7 +11,7 @@ use yii\test\ActiveFixture;
 class PostLangExFixture extends ActiveFixture
 {
 	public $modelClass = 'app\modules\v1\admin\models\post\PostLangEx';
-	public $dataFile   = '/app/tests/_data/post_lang.php';
+	public $dataFile   = '/app/tests/_data/post/lang.php';
 
 	public $depends = [
 		'app\modules\v1\admin\tests\_support\_fixtures\PostExFixture',
