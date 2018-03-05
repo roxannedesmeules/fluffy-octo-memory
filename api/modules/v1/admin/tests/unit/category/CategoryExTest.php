@@ -6,6 +6,7 @@ use app\modules\v1\admin\models\category\CategoryEx;
 use app\modules\v1\admin\models\category\CategoryLangEx;
 use app\modules\v1\admin\tests\_support\_fixtures\CategoryExFixture;
 use app\modules\v1\admin\tests\_support\_fixtures\CategoryLangExFixture;
+use app\modules\v1\admin\tests\_support\_fixtures\PostExFixture;
 use Faker\Factory as Faker;
 
 /**
@@ -36,6 +37,7 @@ class CategoryExTest extends \Codeception\Test\Unit
 		$this->tester->haveFixtures([
 			                            "categoryLang" => CategoryLangExFixture::className(),
 			                            "category"     => CategoryExFixture::className(),
+			                            "post"         => PostExFixture::className(),
 		                            ]);
 	}
 
