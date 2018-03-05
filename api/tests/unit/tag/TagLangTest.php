@@ -4,7 +4,7 @@ namespace app\tests\unit\tag;
 
 use app\models\app\Lang;
 use app\models\tag\TagLang;
-	use app\tests\_support\_fixtures\TagLangFixture;
+use app\tests\_support\_fixtures\TagLangFixture;
 use \Faker\Factory as Faker;
 
 /**

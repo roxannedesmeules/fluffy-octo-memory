@@ -36,17 +36,6 @@ abstract class TagLangBase extends \yii\db\ActiveRecord
 	const ERR_FIELD_NOT_FOUND  = "ERR_FIELD_VALUE_NOT_FOUND";
 	const ERR_FIELD_NOT_UNIQUE = "ERR_FIELD_VALUE_NOT_UNIQUE";
 
-	/** @var yii\db\Connection */
-	protected static $db;
-
-	/** @inheritdoc */
-	public function init ()
-	{
-		parent::init();
-
-		self::$db = Yii::$app->db;
-	}
-
 	/** @inheritdoc */
 	public static function tableName () { return 'tag_lang'; }
 	
