@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PhpTestFrameworkSettings">
+    <test_tools>
+      <tool tool_name="Codeception">
+        <settings>
+          <configurations>
+            <configuration_by_sdk interpreter_id="556e6fdd-38ce-4bf4-b5e8-209d9197c6d0" executable_path="/app/vendor/bin/codecept" />
+          </configurations>
+        </settings>
+      </tool>
+    </test_tools>
+  </component>
+</project>

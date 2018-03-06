@@ -2,9 +2,7 @@
 
 namespace app\modules\v1\admin\tests\category;
 
-use app\modules\v1\admin\models\category\CategoryEx;
 use app\modules\v1\admin\models\category\CategoryLangEx as Model;
-use app\modules\v1\admin\models\category\CategoryLangEx;
 use app\modules\v1\admin\models\LangEx;
 use app\modules\v1\admin\tests\_support\_fixtures\CategoryExFixture;
 use app\modules\v1\admin\tests\_support\_fixtures\CategoryLangExFixture;

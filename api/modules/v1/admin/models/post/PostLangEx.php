@@ -65,11 +65,9 @@ class PostLangEx extends PostLang
 			[ "slug", "required", "message" => self::ERR_FIELD_REQUIRED ],
 			[ "slug", "string", "max" => 255, "tooLong" => self::ERR_FIELD_TOO_LONG ],
 			[
-				"slug",
-				"unique",
+				"slug", "unique",
 				"targetAttribute" => [ "slug", "lang_id" ],
 				"message"         => self::ERR_FIELD_NOT_UNIQUE,
-				"on"              => "update",
 				"when"            => function ( self $model ) { return $model->isAttributeChanged("slug"); },
 			],
 
