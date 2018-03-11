@@ -85,8 +85,8 @@ class TagLang extends TagLangBase
 		//  find the translation to update
 		$model = self::find()->tag($tagId)->lang($langId)->one();
 
-		$model->name = ArrayHelperEx::getValue($data, "name", $data->name);
-		$model->slug = ArrayHelperEx::getValue($data, "slug", $data->slug);
+		$model->name = ArrayHelperEx::getValue($data, "name", $model->name);
+		$model->slug = ArrayHelperEx::getValue($data, "slug", $model->slug);
 
 		//  if the model isn't valid, return all errors
 		if (!$model->validate()) {

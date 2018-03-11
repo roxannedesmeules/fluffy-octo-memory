@@ -2,6 +2,7 @@
 
 namespace app\modules\v1\admin\models\tag;
 
+use app\helpers\ArrayHelperEx;
 use app\models\tag\TagLang;
 use app\modules\v1\admin\models\LangEx;
 
@@ -12,6 +13,27 @@ use app\modules\v1\admin\models\LangEx;
  */
 class TagLangEx extends TagLang
 {
+	/**
+	 * @inheritdoc
+	 *
+	 * @SWG\Definition(
+	 *     definition = "TagTranslation",
+	 *
+	 *     @SWG\Property( property = "language", type = "string" ),
+	 *     @SWG\Property( property = "name", type = "string" ),
+	 *     @SWG\Property( property = "slug", type = "string" ),
+	 * )
+	 */
+	public function fields ()
+	{
+		return [
+			"language" => function ( self $model ) { return $model->lang->icu; },
+			"name",
+			"slug",
+		];
+	}
+
+	/** @inheritdoc */
 	public function rules ()
 	{
 		return [
@@ -37,8 +59,41 @@ class TagLangEx extends TagLang
 		];
 	}
 
+
 	public static function manageTranslations ( $tagId, $translations )
 	{
+		//  if the tag doesn't exists, then throw an error
+		if ( !TagEx::idExists($tagId) ) {
+			return self::buildError(self::ERR_TAG_NOT_FOUND);
+		}
 
+		//  define the result as success, it will be overwritten by an error when necessary
+		$result = self::buildSuccess([]);
+
+		//  for each possible translations, define if it needs to be created or updated
+		foreach ( $translations as $translation ) {
+			$langId = ArrayHelperEx::getValue($translation, "lang_id");
+
+			//  verify if language in data exists
+			if ( !LangEx::idExists($langId) ) {
+				$result = self::buildError(self::ERR_LANG_NOT_FOUND);
+				break;
+			}
+
+			//  if the translation exists, then update it, otherwise create it
+			if ( self::translationExists($tagId, $langId) ) {
+				$result = self::updateTranslation($tagId, $langId, $translation);
+			} else {
+				$result = self::createTranslation($tagId, $translation);
+			}
+
+			//  if there was an error, then stop here
+			if ( $result[ "status" ] === self::ERROR ) {
+				break;
+			}
+		}
+
+		//  return the result
+		return $result;
 	}
 }
