@@ -2,6 +2,9 @@
 
 namespace app\models\tag;
 
+use app\helpers\ArrayHelperEx;
+use app\models\post\Post;
+
 /**
  * This is the model class for table "asso_tag_post".
  *
@@ -14,6 +17,11 @@ namespace app\models\tag;
  */
 class AssoTagPostBase extends \yii\db\ActiveRecord
 {
+	const ERROR   = 0;
+	const SUCCESS = 1;
+
+	const ERR_ON_DELETE = "ERR_ON_DELETE";
+
 	/** @inheritdoc */
 	public static function tableName () { return 'asso_tag_post'; }
 
@@ -64,5 +72,31 @@ class AssoTagPostBase extends \yii\db\ActiveRecord
 	public function getTag ()
 	{
 		return $this->hasOne(Tag::className(), [ 'id' => 'tag_id' ]);
+	}
+
+	/**
+	 * Build an array to use when returning from another method. The status will automatically
+	 * set to ERROR, then $error passed in param will be associated to the error key.
+	 *
+	 * @param $error
+	 *
+	 * @return array
+	 */
+	public static function buildError ( $error )
+	{
+		return [ "status" => self::ERROR, "error" => $error ];
+	}
+
+	/**
+	 * Build an array to use when returning from another method. The status will be automatically
+	 * set to SUCCESS, then the $params will be merged with the array and be returned.
+	 *
+	 * @param array $params
+	 *
+	 * @return array
+	 */
+	public static function buildSuccess ( $params )
+	{
+		return ArrayHelperEx::merge([ "status" => self::SUCCESS ], $params);
 	}
 }

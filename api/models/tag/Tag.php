@@ -31,13 +31,13 @@ class Tag extends TagBase
 			return self::buildError(self::ERR_NOT_FOUND);
 		}
 
-		//  find the model to delete
-		$model = self::find()->id($tagId)->one();
-
 		//  if model is linked to published posts, then return an error
-		if ($model->hasPublishedPosts()) {
+		if (self::hasPublishedPosts($tagId)) {
 			return self::buildError(self::ERR_DELETE_POSTS);
 		}
+
+		//  find the model to delete
+		$model = self::find()->id($tagId)->one();
 
 		//  if model still has translations, then return an error, translations should be deleted first
 		if ($model->hasTranslations()) {

@@ -32,4 +32,91 @@ class TagEx extends Tag
 			[ "translations", ArrayUniqueValidator::className(), "uniqueKey" => "lang_id", "message" => self::ERR_FIELD_UNIQUE_LANG],
 		];
 	}
+
+	public static function createWithTranslations ( $translations )
+	{
+		//  start transaction to rollback at any moment if there is a problem
+		$transaction = self::$db->beginTransaction();
+
+		//  create tag entry
+		$result = self::createTag();
+
+		//  in case of error, roll back and return error
+		if ( $result[ "status" ] === self::ERROR ) {
+			$transaction->rollBack();
+
+			return $result;
+		}
+
+		//  keep the tag ID for future use
+		$tagId = $result[ "tag_id" ];
+
+		//  create all translations
+		$result = TagLangEx::manageTranslations($tagId, $translations);
+
+		//  in case of error, rollback and return error
+		if ($result[ "status" ] === TagLangEx::ERROR) {
+			$transaction->rollBack();
+
+			return self::buildError([ "translations" => $result[ "error" ] ]);
+		}
+
+		//  keep changes in database
+		$transaction->commit();
+
+		//  return tag ID
+		return self::buildSuccess([ "tag_id" => $tagId ]);
+	}
+
+	public static function deleteWithTranslations ( $tagId )
+	{
+		//  set the $db property
+		self::defineDbConnection();
+
+		//  start a transaction to rollback at any moment if there is a problem
+		$transaction = self::$db->beginTransaction();
+
+		//  if the tag is linked to published post, then don't delete it and return an error
+		if (self::hasPublishedPosts($tagId)) {
+			$transaction->rollBack();
+
+			return self::buildError(self::ERR_DELETE_POSTS);
+		}
+
+		//  delete translations first, to avoid foreign key issues
+		$result = TagLangEx::deleteTranslations($tagId);
+
+		//  in case of error, rollback and return error
+		if ( $result[ "status" ] === TagLangEx::ERROR ) {
+			$transaction->rollBack();
+
+			return self::buildError([ "translations" => $result[ "error" ] ]);
+		}
+
+		//  delete all post association
+		$result = AssoTagPostEx::deleteAllForTag($tagId);
+
+		//  in case of error, rollback and return error
+		if ( $result[ "status" ] === AssoTagPostEx::ERROR ) {
+			$transaction->rollBack();
+
+			return $result;
+		}
+
+		//  delete tag it self
+		$result = self::deleteTag($tagId);
+
+		//  in case of error, rollback and return error
+		if ( $result[ "status" ] === self::ERROR ) {
+			$transaction->rollBack();
+
+			return $result;
+		}
+
+		//  keep changes in database
+		$transaction->commit();
+
+		//  return success
+		return self::buildSuccess([]);
+	}
 }

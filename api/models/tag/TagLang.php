@@ -55,8 +55,6 @@ class TagLang extends TagLangBase
 
 	public static function deleteTranslations ( $tagId )
 	{
-		//  TODO    verify there is no link
-
 		//  define the result as success, will be overwritten by an error when necessary
 		$result = self::buildSuccess([]);
 

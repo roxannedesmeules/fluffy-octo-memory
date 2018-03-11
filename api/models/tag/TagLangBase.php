@@ -67,7 +67,8 @@ abstract class TagLangBase extends \yii\db\ActiveRecord
 
 			[ "name", "required", "message" => self::ERR_FIELD_REQUIRED ],
 			[ "name", "string", "max" => 255, "tooLong" => self::ERR_FIELD_TOO_LONG ],
-			
+
+			[ "slug", "required", "message" => self::ERR_FIELD_REQUIRED ],
 			[ "slug", "string", "max" => 255, "tooLong" => self::ERR_FIELD_TOO_LONG ],
 			[ "slug", "unique", "targetAttribute" => [ "slug", "lang_id" ], "message" => self::ERR_FIELD_NOT_UNIQUE ],
 		];

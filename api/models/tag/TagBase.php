@@ -33,6 +33,7 @@ abstract class TagBase extends \yii\db\ActiveRecord
 	const ERR_NOT_FOUND         = "ERR_NOT_FOUND";
 	const ERR_DELETE_POSTS      = "ERR_DELETE_LINKED_TO_PUBLISHED_POST";
 	const ERR_HAS_TRANSLATIONS  = "ERR_HAS_TRANSLATIONS";
+	const ERR_FIELD_UNIQUE_LANG = "ERR_FIELD_UNIQUE_LANG";
 
 	/** @var yii\db\Connection */
 	public static $db;
@@ -168,11 +169,19 @@ abstract class TagBase extends \yii\db\ActiveRecord
 	}
 
 	/**
+	 * @param $tagId
+	 *
 	 * @return bool
 	 */
-	public function hasPublishedPosts ()
+	public static function hasPublishedPosts ( $tagId )
 	{
-		return !empty($this->publishedPosts);
+		if( !self::idExists($tagId) ) {
+			return false;
+		}
+
+		$model = self::find()->id($tagId)->one();
+
+		return !empty($model->publishedPosts);
 	}
 
 	/**

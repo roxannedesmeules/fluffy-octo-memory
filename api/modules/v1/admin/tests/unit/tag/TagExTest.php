@@ -4,6 +4,8 @@ namespace app\modules\v1\admin\tests\unit\tag;
 
 use app\modules\v1\admin\models\LangEx;
 use app\modules\v1\admin\models\tag\TagEx as Model;
+use app\modules\v1\admin\models\tag\TagLangEx;
+use app\modules\v1\admin\tests\_support\_fixtures\AssoTagPostExFixture;
 use app\modules\v1\admin\tests\_support\_fixtures\TagExFixture;
 use app\modules\v1\admin\tests\_support\_fixtures\TagLangExFixture;
 use Faker\Factory as Faker;
@@ -32,6 +34,7 @@ class TagExTest extends \Codeception\Test\Unit
 		$this->faker = Faker::create();
 
 		$this->tester->haveFixtures([
+			"asso"    => AssoTagPostExFixture::className(),
 			"tagLang" => TagLangExFixture::className(),
 			"tag"     => TagExFixture::className(),
 		]);
@@ -80,7 +83,84 @@ class TagExTest extends \Codeception\Test\Unit
 		});
 	}
 
-	public function testCreateWithTranslations () {}
-	public function testDeleteWithTranslations () {}
+	public function testCreateWithTranslations ()
+	{
+		$this->model = new Model();
+
+		$this->specify("not create with invalid translations", function () {
+			$this->model->translations = [
+				[ "lang_id" => LangEx::FR, "name" => $this->faker->text() ],
+				[ "lang_id" => LangEx::EN, "name" => $this->faker->text(), "slug" => $this->faker->text() ],
+			];
+
+			$result = Model::createWithTranslations($this->model->translations);
+
+			$this->tester->assertEquals(Model::ERROR, $result[ "status" ]);
+			$this->tester->assertArrayHasKey("translations", $result[ "error" ]);
+		});
+
+		$this->specify("create with empty translations", function () {
+			$this->model->translations = [];
+
+			$result = Model::createWithTranslations($this->model->translations);
+
+			$this->tester->assertEquals(Model::SUCCESS, $result[ "status" ]);
+			$this->tester->assertArrayHasKey("tag_id", $result);
+
+			$this->tester->canSeeRecord(Model::className(), [ "id" => $result[ "tag_id" ] ]);
+			$this->tester->cantSeeRecord(TagLangEx::className(), [ "tag_id" => $result[ "tag_id" ] ]);
+		});
+		$this->specify("create with translations", function () {
+			$this->model->translations = [
+				[ "lang_id" => LangEx::FR, "name" => $this->faker->text(), "slug" => $this->faker->text() ],
+				[ "lang_id" => LangEx::EN, "name" => $this->faker->text(), "slug" => $this->faker->text() ],
+			];
+
+			$result = Model::createWithTranslations($this->model->translations);
+
+			$this->tester->assertEquals(Model::SUCCESS, $result[ "status" ]);
+			$this->tester->assertArrayHasKey("tag_id", $result);
+
+			$this->tester->canSeeRecord(Model::className(), [ "id" => $result[ "tag_id" ] ]);
+			$this->tester->canSeeInDatabase(TagLangEx::tableName(), [ "tag_id" => $result[ "tag_id" ] ]);
+		});
+	}
+
+	public function testDeleteWithTranslations ()
+	{
+		$this->specify("not delete invalid tag ID", function () {
+			$result = Model::deleteWithTranslations(1000);
+
+			$this->tester->assertEquals(Model::ERROR, $result[ "status" ]);
+			$this->tester->assertEquals(Model::ERR_NOT_FOUND, $result[ "error" ]);
+		});
+		$this->specify("not delete tag with associated to published posts", function () {
+			$tagId  = $this->tester->grabFixture("tag", "1")->id;
+			$result = Model::deleteWithTranslations($tagId);
+			
+			$this->tester->assertEquals(Model::ERROR, $result[ "status" ]);
+			$this->tester->assertEquals(Model::ERR_DELETE_POSTS, $result[ "error" ]);
+		});
+		$this->specify("delete tag without translations", function () {
+			$tagId  = $this->tester->grabFixture("tag", "4")->id;
+			$result = Model::deleteWithTranslations($tagId);
+			
+			$this->tester->assertEquals(Model::SUCCESS, $result[ "status" ]);
+			$this->tester->cantSeeInDatabase(Model::tableName(), [ "id" => $tagId ]);
+		});
+		$this->specify("delete tag with translations", function () {
+			$tagId  = $this->tester->grabFixture("tag", "5")->id;
+
+			$this->tester->canSeeNumRecords(1, Model::tableName(), [ "id" => $tagId ]);
+			$this->tester->canSeeNumRecords(2, TagLangEx::tableName(), [ "tag_id" => $tagId ]);
+
+			$result = Model::deleteWithTranslations($tagId);
+
+			$this->tester->assertEquals(Model::SUCCESS, $result[ "status" ]);
+			$this->tester->canSeeNumRecords(0, Model::tableName(), [ "id" => $tagId ]);
+			$this->tester->canSeeNumRecords(0, TagLangEx::tableName(), [ "tag_id" => $tagId ]);
+		});
+	}
+
 	public function testUpdateWithTranslations () {}
 }
