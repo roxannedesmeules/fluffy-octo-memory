@@ -14,6 +14,6 @@ class TagLangExFixture extends ActiveFixture
 	public $dataFile   = '/app/tests/_data/tag/lang.php';
 
 	public $depends = [
-		// 'app\modules\v1\admin\tests\_support\_fixtures\TagExFixture',
+		'app\modules\v1\admin\tests\_support\_fixtures\TagExFixture',
 	];
 }

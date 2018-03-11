@@ -4,6 +4,8 @@ namespace app\modules\v1\admin\tests\unit\tag;
 
 use app\modules\v1\admin\models\LangEx;
 use app\modules\v1\admin\models\tag\TagLangEx as Model;
+use app\modules\v1\admin\models\tag\TagLangEx;
+use app\modules\v1\admin\tests\_support\_fixtures\TagExFixture;
 use app\modules\v1\admin\tests\_support\_fixtures\TagLangExFixture;
 use Faker\Factory as Faker;
 
@@ -33,6 +35,7 @@ class TagLangExTest extends \Codeception\Test\Unit
 
 		$this->tester->haveFixtures([
 			"tagLang" => TagLangExFixture::className(),
+			"tag"     => TagExFixture::className(),
 		]);
 	}
 
@@ -97,7 +100,72 @@ class TagLangExTest extends \Codeception\Test\Unit
 
 	public function testManageTranslation ()
 	{
+		$this->specify("not create/update with invalid tag ID", function () {
+			$result = TagLangEx::manageTranslations(1000, []);
 
+			$this->tester->assertEquals(Model::ERROR, $result[ "status" ]);
+			$this->tester->assertEquals(Model::ERR_TAG_NOT_FOUND, $result[ "error" ]);
+		});
+		$this->specify("not create/update if one model has invalid language", function () {
+			$tagId  = $this->tester->grabFixture("tag", "1")->id;
+			$models = [
+				[ "lang_id" => 1000, "name" => $this->faker->text(), "slug", $this->faker->slug() ],
+			];
+
+			$result = TagLangEx::manageTranslations($tagId, $models);
+
+			$this->tester->assertEquals(Model::ERROR, $result[ "status" ]);
+			$this->tester->assertEquals(Model::ERR_LANG_NOT_FOUND, $result[ "error" ]);
+		});
+		$this->specify("not create/update if one model is invalid", function () {
+			$tagId  = $this->tester->grabFixture("tag", "2")->id;
+			$models = [
+				[ "lang_id" => LangEx::EN, "slug", $this->faker->slug() ],
+			];
+
+			$result = TagLangEx::manageTranslations($tagId, $models);
+
+			$this->tester->assertEquals(Model::ERROR, $result[ "status" ]);
+			$this->tester->assertTrue(is_array($result[ "error" ]));
+			$this->tester->assertArrayHasKey("name", $result[ "error" ][ 0 ]);
+		});
+
+		$this->specify("create 1 model, then update it if same language", function () {
+			$tagId  = $this->tester->grabFixture("tag", "4")->id;
+			$models = [
+				[ "lang_id" => LangEx::FR, "name" => $this->faker->name(), "slug" => $this->faker->slug(), ],
+				[ "lang_id" => LangEx::FR, "name" => $this->faker->name(), "slug" => $this->faker->slug(), ],
+			];
+
+			$result = TagLangEx::manageTranslations($tagId, $models);
+
+			$this->tester->assertEquals(Model::SUCCESS, $result[ "status" ]);
+			$this->tester->seeNumRecords(1, Model::tableName(), [ "tag_id" => $tagId ]);
+		});
+		$this->specify("create both model", function () {
+			$tagId  = $this->tester->grabFixture("tag", "4")->id;
+			$models = [
+				[ "lang_id" => LangEx::FR, "name" => $this->faker->name(), "slug" => $this->faker->slug(), ],
+				[ "lang_id" => LangEx::EN, "name" => $this->faker->name(), "slug" => $this->faker->slug(), ],
+			];
+
+			$result = TagLangEx::manageTranslations($tagId, $models);
+
+			$this->tester->assertEquals(Model::SUCCESS, $result[ "status" ]);
+			$this->tester->seeNumRecords(1, Model::tableName(), [ "tag_id" => $tagId ]);
+		});
+		$this->specify("create 1 model and update 1 model", function () {
+			$tagId  = $this->tester->grabFixture("tag", "2")->id;
+			$models = [
+				[ "lang_id" => LangEx::FR, "name" => $this->faker->name(), "slug" => $this->faker->slug(), ],
+				[ "lang_id" => LangEx::FR, "name" => $this->faker->name(), "slug" => $this->faker->slug(), ],
+			];
+
+			$result = TagLangEx::manageTranslations($tagId, $models);
+
+			$this->tester->assertEquals(Model::SUCCESS, $result[ "status" ]);
+			$this->tester->seeNumRecords(1, Model::tableName(), [ "tag_id" => $tagId ]);
+		});
 	}
 
 	/**

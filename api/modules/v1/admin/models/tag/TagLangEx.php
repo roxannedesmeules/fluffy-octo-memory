@@ -36,4 +36,9 @@ class TagLangEx extends TagLang
 			],
 		];
 	}
+
+	public static function manageTranslations ( $tagId, $translations )
+	{
+
+	}
 }
