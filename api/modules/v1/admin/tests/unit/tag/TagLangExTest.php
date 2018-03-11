@@ -4,7 +4,6 @@ namespace app\modules\v1\admin\tests\unit\tag;
 
 use app\modules\v1\admin\models\LangEx;
 use app\modules\v1\admin\models\tag\TagLangEx as Model;
-use app\modules\v1\admin\models\tag\TagLangEx;
 use app\modules\v1\admin\tests\_support\_fixtures\TagExFixture;
 use app\modules\v1\admin\tests\_support\_fixtures\TagLangExFixture;
 use Faker\Factory as Faker;
@@ -74,6 +73,9 @@ class TagLangExTest extends \Codeception\Test\Unit
 			$this->tester->assertTrue($this->model->validate([ "name" ]), "name can be a duplicate if in another language");
 		});
 
+		$this->specify("slug is required", function () {
+			$this->_fieldError($this->model, "slug", Model::ERR_FIELD_REQUIRED);
+		});
 		$this->specify("slug is expected to be less than 255 characters", function () {
 			$this->model->slug = \Yii::$app->getSecurity()->generateRandomString(256);
 
@@ -93,6 +95,7 @@ class TagLangExTest extends \Codeception\Test\Unit
 		$this->specify("valid translation", function () {
 			$this->model->lang_id = LangEx::EN;
 			$this->model->name    = $this->faker->name();
+			$this->model->slug    = $this->faker->slug();
 
 			$this->tester->assertTrue($this->model->validate());
 		});
@@ -101,7 +104,7 @@ class TagLangExTest extends \Codeception\Test\Unit
 	public function testManageTranslation ()
 	{
 		$this->specify("not create/update with invalid tag ID", function () {
-			$result = TagLangEx::manageTranslations(1000, []);
+			$result = Model::manageTranslations(1000, []);
 
 			$this->tester->assertEquals(Model::ERROR, $result[ "status" ]);
 			$this->tester->assertEquals(Model::ERR_TAG_NOT_FOUND, $result[ "error" ]);
@@ -112,7 +115,7 @@ class TagLangExTest extends \Codeception\Test\Unit
 				[ "lang_id" => 1000, "name" => $this->faker->text(), "slug", $this->faker->slug() ],
 			];
 
-			$result = TagLangEx::manageTranslations($tagId, $models);
+			$result = Model::manageTranslations($tagId, $models);
 
 			$this->tester->assertEquals(Model::ERROR, $result[ "status" ]);
 			$this->tester->assertEquals(Model::ERR_LANG_NOT_FOUND, $result[ "error" ]);
@@ -123,7 +126,7 @@ class TagLangExTest extends \Codeception\Test\Unit
 				[ "lang_id" => LangEx::EN, "slug", $this->faker->slug() ],
 			];
 
-			$result = TagLangEx::manageTranslations($tagId, $models);
+			$result = Model::manageTranslations($tagId, $models);
 
 			$this->tester->assertEquals(Model::ERROR, $result[ "status" ]);
 			$this->tester->assertArrayHasKey("name", $result[ "error" ]);
@@ -136,7 +139,7 @@ class TagLangExTest extends \Codeception\Test\Unit
 				[ "lang_id" => LangEx::FR, "name" => $this->faker->name(), "slug" => $this->faker->slug(), ],
 			];
 
-			$result = TagLangEx::manageTranslations($tagId, $models);
+			$result = Model::manageTranslations($tagId, $models);
 
 			$this->tester->assertEquals(Model::SUCCESS, $result[ "status" ]);
 			$this->tester->seeNumRecords(1, Model::tableName(), [ "tag_id" => $tagId ]);
@@ -148,7 +151,7 @@ class TagLangExTest extends \Codeception\Test\Unit
 				[ "lang_id" => LangEx::EN, "name" => $this->faker->name(), "slug" => $this->faker->slug(), ],
 			];
 
-			$result = TagLangEx::manageTranslations($tagId, $models);
+			$result = Model::manageTranslations($tagId, $models);
 
 			$this->tester->assertEquals(Model::SUCCESS, $result[ "status" ]);
 			$this->tester->seeNumRecords(2, Model::tableName(), [ "tag_id" => $tagId ]);
@@ -162,7 +165,7 @@ class TagLangExTest extends \Codeception\Test\Unit
 
 			$this->tester->seeNumRecords(1, Model::tableName(), [ "tag_id" => $tagId ]);
 
-			$result = TagLangEx::manageTranslations($tagId, $models);
+			$result = Model::manageTranslations($tagId, $models);
 
 			$this->tester->assertEquals(Model::SUCCESS, $result[ "status" ]);
 			$this->tester->seeNumRecords(2, Model::tableName(), [ "tag_id" => $tagId ]);

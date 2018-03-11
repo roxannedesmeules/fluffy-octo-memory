@@ -49,6 +49,7 @@ class TagLangEx extends TagLang
 				"when"            => function ( self $model ) { return $model->isAttributeChanged("name"); },
 			],
 
+			[ "slug", "required", "message" => self::ERR_FIELD_REQUIRED ],
 			[ "slug", "string", "max" => 255, "message" => self::ERR_FIELD_TYPE, "tooLong" => self::ERR_FIELD_TOO_LONG ],
 			[
 				"slug", "unique",

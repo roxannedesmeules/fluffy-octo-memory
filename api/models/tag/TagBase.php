@@ -28,11 +28,11 @@ abstract class TagBase extends \yii\db\ActiveRecord
 	const ERROR   = 0;
 	const SUCCESS = 1;
 
-	const ERR_ON_SAVE          = "ERR_ON_SAVE";
-	const ERR_ON_DELETE        = "ERR_ON_DELETE";
-	const ERR_NOT_FOUND        = "ERR_NOT_FOUND";
-	const ERR_DELETE_POSTS     = "ERR_DELETE_LINKED_TO_PUBLISHED_POST";
-	const ERR_HAS_TRANSLATIONS = "ERR_HAS_TRANSLATIONS";
+	const ERR_ON_SAVE           = "ERR_ON_SAVE";
+	const ERR_ON_DELETE         = "ERR_ON_DELETE";
+	const ERR_NOT_FOUND         = "ERR_NOT_FOUND";
+	const ERR_DELETE_POSTS      = "ERR_DELETE_LINKED_TO_PUBLISHED_POST";
+	const ERR_HAS_TRANSLATIONS  = "ERR_HAS_TRANSLATIONS";
 
 	/** @var yii\db\Connection */
 	public static $db;
