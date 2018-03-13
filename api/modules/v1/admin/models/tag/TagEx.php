@@ -119,4 +119,9 @@ class TagEx extends Tag
 		//  return success
 		return self::buildSuccess([]);
 	}
+
+	public static function updateWithTranslations ( $tagId, $translations )
+	{
+
+	}
 }

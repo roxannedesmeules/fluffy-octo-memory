@@ -162,5 +162,87 @@ class TagExTest extends \Codeception\Test\Unit
 		});
 	}
 
-	public function testUpdateWithTranslations () {}
+	public function testUpdateWithTranslations ()
+	{
+		$this->specify("not update with invalid tag ID", function () {
+			$result = Model::updateWithTranslations(1000, []);
+
+			$this->tester->assertEquals(Model::ERROR, $result[ "status" ]);
+			$this->tester->assertEquals(Model::ERR_NOT_FOUND, $result[ "error" ]);
+		});
+		$this->specify("not update with invalid translations", function () {
+			$tagId  = $this->tester->grabFixture("tag", 2)->id;
+			$models = [
+				[ "lang_id" => LangEx::EN, "slug" => $this->faker->slug() ],
+			];
+
+			$result = Model::updateWithTranslations($tagId, $models);
+
+			$this->tester->assertEquals(Model::ERROR, $result[ "status" ]);
+			$this->tester->assertArrayHasKey("translations", $result[ "error" ]);
+		});
+
+		$this->specify("create 1 translation", function () {
+			$this->model = $this->tester->grabFixture("tag", 2);
+			$this->model->translations = [
+				[ "lang_id" => LangEx::EN, "name" => $this->faker->name(), "slug" => $this->faker->slug() ],
+			];
+
+			$this->tester->canSeeNumRecords(1, TagLangEx::tableName(), [ "tag_id" => $this->model->id ]);
+
+			$result = Model::updateWithTranslations($this->model->id, $this->model->translations);
+
+			$this->tester->assertEquals(Model::SUCCESS, $result[ "status" ]);
+			$this->tester->assertArrayHasKey("tag", $result);
+
+			$this->tester->canSeeNumRecords(2, TagLangEx::tableName(), [ "tag_id" => $this->model->id ]);
+		});
+		$this->specify("update 1 translation", function () {
+			$this->model = $this->tester->grabFixture("tag", 3);
+			$this->model->translations = [
+				[ "lang_id" => LangEx::EN, "name" => $this->faker->name(), "slug" => $this->faker->slug() ],
+			];
+
+			$this->tester->canSeeNumRecords(1, TagLangEx::tableName(), [ "tag_id" => $this->model->id ]);
+
+			$result = Model::updateWithTranslations($this->model->id, $this->model->translations);
+
+			$this->tester->assertEquals(Model::SUCCESS, $result[ "status" ]);
+			$this->tester->assertArrayHasKey("tag", $result);
+
+			$this->tester->canSeeNumRecords(1, TagLangEx::tableName(), [ "tag_id" => $this->model->id ]);
+		});
+		$this->specify("create 1 translation and update 1 translation", function () {
+			$this->model = $this->tester->grabFixture("tag", 3);
+			$this->model->translations = [
+				[ "lang_id" => LangEx::EN, "name" => $this->faker->name(), "slug" => $this->faker->slug() ],
+				[ "lang_id" => LangEx::FR, "name" => $this->faker->name(), "slug" => $this->faker->slug() ],
+			];
+
+			$this->tester->canSeeNumRecords(1, TagLangEx::tableName(), [ "tag_id" => $this->model->id ]);
+
+			$result = Model::updateWithTranslations($this->model->id, $this->model->translations);
+
+			$this->tester->assertEquals(Model::SUCCESS, $result[ "status" ]);
+			$this->tester->assertArrayHasKey("tag", $result);
+
+			$this->tester->canSeeNumRecords(2, TagLangEx::tableName(), [ "tag_id" => $this->model->id ]);
+		});
+		$this->specify("update 2 translations", function () {
+			$this->model = $this->tester->grabFixture("tag", 1);
+			$this->model->translations = [
+				[ "lang_id" => LangEx::EN, "name" => $this->faker->name(), "slug" => $this->faker->slug() ],
+				[ "lang_id" => LangEx::FR, "name" => $this->faker->name(), "slug" => $this->faker->slug() ],
+			];
+
+			$this->tester->canSeeNumRecords(1, TagLangEx::tableName(), [ "tag_id" => $this->model->id ]);
+
+			$result = Model::updateWithTranslations($this->model->id, $this->model->translations);
+
+			$this->tester->assertEquals(Model::SUCCESS, $result[ "status" ]);
+			$this->tester->assertArrayHasKey("tag", $result);
+
+			$this->tester->canSeeNumRecords(2, TagLangEx::tableName(), [ "tag_id" => $this->model->id ]);
+		});
+	}
 }
