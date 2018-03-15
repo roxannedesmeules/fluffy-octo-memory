@@ -235,7 +235,7 @@ class TagExTest extends \Codeception\Test\Unit
 				[ "lang_id" => LangEx::FR, "name" => $this->faker->name(), "slug" => $this->faker->slug() ],
 			];
 
-			$this->tester->canSeeNumRecords(1, TagLangEx::tableName(), [ "tag_id" => $this->model->id ]);
+			$this->tester->canSeeNumRecords(2, TagLangEx::tableName(), [ "tag_id" => $this->model->id ]);
 
 			$result = Model::updateWithTranslations($this->model->id, $this->model->translations);
 

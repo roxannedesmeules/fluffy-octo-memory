@@ -11,15 +11,15 @@ use Yii;
 /**
  * This is the model class for table "tag".
  *
- * @property int           $id
- * @property string        $created_on
- * @property string        $updated_on
+ * @property int       $id
+ * @property string    $created_on
+ * @property string    $updated_on
  *
  * Relations :
- * @property Post[]        $posts
- * @property Post[]        $publishedPosts
- * @property TagLangBase[] $tagLangs
- * @property Lang[]        $langs
+ * @property Post[]    $posts
+ * @property Post[]    $publishedPosts
+ * @property TagLang[] $tagLangs
+ * @property Lang[]    $langs
  */
 abstract class TagBase extends \yii\db\ActiveRecord
 {
@@ -79,7 +79,7 @@ abstract class TagBase extends \yii\db\ActiveRecord
 	public function getPublishedPosts ()
 	{
 		return $this->hasMany(Post::className(), [ 'id' => 'post_id' ])
-					->where("post_status_id = :published", [ ":published" => PostStatus::PUBLISHED ])
+		            ->where("post_status_id = :published", [ ":published" => PostStatus::PUBLISHED ])
 		            ->viaTable('asso_tag_post', [ 'tag_id' => 'id' ]);
 	}
 
@@ -175,7 +175,7 @@ abstract class TagBase extends \yii\db\ActiveRecord
 	 */
 	public static function hasPublishedPosts ( $tagId )
 	{
-		if( !self::idExists($tagId) ) {
+		if (!self::idExists($tagId)) {
 			return false;
 		}
 

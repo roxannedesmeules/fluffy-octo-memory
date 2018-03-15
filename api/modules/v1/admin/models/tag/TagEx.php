@@ -122,6 +122,37 @@ class TagEx extends Tag
 
 	public static function updateWithTranslations ( $tagId, $translations )
 	{
+		//  start a transaction to rollback at any moment if there is a problem
+		$transaction = self::$db->beginTransaction();
 
+		//  update the tag itself
+		$result = self::updateTag($tagId);
+
+		//  in case of error, rollback and return error
+		if ( $result[ "status" ] === self::ERROR ) {
+			$transaction->rollBack();
+
+			return $result;
+		}
+
+		// update all tag translations
+		$result = TagLangEx::manageTranslations($tagId, $translations);
+
+		//  in case of error, rollback and return error
+		if ( $result[ "status" ] === TagLangEx::ERROR ) {
+			$transaction->rollBack();
+
+			return self::buildError([ "translations" => $result[ "error" ] ]);
+		}
+
+
+		//  keep changes in database
+		$transaction->commit();
+
+		//  get the updated tag object with translations
+		$tag = self::find()->id($tagId)->withTranslations()->one();
+
+		//  return success
+		return self::buildSuccess([ "tag" => $tag ]);
 	}
 }

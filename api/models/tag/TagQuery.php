@@ -32,4 +32,9 @@ class TagQuery extends \yii\db\ActiveQuery
 	{
 		return $this->andWhere([ "id" => $tagId ]);
 	}
+
+	public function withTranslations ()
+	{
+		return $this->joinWith([ "tagLangs" ]);
+	}
 }
