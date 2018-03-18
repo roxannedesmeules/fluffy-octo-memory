@@ -2,6 +2,7 @@
 
 $params = require __DIR__ . '/params.php';
 $db     = require __DIR__ . '/db.php';
+$rules  = require __DIR__ . "/url_rules.php";
 
 $config = [
 	'id'             => 'basic',
@@ -79,44 +80,7 @@ $config = [
 			'enablePrettyUrl'     => true,
 			'enableStrictParsing' => true,
 			'showScriptName'      => false,
-			'rules'               => [
-				"" => "site",
-
-				//  V1 rules
-				//  V1 Admin rules
-				"v1/admin/doc" => "v1/admin/default/doc",
-				"v1/admin/api" => "v1/admin/default/api",
-
-				"OPTIONS v1/admin/auth" => "v1/admin/auth/options",
-				"POST    v1/admin/auth" => "v1/admin/auth/login",
-				"DELETE  v1/admin/auth" => "v1/admin/auth/logout",
-
-				[ "class" => 'yii\rest\UrlRule', "controller" => [ "v1/admin/category" ] ],
-				[ "class" => 'yii\rest\UrlRule', "controller" => [ "v1/admin/post" ] ],
-				[
-					"class"      => 'yii\rest\UrlRule',
-					"controller" => [ "v1/admin/language" ],
-					"except"     => [ "view", "create", "update", "delete" ],
-				],
-				[
-					"class"      => 'yii\rest\UrlRule',
-					"controller" => [ "v1/admin/posts/statuses" => "v1/admin/post-status" ],
-					"except"     => [ "view", "create", "update", "delete" ],
-				],
-				[
-					"class"         => 'yii\rest\UrlRule',
-					"controller"    => [ "v1/admin/user/me" => "v1/admin/user-profile" ],
-					'pluralize'     => false,
-					"except"        => [ "index", "view", "create", "delete" ],
-					"extraPatterns" => [
-						"PUT password"     => "update-password",
-						"OPTIONS password" => "options",
-						"POST picture"     => "upload-picture",
-						"OPTIONS picture"  => "options",
-					],
-					"tokens" => [],
-				]
-			],
+			'rules'               => $rules,
 		],
 		//  Comment whole response block to use Gii
 		"response"   => [

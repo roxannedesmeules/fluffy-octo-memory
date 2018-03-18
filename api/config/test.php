@@ -1,6 +1,7 @@
 <?php
 $params = require __DIR__ . '/params.php';
 $db     = require __DIR__ . '/test_db.php';
+$rules  = require __DIR__ . "/url_rules.php";
 
 /**
  * Application configuration shared by all test types
@@ -8,6 +9,15 @@ $db     = require __DIR__ . '/test_db.php';
 return [
 	'id'         => 'basic-tests',
 	'basePath'   => dirname(__DIR__),
+	'bootstrap'  => [
+		'log' => [
+			"class"   => \yii\filters\ContentNegotiator::className(),
+			"formats" => [
+				//  comment next line to use GII
+				'application/json' => \yii\web\Response::FORMAT_JSON,
+			],
+		],
+	],
 
 	'aliases'    => [
 		'@bower'  => '@vendor/bower-asset',
@@ -43,9 +53,12 @@ return [
 		'user'         => [
 			'identityClass' => 'app\models\user\User',
 		],
-		'request'      => [
-			'cookieValidationKey'  => 'test',
-			'enableCsrfValidation' => false,
+		'request'    => [
+			"enableCookieValidation" => false,
+			"enableCsrfValidation"   => false,
+			"parsers"                => [
+				"application/json" => 'yii\web\JsonParser',
+			],
 		],
 		'i18n'       => [
 			'translations' => [
@@ -53,6 +66,34 @@ return [
 					"class" => 'yii\i18n\DbMessageSource',
 				],
 			],
+		],
+		'urlManager' => [
+			'enablePrettyUrl'     => true,
+			'enableStrictParsing' => true,
+			'showScriptName'      => false,
+			'rules'               => $rules,
+		],
+		"response"   => [
+			"class"         => \yii\web\Response::className(),
+			"format"        => \yii\web\Response::FORMAT_JSON,
+			"on beforeSend" => function ( $event ) {
+				/** @var \yii\web\Response $response */
+				$response = $event->sender;
+
+				if ( !is_null($response->data) ) {
+					if ( !$response->getIsSuccessful() && array_key_exists("message", $response->data) ) {
+						$response->data = [
+							"code"    => $response->getStatusCode(),
+							"message" => $response->data[ "message" ],
+						];
+					} else if ( !$response->getIsSuccessful() ) {
+						$response->data = [
+							"code"  => $response->getStatusCode(),
+							"error" => $response->data,
+						];
+					}
+				}
+			},
 		],
 	],
 	'params'     => $params,

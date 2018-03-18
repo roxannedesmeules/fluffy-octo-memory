@@ -98,7 +98,9 @@ class AuthController extends Controller
 		
 		switch ( $result[ "status" ] ) {
 			case UserAuth::ERROR :
-				throw new BadRequestHttpException($result[ "error" ]);
+				$this->response->setStatusCode(400);
+
+				return [ "message" => $result[ "error" ] ];
 				
 			case UserAuth::SUCCESS :
 				return $result[ "user" ];

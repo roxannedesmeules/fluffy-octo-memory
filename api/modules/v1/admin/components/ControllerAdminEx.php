@@ -93,6 +93,13 @@ class ControllerAdminEx extends Controller
 		$this->response->setStatusCode(204);
 	}
 
+	protected function error ( $code, $error )
+	{
+		$this->response->setStatusCode($code);
+
+		return [ "message" => $error ];
+	}
+
 	protected function unprocessableResult ( $errors )
 	{
 		$this->response->setStatusCode(422);
