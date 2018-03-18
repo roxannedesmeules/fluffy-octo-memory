@@ -12,6 +12,29 @@ class AuthCest
 	public function _after ( ApiTester $I ) { }
 
 	/**
+	 * @param \ApiTester $I
+	 */
+	public function loginWithoutApiClient ( ApiTester $I )
+	{
+		$I->sendPOST($this->url, [ "username" => "mlleDesmeules", "password" => "AAAaaa111" ]);
+
+		$I->seeResponseCodeIs(\Codeception\Util\HttpCode::FORBIDDEN);
+		$I->seeResponseContainsJson([ "code" => 403, "message" => "MISSING_API_CLIENT_KEY" ]);
+	}
+
+	/**
+	 * @param \ApiTester $I
+	 */
+	public function loginWithInvalidApiClient ( ApiTester $I )
+	{
+		$I->haveHttpHeader("API-CLIENT", "invalid");
+		$I->sendPOST($this->url, [ "username" => "mlleDesmeules", "password" => "AAAaaa111" ]);
+
+		$I->seeResponseCodeIs(\Codeception\Util\HttpCode::FORBIDDEN);
+		$I->seeResponseContainsJson([ "code" => 403, "message" => "INVALID_API_CLIENT_KEY" ]);
+	}
+
+	/**
 	 * @param \ApiTester           $I
 	 * @param \Codeception\Example $example
 	 *
