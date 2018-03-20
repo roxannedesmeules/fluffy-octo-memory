@@ -39,4 +39,22 @@ class ApiTester extends \Codeception\Actor
 
 		$this->amHttpAuthenticated($token, null);
 	}
+
+	public function wantToVerifyApiClientRequired ($action, $url)
+	{
+		$this->wantToBeAuthenticated();
+		$this->{ "send$action" }( $url );
+
+		$this->seeResponseCodeIs(\Codeception\Util\HttpCode::FORBIDDEN);
+		$this->seeResponseContainsJson([ "code" => 403, "message" => "MISSING_API_CLIENT_KEY" ]);
+	}
+
+	public function wantToVerifyAuthenticationRequired ($action, $url)
+	{
+		$this->wantToSetApiClient();
+		$this->{ "send$action" }( $url );
+
+		$this->seeResponseCodeIs(\Codeception\Util\HttpCode::UNAUTHORIZED);
+		$this->seeResponseContainsJson([ "code" => 401, "message" => "Your request was made with invalid credentials." ]);
+	}
 }
