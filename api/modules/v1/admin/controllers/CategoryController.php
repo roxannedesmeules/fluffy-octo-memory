@@ -84,6 +84,10 @@ class CategoryController extends ControllerAdminEx
 	 */
 	public function actionView ( $id )
 	{
+		if (!CategoryEx::idExists($id)) {
+			throw new NotFoundHttpException(CategoryEx::ERR_NOT_FOUND);
+		}
+
 		return CategoryEx::getOneWithTranslations($id);
 	}
 
