@@ -4,6 +4,8 @@ use \yii\helpers\Json;
 use \Codeception\Util\HttpCode;
 use \Codeception\Util\JsonType;
 
+use \app\modules\v1\admin\models\LangEx;
+
 /**
  * Class CategoryCest
  *
@@ -109,14 +111,61 @@ class CategoryCest
 		$I->seeResponseContainsJson($category->toArray());
 	}
 
-	/** @skip */
-	public function createWithoutApiClient ( ApiTester $I ) {}
-	/** @skip */
-	public function createWithoutBeingAuthenticated ( ApiTester $I ) {}
-	/** @skip */
-	public function createWithInvalidModel ( ApiTester $I ) {}
-	/** @skip */
-	public function create ( ApiTester $I ) {}
+	/*
+	 *  Create one category
+	 */
+
+	public function createWithoutApiClient ( ApiTester $I )
+	{
+		$I->wantToVerifyApiClientRequired("POST", "$this->url");
+	}
+
+	public function createWithoutBeingAuthenticated ( ApiTester $I )
+	{
+		$I->wantToVerifyAuthenticationRequired("POST", $this->url);
+	}
+
+	public function createWithInvalidModel ( ApiTester $I )
+	{
+		$I->wantToSetApiClient();
+		$I->wantToBeAuthenticated();
+
+		$body = [
+			"is_active"    => 1,
+			"translations" => [
+				[ "lang_id" => LangEx::EN, "name" => "test" ],
+			],
+		];
+
+		$I->sendPOST($this->url, $body);
+
+		$I->seeResponseCodeIs(HttpCode::UNPROCESSABLE_ENTITY);
+		$I->seeResponseMatchesJsonType([
+			"code"  => "integer",
+			"error" => [
+				"translations" => [ [ "slug" => [ "string" ] ], ],
+			],
+		]);
+	}
+
+	public function create ( ApiTester $I )
+	{
+		$I->wantToSetApiClient();
+		$I->wantToBeAuthenticated();
+
+		$body = [
+			"is_active"    => 1,
+			"translations" => [
+				[ "lang_id" => LangEx::EN, "name" => "test", "slug" => "test" ],
+				[ "lang_id" => LangEx::FR, "name" => "test", "slug" => "test" ],
+			],
+		];
+
+		$I->sendPOST($this->url, $body);
+
+		$I->seeResponseCodeIs(HttpCode::CREATED);
+		$I->seeResponseMatchesJsonType([ "category_id" => "integer" ]);
+	}
 
 	/** @skip */
 	public function updateWithoutApiClient ( ApiTester $I ) {}
