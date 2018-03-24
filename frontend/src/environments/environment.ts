@@ -11,4 +11,11 @@ export const environment = {
 		url          : "http://api.blog.local/v1/",
 		client_token : "2U82q14bSuZwF-ChZzvh-35-SzK1vlT4",
 	},
+
+	socialMedia : {
+		facebook  : "https://facebook.com",
+		twitter   : "https://twitter.com/mlle_desmeules",
+		instagram : "https://instagram.com/mlle_desmeules",
+		github    : "https://github.com/mlleDesmeules"
+	},
 };
