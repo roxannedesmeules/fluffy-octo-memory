@@ -1,0 +1,9 @@
+actor: ApiTester
+modules:
+    enabled:
+        - \Helper\Api
+        - REST:
+            url: /v1/admin
+            depends: Yii2
+        - Yii2:
+            part: [ init, orm, fixtures ]
