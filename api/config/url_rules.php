@@ -4,6 +4,9 @@ return [
 	"" => "site",
 
 	//  V1 rules
+	"v1/doc" => "v1/default/doc",
+	"v1/api" => "v1/default/api",
+
 	//  V1 Admin rules
 	"v1/admin/doc" => "v1/admin/default/doc",
 	"v1/admin/api" => "v1/admin/default/api",

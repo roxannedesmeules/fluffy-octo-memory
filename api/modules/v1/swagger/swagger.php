@@ -6,7 +6,7 @@ namespace app\modules\v1\swagger;
  * @SWG\Swagger(
  *      schemes  = { "http" },
  *      host     = "api.blog.dev",
- *      basepath = "/v1",
+ *      basePath = "/v1",
  *
  *     consumes = { "application/json", "application/form-data" },
  *     produces = { "application/json" },

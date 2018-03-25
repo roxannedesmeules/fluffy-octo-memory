@@ -2,6 +2,7 @@
 <module type="WEB_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/api" isTestSource="false" packagePrefix="app" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/behat/gherkin" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/bower-asset/bootstrap" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/bower-asset/inputmask" />

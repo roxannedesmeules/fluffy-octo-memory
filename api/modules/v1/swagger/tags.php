@@ -4,21 +4,21 @@ namespace app\modules\v1\swagger;
 
 /**
  * @SWG\Tag(
- *    title = "Categories",
+ *    name = "Categories",
  *    description = "All endpoints allowing to get categories information",
  * )
  */
 
 /**
  * @SWG\Tag(
- *    title = "Posts",
+ *    name = "Posts",
  *    description = "All endpoints allowing to get posts information",
  * )
  */
 
 /**
  * @SWG\Tag(
- *    title = "Tags",
+ *    name = "Tags",
  *    description = "All endpoints allowing to get tags information",
  * )
  */
