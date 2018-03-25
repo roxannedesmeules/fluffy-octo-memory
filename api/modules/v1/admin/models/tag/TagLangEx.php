@@ -20,8 +20,8 @@ class TagLangEx extends TagLang
 	 *     definition = "TagTranslation",
 	 *
 	 *     @SWG\Property( property = "language", type = "string" ),
-	 *     @SWG\Property( property = "name", type = "string" ),
-	 *     @SWG\Property( property = "slug", type = "string" ),
+	 *     @SWG\Property( property = "name",     type = "string" ),
+	 *     @SWG\Property( property = "slug",     type = "string" ),
 	 * )
 	 */
 	public function fields ()
@@ -33,7 +33,18 @@ class TagLangEx extends TagLang
 		];
 	}
 
-	/** @inheritdoc */
+	/**
+	 * @inheritdoc
+	 *
+	 * @SWG\Definition(
+	 *       definition = "TagTranslationForm",
+	 *       required   = { "lang_id", "name", "slug" },
+	 *
+	 *     @SWG\Property( property = "lang_id", type = "integer" ),
+	 *     @SWG\Property( property = "name",    type = "string" ),
+	 *     @SWG\Property( property = "slug",    type = "string" ),
+	 * )
+	 */
 	public function rules ()
 	{
 		return [
@@ -60,7 +71,12 @@ class TagLangEx extends TagLang
 		];
 	}
 
-
+	/**
+	 * @param $tagId
+	 * @param $translations
+	 *
+	 * @return array
+	 */
 	public static function manageTranslations ( $tagId, $translations )
 	{
 		//  if the tag doesn't exists, then throw an error

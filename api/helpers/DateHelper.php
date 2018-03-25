@@ -17,7 +17,7 @@ class DateHelper
 	 * This function will format the string accordingly to the format passed in parameter. Before formatting the date, the
 	 * function will verify if the date is empty and if it is the case, then it will return an empty string.
 	 *
-	 * @param        $date          date to format
+	 * @param string $date          date to format
 	 * @param string $format        format in which the date should be formatted
 	 * @param string $emptyStr      string to return when date is empty
 	 *

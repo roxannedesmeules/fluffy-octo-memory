@@ -36,3 +36,10 @@ namespace app\modules\v1\admin\swagger;
  *    description = "All endpoints managing post statuses",
  * )
  */
+
+/**
+ * @SWG\Tag(
+ *    name = "Tags",
+ *    description = "All endpoints managing post tags",
+ * )
+ */

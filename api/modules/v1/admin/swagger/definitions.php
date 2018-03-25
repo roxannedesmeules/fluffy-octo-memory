@@ -20,3 +20,13 @@ namespace app\modules\v1\admin\swagger;
  *     @SWG\Property( property = "error",   type = "object" ),
  * )
  */
+
+/**
+ * @SWG\Definition(
+ *     definition = "HATEOAS",
+ *     
+ *     @SWG\Property( property = "rel",  type = "string" ),
+ *     @SWG\Property( property = "href", type = "string" ),
+ *     @SWG\Property( property = "type", type = "string" ),
+ * )
+ */
