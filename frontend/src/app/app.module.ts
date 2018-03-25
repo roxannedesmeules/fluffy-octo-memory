@@ -5,6 +5,7 @@ import { ThemeModule } from "./@theme/theme.module";
 import { AppRoutingModule } from "./app-routing.module";
 
 import { AppComponent } from "./app.component";
+import { BlogModule } from "./blog/blog.module";
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { AppComponent } from "./app.component";
 		AppRoutingModule,
 
 		ThemeModule,
+		BlogModule,
 	],
 	providers    : [],
 	bootstrap    : [ AppComponent ],
