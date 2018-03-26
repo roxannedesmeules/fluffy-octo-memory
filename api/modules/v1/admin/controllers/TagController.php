@@ -132,7 +132,11 @@ class TagController extends ControllerAdminEx
 
 	/**
 	 * @param $id
-	 * 
+	 *
+	 * @return array
+	 * @throws \yii\base\InvalidConfigException
+	 * @throws \yii\db\Exception
+	 *
 	 * @SWG\Put(
 	 *     path = "/tags/:id",
 	 *     tags = { "Tags" },
@@ -149,10 +153,49 @@ class TagController extends ControllerAdminEx
 	 *     @SWG\Response( response = 422, description = "Tag to create is invalid", @SWG\Schema( ref = "#/definitions/UnprocessableError" ), ),
 	 * )
 	 */
-	public function actionUpdate ( $id ) {}
+	public function actionUpdate ( $id )
+	{
+		//  get request data and create Tag model with it
+		$form = new TagEx($this->request->getBodyParams());
+
+		//  validate form
+		if ( !$form->validate() ) {
+			return $this->unprocessableResult($form->getErrors());
+		}
+
+		//  update the tag with translation and return result
+		$result = TagEx::updateWithTranslations($id, $form->translations);
+
+		//  in case of error, trigger the right one
+		if ( $result[ "status" ] === TagEx::ERROR ) {
+			switch ($result[ "error" ]) {
+				case TagEx::ERR_ON_SAVE :
+					return $this->error(500, TagEx::ERR_ON_SAVE);
+
+				case TagEx::ERR_NOT_FOUND :
+					return $this->error(404, TagEx::ERR_NOT_FOUND);
+
+				default :
+					if ( is_array($result[ "error" ]) ) {
+						return $this->unprocessableResult($result[ "error" ]);
+					}
+
+					return $this->error(500, $result[ "error" ]);
+			}
+		}
+
+		//  return updated tag
+		return [ "post" => $result[ "post" ] ];
+	}
 
 	/**
 	 * @param $id
+	 *
+	 * @return array
+	 * @throws \Exception
+	 * @throws \Throwable
+	 * @throws \yii\db\Exception
+	 * @throws \yii\db\StaleObjectException
 	 *
 	 * @SWG\Delete(
 	 *     path = "/tags/:id",
@@ -161,12 +204,30 @@ class TagController extends ControllerAdminEx
 	 *     description = "Delete a tag with a specific ID and all of its translations",
 	 *
 	 *     @SWG\Parameter( name = "id", in = "path", type = "integer", required = true ),
-	 *     
+	 *
 	 *     @SWG\Response( response = 204, description = "Tag deleted successfully" ),
 	 *     @SWG\Response( response = 401, description = "User can't be authenticated", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
 	 *     @SWG\Response( response = 403, description = "Invalid of missing API Client", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
 	 *     @SWG\Response( response = 404, description = "Tag could not be found", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
 	 * )
 	 */
-	public function actionDelete ( $id ) {}
+	public function actionDelete ( $id )
+	{
+		$result = TagEx::deleteWithTranslations($id);
+
+		if ( $result[ "status" ] === TagEx::ERROR ) {
+			switch ($result[ "error" ]) {
+				case TagEx::ERR_NOT_FOUND :
+					return $this->error(404, TagEx::ERR_NOT_FOUND);
+
+				case TagEx::ERR_ON_DELETE :
+					return $this->error(500, TagEx::ERR_ON_DELETE);
+
+				default :
+					return $this->error(500, $result["error"]);
+			}
+		}
+
+		return $this->emptySuccess();
+	}
 }
