@@ -197,6 +197,16 @@ class TagEx extends Tag
 
 	/**
 	 * @param $tagId
+	 *
+	 * @return \app\models\tag\TagBase|array|null
+	 */
+	public static function getOneWithTranslations ( $tagId )
+	{
+		return self::find()->id($tagId)->withTranslations()->one();
+	}
+
+	/**
+	 * @param $tagId
 	 * @param $translations
 	 *
 	 * @return array

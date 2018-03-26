@@ -77,11 +77,35 @@ class TagController extends ControllerAdminEx
 	 */
 	public function actionCreate ()
 	{
+		//  get the request data and create a Tag model with it
+		$form = new TagEx($this->request->getBodyParams());
 
+		//  validate the form content and return 422 error if not valid
+		if ( !$form->validate() ) {
+			return $this->unprocessableResult($form->getErrors());
+		}
+
+		//  create the tag with translations and keep the result
+		$result = TagEx::createWithTranslations($form->translations);
+
+		//  in case of error, trigger the right one
+		if ( $result[ "status" ] === TagEx::ERROR ) {
+			switch ($result[ "error" ]) {
+				case TagEx::ERR_ON_SAVE :
+					return $this->error(500, TagEx::ERR_ON_SAVE);
+
+				default :
+					return $this->unprocessableResult($result[ "error" ]);
+			}
+		}
+
+		return $this->createdResult([ "tag_id" => $result[ "tag_id" ] ]);
 	}
 
 	/**
 	 * @param $id
+	 *
+	 * @return \app\models\tag\TagBase|array|null
 	 *
 	 * @SWG\Get(
 	 *     path = "/tags/:id",
@@ -97,7 +121,14 @@ class TagController extends ControllerAdminEx
 	 *     @SWG\Response( response = 404, description = "Tag could not be found", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
 	 * )
 	 */
-	public function actionView ( $id ) {}
+	public function actionView ( $id )
+	{
+		if ( !TagEx::idExists($id) ) {
+			return $this->error(404, TagEx::ERR_NOT_FOUND);
+		}
+
+		return TagEx::getOneWithTranslations($id);
+	}
 
 	/**
 	 * @param $id
