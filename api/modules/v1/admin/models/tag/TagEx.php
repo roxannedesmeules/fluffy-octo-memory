@@ -6,6 +6,7 @@ use app\components\validators\ArrayUniqueValidator;
 use app\components\validators\TranslationValidator;
 use app\helpers\DateHelper;
 use app\models\tag\Tag;
+use app\modules\v1\admin\models\LangEx;
 
 /**
  * Class TagEx
@@ -176,6 +177,22 @@ class TagEx extends Tag
 
 		//  return success
 		return self::buildSuccess([]);
+	}
+
+	/**
+	 * @param $filters
+	 *
+	 * @return \app\models\tag\TagBase[]|array
+	 */
+	public static function getAllWithTranslations ( $filters )
+	{
+		$query = self::find()->withTranslations();
+
+		if (LangEx::idExists($filters[ "language" ])) {
+			$query->withTranslationIn($filters[ "language" ]);
+		}
+
+		return $query->all();
 	}
 
 	/**

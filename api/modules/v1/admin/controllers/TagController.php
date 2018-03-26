@@ -2,28 +2,63 @@
 
 namespace app\modules\v1\admin\controllers;
 
+use app\helpers\ArrayHelperEx;
 use app\modules\v1\admin\components\ControllerAdminEx;
+use app\modules\v1\admin\components\parameters\Language;
+use app\modules\v1\admin\components\parameters\Pagination;
+use app\modules\v1\admin\models\tag\TagEx;
+use yii\data\ArrayDataProvider;
 
 /**
  * Class TagController
  *
  * @package app\modules\v1\admin\controllers
+ *
+ * @property integer $language   set from Language Parameter
+ * @property array   $pagination set from Pagination Parameter
  */
 class TagController extends ControllerAdminEx
 {
+	/** @inheritdoc */
+	public function behaviors ()
+	{
+		return ArrayHelperEx::merge(parent::behaviors(),
+			[
+				"Language"   => Language::className(),
+				"Pagination" => Pagination::className(),
+			]);
+	}
+
 	/**
 	 * @SWG\Get(
 	 *     path = "/tags",
 	 *     tags = { "Tags" },
 	 *     summary = "Get all tags",
-	 *     description = "Return list of all tags, with sorting and pagination",
+	 *     description = "Return list of all tags, with filtering, sorting and pagination",
+	 *
+	 *     @SWG\Parameter( name = "lang", in = "query", type = "string" ),
+	 *     @SWG\Parameter( name = "page", in = "query", type = "integer" ),
+	 *     @SWG\Parameter( name = "per-page", in = "query", type = "integer" ),
 	 *
 	 *     @SWG\Response( response = 200, description = "List of tags", @SWG\Schema( ref = "#/definitions/TagList" ), ),
 	 *     @SWG\Response( response = 401, description = "User can't be authenticated", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
 	 *     @SWG\Response( response = 403, description = "Invalid or missing API Client", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
 	 * )
 	 */
-	public function actionIndex () {}
+	public function actionIndex ()
+	{
+		$filters = [
+			"language" => $this->language,
+		];
+
+		$data = [
+			"allModels"  => TagEx::getAllWithTranslations($filters),
+			"pagination" => $this->pagination,
+			//  TODO    add sorting
+		];
+
+		return new ArrayDataProvider($data);
+	}
 
 	/**
 	 * @SWG\Post(
@@ -40,7 +75,10 @@ class TagController extends ControllerAdminEx
 	 *     @SWG\Response( response = 422, description = "Tag to create is invalid", @SWG\Schema( ref = "#/definitions/UnprocessableError" ), ),
 	 * )
 	 */
-	public function actionCreate () {}
+	public function actionCreate ()
+	{
+
+	}
 
 	/**
 	 * @param $id

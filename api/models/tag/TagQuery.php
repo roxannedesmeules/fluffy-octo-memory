@@ -33,8 +33,26 @@ class TagQuery extends \yii\db\ActiveQuery
 		return $this->andWhere([ "id" => $tagId ]);
 	}
 
+	/**
+	 * @return $this
+	 */
 	public function withTranslations ()
 	{
 		return $this->joinWith([ "tagLangs" ]);
+	}
+
+	/**
+	 * @param $lang
+	 *
+	 * @return $this
+	 */
+	public function withTranslationIn ( $lang )
+	{
+		$subQuery = TagLang::find()
+		                    ->select("tag_id")
+		                    ->andWhere("tag_id = " . Tag::tableName() . ".id")
+		                    ->andWhere([ "lang_id" => $lang ]);
+
+		return $this->andWhere([ "exists", $subQuery ]);
 	}
 }
