@@ -1,5 +1,5 @@
 <?php
-namespace app\modules\v1\admin\controllers;
+namespace app\modules\v1\admin\controllers\user;
 
 use app\models\app\File;
 use app\modules\v1\admin\components\ControllerAdminEx;
@@ -12,11 +12,11 @@ use yii\web\ServerErrorHttpException;
 use yii\web\UploadedFile;
 
 /**
- * Class UserProfileController
+ * Class ProfileController
  *
- * @package app\modules\v1\admin\controllers
+ * @package app\modules\v1\admin\controllers\user
  */
-class UserProfileController extends ControllerAdminEx
+class ProfileController extends ControllerAdminEx
 {
 	public $corsMethods = [ "OPTIONS", "PUT" ];
 

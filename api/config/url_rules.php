@@ -16,7 +16,7 @@ return [
 	"DELETE  v1/admin/auth" => "v1/admin/auth/logout",
 
 	[ "class" => 'yii\rest\UrlRule', "controller" => [ "v1/admin/category" ] ],
-	[ "class" => 'yii\rest\UrlRule', "controller" => [ "v1/admin/post" ] ],
+	[ "class" => 'yii\rest\UrlRule', "controller" => [ "v1/admin/post" => "v1/admin/post/post" ] ],
 	[
 		"class"      => 'yii\rest\UrlRule',
 		"controller" => [ "v1/admin/language" ],
@@ -24,12 +24,12 @@ return [
 	],
 	[
 		"class"      => 'yii\rest\UrlRule',
-		"controller" => [ "v1/admin/posts/statuses" => "v1/admin/post-status" ],
+		"controller" => [ "v1/admin/posts/statuses" => "v1/admin/post/status" ],
 		"except"     => [ "view", "create", "update", "delete" ],
 	],
 	[
 		"class"         => 'yii\rest\UrlRule',
-		"controller"    => [ "v1/admin/user/me" => "v1/admin/user-profile" ],
+		"controller"    => [ "v1/admin/user/me" => "v1/admin/user/profile" ],
 		'pluralize'     => false,
 		"except"        => [ "index", "view", "create", "delete" ],
 		"extraPatterns" => [

@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\v1\admin\controllers;
+namespace app\modules\v1\admin\controllers\post;
 
 use app\helpers\ArrayHelperEx;
 use app\modules\v1\admin\components\ControllerAdminEx;
@@ -15,7 +15,7 @@ use yii\web\ServerErrorHttpException;
 /**
  * Class PostController
  *
- * @package app\modules\v1\admin\controllers
+ * @package app\modules\v1\admin\controllers\post
  *
  * @property integer $status     set from Status Parameter
  * @property integer $language   set from Language Parameter

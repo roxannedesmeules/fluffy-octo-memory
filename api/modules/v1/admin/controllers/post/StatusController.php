@@ -1,15 +1,15 @@
 <?php
-namespace app\modules\v1\admin\controllers;
+namespace app\modules\v1\admin\controllers\post;
 
 use app\modules\v1\admin\components\ControllerAdminEx;
 use app\modules\v1\admin\models\post\PostStatusEx;
 
 /**
- * Class PostStatusController
+ * Class StatusController
  *
- * @package app\modules\v1\admin\controllers\posts
+ * @package app\modules\v1\admin\controllers\post
  */
-class PostStatusController extends ControllerAdminEx
+class StatusController extends ControllerAdminEx
 {
 	public $corsMethods = [ "OPTIONS", "GET" ];
 

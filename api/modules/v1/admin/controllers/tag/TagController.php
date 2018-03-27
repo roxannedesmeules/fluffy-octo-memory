@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\v1\admin\controllers;
+namespace app\modules\v1\admin\controllers\tag;
 
 use app\helpers\ArrayHelperEx;
 use app\modules\v1\admin\components\ControllerAdminEx;
@@ -12,7 +12,7 @@ use yii\data\ArrayDataProvider;
 /**
  * Class TagController
  *
- * @package app\modules\v1\admin\controllers
+ * @package app\modules\v1\admin\controllers\tag
  *
  * @property integer $language   set from Language Parameter
  * @property array   $pagination set from Pagination Parameter
