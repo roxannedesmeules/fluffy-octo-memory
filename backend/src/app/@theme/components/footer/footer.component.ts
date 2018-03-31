@@ -1,14 +1,25 @@
-import { Component } from "@angular/core";
-
+import { Component, OnInit } from "@angular/core";
 import { environment } from "../../../../environments/environment";
 
 @Component({
-	selector    : "ngx-footer",
-	styleUrls   : [ "./footer.component.scss" ],
+	selector    : "app-layout-footer",
 	templateUrl : "./footer.component.html",
+	styleUrls   : [ "./footer.component.scss" ],
 })
-export class FooterComponent {
+export class FooterComponent implements OnInit {
 
+	public year    = 2018;
 	public version = environment.version;
+
+	constructor () {
+	}
+
+	ngOnInit () {
+		this._setCurrentYear();
+	}
+
+	private _setCurrentYear() {
+		this.year = (new Date()).getFullYear();
+	}
 
 }

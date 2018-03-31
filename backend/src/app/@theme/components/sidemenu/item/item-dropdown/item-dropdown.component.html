@@ -1,0 +1,11 @@
+<a href="#collapsible-{{ item.id }}" aria-expanded="false"
+   data-toggle="collapse" (click)="isCollapsed = !isCollapsed">
+	<i [class]="item.icon"></i>
+	{{ item.title }}
+</a>
+
+<ul class="list-unstyled" [ngbCollapse]="isCollapsed">
+	<li *ngFor="let child of item.children">
+		<app-sidemenu-item-link [item]="child"></app-sidemenu-item-link>
+	</li>
+</ul>

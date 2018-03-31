@@ -1,80 +1,50 @@
 import { ModuleWithProviders, NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
-
+import { NgbDropdownConfig, NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import {
-	NbActionsModule,
-	NbCardModule,
-	NbLayoutModule,
-	NbMenuModule,
-	NbRouteTabsetModule,
-	NbSearchModule,
-	NbSidebarModule,
-	NbTabsetModule,
-	NbThemeModule,
-	NbUserModule,
-	NbCheckboxModule,
-} from "@nebular/theme";
-
-import {
-	FooterComponent,
-	HeaderComponent,
-	SearchInputComponent,
-	TinyMCEComponent,
+	FooterComponent, HeaderComponent, ItemComponent, ItemDropdownComponent, ItemLinkComponent, PageTitleComponent,
+	SidemenuComponent,
 } from "./components";
-import { CapitalizePipe, PluralPipe, RoundPipe, TimingPipe } from "./pipes";
-import { OneColumnLayoutComponent } from "./layouts";
-import { PageHeaderComponent } from "./components/page-header/page-header.component";
+import { LayoutComponent } from "./layout/layout.component";
+import { MessagesComponent, NotificationsComponent, UserComponent } from "./widgets";
 
-const BASE_MODULES = [ CommonModule, FormsModule, ReactiveFormsModule ];
-
-const NB_MODULES = [
-	NbCardModule,
-	NbLayoutModule,
-	NbTabsetModule,
-	NbRouteTabsetModule,
-	NbMenuModule,
-	NbUserModule,
-	NbActionsModule,
-	NbSearchModule,
-	NbSidebarModule,
-	NbCheckboxModule,
+const MODULES = [
+	CommonModule,
 	NgbModule,
 ];
 
 const COMPONENTS = [
-	HeaderComponent,
+	LayoutComponent,
+
+	//  components
 	FooterComponent,
-	SearchInputComponent,
-	TinyMCEComponent,
-	OneColumnLayoutComponent,
-	PageHeaderComponent,
+	HeaderComponent,
+	PageTitleComponent,
+	SidemenuComponent,
+	ItemComponent,
+	ItemDropdownComponent,
+	ItemLinkComponent,
+
+	//  widgets
+	MessagesComponent,
+	NotificationsComponent,
+	UserComponent,
 ];
 
-const PIPES = [
-	CapitalizePipe,
-	PluralPipe,
-	RoundPipe,
-	TimingPipe,
-];
-
-const NB_THEME_PROVIDERS = [
-	... NbThemeModule.forRoot({ name : "default", }).providers,
-	... NbSidebarModule.forRoot().providers,
-	... NbMenuModule.forRoot().providers,
+const PROVIDERS = [
+	NgbDropdownConfig,
 ];
 
 @NgModule({
-	imports      : [ ... BASE_MODULES, ... NB_MODULES ],
-	exports      : [ ... BASE_MODULES, ... NB_MODULES, ... COMPONENTS, ... PIPES ],
-	declarations : [ ... COMPONENTS, ... PIPES, PageHeaderComponent ],
+	imports      : [ ...MODULES ],
+	declarations : [ ...COMPONENTS ],
+	exports      : [ ...MODULES, ...COMPONENTS ],
 })
 export class ThemeModule {
 	static forRoot (): ModuleWithProviders {
 		return <ModuleWithProviders>{
 			ngModule  : ThemeModule,
-			providers : [ ... NB_THEME_PROVIDERS ],
+			providers : [ ...PROVIDERS ],
 		};
 	}
 }

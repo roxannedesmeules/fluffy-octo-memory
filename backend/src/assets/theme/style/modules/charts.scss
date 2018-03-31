@@ -1,0 +1,80 @@
+section.charts {
+
+    div[class*="col-"] {
+        margin-bottom: 30px;
+    }
+
+    header {
+        padding: 30px 0;
+    }
+
+    div[class*="col-"] {
+        margin-bottom: 0;
+    }
+}
+
+/*
+* ==========================================================
+*     LINE CHART
+* ==========================================================
+*/
+.line-chart-example {
+    .card-block {
+        padding: 20px;
+    }
+}
+
+/*
+* ==========================================================
+*     POLAR CHART
+* ==========================================================
+*/
+.bar-chart-example {
+
+}
+/*
+* ==========================================================
+*     POLAR CHART
+* ==========================================================
+*/
+.polar-chart-example {
+    canvas {
+        max-width: 350px;
+        max-height: 350px;
+        margin: 20px auto;
+    }
+}
+/*
+* ==========================================================
+*     PIE CHART
+* ==========================================================
+*/
+.pie-chart-example {
+    canvas {
+        max-width: 350px;
+        max-height: 350px;
+        margin: 15px auto;
+    }
+}
+/*
+* ==========================================================
+*     RADAR CHART
+* ==========================================================
+*/
+.radar-chart-example {
+    canvas {
+        max-width: 350px;
+        max-height: 350px;
+        margin: 20px auto;
+    }
+}
+
+
+/* FORMS MEDIAQUERIES -------------------------- */
+@include media-breakpoint-down(md) {
+    section.charts {
+        h2 {
+            font-size: 1rem;
+        }
+    }
+}

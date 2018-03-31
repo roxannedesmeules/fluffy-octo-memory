@@ -1,22 +1,57 @@
-<div class="header-container"
-     [class.left]="position === 'normal'"
-     [class.right]="position === 'inverse'">
-	<div class="logo-containter">
-		<a (click)="toggleSidebar()" href="#" class="navigation"><i class="nb-menu"></i></a>
-		<div class="logo" (click)="goToHome()">lazydvlpr<span>.io</span></div>
-	</div>
-</div>
-
-<nb-actions
-		size="medium"
-		class="header-container"
-		[class.right]="position === 'normal'"
-		[class.left]="position === 'inverse'">
-	<nb-action>
-		<nb-user [menu]="userMenu" [name]="user?.profile.fullname" [picture]="user?.profile.picture"></nb-user>
-	</nb-action>
-	<nb-action class="control-item" disabled icon="nb-notifications"></nb-action>
-	<nb-action class="control-item">
-		<nb-search tag="modal-zoomin" type="modal-zoomin" (click)="startSearch()"></nb-search>
-	</nb-action>
-</nb-actions>
+<header class="header">
+	<nav class="navbar">
+		<!-- Search Box-->
+		<div class="search-box">
+			<button class="dismiss"><i class="icon-close"></i></button>
+			<form id="searchForm" action="#" role="search">
+				<input type="search" placeholder="What are you looking for..." class="form-control">
+			</form>
+		</div>
+		<div class="container-fluid">
+			<div class="navbar-holder d-flex align-items-center justify-content-between">
+				<!-- Navbar Header-->
+				<div class="navbar-header">
+					<!-- Navbar Brand -->
+					<a href="index.html" class="navbar-brand">
+						<div class="brand-text brand-big">
+							<span>ladydev</span><strong>.io</strong>
+						</div>
+						<div class="brand-text brand-small">
+							<strong>LD</strong>
+						</div>
+					</a>
+					<!-- Toggle Button-->
+					<a id="toggle-btn" href="#" class="menu-btn active">
+						<span></span>
+						<span></span>
+						<span></span>
+					</a>
+				</div>
+				<!-- Navbar Menu -->
+				<ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+					<!-- Search-->
+					<li class="nav-item d-flex align-items-center">
+						<a id="search" href="#">
+							<i class="icon-search"></i>
+						</a>
+					</li>
+					<!-- Notifications-->
+					<li class="nav-item">
+						<app-widgets-notifications></app-widgets-notifications>
+					</li>
+					<!-- Messages -->
+					<li class="nav-item">
+						<app-widgets-messages></app-widgets-messages>
+					</li>
+					<!-- Logout    -->
+					<li class="nav-item">
+						<a href="login.html" class="nav-link logout">
+							Logout
+							<i class="fas fa-sign-out-alt"></i>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+</header>

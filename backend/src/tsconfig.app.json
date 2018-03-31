@@ -1,35 +1,13 @@
 {
-	"extends"         : "../tsconfig.json",
-	"compilerOptions" : {
-		"outDir"  : "../out-tsc/app",
-		"module"  : "es2015",
-		"baseUrl" : "./",
-		"types"   : [ ],
-		"paths"   : {
-			"@angular/*" : [ "../node_modules/@angular/*" ],
-			"@nebular/*" : [ "../node_modules/@nebular/*" ],
-			"@pages/*"   : [
-				"./app/pages/*"
-			],
-			"@core/*"    : [
-				"./app/@core/*"
-			],
-			"@theme/*"   : [
-				"./app/@theme/*"
-			],
-			"env/*"      : [
-				"./environments/*"
-			],
-			"@admin/*"   : [
-				"./app/admin/*"
-			],
-			"@shared/*"  : [
-				"./app/@shared/*"
-			]
-		}
-	},
-	"exclude"         : [
-		"test.ts",
-		"**/*.spec.ts"
-	]
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../out-tsc/app",
+    "baseUrl": "./",
+    "module": "es2015",
+    "types": []
+  },
+  "exclude": [
+    "test.ts",
+    "**/*.spec.ts"
+  ]
 }

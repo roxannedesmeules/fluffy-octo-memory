@@ -1,0 +1,118 @@
+/*
+* ==========================================================
+*     LOGIN PAGE
+* ==========================================================
+*/
+.login-page {
+    position: relative;
+
+    &::before {
+        content: '';
+        width: 100%;
+        height: 100%;
+        display: block;
+        z-index: -1;
+        background: url($imgPath + '/bg.jpg');
+        background-size: cover;
+        filter: blur(10px);
+        z-index: 1;
+        @include position(absolute, 0, 0);
+    }
+
+    .container {
+        min-height: 100vh;
+        z-index: 999;
+        padding: 20px;
+        position: relative;
+    }
+
+    .form-holder {
+        width: 100%;
+        border-radius: 5px;
+        overflow: hidden;
+        margin-bottom: 50px;
+
+
+        .info, .form {
+            min-height: 70vh;
+            padding: 40px;
+            height: 100%;
+        }
+
+        div[class*='col-'] {
+            padding: 0;
+        }
+
+        .info {
+            background: rgba($brand-primary, 0.9);
+            color: #fff;
+            h1 {
+                font-size: 2.5em;
+                font-weight: 600;
+            }
+            p {
+                font-weight: 300;
+            }
+        }
+
+        .form {
+            .form-group {
+                position: relative;
+                margin-bottom: 30px;
+            }
+
+            .content {
+                width: 100%;
+            }
+
+            form {
+                width: 100%;
+                max-width: 400px;
+            }
+
+            #login, #register {
+                margin-bottom: 20px;
+                cursor: pointer;
+            }
+
+            a.forgot-pass, a.signup {
+                font-size: 0.9em;
+                color: $paleBlue;
+            }
+
+            small {
+                color: #aaa;
+            }
+
+            .terms-conditions {
+                label {
+                    cursor: pointer;
+                    color: #aaa;
+                    font-size: 0.9em;
+                }
+            }
+        }
+
+    }
+
+
+    .copyrights {
+        width: 100%;
+        z-index: 9999;
+        @include position(absolute, $bottom: 0, $left: 0);
+        color: #fff;
+    }
+}
+
+
+@include media-breakpoint-down(md) {
+    .login-page {
+        .info, .form {
+            min-height: auto !important;
+        }
+        .info {
+            padding-top: 100px !important;
+            padding-bottom: 100px !important;
+        }
+    }
+}

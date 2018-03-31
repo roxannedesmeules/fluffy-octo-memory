@@ -1,0 +1,221 @@
+/*
+* ==========================================================
+*     FORMS
+* ==========================================================
+*/
+.form-control {
+    border: 1px solid $gray-300;
+    border-radius: 0;
+    padding: $input-btn-padding-y $input-btn-padding-x;
+
+    @include placeholder() {
+        font-size: 0.9em;
+        font-weight: 300;
+        font-family: $font-family-base;
+        color: #aaa;
+    }
+
+    @include form-control-focus();
+}
+
+.input-group {
+    .dropdown-menu {
+        padding: 15px;
+        color: #777;
+        border-radius: 0;
+        a {
+            padding: 5px 0;
+            color: inherit;
+            text-decoration: none;
+
+            &:hover {
+                color: $brand-primary;
+                background: none;
+            }
+        }
+    }
+}
+
+.input-group-text {
+    color: $gray-600;
+    background: $gray-100;
+    border-color: $gray-300;
+    border-radius: 0;
+
+    .checkbox-template, .radio-template {
+        transform: none;
+    }
+}
+
+.form-control-label {
+    font-size: .9rem;
+    color: #777;
+    font-weight: 300;
+}
+
+button, input[type='submit'] {
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 300 !important;
+}
+
+.input-group {
+    .input-group-addon {
+        background: #f5f5f5;
+        color: #999;
+        font-weight: 300;
+        border-radius: 0;
+
+        border: 1px solid #eee;
+    }
+
+    .dropdown-toggle {
+        background: #f5f5f5;
+        color: #777;
+    }
+
+    .checkbox-template, .radio-template {
+        transform: translateY(2px);
+    }
+}
+
+
+.checkbox-template, .radio-template {
+    transform: translateY(3px);
+     user-select: none;
+     cursor: pointer;
+     position: relative;
+
+     & + label {
+         margin-left: 10px;
+     }
+
+     &::before {
+         margin-right: 10px;
+         content: '';
+         display: inline-block;
+         transform: translate(-2px, -2px);
+         @include square(18px, $text-align: center);
+         background: #dae2e7;
+         transition: all 0.2s;
+     }
+     &::after {
+         content: '\f00c';
+        @include square(12px, $text-align: center);
+        display: block;
+        font-family: 'FontAwesome';
+        @include position(absolute, 1px, $left: 1px);
+        font-size: 0.7em;
+        opacity: 0;
+        transition: all 0.2s;
+        color: #fff;
+     }
+
+     &:checked {
+         &::before {
+             background: $brand-primary;
+         }
+         &::after {
+             opacity: 1;
+         }
+     }
+}
+
+.radio-template {
+     &::before {
+         border-radius: 50%;
+         transform: translate(-3px, -3px);
+     }
+     &::after {
+         @include square(6px, $text-align: center);
+        @include position(absolute, 3px, $left: 3px);
+        border-radius: 50%;
+        content: '';
+     }
+
+     &:checked {
+         &::after {
+             background: $white;
+         }
+     }
+}
+
+input.input-material {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #eee;
+    padding: 10px 0;
+
+    &.is-invalid {
+        border-color: theme-color("danger") !important;
+    }
+
+    &:focus {
+        border-color: $brand-primary;
+    }
+
+    & ~ label {
+        color: #aaa;
+        @include position(absolute, 14px, $left: 0);
+        cursor: text;
+        transition: all 0.2s;
+        font-weight: 300;
+        &.active {
+            font-size: 0.8rem;
+            top: -10px;
+            color: $brand-primary;
+        }
+    }
+    &.is-invalid ~ label {
+        color: $danger;
+    }
+}
+
+.form-group-material {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+
+
+.modal-content{
+    border-radius: 0;
+}
+
+.i-checks {
+    display: flex;
+}
+
+select {
+    margin-bottom: 10px;
+    option {
+        color: #999;
+    }
+}
+
+/*
+* ==========================================================
+*     FORM PAGE
+* ==========================================================
+*/
+.forms {
+    p {
+        font-size: 0.9em;
+        color: #555;
+    }
+
+    form {
+        small {
+            font-size: 0.8em;
+            color: #999;
+            font-weight: 300;
+        }
+    }
+
+    .line {
+        width: 100%;
+        height: 1px;
+        border-bottom: 1px dashed #eee;
+        margin: 30px 0;
+    }
+}
