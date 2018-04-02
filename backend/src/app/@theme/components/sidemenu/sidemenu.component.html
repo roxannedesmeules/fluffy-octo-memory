@@ -1,18 +1,10 @@
 <!-- Sidebar Header-->
 <app-widgets-user></app-widgets-user>
+
 <!-- Sidebar Navidation Menus-->
 <span class="heading">Main</span>
 <ul class="list-unstyled">
 	<li *ngFor="let item of items">
 		<app-sidemenu-item [item]="item"></app-sidemenu-item>
 	</li>
-</ul>
-
-<span class="heading">Extras</span>
-
-<ul class="list-unstyled">
-	<li><a href="#"> <i class="icon-flask"></i>Demo </a></li>
-	<li><a href="#"> <i class="icon-screen"></i>Demo </a></li>
-	<li><a href="#"> <i class="icon-mail"></i>Demo </a></li>
-	<li><a href="#"> <i class="icon-picture"></i>Demo </a></li>
 </ul>
