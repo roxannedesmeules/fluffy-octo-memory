@@ -1,10 +1,10 @@
 <div class="page">
 	<!-- Main navbar -->
-	<app-layout-header></app-layout-header>
+	<app-layout-header [isShrinked]="isShrinked" (toggleSidemenu)="isShrinked = !isShrinked"></app-layout-header>
 	
 	<div class="page-content d-flex align-items-stretch">
 		<!-- Side Navbar -->
-		<nav class="side-navbar">
+		<nav class="side-navbar" [class.shrinked]="isShrinked">
 			<app-layout-sidemenu></app-layout-sidemenu>
 		</nav>
 		

@@ -1,9 +1,13 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
+
 import { CoreModule } from "@core/core.module";
 import { ThemeModule } from "./@theme/theme.module";
-
 import { AppRoutingModule } from "./app-routing.module";
+
+import { APP_BASE_HREF } from "@angular/common";
+import { HTTP_INTERCEPTORS } from "@angular/common/http";
+import { AuthInterceptor } from "@core/utils/auth.interceptor";
 
 import { AppComponent } from "./app.component";
 
@@ -26,7 +30,10 @@ const COMPONENTS = [
 @NgModule({
 	declarations : [ ...COMPONENTS ],
 	imports      : [ ...BASE_MODULE, ...MODULES ],
-	providers    : [],
+	providers    : [
+		{ provide : APP_BASE_HREF, useValue : "/" },
+		{ provide : HTTP_INTERCEPTORS, useClass : AuthInterceptor, multi : true },
+	],
 	bootstrap    : [ AppComponent ],
 })
 export class AppModule {

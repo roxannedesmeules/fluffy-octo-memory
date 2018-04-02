@@ -7,6 +7,7 @@
 				<input type="search" placeholder="What are you looking for..." class="form-control">
 			</form>
 		</div>
+		
 		<div class="container-fluid">
 			<div class="navbar-holder d-flex align-items-center justify-content-between">
 				<!-- Navbar Header-->
@@ -21,7 +22,7 @@
 						</div>
 					</a>
 					<!-- Toggle Button-->
-					<a id="toggle-btn" href="#" class="menu-btn active">
+					<a id="toggle-btn" class="menu-btn" [class.active]="!isShrinked" (click)="toggleSidemenu.emit(true)">
 						<span></span>
 						<span></span>
 						<span></span>
