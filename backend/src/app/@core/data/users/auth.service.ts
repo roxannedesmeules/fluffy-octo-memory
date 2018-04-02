@@ -1,5 +1,6 @@
 import { Inject, Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs/Observable";
 
 import { UserService } from "./user.service";
 import { BaseService } from "../base.service";
@@ -21,46 +22,63 @@ export class AuthService extends BaseService {
 	/**
 	 *
 	 * @param {UserAuthForm} body
-	 * @return {Promise<any>}
+	 * @return {Observable<User>}
 	 */
-	public login (body: UserAuthForm): Promise<any> {
+	public login (body: UserAuthForm): Observable<User> {
 		return this.create(body);
 	}
 
 	/**
 	 *
-	 * @return {Promise<any>}
+	 * @return {Observable<any>}
 	 */
-	public logout (): Promise<any> {
+	public logout (): Observable<any> {
 		return this.http.delete(this._url())
-			.toPromise()
-			.then((result: any) => {
-				this.userService.removeAppUser();
-			});
+				   .map(( res: any ) => {
+					   this.userService.removeAppUser();
+
+					   if (BaseService.SUCCESS_CODES.indexOf(res.status) >= 0) {
+						   return this.mapListToModelList(res);
+					   } else {
+						   return this.mapError(res);
+					   }
+				   });
 	}
 
 	/**
 	 * Set the "is_locked" value for the authenticated user to true.
 	 */
-	public lockSession (): Promise<any> {
+	public lockSession (): Observable<any> {
 		return this.http.delete(this._url())
-			.toPromise()
-			.then((result: any) => {
-				const user = this.userService.getAppUser();
-				user.lockSession();
+				   .map(( res: any ) => {
+					   const user = this.userService.getAppUser();
+					   		 user.lockSession();
 
-				this.userService.saveAppUser(user);
-			});
+					   this.userService.saveAppUser(user);
+
+					   if (BaseService.SUCCESS_CODES.indexOf(res.status) >= 0) {
+						   return this.mapListToModelList(res);
+					   } else {
+						   return this.mapError(res);
+					   }
+				   });
 	}
 
 	/**
 	 *
 	 * @param {UserAuthForm} body
 	 *
-	 * @return {Promise<any>}
+	 * @return {Observable<any>}
 	 */
-	public unlockSession (body: UserAuthForm): Promise<any> {
-		return this.create(body).then(this._parseResponseBody).catch(this._parseErrorBody);
+	public unlockSession (body: UserAuthForm): Observable<any> {
+		return this.create(body)
+				   .map(( res: any ) => {
+					   if (BaseService.SUCCESS_CODES.indexOf(res.status) >= 0) {
+						   return this.mapListToModelList(res);
+					   } else {
+						   return this.mapError(res);
+					   }
+				   });
 	}
 
 	/**

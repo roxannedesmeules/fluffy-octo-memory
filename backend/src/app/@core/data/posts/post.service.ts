@@ -21,11 +21,15 @@ export class PostService extends BaseService {
 	}
 
 	public findAll () {
-		const options = Object.assign({}, this.options, this.filters.formatRequest());
+		const options = Object.assign({ observe : 'response' }, this.options, this.filters.formatRequest());
 
 		return this.http.get(this._url(), options)
-				.toPromise()
-				.then(this._parseResponseBody)
-				.catch(this._parseErrorBody);
+				   .map(( res: any ) => {
+					   if (BaseService.SUCCESS_CODES.indexOf(res.status) >= 0) {
+						   return this.mapListToModelList(res);
+					   } else {
+						   return this.mapError(res);
+					   }
+				   });
 	}
 }

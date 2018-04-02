@@ -16,9 +16,13 @@ export class UserProfileService extends BaseService {
 
 	public update ( body: any ) {
 		return this.http.put(this._url(), body)
-					.toPromise()
-					.then(this._parseResponseBody)
-					.catch(this._parseErrorBody);
+				   .map(( res: any ) => {
+					   if (BaseService.SUCCESS_CODES.indexOf(res.status) >= 0) {
+						   return this.mapListToModelList(res);
+					   } else {
+						   return this.mapError(res);
+					   }
+				   });
 	}
 
 	public uploadPicture ( picture: File ) {
@@ -26,9 +30,13 @@ export class UserProfileService extends BaseService {
 		body.append("picture", picture, picture.name);
 
 		return this.http.post(this._url("picture"), body)
-					.toPromise()
-					.then(this._parseResponseBody)
-					.catch(this._parseErrorBody);
+				   .map(( res: any ) => {
+					   if (BaseService.SUCCESS_CODES.indexOf(res.status) >= 0) {
+						   return this.mapListToModelList(res);
+					   } else {
+						   return this.mapError(res);
+					   }
+				   });
 	}
 
 	// TODO implement update password
