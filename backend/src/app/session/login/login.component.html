@@ -1,0 +1,40 @@
+<div class="row">
+	<!-- Logo & Information Panel-->
+	<div class="col-lg-6">
+		<div class="info d-flex align-items-center">
+			<div class="content">
+				<div class="logo">
+					<h1>ladydev.io</h1>
+				</div>
+				<p>Admin panel to manage ladydev.io blog</p>
+			</div>
+		</div>
+	</div>
+	<!-- Form Panel    -->
+	<div class="col-lg-6 bg-white">
+		<div class="form d-flex align-items-center">
+			<div class="content">
+				<form [formGroup]="form" class="form-validate">
+					<div class="form-group">
+						<input type="text" id="input-username" formControlName="username"
+						       class="input-material"
+						       [class.is-invalid]="form.get('username').invalid && form.get('username').touched">
+						
+						<label for="input-username" class="label-material">User Name</label>
+					</div>
+					<div class="form-group">
+						<input type="password" id="input-password" formControlName="password"
+						       class="input-material"
+						       [class.is-invalid]="form.get('password').invalid && form.get('password').touched">
+						
+						<label for="input-password" class="label-material">Password</label>
+					</div>
+					<button class="btn btn-primary" (click)="login()">
+						Login
+					</button>
+				</form>
+				<a href="#" class="forgot-pass">Forgot Password?</a><br>
+			</div>
+		</div>
+	</div>
+</div>

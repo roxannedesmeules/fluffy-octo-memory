@@ -1,7 +1,8 @@
 import { Inject, Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
-import 'rxjs/add/operator/map';
+import { catchError, map } from "rxjs/operators";
+import 'rxjs/add/observable/throw';
 
 import { ErrorResponse } from "./error-response.model";
 
@@ -20,68 +21,50 @@ export abstract class BaseService {
 
 	public findAll (): Observable<any> {
 		return this.http.get(this._url(), { observe: 'response' })
-				   .map(( res: any ) => {
-					   if (BaseService.SUCCESS_CODES.indexOf(res.status) >= 0) {
-						   return this.mapListToModelList(res);
-					   } else {
-						   return this.mapError(res);
-					   }
-				   });
+				   .pipe(
+						   map(( res: any ) => this.mapListToModelList(res)),
+						   catchError(( err: any ) => Observable.throw(this.mapError(err))),
+				   );
 	}
 
 	public findOne (): Observable<any> {
 		return this.http.get(this._url())
-				   .map(( res: any ) => {
-					   if (BaseService.SUCCESS_CODES.indexOf(res.status) >= 0) {
-						   return this.mapModel(res);
-					   } else {
-						   return this.mapError(res);
-					   }
-				   });
+				   .pipe(
+						   map(( res: any ) => this.mapModel(res)),
+						   catchError(( err: any ) => Observable.throw(this.mapError(err))),
+				   );
 	}
 
 	public findById ( id: any ): Observable<any> {
 		return this.http.get(this._url(id))
-				   .map(( res: any ) => {
-					   if (BaseService.SUCCESS_CODES.indexOf(res.status) >= 0) {
-						   return this.mapModel(res);
-					   } else {
-						   return this.mapError(res);
-					   }
-				   });
+				   .pipe(
+						   map(( res: any ) => this.mapModel(res)),
+						   catchError(( err: any ) => Observable.throw(this.mapError(err))),
+				   );
 	}
 
 	public create ( body: any ): Observable<any> {
 		return this.http.post(this._url(), body)
-				   .map(( res: any ) => {
-					   if (BaseService.SUCCESS_CODES.indexOf(res.status) >= 0) {
-						   return this.mapModel(res);
-					   } else {
-						   return this.mapError(res);
-					   }
-				   });
+				   .pipe(
+						   map(( res: any ) => this.mapModel(res)),
+						   catchError(( err: any ) => Observable.throw(this.mapError(err))),
+				   );
 	}
 
 	public update ( id: number, body: any ): Observable<any> {
 		return this.http.put(this._url(id), body)
-				   .map(( res: any ) => {
-					   if (BaseService.SUCCESS_CODES.indexOf(res.status) >= 0) {
-						   return this.mapModel(res);
-					   } else {
-						   return this.mapError(res);
-					   }
-				   });
+				   .pipe(
+						   map(( res: any ) => this.mapModel(res)),
+						   catchError(( err: any ) => Observable.throw(this.mapError(err))),
+				   );
 	}
 
 	public delete ( id: number ): Observable<any> {
 		return this.http.delete(this._url(id))
-				   .map(( res: any ) => {
-					   if (BaseService.SUCCESS_CODES.indexOf(res.status) >= 0) {
-						   return this.mapModel(res);
-					   } else {
-						   return this.mapError(res);
-					   }
-				   });
+				   .pipe(
+						   map(( res: any ) => this.mapModel(res)),
+						   catchError(( err: any ) => Observable.throw(this.mapError(err))),
+				   );
 	}
 
 	/**
