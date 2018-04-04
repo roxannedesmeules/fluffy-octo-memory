@@ -1,9 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
+import { ErrorResponse } from "@core/data/error-response.model";
 import { UserAuthForm } from "@core/data/users/auth.form";
 import { AuthService } from "@core/data/users/auth.service";
+import { User } from "@core/data/users/user.model";
 import { UserService } from "@core/data/users/user.service";
+import { LoggerService } from "../../@shared/logger/logger.service";
 
 @Component({
 	selector    : "app-session-login",
@@ -20,6 +23,7 @@ export class LoginComponent implements OnInit {
 
 	constructor ( private _builder: FormBuilder,
 				  private _router: Router,
+				  private _logger: LoggerService,
 				  private authService: AuthService,
 				  private userService: UserService) {
 	}
@@ -55,11 +59,16 @@ export class LoginComponent implements OnInit {
 		this.authService
 			.login(new UserAuthForm(this.form.getRawValue()))
 			.subscribe(
-				(result) => {
-					console.log(result);
+				(result: User) => {
+					this.submitted = false;
+
+					this.userService.saveAppUser(result);
+					this._router.navigate([ "/" ]);
 				},
-				(error) => {
-					console.log(error);
+				(error: ErrorResponse) => {
+					this.submitted = false;
+
+					this._logger.error(error.shortMessage);
 				}
 			);
 	}

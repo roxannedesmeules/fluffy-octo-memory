@@ -5,11 +5,16 @@ export class ErrorResponse {
 	public form_error: any;
 
 	constructor (model: any = null) {
-		if (model) {
-			this.code         = model.code;
-			this.shortMessage = model.shortMessage;
-			this.message      = model.message;
-			this.form_error   = model.error;
+		if (!model) {
+			return;
+		}
+
+		this.code = model.code;
+
+		if (model.error) {
+			this.shortMessage = model.error.message || '';
+			this.message      = model.error.message || '';	// TODO get readable message depending on shortMessage.
+			this.form_error   = model.error.error || [];
 		}
 	}
 }

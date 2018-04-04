@@ -1,6 +1,7 @@
 import { Inject, Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
+import { catchError, map } from "rxjs/operators";
 
 import { UserService } from "./user.service";
 import { BaseService } from "../base.service";
@@ -34,15 +35,14 @@ export class AuthService extends BaseService {
 	 */
 	public logout (): Observable<any> {
 		return this.http.delete(this._url())
-				   .map(( res: any ) => {
-					   this.userService.removeAppUser();
+				   .pipe(
+						   map(( res: any ) => {
+							   this.userService.removeAppUser();
 
-					   if (BaseService.SUCCESS_CODES.indexOf(res.status) >= 0) {
-						   return this.mapListToModelList(res);
-					   } else {
-						   return this.mapError(res);
-					   }
-				   });
+							   return this.mapModel(res);
+						   }),
+						   catchError(( err: any ) => Observable.throw(this.mapError(err))),
+				   );
 	}
 
 	/**
@@ -50,18 +50,17 @@ export class AuthService extends BaseService {
 	 */
 	public lockSession (): Observable<any> {
 		return this.http.delete(this._url())
-				   .map(( res: any ) => {
-					   const user = this.userService.getAppUser();
-					   		 user.lockSession();
+				   .pipe(
+						   map(( res: any ) => {
+							   const user = this.userService.getAppUser();
+							   user.lockSession();
 
-					   this.userService.saveAppUser(user);
+							   this.userService.saveAppUser(user);
 
-					   if (BaseService.SUCCESS_CODES.indexOf(res.status) >= 0) {
-						   return this.mapListToModelList(res);
-					   } else {
-						   return this.mapError(res);
-					   }
-				   });
+							   return this.mapModel(res);
+						   }),
+						   catchError(( err: any ) => Observable.throw(this.mapError(err))),
+				   );
 	}
 
 	/**
@@ -71,14 +70,7 @@ export class AuthService extends BaseService {
 	 * @return {Observable<any>}
 	 */
 	public unlockSession (body: UserAuthForm): Observable<any> {
-		return this.create(body)
-				   .map(( res: any ) => {
-					   if (BaseService.SUCCESS_CODES.indexOf(res.status) >= 0) {
-						   return this.mapListToModelList(res);
-					   } else {
-						   return this.mapError(res);
-					   }
-				   });
+		return this.create(body);
 	}
 
 	/**

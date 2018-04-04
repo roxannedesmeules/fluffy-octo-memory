@@ -5,3 +5,102 @@
 
 //  theme style
 @import "assets/theme/style/style.ladydev";
+
+/*
+ * ==========================================================
+ *     NGX-TOASTR
+ * ==========================================================
+ */
+
+.toast-container {
+
+	.toast {
+		border-radius : 0px;
+		user-select   : none;
+		background    : $gray-700;
+		margin        : 0;
+		padding       : 0;
+		box-shadow    : inset 48px 0px 0px $gray-700;
+
+		&:hover {
+			box-shadow: none;
+		}
+
+		&:first-of-type {
+			border-radius : 4px 4px 0 0;
+
+			.toast-message {
+				box-shadow : inset 0px 1px rgba(255, 255, 255, 0.13), inset 48px 0px 0px $gray-700;
+			}
+		}
+
+		&:last-of-type {
+			border-radius : 0px 0px 4px 4px;
+		}
+
+		.toast-message {
+			box-shadow    : inset 0px 1px rgba(255, 255, 255, 0.13), inset 48px 0px 0px $gray-700;
+			border-radius : 0px;
+			position      : relative;
+			border        : 0px;
+			margin-bottom : 0px;
+			font-size     : 13px;
+			background    : transparent;
+			color         : #f0f0f0;
+			font-weight   : 500;
+			padding       : 10px 30px 13px 41px;
+
+			&:before {
+				border-radius : 50%;
+				position      : absolute;
+				left          : 14px;
+				display       : block;
+				content       : " ";
+				top           : 50%;
+				margin-top    : -8px;
+				height        : 13px;
+				width         : 13px;
+				z-index       : 20;
+			}
+		}
+
+		&.toast-success .toast-message:before,
+		&.toast-success .toast-progress{
+			background: theme-color("success");
+		}
+
+		&.toast-info .toast-message:before,
+		&.toast-info .toast-progress{
+			background: theme-color("info");
+		}
+
+		&.toast-error .toast-message:before,
+		&.toast-error .toast-progress{
+			background: theme-color("danger");
+		}
+
+		.toast-close-button {
+			position           : absolute;
+			top                : 0px;
+			right              : 0px;
+			color              : #888888;
+			opacity            : 1;
+			font-weight        : bold;
+			display            : block;
+			font-size          : 20px;
+			line-height        : 20px;
+			padding            : 8px 10px 7px 7px;
+			cursor             : pointer;
+			background         : transparent;
+			border             : 0;
+			-webkit-appearance : none;
+			&:hover {
+				color : #bbbbbb;
+			}
+			&:active {
+				color : #777777;
+			}
+		}
+	}
+
+}

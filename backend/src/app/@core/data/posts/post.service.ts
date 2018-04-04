@@ -4,6 +4,8 @@ import { HttpClient } from "@angular/common/http";
 import { BaseService } from "@core/data/base.service";
 import { PostFilters } from "@core/data/posts/post.filters";
 import { Post } from "@core/data/posts/post.model";
+import { Observable } from "rxjs/Observable";
+import { catchError, map } from "rxjs/operators";
 
 @Injectable()
 export class PostService extends BaseService {
@@ -24,12 +26,9 @@ export class PostService extends BaseService {
 		const options = Object.assign({ observe : 'response' }, this.options, this.filters.formatRequest());
 
 		return this.http.get(this._url(), options)
-				   .map(( res: any ) => {
-					   if (BaseService.SUCCESS_CODES.indexOf(res.status) >= 0) {
-						   return this.mapListToModelList(res);
-					   } else {
-						   return this.mapError(res);
-					   }
-				   });
+				   .pipe(
+						   map(( res: any ) => this.mapListToModelList(res)),
+						   catchError(( err: any ) => Observable.throw(this.mapError(err))),
+				   );
 	}
 }

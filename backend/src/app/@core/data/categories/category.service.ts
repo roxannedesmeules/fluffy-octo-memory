@@ -5,6 +5,8 @@ import { BaseService } from "@core/data/base.service";
 import { CategoryFilters } from "@core/data/categories/category.filters";
 
 import { Category } from "@core/data/categories/category.model";
+import { Observable } from "rxjs/Observable";
+import { catchError, map } from "rxjs/operators";
 
 @Injectable()
 export class CategoryService extends BaseService {
@@ -25,12 +27,9 @@ export class CategoryService extends BaseService {
 		const options = Object.assign({ observe : 'response' }, this.options, this.filters.formatRequest());
 
 		return this.http.get(this._url(), options)
-				   .map(( res: any ) => {
-					   if (BaseService.SUCCESS_CODES.indexOf(res.status) >= 0) {
-						   return this.mapListToModelList(res);
-					   } else {
-						   return this.mapError(res);
-					   }
-				   });
+				   .pipe(
+						   map(( res: any ) => this.mapListToModelList(res)),
+						   catchError(( err: any ) => Observable.throw(this.mapError(err))),
+				   );
 	}
 }
