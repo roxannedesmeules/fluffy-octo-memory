@@ -6,6 +6,7 @@ import { CoreModule } from "@core/core.module";
 import { ThemeModule } from "@theme/theme.module";
 import { LoggerModule } from "./@shared/logger/logger.module";
 import { AppRoutingModule } from "./app-routing.module";
+import { AdminModule } from "admin/admin.module";
 import { SessionModule } from "./session/session.module";
 
 import { APP_BASE_HREF } from "@angular/common";
@@ -26,6 +27,7 @@ const MODULES = [
 	CoreModule.forRoot(),
 
 	SessionModule,
+	AdminModule,
 
 	LoggerModule.forRoot(),
 ];
