@@ -8,8 +8,6 @@ import { ErrorResponse } from "./error-response.model";
 
 @Injectable()
 export abstract class BaseService {
-	public static SUCCESS_CODES = [ 200, 201, 204 ];
-
 	public http: HttpClient;
 	public model: any;
 	public modelName: string;
@@ -22,7 +20,7 @@ export abstract class BaseService {
 	public findAll (): Observable<any> {
 		return this.http.get(this._url(), { observe: 'response' })
 				   .pipe(
-						   map(( res: any ) => this.mapListToModelList(res)),
+						   map(( res: any ) => this.mapListToModelList(res.body)),
 						   catchError(( err: any ) => Observable.throw(this.mapError(err))),
 				   );
 	}
