@@ -5,17 +5,20 @@
 		"baseUrl": "./",
 		"module": "es2015",
 		"types": [],
-		"paths"   : {
-			"@core/*"    : [
+		"paths": {
+			"@core/*": [
 				"./app/@core/*"
 			],
-			"@theme/*"   : [
+			"@shared/*": [
+				"./app/@shared/*"
+			],
+			"@theme/*": [
 				"./app/@theme/*"
 			],
-			"env/*"      : [
+			"env/*": [
 				"./environments/*"
 			],
-			"admin/*"   : [
+			"admin/*": [
 				"./app/admin/*"
 			]
 		}
