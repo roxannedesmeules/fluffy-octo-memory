@@ -69,6 +69,10 @@ export class Category {
 		return result;
 	}
 
+	firstTranslation (): CategoryLang {
+		return this.translations[ 0 ];
+	}
+
 	/**
 	 *
 	 * @param model

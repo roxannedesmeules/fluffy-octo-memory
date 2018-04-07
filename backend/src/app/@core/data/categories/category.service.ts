@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpResponse } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 
 import { BaseService } from "@core/data/base.service";
@@ -12,6 +12,8 @@ import { catchError, map } from "rxjs/operators";
 export class CategoryService extends BaseService {
 	public modelName = "categories";
 
+	public responseHeaders: HttpHeaders;
+
 	public filters = new CategoryFilters();
 	public options = {
 		observe : "response",
@@ -24,11 +26,15 @@ export class CategoryService extends BaseService {
 	}
 
 	public findAll () {
-		const options = Object.assign({ observe : 'response' }, this.options, this.filters.formatRequest());
+		const options = Object.assign({}, this.options, this.filters.formatRequest());
 
 		return this.http.get(this._url(), options)
 				   .pipe(
-						   map(( res: any ) => this.mapListToModelList(res)),
+						   map(( res: HttpResponse<Category[]> ) => {
+						   		this.responseHeaders = res.headers;
+
+						   		return this.mapListToModelList(res.body);
+						   }),
 						   catchError(( err: any ) => Observable.throw(this.mapError(err))),
 				   );
 	}

@@ -1,7 +1,7 @@
 import { ModuleWithProviders, NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
-import { NgbDropdownConfig, NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { NgbDropdownConfig, NgbModule, NgbTabsetConfig } from "@ng-bootstrap/ng-bootstrap";
 import {
 	FooterComponent, HeaderComponent, ItemComponent, ItemDropdownComponent, ItemLinkComponent, PageTitleComponent,
 	SidemenuComponent,
@@ -35,6 +35,7 @@ const COMPONENTS = [
 
 const PROVIDERS = [
 	NgbDropdownConfig,
+	NgbTabsetConfig,
 ];
 
 @NgModule({

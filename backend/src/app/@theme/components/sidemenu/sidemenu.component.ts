@@ -21,7 +21,7 @@ export class SidemenuComponent implements OnInit {
 		const categories = new Item({
 			id : "category", title : "Categories", icon : "far fa-folder-open", children : [
 				{ id : "category-create", title : "Create", link : "/admin/categories/create" },
-				{ id : "category-list", title : "View all", link : "/admin/categories/list" },
+				{ id : "category-list", title : "View all", link : "/admin/categories" },
 			],
 		});
 
