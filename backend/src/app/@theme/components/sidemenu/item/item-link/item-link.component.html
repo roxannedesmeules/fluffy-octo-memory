@@ -1,4 +1,6 @@
-<a [routerLink]="item.link">
-	<i *ngIf="item.icon" [class]="item.icon"></i>
-	{{ item.title }}
-</a>
+<li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+	<a [routerLink]="item.link">
+		<i *ngIf="item.icon" [class]="item.icon"></i>
+		{{ item.title }}
+	</a>
+</li>

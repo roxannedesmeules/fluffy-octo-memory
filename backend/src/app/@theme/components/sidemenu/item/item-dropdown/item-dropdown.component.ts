@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import { Item } from "../item.model";
 
 @Component({
@@ -11,12 +12,24 @@ export class ItemDropdownComponent implements OnInit {
 	@Input('item')
 	public item: Item;
 
-	public isCollapsed = true;
+	public isCollapsed: boolean;
 
-	constructor () {
+	constructor (private _router: Router) {
 	}
 
 	ngOnInit () {
+		this.isCollapsed = !this.childIsActive();
 	}
 
+	childIsActive () {
+		let result = false;
+
+		this.item.children.forEach((child) => {
+			if (this._router.isActive(child.link, true)) {
+				result = true;
+			}
+		});
+
+		return result;
+	}
 }

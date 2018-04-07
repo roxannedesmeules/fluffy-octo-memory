@@ -1,4 +1,4 @@
-<div [ngSwitch]="item.type">
+<ng-container [ngSwitch]="item.type">
 	<app-sidemenu-item-link *ngSwitchCase="'link'" [item]="item"></app-sidemenu-item-link>
 	<app-sidemenu-item-dropdown *ngSwitchCase="'dropdown'" [item]="item"></app-sidemenu-item-dropdown>
-</div>
+</ng-container>

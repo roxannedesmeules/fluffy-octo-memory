@@ -4,7 +4,7 @@
 <!-- Sidebar Navidation Menus-->
 <span class="heading">Main</span>
 <ul class="list-unstyled">
-	<li *ngFor="let item of items">
+	<ng-container *ngFor="let item of items">
 		<app-sidemenu-item [item]="item"></app-sidemenu-item>
-	</li>
+	</ng-container>
 </ul>
