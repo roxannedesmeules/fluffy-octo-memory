@@ -1,0 +1,49 @@
+<section>
+	<div class="container-fluid">
+		<div class="card">
+			<div class="card-close">
+				<a routerLink="/admin/categories/create" class="text-muted">
+					<i class="fas fa-plus"></i>
+				</a>
+			</div>
+			<div class="card-header">
+				Categories
+			</div>
+			<div class="card-body">
+				<table id="categories-list" class="table">
+					<thead>
+					<tr>
+						<th width="10%"></th>
+						<th width="20%"> Name</th>
+						<th width="20%"> Slug</th>
+						<th width="15%"> Languages</th>
+						<th width="15%"> Active</th>
+						<th width="25%"> Last update</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr *ngFor="let category of categories">
+						<td>
+							<ul class="action-menu">
+								<li>
+									<a routerLink="/admin/category/update/{{ category.id }}">
+										<i class="far fa-edit"></i>
+									</a>
+								</li>
+								<li>
+									<i class="far fa-trash-alt" (click)="deleteOne(category.id)"></i>
+								</li>
+							</ul>
+						</td>
+						<td>{{ category.firstTranslation().name }}</td>
+						<td>{{ category.firstTranslation().slug }}</td>
+						<td>{{ category.translations | column:'language' }}</td>
+						<td>{{ category.is_active | verbalBoolean }}</td>
+						<td>{{ category.updated_on }}</td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</section>

@@ -1,0 +1,30 @@
+$templateColour : 'ladydev';
+
+@import "../../../../assets/theme/style/modules/colors";
+
+ul.action-menu {
+	margin     : 0;
+	padding    : 0;
+	text-align : center;
+
+	li {
+		display   : inline;
+		font-size : 1.35rem;
+
+		&:not(:last-of-type) {
+			border-right  : 1px solid #dee2e6;
+			padding-right : 10px;
+			margin-right  : 10px;
+		}
+
+		.fa-trash-alt {
+			color: $primary;
+
+			&:hover {
+				color  : darken($primary, $theme-color-interval);
+				cursor : pointer;
+			}
+		}
+	}
+}
+

@@ -1,0 +1,18 @@
+$templateColour : 'ladydev';
+
+@import "../../../../assets/theme/style/modules/colors";
+
+.card-close span.action {
+	font-size : 1.35rem;
+
+	&:hover {
+		color  : $primary;
+		cursor : pointer;
+	}
+
+	&:not(:last-of-type) {
+		border-right  : 1px solid #dee2e6;
+		padding-right : 15px;
+		margin-right  : 10px;
+	}
+}

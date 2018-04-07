@@ -14,10 +14,10 @@ const routes: Routes = [
 			{
 				path      : "dashboard",
 				component : DashboardComponent,
-			}, /*{
+			}, {
 				path         : "categories",
 				loadChildren : "./category/category.module#CategoryModule",
-			}, {
+			}, /*{
 				path         : "posts",
 				loadChildren : "./post/post.module#PostModule",
 			}, {
