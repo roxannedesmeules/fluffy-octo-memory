@@ -28,19 +28,10 @@ export class Category {
 	 */
 	mapTranslations ( list: any[] ): CategoryLang[] {
 		list.forEach(( val, idx ) => {
-			list[ idx ] = Category.translationModel(val);
+			list[ idx ] = new CategoryLang(val);
 		});
 
 		return list;
-	}
-
-	/**
-	 *
-	 * @param model
-	 * @return {CategoryLang}
-	 */
-	static translationModel ( model: any ): CategoryLang {
-		return new CategoryLang(model);
 	}
 
 	/**
@@ -94,7 +85,7 @@ export class Category {
 
 		list.forEach(( val ) => {
 			if (val.name || val.slug) {
-				result.push(Category.translationModel(val));
+				result.push(new CategoryLang(val));
 			}
 		});
 

@@ -99,10 +99,8 @@ export class DetailComponent implements OnInit {
 
 	/**
 	 * Reset the form to all empty values, so another category can easily be created.
-	 *
-	 * @private
 	 */
-	private _resetForm () {
+	public resetForm () {
 		this.form.get("is_active").reset();
 
 		this.languages.forEach(( val, idx ) => {
@@ -132,14 +130,13 @@ export class DetailComponent implements OnInit {
 		}
 
 		req.subscribe(
-				(result: any) => {
-					console.log(result);
+				(result: Category) => {
 					this.loading = false;
 
 					this.logger.success(msg);
 
 					if (this.isCreate()) {
-						this._resetForm();
+						this.resetForm();
 					}
 				},
 				(error: ErrorResponse) => {

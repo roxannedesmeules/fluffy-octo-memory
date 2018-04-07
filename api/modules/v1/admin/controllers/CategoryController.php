@@ -100,7 +100,7 @@ class CategoryController extends ControllerAdminEx
 	 *
 	 *     @SWG\Parameter( name = "category", in = "body", required = true, @SWG\Schema( ref = "#/definitions/CategoryForm" ), ),
 	 *
-	 *     @SWG\Response( response = 201, description = "category id", @SWG\Schema( @SWG\Property( property = "category_id", type = "integer" ), ),),
+	 *     @SWG\Response( response = 201, description = "category id", @SWG\Schema( ref = "#/definitions/Category" ),),
 	 *     @SWG\Response( response = 401, description = "user can't be authenticated", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
 	 *     @SWG\Response( response = 422, description = "category to be created isn't valid", @SWG\Schema( ref = "#/definitions/UnprocessableError" ), ),
 	 *     @SWG\Response( response = 500, description = "error while creating category", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
@@ -135,10 +135,8 @@ class CategoryController extends ControllerAdminEx
 		}
 
 
-		//  return newly created category ID
-		$this->response->setStatusCode(201);
-
-		return [ "category_id" => $result[ "category_id" ] ];
+		//  return newly created category
+		return $this->createdResult(CategoryEx::getOneWithTranslations($result[ "category_id" ]));
 	}
 
 	/**
