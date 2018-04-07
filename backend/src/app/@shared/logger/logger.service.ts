@@ -5,8 +5,6 @@ import { ToastrService } from "ngx-toastr";
 export class LoggerService {
 	protected  static CONFIGS:any = {
 		closeButton       : true,
-		progressBar       : true,
-		progressAnimation : "increasing",
 		autoDismiss       : false,
 		positionClass     : "toast-top-right",
 		preventDuplicates : true,

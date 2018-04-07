@@ -30,8 +30,8 @@
 										<i class="far fa-edit"></i>
 									</a>
 								</li>
-								<li>
-									<i class="far fa-trash-alt" (click)="deleteOne(category.id)"></i>
+								<li (click)="deleteOne(category.id)">
+									<i class="far fa-trash-alt"></i>
 								</li>
 							</ul>
 						</td>
@@ -43,6 +43,10 @@
 					</tr>
 					</tbody>
 				</table>
+			
+			</div>
+			<div class="card-footer">
+				<app-pagination [pagination]="pagination"></app-pagination>
 			</div>
 		</div>
 	</div>
