@@ -25,7 +25,7 @@ export class ItemDropdownComponent implements OnInit {
 		let result = false;
 
 		this.item.children.forEach((child) => {
-			if (this._router.isActive(child.link, true)) {
+			if (this._router.isActive(child.link, false)) {
 				result = true;
 			}
 		});

@@ -5,7 +5,7 @@
 				<div class="card-close">
 					<span class="action" (click)="resetForm()"> <i class="fas fa-sync"></i> </span>
 				</div>
-				<div class="card-header"> New category </div>
+				<div class="card-header"> {{ title }} </div>
 				<div class="card-body">
 					<ngb-tabset justify="justified" type="pills" formArrayName="translations">
 						<ngb-tab *ngFor="let translation of getTranslations().controls; let idx = index;"
@@ -22,8 +22,12 @@
 										</label>
 										<div class="col-sm-8">
 											<input type="text" [id]="idx + '-name'" formControlName="name"
-											       class="form-control"
+											       class="form-control" [class.is-invalid]="showError('name', translation)"
 											       (change)="setSlug(idx)">
+											
+											<div class="is-invalid help-block text-danger" *ngIf="showError('name', translation)">
+												{{ getErrors(translation.get('lang_id').value, 'name') }}
+											</div>
 										</div>
 									</div>
 									<div class="line"></div>
@@ -34,7 +38,11 @@
 										</label>
 										<div class="col-sm-8">
 											<input type="text" [id]="idx + '-slug'" formControlName="slug"
-											       class="form-control">
+											       class="form-control" [class.is-invalid]="showError('slug', translation)">
+											
+											<div class="is-invalid help-block text-danger" *ngIf="showError('slug', translation)">
+												{{ getErrors(translation.get('lang_id').value, 'slug') }}
+											</div>
 										</div>
 									</div>
 								</div>

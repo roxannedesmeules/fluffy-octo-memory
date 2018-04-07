@@ -14,7 +14,7 @@ export class ErrorResponse {
 		if (model.error) {
 			this.shortMessage = model.error.message || '';
 			this.message      = model.error.message || '';	// TODO get readable message depending on shortMessage.
-			this.form_error   = model.error.error || [];
+			this.form_error   = model.error || [];
 		}
 	}
 }

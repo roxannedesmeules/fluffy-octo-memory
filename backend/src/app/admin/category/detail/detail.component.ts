@@ -16,6 +16,8 @@ import { SlugPipe } from "@shared/pipes/string/slug.pipe";
 })
 export class DetailComponent implements OnInit {
 
+	public title = "New category";
+
 	public category: Category;
 	public languages: Lang[];
 
@@ -34,6 +36,10 @@ export class DetailComponent implements OnInit {
 	ngOnInit () {
 		this._setData();
 		this._createForm();
+
+		if (!this.isCreate()) {
+			this.title = "Update category";
+		}
 	}
 
 	/**
@@ -67,16 +73,14 @@ export class DetailComponent implements OnInit {
 	 * @param {string} field
 	 * @return {any}
 	 */
-	public getErrors ( idx: number, field: string ) {
-		if (!this.errors.hasOwnProperty("translations")) {
+	public getErrors ( langId: number, field: string ) {
+		const langIcu = this.atIndexOf.transform(langId, this.languages, "id", "icu");
+
+		if (!this.errors.hasOwnProperty(langIcu)) {
 			return [];
 		}
 
-		if (!this.errors.translations.hasOwnProperty(idx)) {
-			return [];
-		}
-
-		return this.errors.translations[ idx ][ field ];
+		return this.errors[ langIcu ][ 0 ][ field ];
 	}
 
 	/**
@@ -180,13 +184,15 @@ export class DetailComponent implements OnInit {
 	 *
 	 * @param {string} field
 	 * @param {FormGroup} translation
-	 * @param {number} idx
+	 * @param {number} langId
 	 *
 	 * @return {boolean}
 	 */
-	public showError ( field: string, translation?: FormGroup, idx?: number ): boolean {
+	public showError ( field: string, translation?: FormGroup ): boolean {
 		if (translation) {
-			return ((translation.get(field).touched && translation.get(field).invalid) || this.getErrors(idx, field).length > 0);
+			const langId = translation.get("lang_id").value;
+
+			return ((translation.get(field).touched && translation.get(field).invalid) || this.getErrors(langId, field).length > 0);
 		}
 
 		return (this.form.get(field).touched && this.form.get(field).invalid);

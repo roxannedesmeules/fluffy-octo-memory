@@ -2,6 +2,7 @@
 
 namespace app\components\validators;
 
+use app\models\app\Lang;
 use yii\validators\Validator;
 
 /**
@@ -27,11 +28,12 @@ class TranslationValidator extends Validator
 			} else {
 				$form = new $this->validator();
 				$form->attributes = $translation;
-				
 			}
-			
+
 			if ( !$form->validate() ) {
-				$model->addErrors([ $attribute => [ array_merge(... [ $form->getErrors() ]) ] ]);
+				$icu = Lang::find()->id($form->lang_id)->one()->icu;
+
+				$model->addError($icu, $form->getFirstErrors());
 			}
 		}
 	}

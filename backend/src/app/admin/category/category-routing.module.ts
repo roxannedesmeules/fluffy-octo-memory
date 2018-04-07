@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 
-import { ListResolve } from "@core/data/categories";
+import { DetailResolve, ListResolve } from "@core/data/categories";
 import { LanguageResolve } from "@core/data/languages";
 
 import { CategoryComponent } from "admin/category/category.component";
@@ -26,6 +26,13 @@ const routes: Routes = [
 				component : DetailComponent,
 				resolve   : {
 					languages : LanguageResolve,
+				},
+			}, {
+				path      : "update/:id",
+				component : DetailComponent,
+				resolve   : {
+					languages : LanguageResolve,
+					category  : DetailResolve,
 				},
 			},
 		],
