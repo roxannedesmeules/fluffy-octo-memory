@@ -1,5 +1,6 @@
 import { ModuleWithProviders, NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { RouterModule } from "@angular/router";
 import { NgbDropdownConfig, NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import {
 	FooterComponent, HeaderComponent, ItemComponent, ItemDropdownComponent, ItemLinkComponent, PageTitleComponent,
@@ -10,6 +11,7 @@ import { MessagesComponent, NotificationsComponent, UserComponent } from "./widg
 
 const MODULES = [
 	CommonModule,
+	RouterModule,
 	NgbModule,
 ];
 
