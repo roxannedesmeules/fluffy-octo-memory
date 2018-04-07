@@ -21,6 +21,7 @@ export class DetailComponent implements OnInit {
 
 	public form: FormGroup;
 	public errors: any = {};
+	public loading     = false;
 
 	constructor (private _route: ActivatedRoute,
 				 private _builder: FormBuilder,
@@ -60,6 +61,12 @@ export class DetailComponent implements OnInit {
 		});
 	}
 
+	/**
+	 *
+	 * @param {number} idx
+	 * @param {string} field
+	 * @return {any}
+	 */
 	public getErrors ( idx: number, field: string ) {
 		if (!this.errors.hasOwnProperty("translations")) {
 			return [];
@@ -108,7 +115,8 @@ export class DetailComponent implements OnInit {
 	 *
 	 */
 	public save () {
-		this.errors = [];
+		this.errors  = [];
+		this.loading = true;
 
 		let req  = null;
 		let msg  = "Changes to category where correctly saved";
@@ -123,17 +131,24 @@ export class DetailComponent implements OnInit {
 			msg = `Category #${this.category.id} was successfully updated`;
 		}
 
-		req.then(( result: any ) => {
-			this.logger.success(msg);
+		req.subscribe(
+				(result: any) => {
+					console.log(result);
+					this.loading = false;
 
-			if (this.isCreate()) {
-				this._resetForm();
-			}
-		}).catch(( error: ErrorResponse ) => {
-			this.errors = error.form_error;
+					this.logger.success(msg);
 
-			this.logger.error(error.shortMessage);
-		});
+					if (this.isCreate()) {
+						this._resetForm();
+					}
+				},
+				(error: ErrorResponse) => {
+					this.loading = false;
+					this.errors  = error.form_error;
+
+					this.logger.error(error.shortMessage);
+				}
+		);
 	}
 
 	/**
@@ -149,6 +164,10 @@ export class DetailComponent implements OnInit {
 		this.category  = (routeCategory) ? routeCategory : new Category();
 	}
 
+	/**
+	 *
+	 * @param {number} translationIdx
+	 */
 	public setSlug ( translationIdx: number ) {
 		//  get the current name
 		const name = this.getTranslations().at(translationIdx).get("name").value;

@@ -3,8 +3,6 @@ $templateColour : 'ladydev';
 @import "../../../../assets/theme/style/modules/colors";
 
 .card-close span.action {
-	font-size : 1.35rem;
-
 	&:hover {
 		color  : $primary;
 		cursor : pointer;

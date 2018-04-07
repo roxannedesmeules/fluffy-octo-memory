@@ -27,6 +27,7 @@
 		"@fortawesome/fontawesome": "^1.1.5",
 		"@ng-bootstrap/ng-bootstrap": "^1.1.0",
 		"angular-gauge": "^3.1.0",
+		"angular2-ladda": "^1.2.3",
 		"angular2-multiselect-dropdown": "^2.6.0",
 		"angular5-data-table": "^0.5.1",
 		"bootstrap": "^4.0.0",
