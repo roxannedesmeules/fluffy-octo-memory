@@ -20,10 +20,10 @@ const routes: Routes = [
 			},  {
 				path         : "tags",
 				loadChildren : "./tag/tag.module#TagModule",
-			}, /*{
+			}, {
 				path         : "posts",
 				loadChildren : "./post/post.module#PostModule",
-			}, {
+			}, /*{
 				path : "user",
 				loadChildren : "./user/user.module#UserModule",
 			},*/ {

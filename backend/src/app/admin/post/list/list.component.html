@@ -1,3 +1,56 @@
-<p>
-  list works!
-</p>
+<section>
+	<div class="container-fluid">
+		<div class="card">
+			<div class="card-close">
+				<a routerLink="/admin/posts/create" class="action">
+					<i class="fas fa-plus"></i>
+				</a>
+			</div>
+			<div class="card-header">
+				Posts
+			</div>
+			<div class="card-body">
+				<table class="table">
+					<thead>
+					<tr>
+						<th></th>
+						<th>Name</th>
+						<th>Slug</th>
+						<th>Languages</th>
+						<th>Status</th>
+						<th>Last update</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr *ngFor="let post of posts">
+						<td>
+							<ul class="action-menu">
+								<li>
+									<a [routerLink]="['/admin/posts/update', posts.id ]">
+										<i class="far fa-edit"></i>
+									</a>
+								</li>
+								<li (click)="deleteOne(posts.id)">
+									<i class="far fa-trash-alt"></i>
+								</li>
+							</ul>
+						</td>
+						<td>{{ post.firstTranslation().name }}</td>
+						<td>{{ post.firstTranslation().slug }}</td>
+						<td>{{ post.translations | column:"language" }}</td>
+						<td>{{ post.status }}</td>
+						<td>{{ post.updated_on }}</td>
+					</tr>
+					
+					<tr *ngIf="posts.length === 0">
+						<td colspan="6" class="text-center">No data to show</td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="card-footer">
+				<app-pagination [pagination]="pagination"></app-pagination>
+			</div>
+		</div>
+	</div>
+</section>

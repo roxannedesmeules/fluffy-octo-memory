@@ -67,6 +67,10 @@ export class Post {
 		return result;
 	}
 
+	firstTranslation (): PostLang {
+		return this.translations[ 0 ];
+	}
+
 	/**
 	 *
 	 * @param model
