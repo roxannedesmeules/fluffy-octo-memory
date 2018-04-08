@@ -35,6 +35,10 @@ export class DetailComponent implements OnInit {
 	ngOnInit () {
 		this._setData();
 		this._createForm();
+
+		if (!this.isCreate()) {
+			this.title = "Update tag";
+		}
 	}
 
 	private _createForm () {
