@@ -28,3 +28,11 @@ ul.action-menu {
 	}
 }
 
+a.action {
+	color : $gray-600;
+
+	&:hover {
+		color  : $primary;
+		cursor : pointer;
+	}
+}

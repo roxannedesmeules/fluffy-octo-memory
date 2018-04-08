@@ -1,3 +1,53 @@
-<p>
-  list works!
-</p>
+<section>
+	<div class="container-fluid">
+		<div class="card">
+			<div class="card-close">
+				<a routerLink="/admin/tags/create" class="action">
+					<i class="fas fa-plus"></i>
+				</a>
+			</div>
+			<div class="card-header">
+				Tags
+			</div>
+			<div class="card-body">
+				<table id="tags-list" class="table">
+					<thead>
+					<tr>
+						<th width="10%"></th>
+						<th width="25%">Name</th>
+						<th width="25%">Slug</th>
+						<th width="20%">Languges</th>
+						<th width="20%">Last update</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr *ngFor="let tag of tags">
+						<td>
+							<ul class="action-menu">
+								<li>
+									<a [routerLink]="['/admin/tags/update', tag.id ]">
+										<i class="far fa-edit"></i>
+									</a>
+								</li>
+								<li (click)="deleteOne(tag.id)">
+									<i class="far fa-trash-alt"></i>
+								</li>
+							</ul>
+						</td>
+						<td>{{ tag.firstTranslation().name }}</td>
+						<td>{{ tag.firstTranslation().slug }}</td>
+						<td>{{ tag.translations | column: "language" }}</td>
+						<td>{{ tag.updated_on }}</td>
+					</tr>
+					<tr *ngIf="tags.length === 0">
+						<td colspan="5" class="text-center"> No data to show </td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="card-footer">
+				<app-pagination [pagination]="pagination"></app-pagination>
+			</div>
+		</div>
+	</div>
+</section>

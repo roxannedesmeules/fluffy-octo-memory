@@ -9,7 +9,7 @@ import { catchError, map } from "rxjs/operators";
 
 @Injectable()
 export class TagService extends BaseService {
-	public modelName = "categories";
+	public modelName = "tags";
 
 	public responseHeaders: HttpHeaders;
 

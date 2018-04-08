@@ -10,7 +10,7 @@ import { CategoryService, Category } from "@core/data/categories";
 import { ErrorResponse } from "@core/data/error-response.model";
 
 @Component({
-	selector    : "app-list",
+	selector    : "app-category-list",
 	templateUrl : "./list.component.html",
 	styleUrls   : [ "./list.component.scss" ],
 })
