@@ -69,7 +69,7 @@ export class DetailComponent implements OnInit {
 
 	/**
 	 *
-	 * @param {number} idx
+	 * @param {number} langId
 	 * @param {string} field
 	 * @return {any}
 	 */
@@ -122,8 +122,7 @@ export class DetailComponent implements OnInit {
 
 		let req  = null;
 		let msg  = "Changes to category where correctly saved";
-		let body = new Category();
-		body     = body.form(this.form.getRawValue());
+		let body = this.category.form(this.form.getRawValue());
 
 		if (this.isCreate()) {
 			req = this.service.create(body);
@@ -135,7 +134,8 @@ export class DetailComponent implements OnInit {
 
 		req.subscribe(
 				(result: Category) => {
-					this.loading = false;
+					this.category = result;
+					this.loading  = false;
 
 					this.logger.success(msg);
 
@@ -184,7 +184,6 @@ export class DetailComponent implements OnInit {
 	 *
 	 * @param {string} field
 	 * @param {FormGroup} translation
-	 * @param {number} langId
 	 *
 	 * @return {boolean}
 	 */

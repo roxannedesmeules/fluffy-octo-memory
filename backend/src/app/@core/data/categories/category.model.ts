@@ -85,7 +85,7 @@ export class Category {
 
 		list.forEach(( val ) => {
 			if (val.name || val.slug) {
-				result.push(new CategoryLang(val));
+				result.push(new CategoryLang(val, this.id));
 			}
 		});
 

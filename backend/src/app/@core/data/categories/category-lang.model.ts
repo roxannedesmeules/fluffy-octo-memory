@@ -1,15 +1,17 @@
 export class CategoryLang {
-	public language: string;
+	public category_id: number;
 	public lang_id: number;
+	public language: string;
 	public name: string;
 	public slug: string;
 
-	constructor ( model: any = null ) {
+	constructor ( model: any = null, categoryId?: number ) {
 		if (!model) { return; }
 
-		this.language = model.language;
-		this.lang_id  = model.lang_id;
-		this.name     = model.name;
-		this.slug     = model.slug;
+		this.category_id = categoryId;
+		this.lang_id     = model.lang_id;
+		this.language    = model.language;
+		this.name        = model.name;
+		this.slug        = model.slug;
 	}
 }

@@ -35,18 +35,11 @@ export class Post {
 	 */
 	mapTranslations ( list: any[] ): PostLang[] {
 		list.forEach(( val, idx ) => {
-			list[ idx ] = Post.translationModel(val);
+			list[ idx ] = new PostLang(val);
 		});
 
 		return list;
 	}
-
-	/**
-	 *
-	 * @param model
-	 * @return {PostLang}
-	 */
-	static translationModel ( model: any ): PostLang { return new PostLang(model); }
 
 	/**
 	 *
@@ -96,7 +89,7 @@ export class Post {
 
 		list.forEach(( val ) => {
 			if (val.name || val.slug) {
-				result.push(Post.translationModel(val));
+				result.push(new PostLang(val, this.id));
 			}
 		});
 

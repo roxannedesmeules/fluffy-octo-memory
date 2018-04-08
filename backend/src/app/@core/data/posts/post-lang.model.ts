@@ -1,4 +1,5 @@
 export class PostLang {
+	public post_id: number;
 	public lang_id: number;
 	public language: string;
 	public title: string;
@@ -7,11 +8,10 @@ export class PostLang {
 	protected created_on: string;
 	protected updated_on: string;
 
-	//  TODO   remember implementing file upload
-
-	constructor ( model: any = null ) {
+	constructor ( model: any = null, postId?:number ) {
 		if (!model) { return; }
 
+		this.post_id    = postId;
 		this.lang_id    = model.lang_id;
 		this.language   = model.language;
 		this.title      = model.title;

@@ -78,11 +78,12 @@ export class Tag {
 	 * @return {TagLang[]}
 	 */
 	mapFormTranslations ( list: any ): TagLang[] {
+		const tagId = this.id;
 		const result: TagLang[] = [];
 
 		list.forEach(( val ) => {
 			if (val.name || val.slug) {
-				result.push(new TagLang(val));
+				result.push(new TagLang(val, tagId));
 			}
 		});
 
