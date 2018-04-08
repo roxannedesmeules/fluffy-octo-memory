@@ -1,9 +1,5 @@
 import { ModuleWithProviders, NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { PostService } from "@core/data/posts/post.service";
-import { AuthService } from "@core/data/users/auth.service";
-import { UserProfileService } from "@core/data/users/user-profile.service";
-import { UserService } from "@core/data/users/user.service";
 
 import { LangService, LanguageResolve } from "@core/data/languages";
 import {
@@ -11,10 +7,14 @@ import {
 	DetailResolve as CategoryDetailResolve,
 	ListResolve as CategoryListResolve } from "@core/data/categories";
 import {
+	PostService,
+	DetailResolve as PostDetailResolve,
+	ListResolve as PostListResolve } from "@core/data/posts";
+import {
 	TagService,
 	DetailResolve as TagDetailResolve,
 	ListResolve as TagListResolve } from "@core/data/tags";
-
+import { AuthService, UserService, UserProfileService } from "@core/data/users";
 
 const SERVICES = [
 	LangService,
@@ -29,6 +29,8 @@ const SERVICES = [
 	TagListResolve,
 
 	PostService,
+	PostDetailResolve,
+	PostListResolve,
 
 	AuthService,
 	UserService,
