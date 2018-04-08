@@ -26,7 +26,7 @@ class TagLangQuery extends \yii\db\ActiveQuery
 	 *
 	 * @return $this
 	 */
-	public function tag ( $tagId )
+	public function byTag ( $tagId )
 	{
 		return $this->andWhere([ "tag_id" => $tagId ]);
 	}
@@ -36,7 +36,7 @@ class TagLangQuery extends \yii\db\ActiveQuery
 	 *
 	 * @return $this
 	 */
-	public function lang ( $langId )
+	public function byLang ( $langId )
 	{
 		return $this->andWhere([ "lang_id" => $langId ]);
 	}

@@ -111,6 +111,11 @@ class CategoryController extends ControllerAdminEx
 		//  get request data and create a Category with it
 		$form = new CategoryEx($this->request->getBodyParams());
 
+		//  validate form
+		if ( !$form->validate() ) {
+			return $this->unprocessableResult($form->getErrors());
+		}
+
 		//  create the category with translation and return result
 		$result = CategoryEx::createWithTranslations($form, $form->translations);
 
@@ -156,6 +161,11 @@ class CategoryController extends ControllerAdminEx
 	{
 		//  get request data and create a Category with it so it can be validated
 		$form = new CategoryEx($this->request->getBodyParams());
+
+		//  validate form
+		if ( !$form->validate() ) {
+			return $this->unprocessableResult($form->getErrors());
+		}
 
 		//  update the category with translation and return result
 		$result = CategoryEx::updateWithTranslations($id, $form, $form->translations);

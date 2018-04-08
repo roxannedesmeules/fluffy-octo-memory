@@ -40,6 +40,7 @@ class TagLangEx extends TagLang
 	 *       definition = "TagTranslationForm",
 	 *       required   = { "lang_id", "name", "slug" },
 	 *
+	 *     @SWG\Property( property = "tag_id",  type = "integer" ),
 	 *     @SWG\Property( property = "lang_id", type = "integer" ),
 	 *     @SWG\Property( property = "name",    type = "string" ),
 	 *     @SWG\Property( property = "slug",    type = "string" ),
@@ -48,6 +49,8 @@ class TagLangEx extends TagLang
 	public function rules ()
 	{
 		return [
+			[ "tag_id", "number" ],
+
 			[ "lang_id", "required", "message" => self::ERR_FIELD_REQUIRED ],
 			[ "lang_id", "exist", "targetClass" => LangEx::className(), "targetAttribute" => [ "lang_id" => "id" ], "message" => self::ERR_FIELD_NOT_FOUND ],
 
@@ -57,7 +60,11 @@ class TagLangEx extends TagLang
 				"name", "unique",
 				"targetAttribute" => [ "name", "lang_id" ],
 				"message"         => self::ERR_FIELD_NOT_UNIQUE,
-				"when"            => function ( self $model ) { return $model->isAttributeChanged("name"); },
+				"when"            => function ( self $model, string $attribute ) {
+					$found = self::find()->byLang($model->lang_id)->where([ $attribute => $model->$attribute ])->one();
+
+					return ($found) ? ($model->tag_id !== $found->tag_id) : true;
+				},
 			],
 
 			[ "slug", "required", "message" => self::ERR_FIELD_REQUIRED ],
@@ -66,7 +73,11 @@ class TagLangEx extends TagLang
 				"slug", "unique",
 				"targetAttribute" => [ "slug", "lang_id" ],
 				"message"         => self::ERR_FIELD_NOT_UNIQUE,
-				"when"            => function ( self $model ) { return $model->isAttributeChanged("slug"); },
+				"when"            => function ( self $model, string $attribute ) {
+					$found = self::find()->byLang($model->lang_id)->where([ $attribute => $model->$attribute ])->one();
+
+					return ($found) ? ($model->tag_id !== $found->tag_id) : true;
+				},
 			],
 		];
 	}

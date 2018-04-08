@@ -42,15 +42,18 @@ class PostLangEx extends PostLang
 	 *       definition = "PostTranslationForm",
 	 *       required   = { "lang_id", "title", "slug", "content" },
 	 *
+	 *     @SWG\Property( property = "tag_id",  type = "integer" ),
 	 *     @SWG\Property( property = "lang_id", type = "integer" ),
-	 *     @SWG\Property( property = "title", type = "string" ),
-	 *     @SWG\Property( property = "slug", type = "string" ),
+	 *     @SWG\Property( property = "title",   type = "string" ),
+	 *     @SWG\Property( property = "slug",    type = "string" ),
 	 *     @SWG\Property( property = "content", type = "string" ),
 	 * )
 	 */
 	public function rules ()
 	{
 		return [
+			[ "post_id", "number" ],
+
 			[ "lang_id", "required", "message" => self::ERR_FIELD_REQUIRED ],
 			[
 				"lang_id", "exist",
@@ -68,7 +71,11 @@ class PostLangEx extends PostLang
 				"slug", "unique",
 				"targetAttribute" => [ "slug", "lang_id" ],
 				"message"         => self::ERR_FIELD_NOT_UNIQUE,
-				"when"            => function ( self $model ) { return $model->isAttributeChanged("slug"); },
+				"when"            => function ( self $model, string $attribute ) {
+					$found = self::find()->byLang($model->lang_id)->where([ $attribute => $model->$attribute ])->one();
+
+					return ($found) ? ($model->post_id !== $found->post_id) : true;
+				},
 			],
 
 			[ "content", "string", "message" => self::ERR_FIELD_TYPE ],

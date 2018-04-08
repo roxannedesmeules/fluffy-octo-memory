@@ -59,7 +59,7 @@ class TagLang extends TagLangBase
 		$result = self::buildSuccess([]);
 
 		//  find all translations to be deleted
-		$toDelete = self::find()->tag($tagId)->all();
+		$toDelete = self::find()->byTag($tagId)->all();
 
 		//  delete translations one by one to correctly trigger all events
 		foreach ($toDelete as $translation) {
@@ -81,7 +81,7 @@ class TagLang extends TagLangBase
 		}
 
 		//  find the translation to update
-		$model = self::find()->tag($tagId)->lang($langId)->one();
+		$model = self::find()->byTag($tagId)->byLang($langId)->one();
 
 		$model->name = ArrayHelperEx::getValue($data, "name", $model->name);
 		$model->slug = ArrayHelperEx::getValue($data, "slug", $model->slug);

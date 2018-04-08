@@ -38,7 +38,7 @@ abstract class TagLangBase extends \yii\db\ActiveRecord
 
 	/** @inheritdoc */
 	public static function tableName () { return 'tag_lang'; }
-	
+
 	/** @inheritdoc */
 	public function rules ()
 	{
@@ -52,7 +52,7 @@ abstract class TagLangBase extends \yii\db\ActiveRecord
 				'targetAttribute' => [ 'tag_id' => 'id' ],
 				"message"         => self::ERR_FIELD_NOT_FOUND,
 			],
-			
+
 			[ "lang_id", "required", "message" => self::ERR_FIELD_REQUIRED ],
 			[ "lang_id", "integer",  "message" => self::ERR_FIELD_TYPE ],
 			[
@@ -62,18 +62,37 @@ abstract class TagLangBase extends \yii\db\ActiveRecord
 				'targetAttribute' => [ 'lang_id' => 'id' ],
 				"message"         => self::ERR_FIELD_NOT_FOUND,
 			],
-			
+
 			[ [ 'tag_id', 'lang_id' ], 'unique', 'targetAttribute' => [ 'tag_id', 'lang_id' ], "message" => self::ERR_FIELD_NOT_UNIQUE ],
 
 			[ "name", "required", "message" => self::ERR_FIELD_REQUIRED ],
 			[ "name", "string", "max" => 255, "tooLong" => self::ERR_FIELD_TOO_LONG ],
+			[
+				"name", "unique",
+				"targetAttribute" => [ "name", "lang_id" ],
+				"message"         => self::ERR_FIELD_NOT_UNIQUE,
+				"when"            => function ( self $model, string $attribute ) {
+					$found = self::find()->byLang($model->lang_id)->where([ $attribute => $model->$attribute ])->one();
+
+					return ($found) ? ($model->tag_id !== $found->tag_id) : true;
+				},
+			],
 
 			[ "slug", "required", "message" => self::ERR_FIELD_REQUIRED ],
 			[ "slug", "string", "max" => 255, "tooLong" => self::ERR_FIELD_TOO_LONG ],
-			[ "slug", "unique", "targetAttribute" => [ "slug", "lang_id" ], "message" => self::ERR_FIELD_NOT_UNIQUE ],
+			[
+				"slug", "unique",
+				"targetAttribute" => [ "slug", "lang_id" ],
+				"message"         => self::ERR_FIELD_NOT_UNIQUE,
+				"when"            => function ( self $model, string $attribute ) {
+					$found = self::find()->byLang($model->lang_id)->where([ $attribute => $model->$attribute ])->one();
+
+					return ($found) ? ($model->tag_id !== $found->tag_id) : true;
+				},
+			],
 		];
 	}
-	
+
 	/** @inheritdoc */
 	public function attributeLabels ()
 	{
@@ -84,19 +103,19 @@ abstract class TagLangBase extends \yii\db\ActiveRecord
 			'slug'    => Yii::t('app.tag', 'Slug'),
 		];
 	}
-	
+
 	/** @return \yii\db\ActiveQuery */
 	public function getLang ()
 	{
 		return $this->hasOne(Lang::className(), [ 'id' => 'lang_id' ]);
 	}
-	
+
 	/** @return \yii\db\ActiveQuery */
 	public function getTag ()
 	{
 		return $this->hasOne(TagBase::className(), [ 'id' => 'tag_id' ]);
 	}
-	
+
 	/**
 	 * @inheritdoc
 	 * @return TagLangQuery the active query used by this AR class.
@@ -114,7 +133,7 @@ abstract class TagLangBase extends \yii\db\ActiveRecord
 	 */
 	public static function translationExists ( $tagId, $langId )
 	{
-		return self::find()->tag($tagId)->lang($langId)->exists();
+		return self::find()->byTag($tagId)->byLang($langId)->exists();
 	}
 
 	/**

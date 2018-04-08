@@ -40,7 +40,8 @@ class CategoryLangEx extends CategoryLang
 	 *       definition = "CategoryTranslationForm",
 	 *       required   = { "lang_id", "name", "slug" },
 	 *
-	 *     @SWG\Property( property = "lang_id", type = "integer" ),
+	 *     @SWG\Property( property = "category_id", type = "integer" ),
+	 *     @SWG\Property( property = "lang_id",     type = "integer" ),
 	 *     @SWG\Property( property = "name", type = "string" ),
 	 *     @SWG\Property( property = "slug", type = "string" ),
 	 * )
@@ -48,6 +49,8 @@ class CategoryLangEx extends CategoryLang
 	public function rules ()
 	{
 		return [
+			[ "category_id", "number" ],
+
 			[ "lang_id", "required", "message" => self::ERR_FIELD_REQUIRED ],
 			[ "lang_id", "exist", 'targetClass' => Lang::className(), "targetAttribute" => [ "lang_id" => "id" ], "message" => self::ERR_FIELD_NOT_FOUND ],
 
@@ -57,7 +60,11 @@ class CategoryLangEx extends CategoryLang
 				"name", "unique",
 				"targetAttribute" => [ "name", "lang_id" ],
 				"message"         => self::ERR_FIELD_NOT_UNIQUE,
-				"when"            => function ( self $model ) { return $model->isAttributeChanged("name"); },
+				"when"            => function ( self $model, string $attribute ) {
+					$found = self::find()->byLang($model->lang_id)->where([ $attribute => $model->$attribute ])->one();
+
+					return ($found) ? ($model->category_id !== $found->category_id) : true;
+				},
 			],
 
 			[ "slug", "required", "message" => self::ERR_FIELD_REQUIRED ],
@@ -66,7 +73,11 @@ class CategoryLangEx extends CategoryLang
 				"slug", "unique",
 				"targetAttribute" => [ "slug", "lang_id" ],
 				"message"         => self::ERR_FIELD_NOT_UNIQUE,
-				"when"            => function ( self $model ) { return $model->isAttributeChanged("slug"); },
+				"when"            => function ( self $model, string $attribute ) {
+					$found = self::find()->byLang($model->lang_id)->where([ $attribute => $model->$attribute ])->one();
+
+					return ($found) ? ($model->category_id !== $found->category_id) : true;
+				},
 			],
 		];
 	}

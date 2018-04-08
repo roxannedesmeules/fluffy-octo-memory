@@ -185,7 +185,7 @@ class TagController extends ControllerAdminEx
 		}
 
 		//  return updated tag
-		return [ "post" => $result[ "post" ] ];
+		return TagEx::getOneWithTranslations($id);
 	}
 
 	/**
