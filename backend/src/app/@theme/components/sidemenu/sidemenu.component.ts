@@ -28,14 +28,14 @@ export class SidemenuComponent implements OnInit {
 		const posts = new Item({
 			id : "post", title : "Posts", icon : "far fa-file-alt", children : [
 				{ id : "post-create", title : "Create", link : "/admin/posts/create" },
-				{ id : "post-list", title : "View all", link : "/admin/posts/list" },
+				{ id : "post-list", title : "View all", link : "/admin/posts" },
 			],
 		});
 
 		const tags = new Item({
 			id : "tag", title : "Tags", icon : "fas fa-tags", children : [
 				{ id : "tag-create", title : "Create", link : "/admin/tags/create" },
-				{ id : "tag-list", title : "View all", link : "/admin/tags/list" },
+				{ id : "tag-list", title : "View all", link : "/admin/tags" },
 			],
 		});
 

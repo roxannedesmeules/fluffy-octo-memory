@@ -17,6 +17,9 @@ const routes: Routes = [
 			}, {
 				path         : "categories",
 				loadChildren : "./category/category.module#CategoryModule",
+			},  {
+				path         : "tags",
+				loadChildren : "./tag/tag.module#TagModule",
 			}, /*{
 				path         : "posts",
 				loadChildren : "./post/post.module#PostModule",

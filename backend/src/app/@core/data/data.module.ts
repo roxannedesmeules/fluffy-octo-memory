@@ -10,6 +10,11 @@ import {
 	CategoryService,
 	DetailResolve as CategoryDetailResolve,
 	ListResolve as CategoryListResolve } from "@core/data/categories";
+import {
+	TagService,
+	DetailResolve as TagDetailResolve,
+	ListResolve as TagListResolve } from "@core/data/tags";
+
 
 const SERVICES = [
 	LangService,
@@ -18,6 +23,10 @@ const SERVICES = [
 	CategoryService,
 	CategoryDetailResolve,
 	CategoryListResolve,
+
+	TagService,
+	TagDetailResolve,
+	TagListResolve,
 
 	PostService,
 
