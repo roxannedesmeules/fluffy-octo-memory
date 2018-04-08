@@ -1,3 +1,56 @@
-<p>
-  detail works!
-</p>
+<section>
+	<div class="container-fluid">
+		<form [formGroup]="form" (submit)="save()" novalidate class="forms form-horizontal">
+			<div class="card">
+				<div class="card-close"></div>
+				<div class="card-header">
+					{{ title }}
+				</div>
+				<div class="card-body">
+					<ngb-tabset justify="justified" type="pills" formArrayName="translations">
+						<ngb-tab *ngFor="let translation of getTranslations().controls; let idx = index;"
+						         [formGroupName]="idx">
+							<ng-template ngbTabTitle>
+								{{ translation.get("lang_id").value | atIndexOf:languages:"id":"name" }}
+							</ng-template>
+							
+							<ng-template ngbTabContent>
+								<div class="pt-4 px-3">
+									<div class="form-group row">
+										<label for="{{ idx }}-name" class="offset-sm-1 col-sm-2 form-control-label">
+											Name
+										</label>
+										<div class="col-sm-8">
+											<input type="text" id="{{ idx }}-name" formControlName="name"
+											       class="form-control" [class.is-invalid]=""
+											       (change)="setSlug(idx)">
+										</div>
+									</div>
+									<div class="line"></div>
+									
+									<div class="form-group row">
+										<label for="{{ idx }}-slug" class="offset-sm-1 col-sm-2 form-control-label">
+											Slug
+										</label>
+										<div class="col-sm-8">
+											<input type="text" id="{{ idx }}-slug" formControlName="slug"
+											       class="form-control" [class.is-invalid]="">
+										</div>
+									</div>
+								</div>
+							</ng-template>
+						</ngb-tab>
+					</ngb-tabset>
+				</div>
+				<div class="card-footer text-right">
+					<button type="submit" class="btn btn-primary" [ladda]="loading" data-style="zoom-in">
+						Save
+					</button>
+					<button type="button" class="btn btn-outline-secondary">
+						Cancel
+					</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</section>

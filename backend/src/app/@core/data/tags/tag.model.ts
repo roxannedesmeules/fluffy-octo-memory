@@ -68,7 +68,6 @@ export class Tag {
 	 */
 	form ( model: any ): any {
 		return {
-			is_active    : (model.is_active) ? 1 : 0,
 			translations : this.mapFormTranslations(model.translations),
 		};
 	}

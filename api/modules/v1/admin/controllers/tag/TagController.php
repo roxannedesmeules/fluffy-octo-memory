@@ -99,7 +99,7 @@ class TagController extends ControllerAdminEx
 			}
 		}
 
-		return $this->createdResult([ "tag_id" => $result[ "tag_id" ] ]);
+		return $this->createdResult(TagEx::getOneWithTranslations($result[ "tag_id" ]));
 	}
 
 	/**
