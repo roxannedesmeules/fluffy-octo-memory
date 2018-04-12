@@ -26,7 +26,7 @@ export class ListComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnInit () {
-		this.tags      = this._route.snapshot.data[ "list" ];
+		this.posts     = this._route.snapshot.data[ "list" ];
 		this.languages = this._route.snapshot.data[ "languages" ];
 
 		this.pagination.setPagination(this.service.responseHeaders);
