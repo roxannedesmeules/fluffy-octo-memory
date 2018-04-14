@@ -5,15 +5,20 @@ import { LangService, LanguageResolve } from "@core/data/languages";
 import {
 	CategoryService,
 	DetailResolve as CategoryDetailResolve,
-	ListResolve as CategoryListResolve } from "@core/data/categories";
+	ListResolve as CategoryListResolve,
+} from "@core/data/categories";
 import {
 	PostService,
 	DetailResolve as PostDetailResolve,
-	ListResolve as PostListResolve } from "@core/data/posts";
+	ListResolve as PostListResolve,
+	PostStatusService,
+	StatusResolve,
+} from "@core/data/posts";
 import {
 	TagService,
 	DetailResolve as TagDetailResolve,
-	ListResolve as TagListResolve } from "@core/data/tags";
+	ListResolve as TagListResolve,
+} from "@core/data/tags";
 import { AuthService, UserService, UserProfileService } from "@core/data/users";
 
 const SERVICES = [
@@ -31,6 +36,8 @@ const SERVICES = [
 	PostService,
 	PostDetailResolve,
 	PostListResolve,
+	PostStatusService,
+	StatusResolve,
 
 	AuthService,
 	UserService,
