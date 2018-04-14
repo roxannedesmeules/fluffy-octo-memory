@@ -35,11 +35,11 @@
 								</li>
 							</ul>
 						</td>
-						<td>{{ post.firstTranslation().name }}</td>
+						<td>{{ post.firstTranslation().title }}</td>
 						<td>{{ post.firstTranslation().slug }}</td>
 						<td>{{ post.translations | column:"language" }}</td>
-						<td>{{ post.status }}</td>
-						<td>{{ post.updated_on }}</td>
+						<td>{{ post.post_status_id | atIndexOf:statuses:"id":"name" }}</td>
+						<td>{{ post.updated_on || "--" }}</td>
 					</tr>
 					
 					<tr *ngIf="posts.length === 0">

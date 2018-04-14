@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { ErrorResponse } from "@core/data/error-response.model";
 import { Lang } from "@core/data/languages";
-import { Post, PostService } from "@core/data/posts";
+import { Post, PostService, PostStatus } from "@core/data/posts";
 import { LoggerService } from "@shared/logger/logger.service";
 import { Pagination } from "@shared/pagination/pagination.model";
 import { Subscription } from "rxjs/Subscription";
@@ -18,6 +18,7 @@ export class ListComponent implements OnInit, OnDestroy {
 	public pagination: Pagination = new Pagination();
 
 	public posts: Post[] = [];
+	public statuses: PostStatus[] = [];
 	public languages: Lang[] = [];
 
 	constructor (private _route: ActivatedRoute,
@@ -27,6 +28,7 @@ export class ListComponent implements OnInit, OnDestroy {
 
 	ngOnInit () {
 		this.posts     = this._route.snapshot.data[ "list" ];
+		this.statuses  = this._route.snapshot.data[ "statuses" ];
 		this.languages = this._route.snapshot.data[ "languages" ];
 
 		this.pagination.setPagination(this.service.responseHeaders);
