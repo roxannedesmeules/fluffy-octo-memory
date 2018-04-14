@@ -16,7 +16,7 @@ return [
 	"DELETE  v1/admin/auth" => "v1/admin/auth/logout",
 
 	[ "class" => 'yii\rest\UrlRule', "controller" => [ "v1/admin/category" ] ],
-	[ "class" => 'yii\rest\UrlRule', "controller" => [ "v1/admin/post" => "v1/admin/post/post" ] ],
+	[ "class" => 'yii\rest\UrlRule', "controller" => [ "v1/admin/posts" => "v1/admin/post/post" ] ],
 	[
 		"class"      => 'yii\rest\UrlRule',
 		"controller" => [ "v1/admin/language" ],
