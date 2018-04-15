@@ -9,3 +9,6 @@ export * from "./user.service";
 // user model
 export * from "./user-profile.model";
 export * from "./user-profile.service";
+
+// misc
+export * from "./author.model";

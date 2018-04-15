@@ -1,0 +1,12 @@
+<div class="input-group">
+	<div class="input-group-prepend">
+		<label for="file" class="btn btn-primary">
+			Choose a file
+		</label>
+		<input type="file" id="file" class="inputfile" (change)="updateFile($event)">
+	</div>
+	
+	<span class="form-control">
+		{{ value?.name }}
+	</span>
+</div>

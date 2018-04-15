@@ -7,8 +7,6 @@ export class Post {
 	public id: number;
 	public category_id: number;
 	public post_status_id: number;
-	public user_id: number;
-	public username: string;
 	public translations: PostLang[] = [];
 	public readonly created_on: string;
 	public readonly updated_on: string;
@@ -19,13 +17,11 @@ export class Post {
 		this.id             = model.id;
 		this.category_id    = model.category_id;
 		this.post_status_id = model.post_status_id;
-		this.user_id        = model.user_id;
-		this.username       = model.username;
+
+		this.translations = this.mapTranslations(model.translations);
 
 		this.created_on = model.created_on;
 		this.updated_on = model.updated_on;
-
-		this.translations = this.mapTranslations(model.translations);
 	}
 
 	/**
@@ -35,7 +31,7 @@ export class Post {
 	 */
 	mapTranslations ( list: any[] ): PostLang[] {
 		list.forEach(( val, idx ) => {
-			list[ idx ] = new PostLang(val);
+			list[ idx ] = new PostLang(val, this.id);
 		});
 
 		return list;
@@ -55,7 +51,7 @@ export class Post {
 		}
 
 		this.translations.forEach(( val ) => {
-			if (typeof lang === "string" && val.language === lang) {
+			if (typeof lang === "string" && val.language.icu === lang) {
 				result = val;
 			}
 
