@@ -4,6 +4,7 @@ namespace app\modules\v1\admin\models\post;
 use app\helpers\ArrayHelperEx;
 use app\models\app\Lang;
 use app\models\post\PostLang;
+use app\modules\v1\admin\models\FileEx;
 use app\modules\v1\admin\models\LangEx;
 
 /**
@@ -19,19 +20,30 @@ class PostLangEx extends PostLang
 	 * @SWG\Definition(
 	 *       definition = "PostTranslation",
 	 *
-	 *     @SWG\Property( property = "language", type = "string" ),
-	 *     @SWG\Property( property = "title",    type = "string" ),
-	 *     @SWG\Property( property = "slug",     type = "string" ),
-	 *     @SWG\Property( property = "content",  type = "string" ),
+	 *     @SWG\Property( property = "language",  ref  = "#/definitions/Lang" ),
+	 *     @SWG\Property( property = "title",     type = "string" ),
+	 *     @SWG\Property( property = "slug",      type = "string" ),
+	 *     @SWG\Property( property = "content",   type = "string" ),
+	 *     @SWG\Property( property = "cover",     ref  = "#/definitions/File" ),
+	 *     @SWG\Property( property = "cover_alt", type = "string" ),
+	 *     @SWG\Property( property = "author",    type = "object", 
+	 *          @SWG\Property( property = "id", type = "integer" ),
+	 *          @SWG\Property( property = "fullname", type = "string" ),
+	 *     ),
 	 * )
 	 */
 	public function fields ()
 	{
 		return [
-			"language" => function ( self $model ) { return $model->lang->icu; },
+			"language"  => "lang",
 			"title",
 			"slug",
 			"content",
+			"cover"     => "file",
+			"cover_alt" => "file_alt",
+			"author"    => function ( self $model ) {
+				return [ "id" => $model->user_id, "fullname" => $model->user->userProfile->getFullname() ];
+			},
 		];
 	}
 
@@ -80,6 +92,12 @@ class PostLangEx extends PostLang
 
 			[ "content", "string", "message" => self::ERR_FIELD_TYPE ],
 		];
+	}
+
+	/** @inheritdoc */
+	public function getFile ()
+	{
+		return $this->hasOne(FileEx::className(), [ "id" => "file_id" ]);
 	}
 
 	/**

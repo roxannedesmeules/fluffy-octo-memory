@@ -30,7 +30,7 @@ class UserProfileEx extends UserProfile
 		return [
 			"firstname",
 			"lastname",
-			"fullname" => function ( self $model ) { return "$model->firstname $model->lastname"; },
+			"fullname" => function ( self $model ) { return $model->getFullname(); },
 			"birthday" => function ( self $model ) { return date(self::DATE_FORMAT, strtotime($model->birthday)); },
 			"picture"  => function ( self $model ) { return ($model->file) ? $model->file->getFullPath() : null; },
 		];
@@ -54,5 +54,10 @@ class UserProfileEx extends UserProfile
 			[ "lastname", "string" ],
 			[ "birthday", "string" ],
 		];
+	}
+
+	public function getFullname ()
+	{
+		return "$model->firstname $model->lastname";
 	}
 }
