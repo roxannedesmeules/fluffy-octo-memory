@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { FileInputModule } from "@shared/file-input/file-input.module";
 
 import { PostRoutingModule } from "./post-routing.module";
 
@@ -22,10 +23,11 @@ import { DetailComponent } from "admin/post/detail/detail.component";
 		ReactiveFormsModule,
 		PostRoutingModule,
 
-		TagsInputModule,
 		FroalaEditorModule,
 		FroalaViewModule,
+		TagsInputModule,
 
+		FileInputModule,
 		PaginationModule,
 		PipesModule,
 		ThemeModule,
