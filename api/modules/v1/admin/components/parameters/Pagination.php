@@ -17,6 +17,8 @@ class Pagination extends \yii\base\Behavior
 	const PAGE_SIZE_MIN = 0;
 	const PAGE_SIZE_MAX = 100;
 
+	const NO_PAGINATION = -1;
+
 	/** @var pagination     contains */
 	public $pagination;
 
@@ -35,18 +37,20 @@ class Pagination extends \yii\base\Behavior
 
 		//  get the page number parameter
 		$this->pagination = [
-			"page"     => $request->get("page", self::PAGE_NUMBER),
-			"pageSize" => $request->get("per-page", self::PAGE_SIZE),
+			"page"     => (int) $request->get("page", self::PAGE_NUMBER),
+			"pageSize" => (int) $request->get("per-page", self::PAGE_SIZE),
 		];
 
-		//  verify that the page size doesn't ask for more result than the maximum
-		if ( $this->pagination[ "pageSize" ] > self::PAGE_SIZE_MAX ) {
-			$this->pagination[ "pageSize" ] = self::PAGE_SIZE_MAX;
-		}
+		if ($this->pagination[ "pageSize" ] !== self::NO_PAGINATION) {
+			//  verify that the page size doesn't ask for more result than the maximum
+			if ($this->pagination[ "pageSize" ] > self::PAGE_SIZE_MAX) {
+				$this->pagination[ "pageSize" ] = self::PAGE_SIZE_MAX;
+			}
 
-		//  verify that the page size doesn't ask for no result at all either
-		if ( $this->pagination[ "pageSize" ] <= self::PAGE_SIZE_MIN ) {
-			$this->pagination[ "pageSize" ] = self::PAGE_SIZE;
+			//  verify that the page size doesn't ask for no result at all either
+			if ($this->pagination[ "pageSize" ] <= self::PAGE_SIZE_MIN) {
+				$this->pagination[ "pageSize" ] = self::PAGE_SIZE;
+			}
 		}
 	}
 
