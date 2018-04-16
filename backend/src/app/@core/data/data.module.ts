@@ -5,7 +5,8 @@ import { LangService, LanguageResolve } from "@core/data/languages";
 import {
 	CategoryService,
 	DetailResolve as CategoryDetailResolve,
-	ListResolve as CategoryListResolve,
+	PartialListResolve as CategoryPartialListResolve,
+	FullListResolve as CategoryFullListResolve,
 } from "@core/data/categories";
 import {
 	PostService,
@@ -27,7 +28,8 @@ const SERVICES = [
 
 	CategoryService,
 	CategoryDetailResolve,
-	CategoryListResolve,
+	CategoryPartialListResolve,
+	CategoryFullListResolve,
 
 	TagService,
 	TagDetailResolve,
