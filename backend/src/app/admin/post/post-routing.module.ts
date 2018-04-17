@@ -4,6 +4,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { LanguageResolve } from "@core/data/languages";
 import { ListResolve, DetailResolve } from "@core/data/posts";
 import { StatusResolve } from "@core/data/posts/resolvers/status.resolve";
+import { FullListResolve as CategoryListResolve } from "@core/data/categories";
 
 import { PostComponent } from "admin/post/post.component";
 import { ListComponent } from "admin/post/list/list.component";
@@ -28,6 +29,7 @@ const routes: Routes = [
 				resolve   : {
 					languages : LanguageResolve,
 					statuses  : StatusResolve,
+					categories: CategoryListResolve,
 				},
 			}, {
 				path      : "update/:id",
@@ -36,6 +38,7 @@ const routes: Routes = [
 					post      : DetailResolve,
 					languages : LanguageResolve,
 					statuses  : StatusResolve,
+					categories: CategoryListResolve,
 				},
 			},
 		],
