@@ -6,6 +6,7 @@ use app\models\app\Lang;
 use app\models\post\PostLang;
 use app\modules\v1\admin\models\FileEx;
 use app\modules\v1\admin\models\LangEx;
+use app\modules\v1\admin\models\user\UserEx;
 
 /**
  * Class PostLangEx
@@ -98,6 +99,12 @@ class PostLangEx extends PostLang
 	public function getFile ()
 	{
 		return $this->hasOne(FileEx::className(), [ "id" => "file_id" ]);
+	}
+
+	/** @inheritdoc */
+	public function getUser ()
+	{
+		return $this->hasOne(UserEx::className(), [ "id" => "user_id" ]);
 	}
 
 	/**

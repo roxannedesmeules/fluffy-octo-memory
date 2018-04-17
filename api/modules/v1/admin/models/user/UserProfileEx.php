@@ -56,8 +56,13 @@ class UserProfileEx extends UserProfile
 		];
 	}
 
+	/**
+	 * Return the user's full name.
+	 *
+	 * @return string
+	 */
 	public function getFullname ()
 	{
-		return "$model->firstname $model->lastname";
+		return "$this->firstname $this->lastname";
 	}
 }

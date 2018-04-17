@@ -170,7 +170,7 @@ abstract class PostLangBase extends \yii\db\ActiveRecord
 			}
 		}
 
-		if ( !parent::beforeValidate($this->isNewRecord) ) {
+		if ( !parent::beforeValidate() ) {
 			return false;
 		}
 

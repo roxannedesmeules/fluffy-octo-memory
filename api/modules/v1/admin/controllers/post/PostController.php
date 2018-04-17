@@ -109,7 +109,7 @@ class PostController extends ControllerAdminEx
 			}
 		}
 
-		return $this->createdResult([ "post_id" => $result[ "post_id" ] ]);
+		return $this->createdResult(PostEx::getOneWithTranslations($result[ "post_id" ]));
 	}
 
 	/**
