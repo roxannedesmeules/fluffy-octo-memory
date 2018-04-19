@@ -10,6 +10,13 @@ namespace app\modules\v1\admin\swagger;
  */
 
 /**
+ * @SWG\Tag(
+ *    name = "User Profile",
+ *    description = "All endpoints managing the auth user profile",
+ * )
+ */
+
+/**
  *  @SWG\Tag(
  *    name = "Languages",
  *    description = "All endpoints managing languages",
@@ -27,6 +34,13 @@ namespace app\modules\v1\admin\swagger;
  * @SWG\Tag(
  *    name = "Posts",
  *    description = "All endpoints managing posts",
+ * )
+ */
+
+/**
+ * @SWG\Tag(
+ *    name = "Cover",
+ *    description = "All endpoints managing a post cover picture",
  * )
  */
 

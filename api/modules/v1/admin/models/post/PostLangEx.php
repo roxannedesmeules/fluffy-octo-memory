@@ -7,6 +7,7 @@ use app\models\post\PostLang;
 use app\modules\v1\admin\models\FileEx;
 use app\modules\v1\admin\models\LangEx;
 use app\modules\v1\admin\models\user\UserEx;
+use yii\web\UploadedFile;
 
 /**
  * Class PostLangEx
@@ -107,6 +108,27 @@ class PostLangEx extends PostLang
 		return $this->hasOne(UserEx::className(), [ "id" => "user_id" ]);
 	}
 
+	public static function deleteCoverPicture ( int $postId, int $langId )
+	{
+		//  check if the post translation exists
+		if (!self::translationExists($postId, $langId)) {
+			return self::buildError(self::ERR_NOT_FOUND);
+		}
+
+		//  find the translation object
+		$model = self::find()->byPost($postId)->byLang($langId)->one();
+
+		if ($model->hasCover()) {
+			$result = $model->deleteCover(true);
+
+			if ($result !== self::SUCCESS) {
+				return self::buildError(self::ERR_ON_COVER_DELETE);
+			}
+		}
+
+		return self::buildSuccess([]);
+	}
+
 	/**
 	 * @param integer $postId
 	 * @param self[]  $translations
@@ -142,6 +164,42 @@ class PostLangEx extends PostLang
 		}
 
 		//  return result of each translation
+		return $result;
+	}
+
+	/**
+	 * This method will verify that the PostLang entry exists in the database. It will delete the cover picture if there
+	 * is one already existing, then it will upload the new one.
+	 *
+	 * @param int          $postId
+	 * @param int          $langId
+	 * @param UploadedFile $file
+	 *
+	 * @return array
+	 */
+	public static function manageCoverPicture (int $postId, int $langId, UploadedFile $file)
+	{
+		//  check if the post translation exists
+		if (!self::translationExists($postId, $langId)) {
+			return self::buildError(self::ERR_NOT_FOUND);
+		}
+
+		//  find the translation object
+		$model = self::find()->byPost($postId)->byLang($langId)->one();
+
+		//  soft delete the existing cover if one
+		if ($model->hasCover()) {
+			$result = $model->deleteCover();
+
+			if ($result !== self::SUCCESS) {
+				return self::buildError(self::ERR_ON_COVER_UPDATE);
+			}
+		}
+
+		//  upload the new cover
+		$result = $model->uploadCover($file);
+
+		//  return the result
 		return $result;
 	}
 }

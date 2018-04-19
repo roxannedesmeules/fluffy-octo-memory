@@ -2,6 +2,7 @@
 
 namespace app\modules\v1\admin\models;
 
+use app\helpers\DateHelper;
 use app\models\app\File;
 
 /**
@@ -29,7 +30,7 @@ class FileEx extends File
 			"id",
 			"name",
 			"path"       => function ( self $model ) { return $model->getFullPath(); },
-			"created_on" => function ( self $model ) { return DateHelper::formatDate($model->created_on, self::DATE_FORMAT); },
+			"created_on" => function ( self $model ) { return DateHelper::formatDate($model->created_on, DateHelper::DATETIME_FORMAT); },
 		];
 	}
 }

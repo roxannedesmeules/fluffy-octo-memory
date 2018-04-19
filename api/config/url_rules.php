@@ -1,5 +1,8 @@
 <?php
 
+$admin = "v1/admin";
+$int   = "\\d[\\d,]*";
+
 return [
 	"" => "site",
 
@@ -8,28 +11,41 @@ return [
 	"v1/api" => "v1/default/api",
 
 	//  V1 Admin rules
-	"v1/admin/doc" => "v1/admin/default/doc",
-	"v1/admin/api" => "v1/admin/default/api",
+	"$admin/doc" => "$admin/default/doc",
+	"$admin/api" => "$admin/default/api",
 
-	"OPTIONS v1/admin/auth" => "v1/admin/auth/options",
-	"POST    v1/admin/auth" => "v1/admin/auth/login",
-	"DELETE  v1/admin/auth" => "v1/admin/auth/logout",
+	"OPTIONS $admin/auth" => "$admin/auth/options",
+	"POST    $admin/auth" => "$admin/auth/login",
+	"DELETE  $admin/auth" => "$admin/auth/logout",
 
-	[ "class" => 'yii\rest\UrlRule', "controller" => [ "v1/admin/category" ] ],
-	[ "class" => 'yii\rest\UrlRule', "controller" => [ "v1/admin/posts" => "v1/admin/post/post" ] ],
+	//  categories
+	[ "class" => 'yii\rest\UrlRule', "controller" => [ "$admin/category" ] ],
+
+	//  languages
 	[
 		"class"      => 'yii\rest\UrlRule',
-		"controller" => [ "v1/admin/language" ],
+		"controller" => [ "$admin/language" ],
 		"except"     => [ "view", "create", "update", "delete" ],
 	],
+
+	//  posts
+	[ "class" => 'yii\rest\UrlRule', "controller" => [ "$admin/posts" => "$admin/post/post" ], ],
+
+	//  posts translation cover
+	"POST   $admin/posts/<postId:$int>/<langId:$int>/cover" => "$admin/post/cover/create",
+	"DELETE $admin/posts/<postId:$int>/<langId:$int>/cover" => "$admin/post/cover/delete",
+
+	//  post statuses
 	[
 		"class"      => 'yii\rest\UrlRule',
-		"controller" => [ "v1/admin/posts/statuses" => "v1/admin/post/status" ],
+		"controller" => [ "$admin/posts/statuses" => "$admin/post/status" ],
 		"except"     => [ "view", "create", "update", "delete" ],
 	],
+
+	//  user profile
 	[
 		"class"         => 'yii\rest\UrlRule',
-		"controller"    => [ "v1/admin/user/me" => "v1/admin/user/profile" ],
+		"controller"    => [ "$admin/user/me" => "$admin/user/profile" ],
 		'pluralize'     => false,
 		"except"        => [ "index", "view", "create", "delete" ],
 		"extraPatterns" => [
