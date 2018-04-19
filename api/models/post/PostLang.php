@@ -3,8 +3,9 @@
 namespace app\models\post;
 
 use app\helpers\ArrayHelperEx;
+use app\models\app\File;
 use app\models\app\Lang;
-use yii\db\Exception;
+use yii\web\UploadedFile;
 
 
 /**
@@ -66,6 +67,35 @@ class PostLang extends PostLangBase
 	}
 
 	/**
+	 * This method will delete the file entry, then update the relation inside the PostLang entry. The file alt can also
+	 * be reset if the $withAlt parameter is set to true.
+	 *
+	 * @param bool $withAlt     flag defining if the file_alt should also be reset.
+	 *
+	 * @return int
+	 */
+	public function deleteCover ( $withAlt = false )
+	{
+		//  mark the file object as deleted
+		$this->file->markAsDeleted();
+
+		//  reset the file id
+		$this->file_id = null;
+
+		//  reset the file alt if needed
+		if ($withAlt) {
+			$this->file_alt = null;
+		}
+
+		//  save changes to model
+		if ($this->save()) {
+			return self::SUCCESS;
+		}
+
+		return self::ERROR;
+	}
+
+	/**
 	 * This method will delete all translation for a specific post. Translations will be deleted one by one to make sure
 	 * that any events that should be triggered are triggered.
 	 *
@@ -103,6 +133,13 @@ class PostLang extends PostLangBase
 	}
 
 	/**
+	 * This method will check if the post lang entry has a cover file.
+	 *
+	 * @return bool
+	 */
+	public function hasCover () { return !empty($this->file); }
+
+	/**
 	 * This method will update a single post translation. It will first make sure the translation exists, then will find
 	 * the entry and update it.
 	 *
@@ -137,6 +174,34 @@ class PostLang extends PostLangBase
 		}
 
 		//  return success
+		return self::buildSuccess([]);
+	}
+
+	/**
+	 * This method will make a call to the File model to upload the file locally, then link the file ID received to the
+	 * PostLang entry.
+	 *
+	 * @param \yii\web\UploadedFile $file
+	 *
+	 * @return array
+	 * @throws \yii\base\Exception
+	 */
+	public function uploadCover ( UploadedFile $file )
+	{
+		$result = File::uploadCoverLocally($file);
+
+		//  if the result ins't an integer, then there is an error
+		if (!is_int($result)) {
+			return self::buildError($result);
+		}
+
+		//  get the file ID and link it to the PostLang entry
+		$this->file_id = $result;
+
+		if (!$this->save()) {
+			return self::buildError(self::ERR_ON_COVER_SAVE);
+		}
+
 		return self::buildSuccess([]);
 	}
 }

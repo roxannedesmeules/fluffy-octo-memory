@@ -2,6 +2,7 @@
 namespace app\models\post;
 
 use app\helpers\ArrayHelperEx;
+use app\helpers\DateHelper;
 use app\models\app\File;
 use app\models\app\Lang;
 use app\models\user\User;
@@ -42,11 +43,21 @@ abstract class PostLangBase extends \yii\db\ActiveRecord
 	const ERR_TRANSLATION_EXISTS = "ERR_TRANSLATION_ALREADY_EXISTS";
 	const ERR_POST_PUBLISHED     = "ERR_POST_PUBLISHED";
 
+	const ERR_ON_COVER_SAVE   = "ERR_ON_COVER_SAVE";
+	const ERR_ON_COVER_UPDATE = "ERR_ON_COVER_UPDATE";
+	const ERR_ON_COVER_DELETE = "ERR_ON_COVER_DELETE";
+
 	const ERR_FIELD_REQUIRED   = "ERR_FIELD_VALUE_REQUIRED";
 	const ERR_FIELD_TYPE       = "ERR_FIELD_VALUE_WRONG_TYPE";
 	const ERR_FIELD_TOO_LONG   = "ERR_FIELD_VALUE_TOO_LONG";
 	const ERR_FIELD_NOT_FOUND  = "ERR_FIELD_VALUE_NOT_FOUND";
 	const ERR_FIELD_NOT_UNIQUE = "ERR_FIELD_VALUE_NOT_UNIQUE";
+
+	/** @var array      list of extensions allowed */
+	public static $extensions = [ "jpg", "jpeg", "gif", "png", ];
+
+	/** @var int        size limit for each file upload */
+	public static $maxsize = 10485760;
 
 	/** @inheritdoc */
 	public static function tableName () { return 'post_lang'; }
@@ -186,15 +197,26 @@ abstract class PostLangBase extends \yii\db\ActiveRecord
 
 		switch ( $insert ) {
 			case true:
-				$this->created_on = date(self::DATE_FORMAT);
+				$this->created_on = date(DateHelper::DATE_FORMAT);
 				break;
 
 			case false:
-				$this->updated_on = date(self::DATE_FORMAT);
+				$this->updated_on = date(DateHelper::DATE_FORMAT);
 				break;
 		}
 
 		return true;
+	}
+
+	/** @inheritdoc */
+	public function afterSave ( $insert, $changedAttributes )
+	{
+		parent::afterSave($insert, $changedAttributes);
+
+		//  find post and mark it as updated
+		$post = Post::find()->id($this->post_id)->one();
+
+		$post->markUpdated();
 	}
 
 	/**

@@ -1,5 +1,7 @@
 <?php
 namespace app\models\app;
+
+use app\helpers\DateHelper;
 use app\helpers\ParamsHelper;
 use yii\web\UploadedFile;
 
@@ -16,8 +18,6 @@ use yii\web\UploadedFile;
  */
 class File extends \yii\db\ActiveRecord
 {
-	const DATE_FORMAT = "Y-m-d H:i:s";
-
 	const NOT_DELETED = 0;
 	const DELETED     = 1;
 
@@ -67,7 +67,7 @@ class File extends \yii\db\ActiveRecord
 
 		$model->name       = $file->getBaseName() . "." . $file->getExtension();
 		$model->path       = $path;
-		$model->created_on = date(self::DATE_FORMAT);
+		$model->created_on = date(DateHelper::DATETIME_FORMAT);
 		$model->is_deleted = self::NOT_DELETED;
 
 		if (!$model->save()) {
@@ -128,7 +128,25 @@ class File extends \yii\db\ActiveRecord
 	 * @return int|string
 	 * @throws \yii\base\Exception
 	 */
-	public static function uploadProfileLocally ( $file )
+	public static function uploadCoverLocally ( UploadedFile $file )
+	{
+		$filename = self::generateFilename($file->getExtension());
+		$path     = self::FOLDER_POST . "/$filename";
+		
+		if (!$file->saveAs(\Yii::getAlias("@upload/$path"))) {
+			return self::ERR_ON_UPLOAD;
+		}
+		
+		return self::addFile($file, $path);
+	}
+
+	/**
+	 * @param UploadedFile $file
+	 *
+	 * @return int|string
+	 * @throws \yii\base\Exception
+	 */
+	public static function uploadProfileLocally ( UploadedFile $file )
 	{
 		$filename = self::generateFilename($file->getExtension());
 		$path     = self::FOLDER_PROFILE . "/$filename";

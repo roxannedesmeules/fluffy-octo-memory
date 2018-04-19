@@ -2,6 +2,7 @@
 
 namespace app\models\post;
 use app\helpers\ArrayHelperEx;
+use app\helpers\DateHelper;
 use app\models\category\Category;
 
 
@@ -103,6 +104,15 @@ class Post extends PostBase
 		$post = self::find()->id($postId)->one();
 
 		return ($post->post_status_id == PostStatus::PUBLISHED);
+	}
+
+	/**
+	 * Mark the post as updated, useful when one of it's translation is updated.
+	 */
+	public function markUpdated ()
+	{
+		$this->updated_on = date(DateHelper::DATETIME_FORMAT);
+		$this->save();
 	}
 
 	/**
