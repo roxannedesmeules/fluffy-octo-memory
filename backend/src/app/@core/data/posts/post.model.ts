@@ -55,7 +55,7 @@ export class Post {
 				result = val;
 			}
 
-			if (typeof lang === "number" && val.lang_id === lang) {
+			if (typeof lang === "number" && val.language.id === lang) {
 				result = val;
 			}
 		});

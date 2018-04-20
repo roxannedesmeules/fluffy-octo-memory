@@ -2,6 +2,7 @@
 namespace app\modules\v1\admin\models\post;
 
 use app\helpers\ArrayHelperEx;
+use app\helpers\DateHelper;
 use app\models\app\Lang;
 use app\models\post\PostLang;
 use app\modules\v1\admin\models\FileEx;
@@ -32,6 +33,8 @@ class PostLangEx extends PostLang
 	 *          @SWG\Property( property = "id", type = "integer" ),
 	 *          @SWG\Property( property = "fullname", type = "string" ),
 	 *     ),
+	 *     @SWG\Property( property = "created_on", type = "string" ),
+	 *     @SWG\Property( property = "updated_on", type = "string" ),
 	 * )
 	 */
 	public function fields ()
@@ -46,6 +49,8 @@ class PostLangEx extends PostLang
 			"author"    => function ( self $model ) {
 				return [ "id" => $model->user_id, "fullname" => $model->user->userProfile->getFullname() ];
 			},
+			"created_on"   => function ( self $model ) { return DateHelper::formatDate($model->created_on, self::DATE_FORMAT); },
+			"updated_on"   => function ( self $model ) { return DateHelper::formatDate($model->updated_on, self::DATE_FORMAT); },
 		];
 	}
 
@@ -115,7 +120,7 @@ class PostLangEx extends PostLang
 			return self::buildError(self::ERR_NOT_FOUND);
 		}
 
-		//  find the translation object
+		/** @var self $model */
 		$model = self::find()->byPost($postId)->byLang($langId)->one();
 
 		if ($model->hasCover()) {
@@ -175,7 +180,8 @@ class PostLangEx extends PostLang
 	 * @param int          $langId
 	 * @param UploadedFile $file
 	 *
-	 * @return array
+	 * @return array|int
+	 * @throws \yii\base\Exception
 	 */
 	public static function manageCoverPicture (int $postId, int $langId, UploadedFile $file)
 	{
@@ -184,7 +190,7 @@ class PostLangEx extends PostLang
 			return self::buildError(self::ERR_NOT_FOUND);
 		}
 
-		//  find the translation object
+		/** @var self $model */
 		$model = self::find()->byPost($postId)->byLang($langId)->one();
 
 		//  soft delete the existing cover if one
