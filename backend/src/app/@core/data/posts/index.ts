@@ -1,10 +1,11 @@
 // models
 export * from "./post-lang.model";
 export * from "./post.model";
-export * from "./post.filters";
 
 // services
+export * from "./post.filters";
 export * from "./post.service";
+export * from "./post-cover.service";
 
 // post status
 export * from "./post-status.model";
