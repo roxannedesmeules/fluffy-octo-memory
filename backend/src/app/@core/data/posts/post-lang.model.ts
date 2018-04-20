@@ -1,4 +1,5 @@
 import { Lang } from "@core/data/languages";
+import { PostCover } from "@core/data/posts/post-cover.model";
 import { Author } from "@core/data/users/author.model";
 
 export class PostLang {
@@ -36,21 +37,4 @@ export class PostLang {
 		this.updated_on = model.updated_on;
 	}
 
-}
-
-export class PostCover {
-	public id: number;
-	public name: string;
-	public path: string;
-	public created_on: string;
-
-	constructor ( model: any = null ) {
-		if (!model) { return; }
-
-		this.id   = model.id;
-		this.name = model.name;
-		this.path = model.path;
-
-		this.created_on = model.created_on;
-	}
 }

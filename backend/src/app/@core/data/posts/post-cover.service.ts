@@ -4,6 +4,7 @@ import { BaseService } from "@core/data/base.service";
 import { Post } from "@core/data/posts/post.model";
 import { Observable } from "rxjs/Observable";
 import { catchError, map } from "rxjs/operators";
+import 'rxjs/add/observable/forkJoin'
 
 @Injectable()
 export class PostCoverService extends BaseService {
@@ -30,6 +31,16 @@ export class PostCoverService extends BaseService {
 						   map(( res: any ) => this.mapModel(res)),
 						   catchError(( err: any ) => Observable.throw(this.mapError(err))),
 				   );
+	}
+
+	uploadSeveral ( postId: number, body: any[] ) {
+		const requests = [];
+
+		body.forEach((val) => {
+			requests.push(this.upload(postId, val.lang_id, val.file));
+		});
+
+		return Observable.forkJoin(requests);
 	}
 
 	/**

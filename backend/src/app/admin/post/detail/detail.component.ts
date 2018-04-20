@@ -136,6 +136,16 @@ export class DetailComponent implements OnInit {
 	}
 
 	/**
+	 *
+	 * @param {Post} post
+	 *
+	 * @return {Boolean}
+	 */
+	private hasFilesToUpload ( post: Post ): Boolean {
+		return (this._filesToUpload(post).length > 0);
+	}
+
+	/**
 	 * Check if the current page load is for the create form. It will return false if it's for the update form.
 	 *
 	 * @return {boolean}
@@ -182,13 +192,17 @@ export class DetailComponent implements OnInit {
 					this.loading = false;
 
 					// upload files if there are any
-					this._uploadFiles(result);
+					if (this.hasFilesToUpload(result)) {
+						this._uploadFiles(result);
+					}
 
 					// TODO create relation between tag & post
 
 					// reset form after create
 					if (this.isCreate()) {
 						this.resetForm();
+					} else {
+						this.post = result;
 					}
 				},
 				(err: ErrorResponse) => {
@@ -231,43 +245,47 @@ export class DetailComponent implements OnInit {
 	/**
 	 *
 	 * @param {Post} post
-	 *
+	 * @return {File[]}
 	 * @private
 	 */
-	private _uploadFiles ( post: Post ) {
-		const translations = this.getTranslations().controls;
+	private _filesToUpload ( post: Post ): any[] {
+		const files: any[] = [];
+		const translations  = this.getTranslations().controls;
 
-		translations.forEach(( control ) => {
-			const file   = control.get("cover").value;
-			const lang   = control.get("lang_id").value;
+		translations.forEach((control) => {
+			const file = control.get("cover").value;
+			const lang = control.get("lang_id").value;
 
-			//  update the file only if there is one and if the translation exists.
 			if (file && post.findTranslation(lang)) {
-				this._uploadFile(post.id, lang, file);
+				let form = new FormData();
+					form.append("picture", file);
+
+				files.push({ lang_id : lang, file : form });
 			}
 		});
+
+		return files;
 	}
 
 	/**
 	 *
-	 * @param {number} postId
-	 * @param {number} langId
-	 * @param {File} file
+	 * @param {Post} post
 	 *
 	 * @private
 	 */
-	private _uploadFile ( postId: number, langId: number, file: File ) {
-		let form = new FormData();
-			form.append("picture", file);
+	private _uploadFiles ( post: Post ) {
+		const files = this._filesToUpload(post);
 
-		this.coverService.upload(postId, langId, form)
-			.subscribe(
-				(result: Post) => {
-					console.log(result);
-				},
-				(err: ErrorResponse) => {
-					console.log(err);
-				}
-			);
+		this.coverService
+				.uploadSeveral(post.id, files)
+				.subscribe(
+						(results: Post[]) => {
+							if (!this.isCreate()) {
+								this.post = results[ 0 ];
+							}
+
+							this.logger.success("All cover were successfully uploaded.");
+						}
+				);
 	}
 }
