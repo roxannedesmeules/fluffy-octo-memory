@@ -32,8 +32,9 @@ return [
 	[ "class" => 'yii\rest\UrlRule', "controller" => [ "$admin/posts" => "$admin/post/post" ], ],
 
 	//  posts translation cover
-	"POST   $admin/posts/<postId:$int>/<langId:$int>/cover" => "$admin/post/cover/create",
-	"DELETE $admin/posts/<postId:$int>/<langId:$int>/cover" => "$admin/post/cover/delete",
+	"OPTIONS $admin/posts/<postId:$int>/<langId:$int>/cover" => "$admin/post/cover/options",
+	"POST    $admin/posts/<postId:$int>/<langId:$int>/cover" => "$admin/post/cover/create",
+	"DELETE  $admin/posts/<postId:$int>/<langId:$int>/cover" => "$admin/post/cover/delete",
 
 	//  post statuses
 	[

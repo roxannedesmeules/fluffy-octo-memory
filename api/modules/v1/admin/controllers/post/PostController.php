@@ -182,7 +182,7 @@ class PostController extends ControllerAdminEx
 			}
 		}
 
-		return [ "post" => $result[ "post" ] ];
+		return $result[ "post" ];
 	}
 
 	/**

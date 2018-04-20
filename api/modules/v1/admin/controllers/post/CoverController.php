@@ -75,7 +75,7 @@ class CoverController extends ControllerAdminEx
 	 *     summary = "Delete the existing cover",
 	 *     description = "Remove the existing cover picture for a specific post translation",
 	 *
-	 *     @SWG\Response( response = 204, description = "cover removed successfully" ),
+	 *     @SWG\Response( response = 200, description = "cover removed successfully", @SWG\Schema( ref = "#/definitions/Post" ), ),
 	 *     @SWG\Response( response = 401, description = "user can't be authenticated", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
 	 *     @SWG\Response( response = 500, description = "error while uploading file", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
 	 * )
@@ -98,6 +98,6 @@ class CoverController extends ControllerAdminEx
 		}
 
 		//  return the updated post cover
-		return $this->createdResult(PostEx::getOneWithTranslations($postId));
+		return PostEx::getOneWithTranslations($postId);
 	}
 }
