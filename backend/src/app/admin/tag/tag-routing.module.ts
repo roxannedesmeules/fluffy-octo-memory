@@ -2,7 +2,7 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 
 import { LanguageResolve } from "@core/data/languages";
-import { DetailResolve, ListResolve } from "@core/data/tags";
+import { DetailResolve, PartialListResolve } from "@core/data/tags";
 
 import { TagComponent } from "admin/tag/tag.component";
 import { ListComponent } from "admin/tag/list/list.component";
@@ -17,7 +17,7 @@ const routes: Routes = [
 				path      : "",
 				component : ListComponent,
 				resolve   : {
-					list      : ListResolve,
+					list      : PartialListResolve,
 					languages : LanguageResolve,
 				},
 			}, {

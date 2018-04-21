@@ -1,15 +1,15 @@
 import { TestBed, inject } from "@angular/core/testing";
 
-import { ListResolve } from "./list.resolve";
+import { PartialListResolve } from "./partial-list.resolve";
 
 describe("ListResolve", () => {
 	beforeEach(() => {
 		TestBed.configureTestingModule({
-			providers : [ ListResolve ],
+			providers : [ PartialListResolve ],
 		});
 	});
 
-	it("should be created", inject([ ListResolve ], ( service: ListResolve ) => {
+	it("should be created", inject([ PartialListResolve ], ( service: PartialListResolve ) => {
 		expect(service).toBeTruthy();
 	}));
 });

@@ -18,7 +18,8 @@ import {
 import {
 	TagService,
 	DetailResolve as TagDetailResolve,
-	ListResolve as TagListResolve,
+	PartialListResolve as TagPartialListResolve,
+	FullListResolve as TagFullListResolve
 } from "@core/data/tags";
 import { AuthService, UserService, UserProfileService } from "@core/data/users";
 
@@ -33,7 +34,8 @@ const SERVICES = [
 
 	TagService,
 	TagDetailResolve,
-	TagListResolve,
+	TagPartialListResolve,
+	TagFullListResolve,
 
 	PostService,
 	PostCoverService,

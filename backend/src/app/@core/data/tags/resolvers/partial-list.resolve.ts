@@ -5,7 +5,7 @@ import { Tag } from "@core/data/tags/tag.model";
 import { TagService } from "@core/data/tags/tag.service";
 
 @Injectable()
-export class ListResolve implements Resolve<Tag[]> {
+export class PartialListResolve implements Resolve<Tag[]> {
 
 	constructor ( private service: TagService ) { }
 
