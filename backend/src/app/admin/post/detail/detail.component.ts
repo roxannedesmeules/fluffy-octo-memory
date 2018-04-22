@@ -6,9 +6,12 @@ import { ErrorResponse } from "@core/data/error-response.model";
 import { Lang } from "@core/data/languages";
 import { Post, PostService, PostCoverService } from "@core/data/posts";
 import { PostStatus } from "@core/data/posts/post-status.model";
+import { PostTagService } from "@core/data/posts/post-tag.service";
+import { Tag } from "@core/data/tags";
 import { LoggerService } from "@shared/logger/logger.service";
 import { AtIndexOfPipe } from "@shared/pipes/array/at-index-of.pipe";
 import { SlugPipe } from "@shared/pipes/string/slug.pipe";
+import { Observable } from "rxjs/Observable";
 
 @Component({
 	selector    : "app-post-detail",
@@ -23,6 +26,7 @@ export class DetailComponent implements OnInit {
 	public languages: Lang[];
 	public statuses: PostStatus[];
 	public categories: Category[];
+	public tags: Tag[];
 
 	public form: FormGroup;
 	public errors: any  = {};
@@ -47,6 +51,7 @@ export class DetailComponent implements OnInit {
 				  private slugPipe: SlugPipe,
 				  private service: PostService,
 				  private coverService: PostCoverService,
+				  private postTagService: PostTagService,
 				  private logger: LoggerService ) {
 	}
 
@@ -73,6 +78,7 @@ export class DetailComponent implements OnInit {
 		this.form = this._builder.group({
 			category_id    : this._builder.control(this.post.category_id, [ Validators.required ]),
 			post_status_id : this._builder.control(status, [ Validators.required ]),
+			tags           : this._builder.control([]),
 			translations   : this._builder.array([]),
 		});
 
@@ -91,6 +97,31 @@ export class DetailComponent implements OnInit {
 
 			this.getTranslations().push(control);
 		});
+	}
+
+	/**
+	 *
+	 * @param {Post} post
+	 * @return {File[]}
+	 * @private
+	 */
+	private _filesToUpload ( post: Post ): any[] {
+		const files: any[] = [];
+		const translations  = this.getTranslations().controls;
+
+		translations.forEach((control) => {
+			const file = control.get("cover").value;
+			const lang = control.get("lang_id").value;
+
+			if (file && post.findTranslation(lang)) {
+				let form = new FormData();
+				form.append("picture", file);
+
+				files.push({ lang_id : lang, file : form });
+			}
+		});
+
+		return files;
 	}
 
 	/**
@@ -118,8 +149,26 @@ export class DetailComponent implements OnInit {
 
 	/**
 	 *
+	 * @return { add: any[], delete: any[] }
+	 * @private
+	 */
+	private _getTagsToUpdate () {
+		const tags: any[] = this.form.get("tags").value;
+
+		// if is create and there is tags, then they will have to be added
+		if (this.isCreate()) {
+			return { add : tags, delete : [] };
+		}
+
+		// otherwise, compare with existing tags and check which ones needs to be added and removed
+		return this.post.compareTags(tags);
+	}
+
+	/**
+	 *
 	 * @param {string} controlName
 	 * @param {FormGroup} translation
+	 *
 	 * @return {boolean}
 	 */
 	public hasError ( controlName: string, translation?: FormGroup ) {
@@ -189,20 +238,20 @@ export class DetailComponent implements OnInit {
 
 		req.subscribe(
 				(result: Post) => {
-					this.loading = false;
-
-					// upload files if there are any
-					if (this.hasFilesToUpload(result)) {
-						this._uploadFiles(result);
-					}
-
-					// TODO create relation between tag & post
+					const hasRelation = this._updateAllRelations(result);
 
 					// reset form after create
 					if (this.isCreate()) {
 						this.resetForm();
 					} else {
 						this.post = result;
+					}
+
+					// if there isn't any relation to update show the success message
+					if (!hasRelation) {
+						this.loading = false;
+
+						this._showSuccessMessage();
 					}
 				},
 				(err: ErrorResponse) => {
@@ -217,15 +266,19 @@ export class DetailComponent implements OnInit {
 	 * @private
 	 */
 	private _setData () {
+		//  get all data from the route
 		const routeLanguages  = this._route.snapshot.data[ "languages" ];
 		const routeStatuses   = this._route.snapshot.data[ "statuses" ];
 		const routeCategories = this._route.snapshot.data[ "categories" ];
+		const routeTags       = this._route.snapshot.data[ "tags" ];
 		const routePost       = this._route.snapshot.data[ "post" ];
 
+		// assign data found or set a default value
 		this.post       = routePost || new Post();
 		this.languages  = routeLanguages || [];
 		this.statuses   = routeStatuses || [];
 		this.categories = routeCategories || [];
+		this.tags       = routeTags || [];
 	}
 
 	/**
@@ -244,48 +297,71 @@ export class DetailComponent implements OnInit {
 
 	/**
 	 *
-	 * @param {Post} post
-	 * @return {File[]}
 	 * @private
 	 */
-	private _filesToUpload ( post: Post ): any[] {
-		const files: any[] = [];
-		const translations  = this.getTranslations().controls;
+	private _showSuccessMessage () {
+		if (this.isCreate()) {
+			this.logger.success("The post was successfully created");
+		} else {
+			this.logger.success("The post was successfully updated");
+		}
+	}
 
-		translations.forEach((control) => {
-			const file = control.get("cover").value;
-			const lang = control.get("lang_id").value;
+	/**
+	 *
+	 * @return {boolean}
+	 * @private
+	 */
+	private _tagsChanged (): boolean {
+		const tags = this._getTagsToUpdate();
 
-			if (file && post.findTranslation(lang)) {
-				let form = new FormData();
-					form.append("picture", file);
-
-				files.push({ lang_id : lang, file : form });
-			}
-		});
-
-		return files;
+		// check if there is any tag to add or delete
+		return (tags.add.length > 0 || tags.delete.length > 0);
 	}
 
 	/**
 	 *
 	 * @param {Post} post
 	 *
+	 * @return {boolean}
 	 * @private
 	 */
-	private _uploadFiles ( post: Post ) {
-		const files = this._filesToUpload(post);
+	private _updateAllRelations ( post: Post ): boolean {
+		const allRequests = [];
 
-		this.coverService
-				.uploadSeveral(post.id, files)
-				.subscribe(
-						(results: Post[]) => {
-							if (!this.isCreate()) {
-								this.post = results[ 0 ];
-							}
+		if (this.hasFilesToUpload(post)) {
+			const files = this._filesToUpload(post);
 
-							this.logger.success("All cover were successfully uploaded.");
-						}
-				);
+			allRequests.push(this.coverService.uploadSeveral(post.id, files));
+		}
+
+		if (this._tagsChanged()) {
+			const tags = this._getTagsToUpdate();
+
+			if (tags.add.length > 0) {
+				allRequests.push(this.postTagService.linkSeveral(post.id, tags.add));
+			}
+
+			if (tags.delete.length > 0) {
+				allRequests.push(this.postTagService.unlinkSeveral(post.id, tags.delete));
+			}
+		}
+
+		if (allRequests.length === 0) {
+			return false;
+		}
+
+		Observable.forkJoin(allRequests)
+				  .subscribe(
+						  ( results ) => {
+							  this.loading = false;
+							  console.log(results);
+						  },
+						  ( err: ErrorResponse ) => {
+							  console.log(err);
+						  },
+				  );
+
+		return true;
 	}
 }

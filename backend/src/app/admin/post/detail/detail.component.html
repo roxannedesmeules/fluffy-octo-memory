@@ -14,13 +14,9 @@
 							Category
 						</label>
 						<div class="col-sm-8 select">
-							<select formControlName="category_id"
-							        class="form-control" [class.is-invalid]="hasError('category_id')">
-								<option [value]="null" disabled> Please select a category</option>
-								<option *ngFor="let cat of categories" [value]="cat.id">
-									{{ cat.translations[ 0 ].name }}
-								</option>
-							</select>
+							<ng-select class="control" [class.is-invalid]="hasError('category_id')"
+							           formControlName="category_id" placeholder="Please select a category"
+							           [items]="categories | flatTranslation:'name'" bindValue="id"></ng-select>
 							
 							<div class="is-invalid help-block text-danger" *ngIf="hasError('category_id')">
 								<small *ngIf="form.get('category_id').hasError('required')"> this is required </small>
@@ -35,7 +31,14 @@
 							Tags
 						</label>
 						<div class="col-sm-8">
-							<tags-input class="form-control"></tags-input>
+							<ng-select class="control" [class.is-invalid]="hasError('tags')"
+							           formControlName="tags" placeholder="Select tags"
+							           [items]="tags | flatTranslation:'name'" multiple="true" bindValue="id" bindLabel="name">
+							</ng-select>
+
+							<div class="is-invalid help-block text-danger" *ngIf="hasError('tags')">
+								<small *ngFor="let err of getErrors('tags')"> {{ err }} </small>
+							</div>
 						</div>
 					</div>
 

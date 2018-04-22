@@ -1,15 +1,15 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { FileInputModule } from "@shared/file-input/file-input.module";
 
 import { PostRoutingModule } from "./post-routing.module";
 
-import { TagsInputModule } from "ngx-tags-input";
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
+import { NgSelectModule } from "@ng-select/ng-select";
 import { PaginationModule } from "@shared/pagination/pagination.module";
 import { PipesModule } from "@shared/pipes/pipes.module";
 import { ThemeModule } from "@theme/theme.module";
+import { FileInputModule } from "@shared/file-input/file-input.module";
 
 import { PostComponent } from "admin/post/post.component";
 import { ListComponent } from "admin/post/list/list.component";
@@ -25,7 +25,7 @@ import { DetailComponent } from "admin/post/detail/detail.component";
 
 		FroalaEditorModule,
 		FroalaViewModule,
-		TagsInputModule,
+		NgSelectModule,
 
 		FileInputModule,
 		PaginationModule,

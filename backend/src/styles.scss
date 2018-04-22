@@ -104,3 +104,48 @@
 	}
 
 }
+
+/*
+ * ==========================================================
+ *     NG-SELECT
+ * ==========================================================
+ */
+
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+.control.ng-select {
+	.ng-select-container {
+		border        : 1px solid #dee2e6;
+		border-radius : 0;
+		padding       : 0.375rem 0.75rem;
+	}
+
+	&.is-invalid .ng-select-container {
+		border-color: theme-color("danger") !important;
+	}
+
+	&.ng-select-multiple {
+		.ng-select-container .ng-value-container .ng-value {
+			background-color : $brand-primary;
+			border-color : $brand-primary;
+
+			color: $white;
+
+			.ng-value-icon { border-color: $brand-primary; }
+			.ng-value-icon:hover { background: darken($brand-primary, 15%);  }
+		}
+
+		.ng-option-marked { background: $gray-300; }
+		.ng-option-selected { background: $gray-400; }
+	}
+
+	&.ng-select-focused:not(.ng-select-opened) > .ng-select-container {
+		color: $input-focus-color;
+		background-color: $input-focus-bg;
+		border-color: $input-focus-border-color;
+		outline: none;
+		box-shadow: $input-box-shadow, $input-btn-focus-box-shadow;
+	}
+
+	.ng-value-container { padding: 0; }
+}
