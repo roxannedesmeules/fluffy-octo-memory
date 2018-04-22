@@ -20,7 +20,14 @@ class AssoTagPostBase extends \yii\db\ActiveRecord
 	const ERROR   = 0;
 	const SUCCESS = 1;
 
-	const ERR_ON_DELETE = "ERR_ON_DELETE";
+	const ERR_ON_SAVE        = "ERR_ON_SAVE";
+	const ERR_ON_DELETE      = "ERR_ON_DELETE";
+	const ERR_NOT_FOUND      = "ERR_NOT_FOUND";
+	const ERR_ALREADY_EXISTS = "ERR_RELATION_ALREADY_EXISTS";
+	const ERR_POST_NOT_FOUND = "ERR_POST_NOT_FOUND";
+	const ERR_TAG_NOT_FOUND  = "ERR_TAG_NOT_FOUND";
+
+	const ERR_FIELD_REQUIRED = "ERR_FIELD_REQUIRED";
 
 	/** @inheritdoc */
 	public static function tableName () { return 'asso_tag_post'; }
@@ -72,6 +79,17 @@ class AssoTagPostBase extends \yii\db\ActiveRecord
 	public function getTag ()
 	{
 		return $this->hasOne(Tag::className(), [ 'id' => 'tag_id' ]);
+	}
+
+	/**
+	 * @param $postId
+	 * @param $tagId
+	 *
+	 * @return bool
+	 */
+	public static function relationExists ( $postId, $tagId )
+	{
+		return self::find()->where([ "post_id" => $postId, "tag_id" => $tagId ])->exists();
 	}
 
 	/**

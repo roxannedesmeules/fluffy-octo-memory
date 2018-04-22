@@ -43,6 +43,24 @@ return [
 		"except"     => [ "view", "create", "update", "delete" ],
 	],
 
+	//  tags
+	[
+		"class"      => 'yii\rest\UrlRule',
+		"controller" => [ "$admin/tags" => "$admin/tag/tag" ],
+	],
+
+	//  post tags relation
+	[
+		"class"      => 'yii\rest\UrlRule',
+		"controller" => [ "$admin/posts-tags" => "$admin/post/tag" ],
+		"except"     => [ "index", "view", "update" ],
+		"patterns"   => [
+			'POST'   => 'create',
+			'DELETE' => 'delete',
+			''       => 'options',
+		],
+	],
+
 	//  user profile
 	[
 		"class"         => 'yii\rest\UrlRule',
