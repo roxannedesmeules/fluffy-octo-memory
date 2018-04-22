@@ -10,6 +10,8 @@ export class PartialListResolve implements Resolve<Tag[]> {
 	constructor ( private service: TagService ) { }
 
 	resolve ( route: ActivatedRouteSnapshot ) {
+		this.service.filters.resetPagination();
+
 		return this.service
 				.findAll().toPromise()
 				.then(( result: Tag[] ) => result);

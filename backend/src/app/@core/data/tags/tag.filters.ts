@@ -19,6 +19,11 @@ export class TagFilters {
 		this[ attr ] = value;
 	}
 
+	public resetPagination () {
+		this.pageNumber = 0;
+		this.perPage    = 10;
+	}
+
 	public setPagination ( pagination ) {
 		this.pageNumber = pagination.currentPage;
 		this.perPage    = pagination.perPage;

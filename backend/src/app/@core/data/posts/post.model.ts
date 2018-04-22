@@ -1,4 +1,5 @@
 import { PostLang } from "@core/data/posts/post-lang.model";
+import { Tag } from "@core/data/tags";
 
 /**
  * @class Post
@@ -7,7 +8,10 @@ export class Post {
 	public id: number;
 	public category_id: number;
 	public post_status_id: number;
+
 	public translations: PostLang[] = [];
+	public tags: Tag[] = [];
+
 	public readonly created_on: string;
 	public readonly updated_on: string;
 
@@ -35,6 +39,31 @@ export class Post {
 		});
 
 		return list;
+	}
+
+	/**
+	 *
+	 * @param {any[]} toCompare
+	 *
+	 * @return {{add: any[]; delete: any[]}}
+	 */
+	compareTags ( toCompare: any[] ) {
+		let toAdd    = [];
+		let toDelete = [];
+
+		this.tags.forEach((tag) => {
+			if (toCompare.indexOf(tag.id) < 0) {
+				toDelete.push(tag.id);
+			}
+		});
+
+		toCompare.forEach((id) => {
+			if (this.tags.indexOf(id) < 0) {
+				toAdd.push(id);
+			}
+		});
+
+		return { add : toAdd, delete : toDelete };
 	}
 
 	/**

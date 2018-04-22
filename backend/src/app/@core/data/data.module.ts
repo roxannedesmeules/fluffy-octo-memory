@@ -13,7 +13,7 @@ import {
 	DetailResolve as PostDetailResolve,
 	ListResolve as PostListResolve,
 	PostStatusService,
-	StatusResolve, PostCoverService,
+	StatusResolve, PostCoverService, PostTagService,
 } from "@core/data/posts";
 import {
 	TagService,
@@ -39,6 +39,7 @@ const SERVICES = [
 
 	PostService,
 	PostCoverService,
+	PostTagService,
 	PostDetailResolve,
 	PostListResolve,
 	PostStatusService,

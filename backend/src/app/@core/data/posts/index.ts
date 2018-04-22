@@ -12,5 +12,8 @@ export * from "./post-cover.service";
 export * from "./post-status.model";
 export * from "./post-status.service";
 
+// post tag relation
+export * from "./post-tag.service";
+
 // resolvers
 export * from "./resolvers";
