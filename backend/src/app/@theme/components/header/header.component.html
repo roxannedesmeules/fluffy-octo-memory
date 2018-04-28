@@ -13,7 +13,7 @@
 				<!-- Navbar Header-->
 				<div class="navbar-header">
 					<!-- Navbar Brand -->
-					<a href="index.html" class="navbar-brand">
+					<a routerLink="/admin/dashboard" class="navbar-brand">
 						<div class="brand-text brand-big">
 							<span>ladydev</span><strong>.io</strong>
 						</div>
@@ -46,7 +46,7 @@
 					</li>
 					<!-- Logout    -->
 					<li class="nav-item">
-						<a href="login.html" class="nav-link logout">
+						<a (click)="logout()" class="nav-link logout">
 							Logout
 							<i class="fas fa-sign-out-alt"></i>
 						</a>
