@@ -37,4 +37,14 @@ export class PostLang {
 		this.updated_on = model.updated_on;
 	}
 
+	public form () {
+		return {
+			post_id  : this.post_id,
+			lang_id  : this.lang_id,
+			title    : this.title,
+			slug     : this.slug,
+			content  : this.content,
+			file_alt : this.cover_alt,
+		};
+	}
 }

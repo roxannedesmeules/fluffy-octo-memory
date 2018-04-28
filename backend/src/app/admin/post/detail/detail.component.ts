@@ -124,6 +124,36 @@ export class DetailComponent implements OnInit {
 		return files;
 	}
 
+	public getErrors ( name: string, langId?: number ): any[] {
+		//  if there isn't any errors, then return an empty array
+		if (Object.keys(this.errors).length === 0) {
+			return [];
+		}
+
+		//  if the attribute exists as a key in the errors list, then return its content.
+		if (this.errors[ name ]) {
+			return this.errors[ name ];
+		}
+
+		const lang = this.getLang(langId);
+
+		if (this.errors[ lang ] && this.errors[ lang ][ 0 ][ name ]) {
+			return [ this.errors[ lang ][ 0 ][ name ] ];
+		}
+
+		return [];
+	}
+
+	/**
+	 *
+	 * @param langId
+	 *
+	 * @return {string}
+	 */
+	private getLang ( langId ): string {
+		return this.atIndexOf.transform(langId, this.languages, "id", "icu");
+	}
+
 	/**
 	 * Shorthand method to easily get all translations from the form object.
 	 *
@@ -131,20 +161,6 @@ export class DetailComponent implements OnInit {
 	 */
 	public getTranslations (): FormArray {
 		return this.form.get("translations") as FormArray;
-	}
-
-	/**
-	 *
-	 * @param {string} controlName
-	 * @param {number} translationIdx
-	 * @return {any[]}
-	 */
-	public getErrors ( controlName: string, translationIdx?: number ): any[] {
-		if (translationIdx) {
-
-		} else {
-			return this.errors[ controlName ] || [];
-		}
 	}
 
 	/**
@@ -171,14 +187,18 @@ export class DetailComponent implements OnInit {
 	 *
 	 * @return {boolean}
 	 */
-	public hasError ( controlName: string, translation?: FormGroup ) {
+	public hasError ( name: string, idx?: number) {
 		let input: FormControl;
 		let errors: any[] = [];
 
-		if (translation) {
+		if (idx === undefined) {
+			input  = this.form.get(name) as FormControl;
+			errors = this.getErrors(name);
 		} else {
-			input  = this.form.get(controlName) as FormControl;
-			errors = this.getErrors(controlName);
+			const translation = this.getTranslations().at(idx);
+
+			input  = translation.get(name) as FormControl;
+			errors = this.getErrors(name, translation.get('lang_id').value);
 		}
 
 		return ((input.invalid && input.touched) || errors.length > 0);
@@ -256,7 +276,7 @@ export class DetailComponent implements OnInit {
 				},
 				(err: ErrorResponse) => {
 					this.loading = false;
-					console.log(err);
+					this.errors  = err.form_error;
 				},
 		);
 	}
@@ -329,12 +349,14 @@ export class DetailComponent implements OnInit {
 	private _updateAllRelations ( post: Post ): boolean {
 		const allRequests = [];
 
+		//	if there are any files to upload, create upload requests
 		if (this.hasFilesToUpload(post)) {
 			const files = this._filesToUpload(post);
 
 			allRequests.push(this.coverService.uploadSeveral(post.id, files));
 		}
 
+		//	if there are any tags to link/unlink, create requests
 		if (this._tagsChanged()) {
 			const tags = this._getTagsToUpdate();
 
@@ -347,10 +369,12 @@ export class DetailComponent implements OnInit {
 			}
 		}
 
+		//  if there isn't any requests, then return that there is nothing to do
 		if (allRequests.length === 0) {
 			return false;
 		}
 
+		//	create an observable on all requests
 		Observable.forkJoin(allRequests)
 				  .subscribe(
 						  ( results ) => {
@@ -362,6 +386,7 @@ export class DetailComponent implements OnInit {
 						  },
 				  );
 
+		//	return that are is something to do
 		return true;
 	}
 }

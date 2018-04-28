@@ -111,14 +111,17 @@ export class Post {
 	/**
 	 *
 	 * @param list
-	 * @return {PostLang[]}
+	 * @return {any[]}
 	 */
-	mapFormTranslations ( list: any ): PostLang[] {
-		const result: PostLang[] = [];
+	mapFormTranslations ( list: any ): any[] {
+		const result: any[] = [];
 
 		list.forEach(( val ) => {
-			if (val.name || val.slug) {
-				result.push(new PostLang(val, this.id));
+			let temp: any = new PostLang(val, this.id);
+				temp      = temp.form();
+
+			if (temp.title || temp.slug || temp.content || temp.file_alt) {
+				result.push(temp);
 			}
 		});
 

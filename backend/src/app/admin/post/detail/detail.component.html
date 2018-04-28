@@ -17,10 +17,9 @@
 							<ng-select class="control" [class.is-invalid]="hasError('category_id')"
 							           formControlName="category_id" placeholder="Please select a category"
 							           [items]="categories | flatTranslation:'name'" bindValue="id"></ng-select>
-							
-							<div class="is-invalid help-block text-danger" *ngIf="hasError('category_id')">
-								<small *ngIf="form.get('category_id').hasError('required')"> this is required </small>
-								<small *ngFor="let err of getErrors('category_id')"> {{ err }} </small>
+
+							<div class="is-invalid help-block text-danger">
+								<small *ngFor="let err of getErrors('category_id')">{{ err }}</small>
 							</div>
 						</div>
 					</div>
@@ -66,10 +65,16 @@
 											Cover Alt
 										</label>
 										<div class="col-sm-8">
-											<input type="text" formControlName="cover_alt" class="form-control">
+											<input type="text" formControlName="cover_alt"
+											       class="form-control" [class.is-invalid]="hasError('cover_alt', idx)">
+
 											<div class="help-block text-xsmall">
 												This text is usually displayed when the image can't be properly loaded or
 												when the user is hovering the cover picture.
+											</div>
+
+											<div class="is-invalid help-block text-danger">
+												<small *ngFor="let err of getErrors('cover_alt', t.get('lang_id').value)">{{ err }}</small>
 											</div>
 										</div>
 									</div>
@@ -80,8 +85,13 @@
 											Title
 										</label>
 										<div class="col-sm-8">
-											<input type="text" formControlName="title" class="form-control"
+											<input type="text" formControlName="title"
+											       class="form-control" [class.is-invalid]="hasError('title', idx)"
 											       (change)="setSlug(idx)">
+
+											<div class="is-invalid help-block text-danger">
+												<small *ngFor="let err of getErrors('title', t.get('lang_id').value)">{{ err }}</small>
+											</div>
 										</div>
 									</div>
 									<div class="line"></div>
@@ -91,7 +101,12 @@
 											Slug
 										</label>
 										<div class="col-sm-8">
-											<input type="text" formControlName="slug" class="form-control">
+											<input type="text" formControlName="slug"
+											       class="form-control" [class.is-invalid]="hasError('slug', idx)">
+
+											<div class="is-invalid help-block text-danger">
+												<small *ngFor="let err of getErrors('slug', t.get('lang_id').value)">{{ err }}</small>
+											</div>
 										</div>
 									</div>
 									<div class="line"></div>
