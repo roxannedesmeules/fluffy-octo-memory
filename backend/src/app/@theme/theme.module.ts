@@ -1,6 +1,7 @@
 import { ModuleWithProviders, NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
+import { PageTitleService } from "@theme/components/page-title/page-title.service";
 
 import { LaddaModule } from "angular2-ladda";
 import { NgbDropdownConfig, NgbModule, NgbTabsetConfig } from "@ng-bootstrap/ng-bootstrap";
@@ -43,6 +44,8 @@ const COMPONENTS = [
 const PROVIDERS = [
 	NgbDropdownConfig,
 	NgbTabsetConfig,
+
+	PageTitleService,
 ];
 
 @NgModule({

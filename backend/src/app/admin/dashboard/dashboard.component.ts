@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { PageTitleService } from "@theme/components/page-title/page-title.service";
 
 @Component({
 	selector    : "app-admin-dashboard",
@@ -7,10 +8,10 @@ import { Component, OnInit } from "@angular/core";
 })
 export class DashboardComponent implements OnInit {
 
-	constructor () {
-	}
+	constructor ( private pageTitle: PageTitleService ) {}
 
 	ngOnInit () {
+		this.pageTitle.setTitle("Dashboard");
 	}
 
 }

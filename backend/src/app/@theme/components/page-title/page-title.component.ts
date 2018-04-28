@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { PageTitleService } from "@theme/components/page-title/page-title.service";
 
 @Component({
 	selector    : "app-layout-page-title",
@@ -7,10 +8,12 @@ import { Component, OnInit } from "@angular/core";
 })
 export class PageTitleComponent implements OnInit {
 
-	constructor () {
-	}
+	public title: string;
+
+	constructor ( private pageTitle: PageTitleService ) {}
 
 	ngOnInit () {
+		this.pageTitle.getSubject().subscribe((result: string) => { this.title = result; });
 	}
 
 }
