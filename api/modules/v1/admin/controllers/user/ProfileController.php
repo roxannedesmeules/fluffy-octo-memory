@@ -18,7 +18,7 @@ use yii\web\UploadedFile;
  */
 class ProfileController extends ControllerAdminEx
 {
-	public $corsMethods = [ "OPTIONS", "PUT" ];
+	public $corsMethods = [ "OPTIONS", "PUT", "POST" ];
 
 	/** @inheritdoc */
 	protected function verbs ()
@@ -57,22 +57,22 @@ class ProfileController extends ControllerAdminEx
 		}
 
 		$userId = \Yii::$app->getUser()->getId();
-		$result = UserProfileEx::updateProfile($userId, $form);
+		$result = UserProfileEx::updateProfileWithTranslation($userId, $form, $form->translations);
 
 		if ($result[ "status" ] === UserProfileEx::ERROR) {
 			switch ($result[ "error" ]) {
 				case UserProfileEx::ERR_NOT_FOUND :
-					throw new NotFoundHttpException(UserProfileEx::ERR_NOT_FOUND);
+					return $this->error(404, UserProfileEx::ERR_NOT_FOUND);
 
 				case UserProfileEx::ERR_ON_SAVE :
-					throw new ServerErrorHttpException(UserProfileEx::ERR_ON_SAVE);
+					return $this->error(500, UserProfileEx::ERR_ON_SAVE);
 
 				default :
 					if (is_array($result[ "error" ])) {
 						return $this->unprocessableResult($result[ "error" ]);
 					}
 
-					throw new ServerErrorHttpException(json_encode($result[ "error" ]));
+					return $this->error(500, json_encode($result[ "error" ]));
 			}
 		}
 
@@ -111,21 +111,21 @@ class ProfileController extends ControllerAdminEx
 				case Password::ERR_PASSWORD :
 					// no break;
 				case Password::ERR_CONFIRMATION :
-					throw new BadRequestHttpException($result[ "error" ]);
+					return $this->error(400, $result[ "error" ]);
 
 				case Password::ERR_ON_SAVE :
-					throw new ServerErrorHttpException(Password::ERR_ON_SAVE);
+					return $this->error(500, Password::ERR_ON_SAVE);
 
 				default :
 					if (is_array($result[ "error" ])) {
 						return $this->unprocessableResult($result[ "error" ]);
 					}
 
-					throw new ServerErrorHttpException(json_encode($result[ "error" ]));
+					return $this->error(500, json_encode($result[ "error" ]));
 			}
 		}
 
-		$this->emptySuccess();
+		return $this->emptySuccess();
 	}
 
 	/**
@@ -164,17 +164,17 @@ class ProfileController extends ControllerAdminEx
 				case UserProfileEx::ERR_ON_SAVE :
 					// no break;
 				case File::ERR_ON_SAVE :
-					throw new ServerErrorHttpException($result[ "error" ]);
+					return $this->error(500, $result[ "error" ]);
 
 				case UserProfileEx::ERR_NOT_FOUND :
-					throw new NotFoundHttpException(UserProfileEx::ERR_NOT_FOUND);
+					return $this->error(404, UserProfileEx::ERR_NOT_FOUND);
 
 				default :
 					if (is_array($result[ "error" ])) {
 						return $this->unprocessableResult($result[ "error" ]);
 					}
 
-					throw new ServerErrorHttpException(json_encode($result[ "error" ]));
+					return $this->error(500, json_encode($result[ "error" ]));
 			}
 		}
 

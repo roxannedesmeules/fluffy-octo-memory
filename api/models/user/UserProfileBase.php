@@ -17,6 +17,7 @@ use Yii;
  *
  * @property UserBase $user
  * @property File     $file
+ * @property UserProfileLang[] $profileLangs
  */
 abstract class UserProfileBase extends \yii\db\ActiveRecord
 {
@@ -33,6 +34,17 @@ abstract class UserProfileBase extends \yii\db\ActiveRecord
 
 	/** @var int        size limit for each file upload */
 	public static $maxsize = 10485760;
+
+	/** @var yii\db\Connection */
+	protected static $db;
+
+	/** @inheritdoc */
+	public function init ()
+	{
+		parent::init();
+
+		self::$db = Yii::$app->db;
+	}
 
 	/** @inheritdoc */
 	public static function tableName () { return 'user_profile'; }
@@ -88,6 +100,12 @@ abstract class UserProfileBase extends \yii\db\ActiveRecord
 	public function getFile ()
 	{
 		return $this->hasOne(File::className(), [ "id" => "file_id" ]);
+	}
+
+	/** @return \yii\db\ActiveQuery */
+	public function getProfileLangs ()
+	{
+		return $this->hasMany(UserProfileLang::className(), [ "user_id" => "user_id" ]);
 	}
 	
 	/**
