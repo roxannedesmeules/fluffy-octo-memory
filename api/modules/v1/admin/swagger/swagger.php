@@ -5,7 +5,7 @@ namespace app\modules\v1\admin\swagger;
 /**
  * @SWG\Swagger(
  *     schemes  = { "http" },
- *     host     = "api.blog.dev",
+ *     host     = "api.blog.local",
  *     basePath = "/v1/admin",
  *
  *     consumes = { "application/json", "application/form-data" },

@@ -4,19 +4,19 @@ $admin = "v1/admin";
 $int   = "\\d[\\d,]*";
 
 return [
-	"" => "site",
+	""           => "site",
 
 	//  V1 rules
-	"v1/doc" => "v1/default/doc",
-	"v1/api" => "v1/default/api",
+	"v1/doc"     => "v1/default/doc",
+	"v1/api"     => "v1/default/api",
 
 	//  V1 Admin rules
 	"$admin/doc" => "$admin/default/doc",
 	"$admin/api" => "$admin/default/api",
 
-	"OPTIONS $admin/auth" => "$admin/auth/options",
-	"POST    $admin/auth" => "$admin/auth/login",
-	"DELETE  $admin/auth" => "$admin/auth/logout",
+	"OPTIONS $admin/auth"                                    => "$admin/auth/options",
+	"POST    $admin/auth"                                    => "$admin/auth/login",
+	"DELETE  $admin/auth"                                    => "$admin/auth/logout",
 
 	//  categories
 	[ "class" => 'yii\rest\UrlRule', "controller" => [ "$admin/category" ] ],
@@ -62,17 +62,10 @@ return [
 	],
 
 	//  user profile
-	[
-		"class"         => 'yii\rest\UrlRule',
-		"controller"    => [ "$admin/user/me" => "$admin/user/profile" ],
-		'pluralize'     => false,
-		"except"        => [ "index", "view", "create", "delete" ],
-		"extraPatterns" => [
-			"PUT password"     => "update-password",
-			"OPTIONS password" => "options",
-			"POST picture"     => "upload-picture",
-			"OPTIONS picture"  => "options",
-		],
-		"tokens" => [],
-	]
+	"OPTIONS $admin/user/me"          => "$admin/user/profile/options",
+	"OPTIONS $admin/user/me/password" => "$admin/user/profile/options",
+	"OPTIONS $admin/user/me/picture"  => "$admin/user/profile/options",
+	"PUT $admin/user/me"              => "$admin/user/profile/update",
+	"PUT $admin/user/me/password"     => "$admin/user/profile/update-password",
+	"POST $admin/user/me/picture"     => "$admin/user/profile/upload-picture",
 ];

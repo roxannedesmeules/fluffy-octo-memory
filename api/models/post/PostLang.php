@@ -9,10 +9,13 @@ use yii\web\UploadedFile;
 
 
 /**
- * Class PostLang
  * Manage Post translations
  *
- * @package app\models\post
+ * This class will create, update a specific post translation and delete all translations. It will also manage the upload
+ * or the removal of a cover linked to a translation.
+ *
+ * @category post
+ * @package  app\models\post
  */
 class PostLang extends PostLangBase
 {
