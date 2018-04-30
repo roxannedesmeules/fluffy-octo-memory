@@ -23,10 +23,10 @@ const routes: Routes = [
 			}, {
 				path         : "posts",
 				loadChildren : "./post/post.module#PostModule",
-			}, /*{
+			}, {
 				path : "user",
 				loadChildren : "./user/user.module#UserModule",
-			},*/ {
+			}, {
 				path       : "",
 				redirectTo : "dashboard",
 				pathMatch  : "full",
