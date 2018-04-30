@@ -39,9 +39,12 @@ export class SidemenuComponent implements OnInit {
 			],
 		});
 
-		this.items.push(new Item({ id: "home", title : "Home", icon : "icon-home", link : "/admin" }));
+		this.items.push(new Item({ id: "home", title : "Home", icon : "fas fa-home", link : "/admin" }));
+
 		this.items.push(categories);
 		this.items.push(posts);
 		this.items.push(tags);
+
+		this.items.push(new Item({ id: "profile", title : "Profile", icon : "fas fa-user", link : "/user/me" }));
 	}
 }

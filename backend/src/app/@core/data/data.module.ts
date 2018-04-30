@@ -21,7 +21,7 @@ import {
 	PartialListResolve as TagPartialListResolve,
 	FullListResolve as TagFullListResolve
 } from "@core/data/tags";
-import { AuthService, UserService, UserProfileService } from "@core/data/users";
+import { AuthService, UserService, UserProfileService, MeResolve } from "@core/data/users";
 
 const SERVICES = [
 	LangService,
@@ -48,6 +48,7 @@ const SERVICES = [
 	AuthService,
 	UserService,
 	UserProfileService,
+	MeResolve,
 ];
 
 @NgModule({

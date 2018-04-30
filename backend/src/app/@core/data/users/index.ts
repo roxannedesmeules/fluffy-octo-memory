@@ -12,3 +12,6 @@ export * from "./user-profile.service";
 
 // misc
 export * from "./author.model";
+
+// resolvers
+export * from "./resolvers";

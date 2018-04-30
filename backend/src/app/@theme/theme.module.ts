@@ -3,8 +3,8 @@ import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 import { PageTitleService } from "@theme/components/page-title/page-title.service";
 
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { LaddaModule } from "angular2-ladda";
-import { NgbDropdownConfig, NgbModule, NgbTabsetConfig } from "@ng-bootstrap/ng-bootstrap";
 
 import {
 	FooterComponent, HeaderComponent, ItemComponent, ItemDropdownComponent, ItemLinkComponent, PageTitleComponent,
@@ -42,9 +42,6 @@ const COMPONENTS = [
 ];
 
 const PROVIDERS = [
-	NgbDropdownConfig,
-	NgbTabsetConfig,
-
 	PageTitleService,
 ];
 

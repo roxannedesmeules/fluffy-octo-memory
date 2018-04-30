@@ -1,7 +1,5 @@
 import { UserProfile } from "./user-profile.model";
 
-export { UserProfile };
-
 export class User {
 	public id: number;
 	public username: string;
