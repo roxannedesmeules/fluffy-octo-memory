@@ -111,7 +111,7 @@ class UserProfileEx extends UserProfile
 		$result = UserProfileLangEx::manageTranslations($userId, $translations);
 
 		//  in case of error, rollback and return it
-		if (in_array(UserProfileLangEx::ERROR, ArrayHelperEx::getColumn($result, "status"))) {
+		if ($result[ "status" ] !== UserProfileLangEx::SUCCESS) {
 			$transaction->rollBack();
 
 			return self::buildError([
