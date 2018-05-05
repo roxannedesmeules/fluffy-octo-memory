@@ -4,6 +4,7 @@ import { ActivatedRoute } from "@angular/router";
 import { ErrorResponse } from "@core/data/error-response.model";
 import { Lang } from "@core/data/languages";
 import { User, UserProfile, UserProfileService, UserService } from "@core/data/users";
+import { LoggerService } from "@shared/logger/logger.service";
 
 @Component({
 	selector    : "app-user-profile",
@@ -34,8 +35,9 @@ export class ProfileComponent implements OnInit {
 
 	constructor ( private _route: ActivatedRoute,
 				  private _builder: FormBuilder,
+				  private _logger: LoggerService,
 				  private service: UserProfileService,
-				  private userService: UserService ) {
+				  private userService: UserService, ) {
 	}
 
 	ngOnInit () {
@@ -55,6 +57,7 @@ export class ProfileComponent implements OnInit {
 			firstname    : this._builder.control(this.user.profile.firstname, [ Validators.required ]),
 			lastname     : this._builder.control(this.user.profile.lastname, [ Validators.required ]),
 			birthday     : this._builder.control(this.user.profile.birthdayToDatepicker(), [ Validators.required ]),
+			picture      : this._builder.control(''),
 			translations : this._builder.array([]),
 		});
 
@@ -81,9 +84,15 @@ export class ProfileComponent implements OnInit {
 						this.user.profile = result;
 
 						this.userService.saveAppUser(this.user);
+
+						//  reset the picture form control, so we can try and re-upload the same file
+						this.form.get("picture").reset();
 					},
 					( error: ErrorResponse ) => {
-						console.log(error);
+						this._logger.error(error.form_error.file[ 0 ]);
+
+						//  reset the picture form control, so we can try and re-upload the same file
+						this.form.get("picture").reset();
 					},
 			);
 	}

@@ -14,7 +14,7 @@
 						<div *ngIf="user.profile.picture"
 						     class="picture" style.background-image="url({{ user.profile.picture }})"></div>
 
-						<input type="file" id="picture" (change)="uploadPicture($event.target.files)">
+						<input type="file" id="picture" formControlName="picture" (change)="uploadPicture($event.target.files)">
 					</div>
 
 					<div class="content col-12 col-lg-offset-2">
