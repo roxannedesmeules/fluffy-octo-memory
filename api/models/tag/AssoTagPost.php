@@ -47,6 +47,26 @@ class AssoTagPost extends AssoTagPostBase
 		return self::buildSuccess([]);
 	}
 
+	public static function deleteAllForPost ( $postId )
+	{
+		//  define result as success, will be overwritten by an error when necessary
+		$result = self::buildSuccess([]);
+
+		//  find all association to be deleted
+		$toDelete = self::findAll([ "post_id" => $postId]);
+
+		//  delete association one by one, to correctly trigger the all events
+		foreach ( $toDelete as $asso ) {
+			if ( !$asso->delete() ) {
+				$result = self::buildError(self::ERR_ON_DELETE);
+				break;
+			}
+		}
+
+		//  return success
+		return $result;
+	}
+
 	/**
 	 * @param $tagId
 	 *

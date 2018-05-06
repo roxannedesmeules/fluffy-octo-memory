@@ -1,0 +1,11 @@
+$templateColour : "ladydev";
+
+@import "../../../../assets/theme/style/modules/colors";
+
+.divider {
+	display : inline-block;
+	height  : 40px;
+	margin-left: 18px;
+	padding-left: 20px;
+	border-left : 1px dashed $gray-600;
+}

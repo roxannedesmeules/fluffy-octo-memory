@@ -124,13 +124,28 @@
 						</ngb-tab>
 					</ngb-tabset>
 				</div>
-				<div class="card-footer">
-					<button type="submit" class="btn btn-primary" [ladda]="loading" data-style="zoom-in">
-						Save
+				<div class="card-footer text-right">
+					<button type="button" class="btn btn-outline-success d-none" [class.d-inline]="displayStatusChangeBtn('draft')"
+					        (click)="updateStatus('unpublished')" [ladda]="statusLoading" data-style="zoom-in">
+						Review
 					</button>
-					<button type="button" class="btn btn-outline-secondary">
-						Cancel
+					<button type="button" class="btn btn-outline-primary d-none" [class.d-inline]="displayStatusChangeBtn('unpublished')"
+					        (click)="updateStatus('published')" [ladda]="statusLoading" data-style="zoom-in">
+						Publish
 					</button>
+					<button type="button" class="btn btn-outline-secondary d-none" [class.d-inline]="displayStatusChangeBtn('published')"
+					        (click)="updateStatus('archived')" [ladda]="statusLoading" data-style="zoom-in">
+						Archive
+					</button>
+
+					<div [class.divider]="!isCreate()">
+						<button type="submit" class="btn btn-primary" [ladda]="formLoading" data-style="zoom-in">
+							Save
+						</button>
+						<button type="button" class="btn btn-outline-secondary">
+							Cancel
+						</button>
+					</div>
 				</div>
 			</div>
 		</form>

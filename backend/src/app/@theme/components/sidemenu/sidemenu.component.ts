@@ -33,7 +33,7 @@ export class SidemenuComponent implements OnInit {
 		});
 
 		const tags = new Item({
-			id : "tag", title : "Tags", icon : "fas fa-tags", children : [
+			id : "tag", title : "Tags", icon : "fas fa-hashtag", children : [
 				{ id : "tag-create", title : "Create", link : "/admin/tags/create" },
 				{ id : "tag-list", title : "View all", link : "/admin/tags" },
 			],

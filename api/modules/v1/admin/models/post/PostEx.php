@@ -8,6 +8,7 @@ use app\helpers\DateHelper;
 use app\models\post\Post;
 use app\modules\v1\admin\models\category\CategoryEx;
 use app\modules\v1\admin\models\LangEx;
+use app\modules\v1\admin\models\tag\AssoTagPostEx;
 
 /**
  * Class PostEx
@@ -165,6 +166,16 @@ class PostEx extends Post
 			$transaction->rollBack();
 
 			return self::buildError([ "translations" => $result[ "error" ] ]);
+		}
+
+		//  delete post tags relation
+		$result = AssoTagPostEx::deleteAllForPost($postId);
+
+		//  in case of error, rollback and return error
+		if ($result[ "status" ] === AssoTagPostEx::ERROR) {
+			$transaction->rollBack();
+
+			return $result;
 		}
 
 		//  delete the post itself

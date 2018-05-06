@@ -30,7 +30,9 @@ export class DetailComponent implements OnInit {
 
 	public form: FormGroup;
 	public errors: any  = {};
-	public loading      = false;
+
+	public formLoading   = false;
+	public statusLoading = false;
 
 	public editorOptions: Object = {
 		charCounterCount : true,
@@ -97,6 +99,16 @@ export class DetailComponent implements OnInit {
 
 			this.getTranslations().push(control);
 		});
+	}
+
+	public displayStatusChangeBtn ( status: string ): boolean {
+		if (this.isCreate()) {
+			return false;
+		}
+
+		const statusId = this.atIndexOf.transform(status, this.statuses, "name", "id");
+
+		return (this.post.post_status_id === statusId);
 	}
 
 	/**
@@ -244,8 +256,8 @@ export class DetailComponent implements OnInit {
 	 *
 	 */
 	public save () {
-		this.errors  = [];
-		this.loading = true;
+		this.errors      = [];
+		this.formLoading = true;
 
 		let req  = null;
 		let body = this.post.form(this.form.getRawValue());
@@ -269,14 +281,14 @@ export class DetailComponent implements OnInit {
 
 					// if there isn't any relation to update show the success message
 					if (!hasRelation) {
-						this.loading = false;
+						this.formLoading = false;
 
 						this._showSuccessMessage();
 					}
 				},
 				(err: ErrorResponse) => {
-					this.loading = false;
-					this.errors  = err.form_error;
+					this.formLoading = false;
+					this.errors      = err.form_error;
 				},
 		);
 	}
@@ -388,5 +400,33 @@ export class DetailComponent implements OnInit {
 
 		//	return that are is something to do
 		return true;
+	}
+
+	public updateStatus ( statusName: string ) {
+		//  get the status ID related to the name passed in parameter
+		const statusId = this.atIndexOf.transform(statusName, this.statuses, "name", "id");
+
+		//  update the form post status id
+		this.form.get("post_status_id").setValue(statusId);
+
+		this.errors        = [];
+		this.statusLoading = true;
+
+		let body = this.post.form(this.form.getRawValue());
+
+		this.service
+			.update(this.post.id, body)
+			.subscribe(
+				(result: Post) => {
+					this.post          = result;
+					this.statusLoading = false;
+
+					this._showSuccessMessage();
+				},
+				(err: ErrorResponse) => {
+					this.statusLoading = false;
+					this.errors        = err.form_error;
+				},
+		);
 	}
 }
