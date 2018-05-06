@@ -2,7 +2,9 @@
 	<div class="container-fluid">
 		<form [formGroup]="form" (submit)="save()" novalidate class="forms form-horizontal">
 			<div class="card">
-				<div class="card-close"></div>
+				<div class="card-close">
+					<span class="action" (click)="resetForm()"> <i class="fas fa-sync"></i> </span>
+				</div>
 				<div class="card-header">
 					{{ title }}
 				</div>

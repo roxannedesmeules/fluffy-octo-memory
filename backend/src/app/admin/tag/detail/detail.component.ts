@@ -99,8 +99,13 @@ export class DetailComponent implements OnInit {
 	 */
 	public resetForm () {
 		this.languages.forEach(( val, idx ) => {
-			this.getTranslations().at(idx).reset();
+			const translation = this.tag.findTranslation(val.icu);
+
 			this.getTranslations().at(idx).get("lang_id").setValue(val.id);
+			this.getTranslations().at(idx).get("name").setValue(translation.name);
+			this.getTranslations().at(idx).get("slug").setValue(translation.slug);
+
+			this.getTranslations().at(idx).get("slug").disable();
 		});
 	}
 
@@ -126,12 +131,13 @@ export class DetailComponent implements OnInit {
 		req.subscribe(
 				(result: Tag) => {
 					this.loading = false;
-					this.tag     = result;
 
 					this.logger.success(msg);
 
 					if (this.isCreate()) {
 						this.resetForm();
+					} else {
+						this.tag = result;
 					}
 				},
 				(error: ErrorResponse) => {

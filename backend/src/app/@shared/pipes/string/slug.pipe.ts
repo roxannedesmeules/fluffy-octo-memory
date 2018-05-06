@@ -9,7 +9,7 @@ export class SlugPipe implements PipeTransform {
 		let slug = value;
 
 		//  remove all punctuations
-		slug = slug.replace(/[.,'\/#!$%\^&\*;:{}=\-_`~()]/g, "");
+		slug = slug.replace(/[.,'\/#!?$%\^&\*;:{}=\-_`~()]/g, "");
 
 		//  replace all accents
 		slug = slug.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
