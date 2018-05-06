@@ -177,7 +177,7 @@ export class DetailComponent implements OnInit {
 
 	/**
 	 *
-	 * @return { add: any[], delete: any[] }
+	 * @return {}
 	 * @private
 	 */
 	private _getTagsToUpdate () {
@@ -194,8 +194,8 @@ export class DetailComponent implements OnInit {
 
 	/**
 	 *
-	 * @param {string} controlName
-	 * @param {FormGroup} translation
+	 * @param {string} name
+	 * @param {number} idx
 	 *
 	 * @return {boolean}
 	 */
@@ -239,17 +239,21 @@ export class DetailComponent implements OnInit {
 	 *
 	 */
 	public resetForm () {
-		switch (this.isCreate()) {
-			case false :
-				break;
-			case true :
-				// reset the post
-				this.post = new Post();
+		this.form.get("category_id").setValue(this.post.category_id);
+		this.form.get("post_status_id").setValue(this.post.post_status_id);
 
-				// re create the form itself so the values are reset properly
-				this._createForm();
-				break;
-		}
+		this.languages.forEach((val, idx) => {
+			const translation = this.post.findTranslation(val.icu);
+
+			this.getTranslations().at(idx).get("lang_id").setValue(val.id);
+			this.getTranslations().at(idx).get("cover").setValue(undefined);
+			this.getTranslations().at(idx).get("cover_alt").setValue(translation.cover_alt);
+			this.getTranslations().at(idx).get("title").setValue(translation.title);
+			this.getTranslations().at(idx).get("slug").setValue(translation.slug);
+			this.getTranslations().at(idx).get("content").setValue(translation.content);
+
+			this.getTranslations().at(idx).get("slug").disable();
+		});
 	}
 
 	/**
@@ -390,10 +394,11 @@ export class DetailComponent implements OnInit {
 		Observable.forkJoin(allRequests)
 				  .subscribe(
 						  ( results ) => {
-							  this.loading = false;
+							  this.formLoading = false;
 							  console.log(results);
 						  },
 						  ( err: ErrorResponse ) => {
+							  this.formLoading = false;
 							  console.log(err);
 						  },
 				  );
