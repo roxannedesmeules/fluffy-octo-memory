@@ -196,7 +196,7 @@ class CategoryController extends ControllerAdminEx
 		}
 
 		//  return the updated
-		return [ "category" => $result[ "category" ] ];
+		return CategoryEx::getOneWithTranslations($id);
 	}
 
 	/**

@@ -105,11 +105,15 @@ export class DetailComponent implements OnInit {
 	 * Reset the form to all empty values, so another category can easily be created.
 	 */
 	public resetForm () {
-		this.form.get("is_active").reset();
+		this.form.get("is_active").setValue(this.category.is_active);
 
 		this.languages.forEach(( val, idx ) => {
-			this.getTranslations().at(idx).reset();
+			const translation = this.category.findTranslation(val.icu);
+
 			this.getTranslations().at(idx).get("lang_id").setValue(val.id);
+			this.getTranslations().at(idx).get("name").setValue(translation.name);
+			this.getTranslations().at(idx).get("slug").setValue(translation.slug);
+			this.getTranslations().at(idx).get("slug").disable();
 		});
 	}
 
@@ -134,13 +138,14 @@ export class DetailComponent implements OnInit {
 
 		req.subscribe(
 				(result: Category) => {
-					this.category = result;
 					this.loading  = false;
 
 					this.logger.success(msg);
 
 					if (this.isCreate()) {
 						this.resetForm();
+					} else {
+						this.category = result;
 					}
 				},
 				(error: ErrorResponse) => {
