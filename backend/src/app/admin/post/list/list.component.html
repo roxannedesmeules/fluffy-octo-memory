@@ -37,7 +37,7 @@
 						</td>
 						<td>{{ post.firstTranslation().title }}</td>
 						<td>{{ post.firstTranslation().slug }}</td>
-						<td>{{ post.translations | column:"language" }}</td>
+						<td>{{ post.translations | column:"language.name" }}</td>
 						<td>{{ post.post_status_id | atIndexOf:statuses:"id":"name" }}</td>
 						<td>{{ post.updated_on || "--" }}</td>
 					</tr>

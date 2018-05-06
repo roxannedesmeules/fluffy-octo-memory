@@ -6,12 +6,21 @@ import { Pipe, PipeTransform } from "@angular/core";
 export class ColumnPipe implements PipeTransform {
 
 	transform ( list: any[], column: string, asString: boolean = true ): string | string[] {
-		const result = [];
+		const properties = column.split(".");
+		const result     = [];
 
-		list.forEach(( val ) => {
-			if (val.hasOwnProperty(column)) {
-				result.push(val[ column ]);
-			}
+		list.forEach(( item ) => {
+			let temp = item;
+
+			properties.forEach((property, idx) => {
+				if (temp.hasOwnProperty(property)) {
+					temp = temp[ property ];
+
+					if (properties.length === (idx + 1)) {
+						result.push(temp);
+					}
+				}
+			});
 		});
 
 		if (asString) {
