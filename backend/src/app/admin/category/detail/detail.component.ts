@@ -23,7 +23,8 @@ export class DetailComponent implements OnInit {
 
 	public form: FormGroup;
 	public errors: any = {};
-	public loading     = false;
+	public loading       = false;
+	public statusLoading = false;
 
 	constructor (private _route: ActivatedRoute,
 				 private _builder: FormBuilder,
@@ -65,6 +66,22 @@ export class DetailComponent implements OnInit {
 
 			this.getTranslations().push(control);
 		});
+	}
+
+	public displayButton ( action: string ): boolean {
+		if (this.isCreate()) {
+			return false;
+		}
+
+		switch (action) {
+			case 'activate':
+				return this.category.isInactive();
+
+			case 'deactivate' :
+				// no break;
+			default :
+				return this.category.isActive();
+		}
 	}
 
 	/**
@@ -200,5 +217,39 @@ export class DetailComponent implements OnInit {
 		}
 
 		return (this.form.get(field).touched && this.form.get(field).invalid);
+	}
+
+	public updateActiveStatus () {
+		switch (this.category.is_active) {
+			case 1 :
+				this.form.get("is_active").setValue(0);
+				break;
+			case 0 :
+				this.form.get("is_active").setValue(1);
+				break;
+		}
+
+		this.errors        = [];
+		this.statusLoading = true;
+
+		let msg = `Category #${this.category.id} was successfully updated`;
+		let body = this.category.form(this.form.getRawValue());
+
+		this.service
+			.update(this.category.id, body)
+			.subscribe(
+				(result: Category) => {
+					this.category = result;
+					this.statusLoading  = false;
+
+					this.logger.success(msg);
+				},
+				(error: ErrorResponse) => {
+					this.statusLoading = false;
+					this.errors  = error.form_error;
+
+					this.logger.error(error.shortMessage);
+				}
+			);
 	}
 }

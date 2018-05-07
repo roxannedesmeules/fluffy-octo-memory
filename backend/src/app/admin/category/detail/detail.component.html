@@ -51,10 +51,18 @@
 					</ngb-tabset>
 				</div>
 				<div class="card-footer text-right">
-					<button type="submit" class="btn btn-primary" [ladda]="loading" data-style="zoom-in">
-						Save
+					<button type="button" class="btn btn-info" *ngIf="displayButton('activate')" (click)="updateActiveStatus()">
+						Activate
 					</button>
-					<a routerLink="/admin/categories" class="btn btn-outline-secondary"> Cancel </a>
+					<button type="button" class="btn btn-outline-secondary" *ngIf="displayButton('deactivate')" (click)="updateActiveStatus()">
+						Deactivate
+					</button>
+					<div [class.divider]="!isCreate()">
+						<button type="submit" class="btn btn-primary" [ladda]="loading" data-style="zoom-in">
+							Save
+						</button>
+						<a routerLink="/admin/categories" class="btn btn-outline-secondary"> Cancel </a>
+					</div>
 				</div>
 			</div>
 		</form>

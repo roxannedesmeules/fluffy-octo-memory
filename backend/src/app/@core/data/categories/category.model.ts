@@ -5,7 +5,7 @@ import { CategoryLang } from "@core/data/categories/category-lang.model";
  */
 export class Category {
 	public id: number;
-	public is_active: boolean           = false;
+	public is_active: number            = 0;
 	public translations: CategoryLang[] = [];
 	public created_on: string;
 	public updated_on: string;
@@ -74,6 +74,10 @@ export class Category {
 			translations : this.mapFormTranslations(model.translations),
 		};
 	}
+
+	isActive () { return (this.is_active === 1); }
+
+	isInactive () { return (this.is_active === 0); }
 
 	/**
 	 *
