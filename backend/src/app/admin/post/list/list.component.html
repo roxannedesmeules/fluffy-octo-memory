@@ -10,6 +10,38 @@
 				Posts
 			</div>
 			<div class="card-body">
+				<div class="row mb-3">
+					<div class="col-12">
+						<span ngbDropdown placement="bottom-left">
+							<button type="button" rel="nofollow" class="btn" ngbDropdownToggle
+							        [class.btn-outline-secondary]="!filterBy('lang')" [class.btn-outline-primary]="filterBy('lang')">
+								Languages
+							</button>
+							<ul class="dropdown-menu" ngbDropdownMenu>
+								<li class="dropdown-item" (click)="filter('lang', -1)"> All languages </li>
+								<li *ngFor="let lang of languages" (click)="filter('lang', lang.id)"
+								    class="dropdown-item" [class.active]="currentFilter('lang', lang.id)">
+									{{ lang.name }}
+								</li>
+							</ul>
+						</span>
+
+						<span ngbDropdown placement="bottom-left">
+							<button type="button" rel="nofollow" class="btn" ngbDropdownToggle
+							        [class.btn-outline-secondary]="!filterBy('status')" [class.btn-outline-primary]="filterBy('status')">
+								Status
+							</button>
+							<ul class="dropdown-menu" ngbDropdownMenu>
+								<li class="dropdown-item" (click)="filter('status', -1)"> All status </li>
+								<li *ngFor="let status of statuses" (click)="filter('status', status.id)"
+								    class="dropdown-item" [class.active]="currentFilter('status', status.id)">
+									{{ status.name }}
+								</li>
+							</ul>
+						</span>
+					</div>
+				</div>
+
 				<table class="table">
 					<thead>
 					<tr>

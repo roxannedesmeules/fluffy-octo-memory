@@ -74,6 +74,14 @@ export class ListComponent implements OnInit, OnDestroy {
 		this.updateList();
 	}
 
+	filterBy ( attr: string ): boolean {
+		return this.service.filters.isSet(attr);
+	}
+
+	currentFilter ( attr: string, value: any ): boolean {
+		return (this.service.filters[ attr ] === value);
+	}
+
 	/**
 	 *
 	 */

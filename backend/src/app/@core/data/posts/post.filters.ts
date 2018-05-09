@@ -1,7 +1,7 @@
 export class PostFilters {
 	// filters
 	public status: number = -1;
-	public lang: string;
+	public lang: string | number;
 
 	// sorting
 	public orderBy: string;
@@ -12,6 +12,13 @@ export class PostFilters {
 
 	constructor () {}
 
+	public isSet ( attribute ) {
+		if (this[ attribute ] === null || this[ attribute ] === undefined) {
+			return false;
+		}
+
+		return (this[ attribute ] !== -1);
+	}
 	/**
 	 *
 	 * @param {string} attribute
@@ -33,7 +40,7 @@ export class PostFilters {
 			params.status = this.status;
 		}
 
-		if (this.lang) {
+		if (this.lang !== -1) {
 			params.lang = this.lang;
 		}
 
