@@ -10,6 +10,24 @@
 				Tags
 			</div>
 			<div class="card-body">
+				<div class="row mb-3">
+					<div class="col-12">
+						<span ngbDropdown placement="bottom-left">
+							<button type="button" rel="nofollow" class="btn" ngbDropdownToggle
+							        [class.btn-outline-secondary]="!filterBy('lang')" [class.btn-outline-primary]="filterBy('lang')">
+								Languages
+							</button>
+							<ul class="dropdown-menu" ngbDropdownMenu>
+								<li class="dropdown-item" (click)="filter('lang', -1)"> All languages </li>
+								<li *ngFor="let lang of languages" (click)="filter('lang', lang.id)"
+								    class="dropdown-item" [class.active]="currentFilter('lang', lang.id)">
+									{{ lang.name }}
+								</li>
+							</ul>
+						</span>
+					</div>
+				</div>
+
 				<table id="tags-list" class="table">
 					<thead>
 					<tr>
@@ -37,7 +55,7 @@
 						<td>{{ tag.firstTranslation().name }}</td>
 						<td>{{ tag.firstTranslation().slug }}</td>
 						<td>{{ tag.translations | column: "language" }}</td>
-						<td>{{ tag.updated_on }}</td>
+						<td>{{ tag.updated_on || "--" }}</td>
 					</tr>
 					<tr *ngIf="tags.length === 0">
 						<td colspan="5" class="text-center"> No data to show </td>

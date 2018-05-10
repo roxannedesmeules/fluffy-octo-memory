@@ -19,6 +19,7 @@ export class PostFilters {
 
 		return (this[ attribute ] !== -1);
 	}
+
 	/**
 	 *
 	 * @param {string} attribute

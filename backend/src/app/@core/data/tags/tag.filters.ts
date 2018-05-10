@@ -10,6 +10,14 @@ export class TagFilters {
 
 	constructor () {}
 
+	public isSet ( attribute ) {
+		if (this[ attribute ] === null || this[ attribute ] === undefined) {
+			return false;
+		}
+
+		return (this[ attribute ] !== -1);
+	}
+
 	/**
 	 *
 	 * @param attr
