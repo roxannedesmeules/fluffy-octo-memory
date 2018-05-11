@@ -5,8 +5,8 @@ import { RouterModule } from "@angular/router";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
 import { FooterComponent, HeaderComponent } from "./components";
+import { BlogComponent, HomeComponent } from "./layout";
 import { TopCategoriesComponent, TopTagsComponent } from "./widgets";
-import { LayoutComponent } from './layout/layout.component';
 
 
 const BASE_MODULES = [
@@ -20,7 +20,9 @@ const COMPONENTS = [
 	//  components
 	FooterComponent,
 	HeaderComponent,
-	LayoutComponent,
+
+	HomeComponent,
+	BlogComponent,
 
 	//  widgets
 	TopCategoriesComponent,
