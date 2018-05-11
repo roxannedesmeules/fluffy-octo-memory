@@ -6,6 +6,7 @@ import { AppRoutingModule } from "./app-routing.module";
 
 import { AppComponent } from "./app.component";
 import { BlogModule } from "./blog/blog.module";
+import { HomeModule } from "./home/home.module";
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { BlogModule } from "./blog/blog.module";
 		AppRoutingModule,
 
 		ThemeModule,
+		HomeModule,
 		BlogModule,
 	],
 	providers    : [],

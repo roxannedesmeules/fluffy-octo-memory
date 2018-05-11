@@ -1,0 +1,10 @@
+.hero-image {
+	background   : {
+		image    : linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../../assets/img/header.jpg");
+		size     : cover;
+		position : center center;
+	}
+
+	-webkit-filter : grayscale(100%);
+	filter         : grayscale(100%);
+}
