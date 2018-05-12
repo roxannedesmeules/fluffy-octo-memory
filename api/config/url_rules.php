@@ -10,13 +10,15 @@ return [
 	"v1/doc"     => "v1/default/doc",
 	"v1/api"     => "v1/default/api",
 
+	[ "class" => 'yii\rest\UrlRule', "controller" => [ "v1/category" ] ],
+
 	//  V1 Admin rules
 	"$admin/doc" => "$admin/default/doc",
 	"$admin/api" => "$admin/default/api",
 
-	"OPTIONS $admin/auth"                                    => "$admin/auth/options",
-	"POST    $admin/auth"                                    => "$admin/auth/login",
-	"DELETE  $admin/auth"                                    => "$admin/auth/logout",
+	"OPTIONS $admin/auth" => "$admin/auth/options",
+	"POST    $admin/auth" => "$admin/auth/login",
+	"DELETE  $admin/auth" => "$admin/auth/logout",
 
 	//  categories
 	[ "class" => 'yii\rest\UrlRule', "controller" => [ "$admin/category" ] ],

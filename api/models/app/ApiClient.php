@@ -72,4 +72,14 @@ class ApiClient extends \yii\db\ActiveRecord
 	{
 		return self::find()->name(self::ADMIN)->key($key)->one();
 	}
+
+	/**
+	 * @param $key
+	 *
+	 * @return \app\models\app\ApiClient|array|null
+	 */
+	public static function findBlogKey ( $key )
+	{
+		return self::find()->name(self::BLOG)->key($key)->one();
+	}
 }
