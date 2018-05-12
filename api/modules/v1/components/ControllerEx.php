@@ -3,9 +3,8 @@ namespace app\modules\v1\components;
 
 use app\helpers\ArrayHelperEx;
 use app\helpers\ParamsHelper;
-use app\modules\v1\admin\components\security\ApiClientSecurity;
-use app\modules\v1\admin\components\security\ApiTokenSecurity;
-use yii\filters\auth\HttpBasicAuth;
+use app\modules\v1\components\headers\Language;
+use app\modules\v1\components\security\ApiClientSecurity;
 use yii\rest\Controller;
 use yii\rest\OptionsAction;
 use yii\web\Request;
@@ -55,6 +54,7 @@ class ControllerEx extends Controller
 					],
 				],
 			],
+			"Language"    => Language::className(),
 			"ClientToken" => ApiClientSecurity::className(),
 		]);
 	}
