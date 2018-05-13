@@ -1,13 +1,27 @@
 {
-  "extends": "../tsconfig.json",
-  "compilerOptions": {
-    "outDir": "../out-tsc/app",
-    "baseUrl": "./",
-    "module": "es2015",
-    "types": []
-  },
-  "exclude": [
-    "test.ts",
-    "**/*.spec.ts"
-  ]
+	"extends": "../tsconfig.json",
+	"compilerOptions": {
+		"outDir": "../out-tsc/app",
+		"baseUrl": "./",
+		"module": "es2015",
+		"types": [],
+		"paths": {
+			"@core/*": [
+				"./app/@core/*"
+			],
+			"@shared/*": [
+				"./app/@shared/*"
+			],
+			"@theme/*": [
+				"./app/@theme/*"
+			],
+			"env/*": [
+				"./environments/*"
+			]
+		}
+	},
+	"exclude": [
+		"test.ts",
+		"**/*.spec.ts"
+	]
 }
