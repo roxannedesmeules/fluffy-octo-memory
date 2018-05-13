@@ -4,6 +4,7 @@ import { DirectivesModule } from "../@shared/directives/directives.module";
 
 import { HomeRoutingModule } from "./home-routing.module";
 import { HomeComponent } from "./home.component";
+import { FeaturedPostComponent } from './featured-post/featured-post.component';
 
 @NgModule({
 	imports      : [
@@ -13,6 +14,7 @@ import { HomeComponent } from "./home.component";
 	],
 	declarations : [
 		HomeComponent,
+		FeaturedPostComponent,
 	],
 })
 export class HomeModule {

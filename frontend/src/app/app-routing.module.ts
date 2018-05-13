@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { HomeComponent } from "./@theme/layout";
+import { BlogComponent, HomeComponent } from "./@theme/layout";
 
 const routes: Routes = [
 	{
@@ -11,6 +11,15 @@ const routes: Routes = [
 				path         : "",
 				loadChildren : "./home/home.module#HomeModule",
 				pathMatch    : "full",
+			},
+		],
+	}, {
+		path      : "blog",
+		component : BlogComponent,
+		children  : [
+			{
+				path         : "",
+				loadChildren : "./blog/blog.module#BlogModule",
 			},
 		],
 	},
