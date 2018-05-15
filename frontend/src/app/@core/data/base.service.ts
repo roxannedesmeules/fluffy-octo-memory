@@ -48,7 +48,7 @@ export abstract class BaseService {
 	 * @private
 	 */
 	protected _url ( id?: number | string ): string {
-		return ((this.baseUrl) ? "/" + this.baseUrl : "") + "/" + this.modelName + ((id) ? "/" + id : "");
+		return ((this.baseUrl) ? this.baseUrl + "/" : "") + this.modelName + ((id) ? "/" + id : "");
 	}
 
 	mapError ( err ) {

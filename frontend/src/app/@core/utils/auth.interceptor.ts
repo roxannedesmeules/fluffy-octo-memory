@@ -11,9 +11,10 @@ export class AuthInterceptor implements HttpInterceptor {
 		const reqClone = req.clone({
 			url        : AuthInterceptor._fullUrl(req.url),
 			setHeaders : {
-				"Accept"        : "application/json",
-				"Api-Client"    : AuthInterceptor._clientHeader(),
-				"Client-type"   : "application/json",
+				"Accept"          : "application/json",
+				"Api-Client"      : AuthInterceptor._clientHeader(),
+				"Accept-Language" : navigator.language,
+				"Client-type"     : "application/json",
 			},
 		});
 

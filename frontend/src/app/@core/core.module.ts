@@ -1,3 +1,4 @@
+import { HttpClientModule } from "@angular/common/http";
 import { ModuleWithProviders, NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { DataModule } from "./data/data.module";
@@ -9,6 +10,7 @@ const PROVIDERS = [
 @NgModule({
 	imports      : [
 		CommonModule,
+		HttpClientModule,
 	],
 	declarations : [],
 })
