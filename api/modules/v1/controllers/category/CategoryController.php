@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\v1\controllers;
+namespace app\modules\v1\controllers\category;
 
 use app\modules\v1\components\ControllerEx;
 use app\modules\v1\models\CategoryEx;

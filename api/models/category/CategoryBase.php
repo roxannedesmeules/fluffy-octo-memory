@@ -19,6 +19,7 @@ use Yii;
  * @property CategoryLang[] $categoryLangs
  * @property Lang[]         $langs
  * @property Post[]         $posts
+ * @property integer        $postCount
  */
 abstract class CategoryBase extends \yii\db\ActiveRecord
 {
@@ -95,6 +96,12 @@ abstract class CategoryBase extends \yii\db\ActiveRecord
 	public function getPosts ()
 	{
 		return $this->hasMany(Post::className(), [ 'category_id' => 'id' ]);
+	}
+
+	/** @return int|string */
+	public function getPostCount ()
+	{
+		return $this->hasMany(Post::className(), [ "category_id" => "id" ])->count();
 	}
 	
 	/**

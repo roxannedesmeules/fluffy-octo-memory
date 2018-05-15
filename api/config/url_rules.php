@@ -10,7 +10,14 @@ return [
 	"v1/doc"     => "v1/default/doc",
 	"v1/api"     => "v1/default/api",
 
-	[ "class" => 'yii\rest\UrlRule', "controller" => [ "v1/category" ] ],
+	//  categories
+	[ "class" => 'yii\rest\UrlRule', "controller" => [ "v1/categories" => "v1/category/category" ], ],
+	[
+		"class"         => 'yii\rest\UrlRule',
+		"controller"    => [ "v1/categories/posts" => "v1/category/post" ],
+		"except"        => [ "create", "update", "delete" ],
+		"extraPatterns" => [ "GET count" => "count", "OPTIONS count" => "options", ],
+	],
 
 	//  V1 Admin rules
 	"$admin/doc" => "$admin/default/doc",
