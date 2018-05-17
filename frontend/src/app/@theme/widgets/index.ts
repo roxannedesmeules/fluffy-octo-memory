@@ -1,2 +1,2 @@
-export * from './top-categories/top-categories.component';
+export * from './categories/categories.component';
 export * from './top-tags/top-tags.component';
