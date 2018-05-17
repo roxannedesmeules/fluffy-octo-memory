@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { Router } from "@angular/router";
 
 @Component({
 	selector    : "app-layout-blog",
@@ -7,7 +8,10 @@ import { Component } from "@angular/core";
 })
 export class BlogComponent {
 
-	constructor () {
+	constructor (private router: Router) {
 	}
 
+	currentPageIs ( route: string ): boolean {
+		return this.router.isActive(route, true);
+	}
 }

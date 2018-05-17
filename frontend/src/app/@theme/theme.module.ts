@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { ModuleWithProviders, NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
@@ -6,7 +6,7 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
 import { FooterComponent, HeaderComponent } from "./components";
 import { BlogComponent, HomeComponent } from "./layout";
-import { TopCategoriesComponent, TopTagsComponent } from "./widgets";
+import { CategoriesComponent, TopTagsComponent } from "./widgets";
 
 
 const BASE_MODULES = [
@@ -25,9 +25,11 @@ const COMPONENTS = [
 	BlogComponent,
 
 	//  widgets
-	TopCategoriesComponent,
+	CategoriesComponent,
 	TopTagsComponent,
 ];
+
+const PROVIDERS = [];
 
 @NgModule({
 	imports      : [ ...BASE_MODULES ],
@@ -35,5 +37,11 @@ const COMPONENTS = [
 	exports      : [ ...COMPONENTS ],
 })
 export class ThemeModule {
+	static forRoot (): ModuleWithProviders {
+		return <ModuleWithProviders>{
+			ngModule  : ThemeModule,
+			providers : [ ...PROVIDERS ],
+		};
+	}
 }
 
