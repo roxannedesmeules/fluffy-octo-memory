@@ -2,7 +2,6 @@ import { Component, OnInit } from "@angular/core";
 import { Category, CategoryService } from "@core/data/categories";
 import { CategoryPostService } from "@core/data/categories/category-post.service";
 import { ErrorResponse } from "@core/data/error-response.model";
-import { forkJoin } from "rxjs/observable/forkJoin";
 
 @Component({
 	selector    : "app-widget-categories",
@@ -25,18 +24,31 @@ export class CategoriesComponent implements OnInit {
 	 * Call the Category service and get all categories
 	 */
 	private getCategoriesWithCount () {
-		forkJoin(
-				this._categoryService.findAll(),
-				this._categoryPostService.getCount(),
-		).subscribe(
-				( result: any[] ) => {
-					this.categories = result[ 0 ];
+		this._categoryService
+			.findAll()
+			.subscribe(
+				(result: Category[]) => {
+					//  set categories
+					this.categories = result;
 
-					this.categories.forEach((cat: Category) => { cat.setPostCount(result[ 1 ]); });
+					this.getCategoriesCount();
 				},
-				( err: ErrorResponse ) => {
-					console.log(err);
-				},
-		);
+				(err: ErrorResponse) => { console.log(err); }
+			);
+	}
+
+	/**
+	 * Call the Category Post service and get the number of posts for every categories
+	 */
+	private getCategoriesCount () {
+		//  get post count for all categories
+		this._categoryPostService
+			.getCount()
+			.subscribe((result: any[]) => {
+				//  assign the count found to each categories
+				this.categories.forEach((cat: Category) => {
+					cat.setPostCount(result);
+				});
+			});
 	}
 }
