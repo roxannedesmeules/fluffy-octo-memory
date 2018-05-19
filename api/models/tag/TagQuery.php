@@ -33,6 +33,11 @@ class TagQuery extends \yii\db\ActiveQuery
 		return $this->andWhere([ "id" => $tagId ]);
 	}
 
+	public function withPublishedPosts ()
+	{
+		return $this->joinWith("publishedPosts");
+	}
+
 	/**
 	 * @return $this
 	 */

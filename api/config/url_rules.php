@@ -19,6 +19,9 @@ return [
 		"extraPatterns" => [ "GET count" => "count", "OPTIONS count" => "options", ],
 	],
 
+	//  tags
+	[ "class" => 'yii\rest\UrlRule', "controller" => [ "v1/tag" ] ],
+
 	//  V1 Admin rules
 	"$admin/doc" => "$admin/default/doc",
 	"$admin/api" => "$admin/default/api",
