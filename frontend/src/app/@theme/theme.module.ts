@@ -6,7 +6,7 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
 import { FooterComponent, HeaderComponent } from "./components";
 import { BlogComponent, HomeComponent } from "./layout";
-import { CategoriesComponent, TopTagsComponent } from "./widgets";
+import { CategoriesComponent, TagsComponent } from "./widgets";
 
 
 const BASE_MODULES = [
@@ -26,7 +26,7 @@ const COMPONENTS = [
 
 	//  widgets
 	CategoriesComponent,
-	TopTagsComponent,
+	TagsComponent,
 ];
 
 const PROVIDERS = [];
