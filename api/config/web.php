@@ -90,16 +90,16 @@ $config = [
 				$response = $event->sender;
 
 				if ( !is_null($response->data) ) {
-					if ( !is_null(Yii::$app->getErrorHandler()->exception) ) {
-						$response->data = [
-							"code"    => $response->getStatusCode(),
-							"message" => $response->data[ "message" ],
-						];
-					} else if ( !$response->getIsSuccessful() ) {
-						$response->data = [
-							"code"  => $response->getStatusCode(),
-							"error" => $response->data,
-						];
+					if (!$response->getIsSuccessful()) {
+						$data = [ "code" => $response->getStatusCode(), ];
+
+						if (isset($response->data[ "error" ])) {
+							$data[ "error" ] = $response->data[ "error" ];
+						}
+
+						if (isset($response->data[ "message" ])) {
+							$data[ "message" ] = $response->data[ "message" ];
+						}
 					}
 				}
 			},

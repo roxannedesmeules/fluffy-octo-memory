@@ -11,7 +11,11 @@ return [
 	"v1/api"     => "v1/default/api",
 
 	//  categories
-	[ "class" => 'yii\rest\UrlRule', "controller" => [ "v1/categories" => "v1/category/category" ], ],
+	[
+		"class"      => 'yii\rest\UrlRule',
+		"controller" => [ "v1/categories" => "v1/category/category" ],
+		"except"     => [ "create", "update", "delete" ],
+	],
 	[
 		"class"         => 'yii\rest\UrlRule',
 		"controller"    => [ "v1/categories/posts" => "v1/category/post" ],
@@ -20,7 +24,18 @@ return [
 	],
 
 	//  tags
-	[ "class" => 'yii\rest\UrlRule', "controller" => [ "v1/tag" ] ],
+	[
+		"class"      => 'yii\rest\UrlRule',
+		"controller" => [ "v1/tag" ],
+		"except"     => [ "create", "update", "delete" ],
+	],
+
+	//  posts
+	[
+		"class"      => 'yii\rest\UrlRule',
+		"controller" => [ "v1/post" ],
+		"except"     => [ "create", "update", "delete" ],
+	],
 
 	//  V1 Admin rules
 	"$admin/doc" => "$admin/default/doc",
