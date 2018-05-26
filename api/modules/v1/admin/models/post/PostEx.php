@@ -55,8 +55,8 @@ class PostEx extends Post
 			"category_id",
 			"post_status_id",
 			"translations" => "postLangs",
-			"created_on"   => function ( self $model ) { return DateHelper::formatDate($model->created_on, self::DATE_FORMAT); },
-			"updated_on"   => function ( self $model ) { return DateHelper::formatDate($model->updated_on, self::DATE_FORMAT); },
+			"created_on"   => function ( self $model ) { return DateHelper::formatDate($model->created_on); },
+			"updated_on"   => function ( self $model ) { return DateHelper::formatDate($model->updated_on); },
 		];
 	}
 

@@ -26,6 +26,7 @@ class PostLangEx extends PostLang
 	 *     @SWG\Property( property = "language",  ref  = "#/definitions/Lang" ),
 	 *     @SWG\Property( property = "title",     type = "string" ),
 	 *     @SWG\Property( property = "slug",      type = "string" ),
+	 *     @SWG\Property( property = "summary",   type = "string" ),
 	 *     @SWG\Property( property = "content",   type = "string" ),
 	 *     @SWG\Property( property = "cover",     ref  = "#/definitions/File" ),
 	 *     @SWG\Property( property = "cover_alt", type = "string" ),
@@ -43,14 +44,15 @@ class PostLangEx extends PostLang
 			"language"  => "lang",
 			"title",
 			"slug",
+			"summary",
 			"content",
 			"cover"     => "file",
 			"cover_alt" => "file_alt",
 			"author"    => function ( self $model ) {
 				return [ "id" => $model->user_id, "fullname" => $model->user->userProfile->getFullname() ];
 			},
-			"created_on"   => function ( self $model ) { return DateHelper::formatDate($model->created_on, self::DATE_FORMAT); },
-			"updated_on"   => function ( self $model ) { return DateHelper::formatDate($model->updated_on, self::DATE_FORMAT); },
+			"created_on"   => function ( self $model ) { return DateHelper::formatDate($model->created_on); },
+			"updated_on"   => function ( self $model ) { return DateHelper::formatDate($model->updated_on); },
 		];
 	}
 
@@ -96,6 +98,8 @@ class PostLangEx extends PostLang
 					return ($found) ? ($model->post_id !== $found->post_id) : true;
 				},
 			],
+
+			[ "summary", "string", "max" => 180, "tooLong" => self::ERR_FIELD_TOO_LONG ],
 
 			[ "content", "string", "message" => self::ERR_FIELD_TYPE ],
 		];

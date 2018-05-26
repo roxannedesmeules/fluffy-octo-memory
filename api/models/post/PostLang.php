@@ -17,7 +17,7 @@ use yii\web\UploadedFile;
  * @category post
  * @package  app\models\post
  */
-class PostLang extends PostLangBase
+class   PostLang extends PostLangBase
 {
 	/**
 	 * This method will create a single translation for a specific post. First, we will make sure the post itself exists,
@@ -53,6 +53,7 @@ class PostLang extends PostLangBase
 		$model->lang_id = (int) $langId;
 		$model->title   = ArrayHelperEx::getValue($data, "title");
 		$model->slug    = ArrayHelperEx::getValue($data, "slug");
+		$model->summary = ArrayHelperEx::getValue($data, "summary");
 		$model->content = ArrayHelperEx::getValue($data, "content");
 
 		//  if the model isn't valid, then return all errors
@@ -164,6 +165,7 @@ class PostLang extends PostLangBase
 
 		$model->title   = ArrayHelperEx::getValue($data, "title", $model->title);
 		$model->slug    = ArrayHelperEx::getValue($data, "slug", $model->slug);
+		$model->summary = ArrayHelperEx::getValue($data, "summary", $model->summary);
 		$model->content = ArrayHelperEx::getValue($data, "content", $model->content);
 
 		//  if the model isn't valid, then return all errors

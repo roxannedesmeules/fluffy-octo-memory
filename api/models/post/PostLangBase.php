@@ -16,6 +16,7 @@ use Yii;
  * @property int    $user_id
  * @property string $title
  * @property string $slug
+ * @property string $summary
  * @property string $content
  * @property int    $file_id
  * @property string $file_alt
@@ -30,8 +31,6 @@ use Yii;
  */
 abstract class PostLangBase extends \yii\db\ActiveRecord
 {
-	const DATE_FORMAT = 'Y-m-d H:i:s';
-
 	const ERROR   = 0;
 	const SUCCESS = 1;
 
@@ -197,11 +196,11 @@ abstract class PostLangBase extends \yii\db\ActiveRecord
 
 		switch ( $insert ) {
 			case true:
-				$this->created_on = date(DateHelper::DATE_FORMAT);
+				$this->created_on = date(DateHelper::DATETIME_FORMAT);
 				break;
 
 			case false:
-				$this->updated_on = date(DateHelper::DATE_FORMAT);
+				$this->updated_on = date(DateHelper::DATETIME_FORMAT);
 				break;
 		}
 

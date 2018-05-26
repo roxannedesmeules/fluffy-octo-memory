@@ -23,7 +23,7 @@ class DateHelper
 	 *
 	 * @return false|string
 	 */
-	public static function formatDate ( $date, $format = self::DATE_FORMAT, $emptyStr = "" )
+	public static function formatDate ( $date, $format = self::DATETIME_FORMAT, $emptyStr = "" )
 	{
 		//  return empty string if date is empty
 		if (self::isEmpty($date))
