@@ -1,0 +1,92 @@
+<section class="dashboard-counts no-padding-bottom">
+	<div class="container-fluid">
+		<div class="row bg-white has-shadow">
+			<div *ngFor="let item of counts" class="col-xl-4 col-sm-6">
+				<div class="item d-flex align-items-center">
+					<div class="icon" [ngClass]="item.color">
+						<i [class]="item.icon"></i>
+					</div>
+
+					<div class="title">
+						<span [innerHtml]="item.title"></span>
+						<div class="progress">
+							<div role="progressbar" style="height: 4px;" [style.width]="item.rate"
+							     class="progress-bar" [ngClass]="item.color"></div>
+						</div>
+					</div>
+					<div class="number"><strong>{{ item.count }}</strong></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="updates">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="recent-updates card">
+					<div class="card-close"></div>
+					<div class="card-header"> <h3 class="h4"> Recently Published Posts </h3> </div>
+					<div class="card-body no-padding">
+						<div class="item d-flex justify-content-between">
+							<div class="info d-flex">
+								<div class="icon"><i class="icon-rss-feed"></i></div>
+								<div class="title">
+									<h5> Project title </h5>
+									<p> Lorem ipsum dolor sit amet, consectetur adipisicing elit sed. </p>
+								</div>
+							</div>
+							<div class="date text-right">
+								<strong>24</strong>
+								<span>May</span>
+							</div>
+						</div>
+
+						<div class="item d-flex justify-content-between">
+							<div class="info d-flex">
+								<div class="icon"><i class="icon-rss-feed"></i></div>
+								<div class="title">
+									<h5> Project title </h5>
+									<p> Lorem ipsum dolor sit amet, consectetur adipisicing elit sed. </p>
+								</div>
+							</div>
+							<div class="date text-right">
+								<strong>24</strong>
+								<span>May</span>
+							</div>
+						</div>
+
+						<div class="item d-flex justify-content-between">
+							<div class="info d-flex">
+								<div class="icon"><i class="icon-rss-feed"></i></div>
+								<div class="title">
+									<h5> Project title </h5>
+									<p> Lorem ipsum dolor sit amet, consectetur adipisicing elit sed. </p>
+								</div>
+							</div>
+							<div class="date text-right">
+								<strong>24</strong>
+								<span>May</span>
+							</div>
+						</div>
+
+						<div class="item d-flex justify-content-between">
+							<div class="info d-flex">
+								<div class="icon"><i class="icon-rss-feed"></i></div>
+								<div class="title">
+									<h5> Project title </h5>
+									<p> Lorem ipsum dolor sit amet, consectetur adipisicing elit sed. </p>
+								</div>
+							</div>
+							<div class="date text-right">
+								<strong>24</strong>
+								<span>May</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

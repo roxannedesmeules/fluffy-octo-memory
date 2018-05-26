@@ -8,6 +8,7 @@ export class PostLang {
 	public language: Lang;
 	public title: string;
 	public slug: string;
+	public summary: string;
 	public content: string;
 
 	public author: Author;
@@ -26,6 +27,7 @@ export class PostLang {
 		this.language = new Lang(model.language);
 		this.title    = model.title;
 		this.slug     = model.slug;
+		this.summary  = model.summary;
 		this.content  = model.content;
 
 		this.cover     = new PostCover(model.cover);
@@ -43,6 +45,7 @@ export class PostLang {
 			lang_id  : this.lang_id,
 			title    : this.title,
 			slug     : this.slug,
+			summary  : this.summary,
 			content  : this.content,
 			file_alt : this.cover_alt,
 		};

@@ -92,6 +92,7 @@ export class DetailComponent implements OnInit {
 				cover_alt : this._builder.control(translation.cover_alt),
 				title     : this._builder.control(translation.title),
 				slug      : this._builder.control(translation.slug),
+				summary   : this._builder.control(translation.summary, [ Validators.maxLength(180) ]),
 				content   : this._builder.control(translation.content),
 			});
 
