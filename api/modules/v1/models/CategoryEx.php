@@ -5,6 +5,7 @@ namespace app\modules\v1\models;
 use app\models\category\Category;
 use app\models\category\CategoryLang;
 use app\models\post\PostStatus;
+use app\modules\v1\models\post\PostEx;
 
 /**
  * Class CategoryEx
