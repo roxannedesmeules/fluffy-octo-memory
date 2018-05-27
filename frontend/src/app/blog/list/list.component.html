@@ -3,7 +3,7 @@
 		<!-- post -->
 		<div class="post col-xl-6" *ngFor="let post of list">
 			<div class="post-thumbnail">
-				<a href="post.html">
+				<a [routerLink]="post.getUrl()">
 					<img [src]="post.cover.url" [alt]="post.cover.alt" class="img-fluid">
 				</a>
 			</div>
@@ -12,7 +12,7 @@
 					<div class="date meta-last">{{ post.published_on | date:'MMMM d | y' }}</div>
 					<div class="category"><a href="#">{{ post.category.name }}</a></div>
 				</div>
-				<a href="post.html">
+				<a [routerLink]="post.getUrl()">
 					<h3 class="h4">{{ post.title }}</h3>
 				</a>
 				<p class="text-muted">{{ post.summary }}</p>

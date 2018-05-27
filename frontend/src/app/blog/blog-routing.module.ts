@@ -1,12 +1,19 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
+import { DetailResolve } from "@core/data/posts";
 import { ListComponent } from "./list/list.component";
-import { TutorialComponent } from "./tutorial/tutorial.component";
+import { PostComponent } from "./post/post.component";
 
 const routes: Routes = [
 	{
 		path      : "",
 		component : ListComponent,
+	}, {
+		path      : ":category/:post",
+		component : PostComponent,
+		resolve   : {
+			post : DetailResolve,
+		}
 	},
 
 ];

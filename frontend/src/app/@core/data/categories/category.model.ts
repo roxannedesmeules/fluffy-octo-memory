@@ -17,6 +17,10 @@ export class Category {
 		this.slug = model.slug;
 	}
 
+	public getUrl (): string {
+		return this.slug;
+	}
+
 	setPostCount ( counts: CategoryCount[] ) {
 		counts.forEach((el) => {
 			if (el.id === this.id) {

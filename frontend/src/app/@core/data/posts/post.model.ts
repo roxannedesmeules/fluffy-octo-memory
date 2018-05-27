@@ -28,4 +28,8 @@ export class Post {
 		this.author   = new Author(model.author);
 		this.published_on = model.published_on;
 	}
+
+	public getUrl (): string {
+		return this.category.slug + "/" + this.slug;
+	}
 }
