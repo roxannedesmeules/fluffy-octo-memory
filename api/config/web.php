@@ -100,6 +100,8 @@ $config = [
 						if (isset($response->data[ "message" ])) {
 							$data[ "message" ] = $response->data[ "message" ];
 						}
+
+						$response->data = $data;
 					}
 				}
 			},

@@ -17,8 +17,22 @@ use yii\web\UploadedFile;
  * @category post
  * @package  app\models\post
  */
-class   PostLang extends PostLangBase
+class PostLang extends PostLangBase
 {
+	/**
+	 * @return array
+	 */
+	public function canBePublished ()
+	{
+		$this->setScenario(self::SCENARIO_PUBLISHED);
+
+		if (!$this->validate()) {
+			return self::buildError($this->getErrors());
+		}
+
+		return self::buildSuccess([]);
+	}
+
 	/**
 	 * This method will create a single translation for a specific post. First, we will make sure the post itself exists,
 	 * then verify that the language is valid and create the translation.

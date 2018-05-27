@@ -20,24 +20,25 @@ use Yii;
  * @property string $published_on
  *
  * Relations :
- * @property AssoTagPost[]  $assoTagPosts
- * @property Tag[]          $tags
- * @property Category       $category
- * @property PostStatusBase $postStatus
- * @property PostLangBase[] $postLangs
- * @property Lang[]         $langs
+ * @property AssoTagPost[] $assoTagPosts
+ * @property Tag[]         $tags
+ * @property Category      $category
+ * @property PostStatus    $postStatus
+ * @property PostLang[]    $postLangs
+ * @property Lang[]        $langs
  */
 abstract class PostBase extends \yii\db\ActiveRecord
 {
 	const ERROR   = 0;
 	const SUCCESS = 1;
 
-	const ERR_ON_SAVE            = "ERR_ON_SAVE";
-	const ERR_ON_DELETE          = "ERR_ON_DELETE";
-	const ERR_NOT_FOUND          = "ERR_NOT_FOUND";
-	const ERR_CATEGORY_NOT_FOUND = "ERR_CATEGORY_NOT_FOUND";
-	const ERR_STATUS_NOT_FOUND   = "ERR_POST_STATUS_NOT_FOUND";
-	const ERR_POST_PUBLISHED     = "ERR_POST_PUBLISHED";
+	const ERR_ON_SAVE             = "ERR_ON_SAVE";
+	const ERR_ON_DELETE           = "ERR_ON_DELETE";
+	const ERR_NOT_FOUND           = "ERR_NOT_FOUND";
+	const ERR_CATEGORY_NOT_FOUND  = "ERR_CATEGORY_NOT_FOUND";
+	const ERR_STATUS_NOT_FOUND    = "ERR_POST_STATUS_NOT_FOUND";
+	const ERR_POST_PUBLISHED      = "ERR_POST_PUBLISHED";
+	const ERR_MISSING_TRANSLATION = "ERR_MISSING_TRANSLATION_ON_PUBLISHED";
 
 	const ERR_FIELD_REQUIRED    = "ERR_FIELD_VALUE_REQUIRED";
 	const ERR_FIELD_TYPE        = "ERR_FIELD_VALUE_WRONG_TYPE";

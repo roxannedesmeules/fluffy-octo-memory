@@ -240,16 +240,6 @@ class PostEx extends Post
 		//  start a transaction to rollback at any moment if there is a problem
 		$transaction = self::$db->beginTransaction();
 
-		//  update the post entry
-		$result = self::updatePost($postId, $post);
-
-		//  in case of error, rollback and return error
-		if ($result[ "status" ] === self::ERROR) {
-			$transaction->rollBack();
-
-			return $result;
-		}
-
 		//  create or update all translations
 		$result = PostLangEx::manageTranslations($postId, $translations);
 
@@ -260,6 +250,16 @@ class PostEx extends Post
 			return self::buildError([
 				"translations" => ArrayHelperEx::filterInArrayAtIndex(PostLangEx::ERROR, $result, "status")
 			]);
+		}
+
+		//  update the post entry
+		$result = self::updatePost($postId, $post);
+
+		//  in case of error, rollback and return error
+		if ($result[ "status" ] === self::ERROR) {
+			$transaction->rollBack();
+
+			return $result;
 		}
 
 		//  commit all changes made to DB

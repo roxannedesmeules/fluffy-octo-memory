@@ -167,18 +167,13 @@ class PostController extends ControllerAdminEx
 		if ($result[ "status" ] === PostEx::ERROR) {
 			switch ($result[ "error" ]) {
 				case PostEx::ERR_NOT_FOUND :
-					throw new NotFoundHttpException(PostEx::ERR_NOT_FOUND);
+					return $this->error(404, PostEx::ERR_NOT_FOUND);
 
 				case PostEx::ERR_ON_SAVE :
-					throw new ServerErrorHttpException(PostEx::ERR_ON_SAVE);
+					return $this->error(500, PostEx::ERR_ON_SAVE);
 
 				default :
-					if ( is_array($result[ "error" ]) ) {
-						$this->unprocessableResult($result[ "error" ]);
-					}
-
-					//  if here, then error wasn't handled properly but should still be thrown
-					throw new ServerErrorHttpException(json_encode($result[ "error" ]));
+					return $this->error(400, $result[ "error" ]);
 			}
 		}
 

@@ -94,6 +94,10 @@ class ControllerAdminEx extends Controller
 	{
 		$this->response->setStatusCode($code);
 
+		if ( is_array($error) ) {
+			return [ "error" => $error ];
+		}
+
 		return [ "message" => $error ];
 	}
 

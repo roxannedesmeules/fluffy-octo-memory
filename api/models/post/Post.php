@@ -3,6 +3,7 @@
 namespace app\models\post;
 use app\helpers\ArrayHelperEx;
 use app\helpers\DateHelper;
+use app\models\app\Lang;
 use app\models\category\Category;
 
 
@@ -14,6 +15,46 @@ use app\models\category\Category;
  */
 class Post extends PostBase
 {
+	/**
+	 * @return bool
+	 */
+	public function canBePublished ()
+	{
+		$error = [];
+
+		//  Verify that the post has a translation for each language available
+		$languages = Lang::find()->all();
+
+		foreach ($languages as $lang) {
+			$found = ArrayHelperEx::filterInArrayAtIndex($lang->id, $this->postLangs, "lang_id");
+
+			if (empty($found)) {
+				$error = self::ERR_MISSING_TRANSLATION;
+			}
+		}
+
+		if (!empty($error)) {
+			return self::buildError($error);
+		}
+
+		$error = [];
+
+		//  Verify that all fields are filled
+		foreach ($this->postLangs as $postLang) {
+			$temp = $postLang->canBePublished();
+
+			if ($temp[ "status" ] === PostLang::ERROR) {
+				$error[ $postLang->lang->icu ] = $temp[ "error" ];
+			}
+		}
+
+		if (!empty($error)) {
+			return self::buildError($error);
+		}
+
+		return self::buildSuccess([]);
+	}
+
 	/**
 	 * This method will create a single post entry. At first, verifications will be made to make sure the category and
 	 * the post status exists, then the entry will be created.
@@ -151,6 +192,16 @@ class Post extends PostBase
 		// if the model doesn't validate, return error
 		if ( !$model->validate() ) {
 			return self::buildError($model->getErrors());
+		}
+
+		if ($model->isAttributeChanged("post_status_id") && $model->post_status_id === PostStatus::PUBLISHED) {
+			$post = Post::find()->id($postId)->one();
+
+			$result = $post->canBePublished();
+
+			if ($result[ "status" ] === Post::ERROR) {
+				return $result;
+			}
 		}
 
 		// if the model doesn't save, then return error

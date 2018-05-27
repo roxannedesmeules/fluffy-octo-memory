@@ -31,6 +31,8 @@ use Yii;
  */
 abstract class PostLangBase extends \yii\db\ActiveRecord
 {
+	const SCENARIO_PUBLISHED = "published";
+
 	const ERROR   = 0;
 	const SUCCESS = 1;
 
@@ -100,11 +102,17 @@ abstract class PostLangBase extends \yii\db\ActiveRecord
 			[ "title", "required", "message" => self::ERR_FIELD_REQUIRED ],
 			[ "title", "string", "max" => 255, "tooLong" => self::ERR_FIELD_TOO_LONG, ],
 
+			[ "slug", "required", "on" => self::SCENARIO_PUBLISHED, "message" => self::ERR_FIELD_REQUIRED ],
 			[ "slug", "string", "max" => 255, "tooLong" => self::ERR_FIELD_TOO_LONG, ],
 			[ "slug", "unique", "targetAttribute" => [ "slug", "lang_id" ], "message" => self::ERR_FIELD_NOT_UNIQUE ],
 
+			[ "summary", "required", "on" => self::SCENARIO_PUBLISHED, "message" => self::ERR_FIELD_REQUIRED ],
+			[ "summary", "string", "max" => 180, "tooLong" => self::ERR_FIELD_TOO_LONG ],
+
+			[ "content", "required", "on" => self::SCENARIO_PUBLISHED, "message" => self::ERR_FIELD_REQUIRED ],
 			[ "content", "string", "message" => self::ERR_FIELD_TYPE ],
 
+			[ "file_id", "required", "on" => self::SCENARIO_PUBLISHED, "message" => self::ERR_FIELD_REQUIRED ],
 			[ "file_id", "integer", "message" => self::ERR_FIELD_TYPE ],
 			[
 				[ "file_id" ], "exist",
@@ -114,6 +122,7 @@ abstract class PostLangBase extends \yii\db\ActiveRecord
 				"message"         => self::ERR_FIELD_NOT_FOUND,
 			],
 
+			[ "file_alt", "required", "on" => self::SCENARIO_PUBLISHED, "message" => self::ERR_FIELD_REQUIRED ],
 			[ "file_alt", "string", "message" => self::ERR_FIELD_TYPE ],
 
 			[ "created_on", "safe" ],
