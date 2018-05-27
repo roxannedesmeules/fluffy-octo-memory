@@ -9,15 +9,13 @@
 			</div>
 			<div class="post-details">
 				<div class="post-meta d-flex justify-content-between">
-					<div class="date meta-last">20 May | 2016</div>
+					<div class="date meta-last">{{ post.published_on | date:'MMMM d | y' }}</div>
 					<div class="category"><a href="#">{{ post.category.name }}</a></div>
 				</div>
 				<a href="post.html">
 					<h3 class="h4">{{ post.title }}</h3>
 				</a>
-				<p class="text-muted">
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.
-				</p>
+				<p class="text-muted">{{ post.summary }}</p>
 				<footer class="post-footer d-flex align-items-center">
 					<a href="#" class="author d-flex align-items-center flex-wrap">
 						<div class="avatar">

@@ -7,9 +7,11 @@ export class Post {
 	public category: Category;
 	public title: string;
 	public slug: string;
+	public summary: string;
 	public content: string;
 	public cover: PostCover;
 	public author: Author;
+	public published_on: string;
 
 	constructor ( model: any = null ) {
 		if (!model) {
@@ -20,8 +22,10 @@ export class Post {
 		this.category = new Category(model.category);
 		this.title    = model.title;
 		this.slug     = model.slug;
+		this.summary  = model.summary;
 		this.content  = model.content;
 		this.cover    = new PostCover(model.cover);
 		this.author   = new Author(model.author);
+		this.published_on = model.published_on;
 	}
 }

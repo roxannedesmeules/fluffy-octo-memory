@@ -90,6 +90,14 @@ class PostLangEx extends PostLang
 		return (!empty($translation)) ? $translation[ 0 ]->slug : "";
 	}
 
+	public static function getTranslationSummary ( $list, $lang = LangEx::EN )
+	{
+		/** @var self[] $translation */
+		$translation = ArrayHelperEx::filterInArrayAtIndex($lang, $list, "lang_id");
+
+		return (!empty($translation)) ? $translation[ 0 ]->summary : "";
+	}
+
 	/**
 	 * @param self[] $list
 	 * @param int    $lang

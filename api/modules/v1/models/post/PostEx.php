@@ -2,6 +2,7 @@
 
 namespace app\modules\v1\models\post;
 
+use app\helpers\DateHelper;
 use app\models\post\Post;
 use app\modules\v1\models\CategoryEx;
 use app\modules\v1\models\LangEx;
@@ -36,6 +37,9 @@ class PostEx extends Post
 			"slug"     => function ( self $model ) {
 				return PostLangEx::getTranslationSlug($model->postLangs, LangEx::getIdFromIcu(\Yii::$app->language));
 			},
+			"summary"  => function ( self $model ) {
+				return PostLangEx::getTranslationSummary($model->postLangs, LangEx::getIdFromIcu(\Yii::$app->language));
+			},
 			"content"  => function ( self $model ) {
 				return PostLangEx::getTranslationContent($model->postLangs, LangEx::getIdFromIcu(\Yii::$app->language));
 			},
@@ -48,6 +52,7 @@ class PostEx extends Post
 			"author"   => function ( self $model ) {
 				   return PostLangEx::getTranslationAuthor($model->postLangs, LangEx::getIdFromIcu(\Yii::$app->language));
 			},
+			"published_on" => function ( self $model ) { return DateHelper::formatDate($model->published_on, DateHelper::DATE_FORMAT); },
 		];
 	}
 
