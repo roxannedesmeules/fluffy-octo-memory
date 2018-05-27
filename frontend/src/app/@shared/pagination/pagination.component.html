@@ -1,0 +1,13 @@
+<nav aria-label="Page navigation example">
+	<ul class="pagination pagination-template d-flex justify-content-center">
+		<li class="page-item" (click)="goToPrevious()">
+			<a class="page-link"> <i class="fa fa-angle-left"></i></a>
+		</li>
+		<li class="page-item" (click)="goToPage(page)" *ngFor="let page of pageNumbers()">
+			<a class="page-link" [class.active]="isCurrent(page)">{{ page }}</a>
+		</li>
+		<li class="page-item" (click)="goToNext()">
+			<a class="page-link"> <i class="fa fa-angle-right"></i></a>
+		</li>
+	</ul>
+</nav>

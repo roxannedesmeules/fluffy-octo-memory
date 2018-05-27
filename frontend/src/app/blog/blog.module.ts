@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { PaginationModule } from "@shared/pagination/pagination.module";
 import { PipesModule } from "@shared/pipes/pipes.module";
 
 import { BlogRoutingModule } from "./blog-routing.module";
@@ -19,6 +20,7 @@ const COMPONENTS = [
 	imports      : [
 		CommonModule,
 		BlogRoutingModule,
+		PaginationModule,
 		PipesModule,
 	],
 	declarations : [ ...COMPONENTS ],

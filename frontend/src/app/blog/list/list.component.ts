@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { Post } from "@core/data/posts";
+import { Post, PostService } from "@core/data/posts";
+import { Pagination } from "@shared/pagination/pagination.model";
 
 @Component({
 	selector    : "app-list",
@@ -9,12 +10,15 @@ import { Post } from "@core/data/posts";
 })
 export class ListComponent implements OnInit {
 
+	public pagination: Pagination = new Pagination();
 	public list: Post[];
 
-	constructor ( private route: ActivatedRoute ) {
+	constructor ( private route: ActivatedRoute, private postService: PostService ) {
 	}
 
 	ngOnInit () {
 		this.list = this.route.snapshot.data[ "posts" ];
+
+		this.pagination.setPagination(this.postService.responseHeaders);
 	}
 }

@@ -1,4 +1,4 @@
-import { CategoryLang } from "@core/data/categories/category-lang.model";
+import { CategoryLang } from "./category-lang.model";
 
 /**
  *
