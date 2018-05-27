@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
 
 @Component({
-	selector    : "app-blog-tags",
+	selector    : "app-blog-post-tags",
 	templateUrl : "./tags.component.html",
 	styleUrls   : [ "./tags.component.scss" ],
 })
