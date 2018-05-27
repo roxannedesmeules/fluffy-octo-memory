@@ -35,6 +35,13 @@ return [
 		"class"      => 'yii\rest\UrlRule',
 		"controller" => [ "v1/post" ],
 		"except"     => [ "create", "update", "delete" ],
+		"patterns"   => [
+			'GET,HEAD {slug}' => 'view',
+			'GET,HEAD'        => 'index',
+			'{slug}'          => 'options',
+			''                => 'options',
+		],
+		"tokens"     => [ "{slug}" => "<slug:([a-z0-9-]+)>" ],
 	],
 
 	//  V1 Admin rules

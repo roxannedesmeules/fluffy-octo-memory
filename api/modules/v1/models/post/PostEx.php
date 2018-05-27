@@ -4,6 +4,7 @@ namespace app\modules\v1\models\post;
 
 use app\helpers\DateHelper;
 use app\models\post\Post;
+use app\models\post\PostLangQuery;
 use app\modules\v1\models\CategoryEx;
 use app\modules\v1\models\LangEx;
 
@@ -65,5 +66,18 @@ class PostEx extends Post
 		           ->isPublished()
 		           ->withTranslationIn(LangEx::getIdFromIcu(\Yii::$app->language))
 		           ->all();
+	}
+
+	public static function getOneBySlugWithLanguage ($slug)
+	{
+		return self::find()
+					->isPublished()
+					->joinWith([
+						"postLangs" => function ( PostLangQuery $translation ) use ( $slug ) {
+							return $translation->bySlug($slug)
+							                   ->byLang(LangEx::getIdFromIcu(\Yii::$app->language));
+						},
+					])
+					->one();
 	}
 }

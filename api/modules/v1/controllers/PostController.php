@@ -38,4 +38,8 @@ class PostController extends ControllerEx
 
 		return new ArrayDataProvider($data);
 	}
+
+	public function actionView ( $slug ) {
+		return PostEx::getOneBySlugWithLanguage($slug);
+	}
 }

@@ -44,4 +44,14 @@ class PostLangQuery extends \yii\db\ActiveQuery
 	{
 		return $this->andWhere([ "lang_id" => $langId ]);
 	}
+
+	/**
+	 * @param string $slug
+	 *
+	 * @return \app\models\post\PostLangQuery
+	 */
+	public function bySlug ( $slug )
+	{
+		return $this->andWhere([ "slug" => $slug ]);
+	}
 }
