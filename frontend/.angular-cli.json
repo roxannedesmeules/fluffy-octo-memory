@@ -22,7 +22,7 @@
 				"../node_modules/bootstrap/dist/css/bootstrap.min.css",
 				"../node_modules/@fortawesome/fontawesome/styles.css",
 				"assets/theme/css/fontastic.css",
-				"assets/theme/css/style.default.css",
+				"assets/theme/css/style.ladydev.css",
 				"styles.scss"
 			],
 			"scripts": [

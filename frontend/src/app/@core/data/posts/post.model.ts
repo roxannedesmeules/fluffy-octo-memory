@@ -25,9 +25,9 @@ export class Post {
 		this.title    = model.title;
 		this.slug     = model.slug;
 		this.summary  = model.summary;
-		this.content  = model.content;
+		this.content  = model.content || "";
 		this.cover    = new PostCover(model.cover);
-		this.tags     = this.mapListToModelList(Tag, model.tags);
+		this.tags     = (model.tags) ? this.mapListToModelList(Tag, model.tags) : [];
 		this.author   = new Author(model.author);
 		this.published_on = model.published_on;
 	}
