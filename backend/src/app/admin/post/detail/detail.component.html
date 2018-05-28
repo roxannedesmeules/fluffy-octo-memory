@@ -65,8 +65,8 @@
 											Cover Alt
 										</label>
 										<div class="col-sm-8">
-											<input type="text" formControlName="cover_alt"
-											       class="form-control" [class.is-invalid]="hasError('cover_alt', idx)">
+											<input type="text" formControlName="file_alt"
+											       class="form-control" [class.is-invalid]="hasError('file_alt', idx)">
 
 											<div class="help-block text-xsmall">
 												This text is usually displayed when the image can't be properly loaded or
@@ -74,7 +74,7 @@
 											</div>
 
 											<div class="is-invalid help-block text-danger">
-												<small *ngFor="let err of getErrors('cover_alt', t.get('lang_id').value)">{{ err }}</small>
+												<small *ngFor="let err of getErrors('file_alt', t.get('lang_id').value)">{{ err }}</small>
 											</div>
 										</div>
 									</div>

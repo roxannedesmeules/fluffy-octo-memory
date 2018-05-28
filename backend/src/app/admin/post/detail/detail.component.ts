@@ -150,8 +150,14 @@ export class DetailComponent implements OnInit {
 
 		const lang = this.getLang(langId);
 
-		if (this.errors[ lang ] && this.errors[ lang ][ 0 ][ name ]) {
-			return [ this.errors[ lang ][ 0 ][ name ] ];
+		if (this.errors.hasOwnProperty(lang)) {
+			if (this.errors[ lang ].hasOwnProperty(name)) {
+				return this.errors[ lang ][ name ];
+			}
+
+			if (this.errors[ lang ].length > 0 && this.errors[ lang ][ 0 ].hasOwnProperty(name)) {
+				return [ this.errors[ lang ][ 0 ][ name ] ];
+			}
 		}
 
 		return [];
@@ -248,7 +254,7 @@ export class DetailComponent implements OnInit {
 
 			this.getTranslations().at(idx).get("lang_id").setValue(val.id);
 			this.getTranslations().at(idx).get("cover").setValue(undefined);
-			this.getTranslations().at(idx).get("cover_alt").setValue(translation.cover_alt);
+			this.getTranslations().at(idx).get("file_alt").setValue(translation.cover_alt);
 			this.getTranslations().at(idx).get("title").setValue(translation.title);
 			this.getTranslations().at(idx).get("slug").setValue(translation.slug);
 			this.getTranslations().at(idx).get("content").setValue(translation.content);
@@ -394,9 +400,9 @@ export class DetailComponent implements OnInit {
 		//	create an observable on all requests
 		Observable.forkJoin(allRequests)
 				  .subscribe(
-						  ( results ) => {
+						  ( results: Post[] ) => {
 							  this.formLoading = false;
-							  console.log(results);
+							  this.post        = results[ (results.length - 1) ];;
 						  },
 						  ( err: ErrorResponse ) => {
 							  this.formLoading = false;
@@ -432,6 +438,8 @@ export class DetailComponent implements OnInit {
 				(err: ErrorResponse) => {
 					this.statusLoading = false;
 					this.errors        = err.form_error;
+
+					this.resetForm();
 				},
 		);
 	}

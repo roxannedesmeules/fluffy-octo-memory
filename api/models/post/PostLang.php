@@ -65,10 +65,12 @@ class PostLang extends PostLangBase
 
 		$model->post_id = (int) $postId;
 		$model->lang_id = (int) $langId;
-		$model->title   = ArrayHelperEx::getValue($data, "title");
-		$model->slug    = ArrayHelperEx::getValue($data, "slug");
-		$model->summary = ArrayHelperEx::getValue($data, "summary");
-		$model->content = ArrayHelperEx::getValue($data, "content");
+
+		$model->title    = ArrayHelperEx::getValue($data, "title");
+		$model->slug     = ArrayHelperEx::getValue($data, "slug");
+		$model->summary  = ArrayHelperEx::getValue($data, "summary");
+		$model->content  = ArrayHelperEx::getValue($data, "content");
+		$model->file_alt = ArrayHelperEx::getValue($data, "file_alt");
 
 		//  if the model isn't valid, then return all errors
 		if ( !$model->validate() ) {
@@ -177,10 +179,11 @@ class PostLang extends PostLangBase
 		//  find the translation to update
 		$model = self::find()->byPost($postId)->byLang($langId)->one();
 
-		$model->title   = ArrayHelperEx::getValue($data, "title", $model->title);
-		$model->slug    = ArrayHelperEx::getValue($data, "slug", $model->slug);
-		$model->summary = ArrayHelperEx::getValue($data, "summary", $model->summary);
-		$model->content = ArrayHelperEx::getValue($data, "content", $model->content);
+		$model->title    = ArrayHelperEx::getValue($data, "title", $model->title);
+		$model->slug     = ArrayHelperEx::getValue($data, "slug", $model->slug);
+		$model->summary  = ArrayHelperEx::getValue($data, "summary", $model->summary);
+		$model->content  = ArrayHelperEx::getValue($data, "content", $model->content);
+		$model->file_alt = ArrayHelperEx::getValue($data, "file_alt", $model->file_alt);
 
 		//  if the model isn't valid, then return all errors
 		if ( !$model->validate() ) {

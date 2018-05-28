@@ -102,6 +102,8 @@ class PostLangEx extends PostLang
 			[ "summary", "string", "max" => 180, "tooLong" => self::ERR_FIELD_TOO_LONG ],
 
 			[ "content", "string", "message" => self::ERR_FIELD_TYPE ],
+
+			[ "file_alt", "string", "max" => 255, "tooLong" => self::ERR_FIELD_TOO_LONG ],
 		];
 	}
 
