@@ -41,6 +41,6 @@ export class Post {
 	}
 
 	public getUrl (): string {
-		return this.category.slug + "/" + this.slug;
+		return  "/blog/" + this.category.slug + "/" + this.slug;
 	}
 }

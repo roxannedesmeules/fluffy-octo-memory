@@ -45,6 +45,22 @@
 					</ul>
 				</div>
 			</div>
+
+			<div class="col-md-4">
+				<div class="latest-posts">
+					<a [routerLink]="post.getUrl()" *ngFor="let post of latests">
+						<div class="post d-flex align-items-center">
+							<div class="image">
+								<img [src]="post.cover.url" [alt]="post.cover.alt" class="img-fluid">
+							</div>
+							<div class="title">
+								<strong>{{ post.title }}</strong>
+								<span class="date last-meta">{{ post.published_on | date:'mediumDate' }}</span>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
 		</div>
 	</div>
 	

@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { Post, PostService } from "@core/data/posts";
 
 @Component({
 	selector    : "app-home",
@@ -7,9 +8,18 @@ import { Component, OnInit } from "@angular/core";
 })
 export class HomeComponent implements OnInit {
 
-	constructor () {
+	public latests: Post[] = [];
+
+	constructor (private postService: PostService) {
 	}
 
 	ngOnInit () {
+		this._getLatestPosts();
+	}
+
+	private _getLatestPosts () {
+		this.postService
+			.latests()
+			.subscribe((result: Post[]) => { this.latests = result; });
 	}
 }
