@@ -31,7 +31,7 @@ export class PostLang {
 		this.content  = model.content;
 
 		this.cover     = new PostCover(model.cover);
-		this.cover_alt = model.cover_alt;
+		this.cover_alt = model.cover_alt || model.file_alt;
 
 		this.author = new Author(model.author);
 

@@ -105,6 +105,6 @@ class ControllerAdminEx extends Controller
 	{
 		$this->response->setStatusCode(422);
 
-		return $errors;
+		return [ "error" => $errors ];
 	}
 }
