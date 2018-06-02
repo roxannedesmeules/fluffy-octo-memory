@@ -31,6 +31,11 @@ class PostQuery extends \yii\db\ActiveQuery
 		return $this->status(PostStatus::PUBLISHED);
 	}
 
+	public function orderPublication ()
+	{
+		return $this->orderBy([ "published_on" => SORT_DESC ]);
+	}
+
 	public function status ( $statusId )
 	{
 		return $this->andWhere([ "post_status_id" => $statusId ]);

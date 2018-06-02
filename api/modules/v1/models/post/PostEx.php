@@ -89,6 +89,7 @@ class PostEx extends Post
 		return self::find()
 		           ->isPublished()
 		           ->withTranslationIn(LangEx::getIdFromIcu(\Yii::$app->language))
+		           ->orderPublication()
 		           ->all();
 	}
 
