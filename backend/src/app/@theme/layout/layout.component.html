@@ -11,9 +11,18 @@
 		<div class="content-inner">
 			<!-- Page Header -->
 			<app-layout-page-title></app-layout-page-title>
-			
-			<ng-content select="router-outlet"></ng-content>
-			
+
+			<!-- Page content -->
+			<!-- note: position relative is used to contain the spinner so it isn't full screen -->
+			<div style="position: relative">
+				<ngx-spinner bdColor="rgba(238,245,249,0.6)"
+				             size="medium"
+				             color="#991d40"
+				             type="ball-grid-pulse"></ngx-spinner>
+
+				<ng-content select="router-outlet"></ng-content>
+			</div>
+
 			<!-- Page Footer -->
 			<app-layout-footer></app-layout-footer>
 		</div>

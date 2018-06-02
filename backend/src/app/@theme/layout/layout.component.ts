@@ -1,4 +1,6 @@
 import { Component, OnInit } from "@angular/core";
+import { NavigationEnd, NavigationStart, Router } from "@angular/router";
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
 	selector    : "app-layout",
@@ -9,10 +11,19 @@ export class LayoutComponent implements OnInit {
 
 	public isShrinked: boolean = false;
 
-	constructor () {
+	constructor (private router: Router, private spinner: NgxSpinnerService) {
 	}
 
 	ngOnInit () {
+		this.router.events.subscribe(event => {
+			if (event instanceof NavigationStart) {
+				this.spinner.show();
+			}
+
+			if (event instanceof NavigationEnd) {
+				this.spinner.hide();
+			}
+		});
 	}
 
 }

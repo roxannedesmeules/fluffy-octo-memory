@@ -5,6 +5,7 @@ import { PageTitleService } from "@theme/components/page-title/page-title.servic
 
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { LaddaModule } from "angular2-ladda";
+import { NgxSpinnerModule } from "ngx-spinner";
 
 import {
 	FooterComponent, HeaderComponent, ItemComponent, ItemDropdownComponent, ItemLinkComponent, PageTitleComponent,
@@ -21,6 +22,7 @@ const MODULES = [
 	// third party modules
 	NgbModule,
 	LaddaModule,
+	NgxSpinnerModule,
 ];
 
 const COMPONENTS = [

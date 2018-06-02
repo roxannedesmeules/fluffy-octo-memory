@@ -6,6 +6,7 @@ import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { CoreModule } from "@core/core.module";
 import { ThemeModule } from "@theme/theme.module";
 import { LoggerModule } from "@shared/logger/logger.module";
+import { NgxSpinnerModule } from "ngx-spinner";
 import { AppRoutingModule } from "./app-routing.module";
 import { AdminModule } from "./admin/admin.module";
 import { SessionModule } from "./session/session.module";
@@ -32,6 +33,7 @@ const MODULES = [
 
 	LoggerModule.forRoot(),
 	LoadingBarHttpClientModule,
+	NgxSpinnerModule,
 ];
 
 const COMPONENTS = [
