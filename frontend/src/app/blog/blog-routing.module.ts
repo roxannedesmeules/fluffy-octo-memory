@@ -1,7 +1,12 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { DetailResolve } from "@core/data/posts";
-import { ListResolve } from "@core/data/posts/resolvers/list.resolve";
+
+import {
+	DetailResolve as CategoryDetailResolve,
+	PostListResolve as CategoryPostListResolve,
+} from "@core/data/categories";
+import { ListResolve, DetailResolve } from "@core/data/posts";
+
 import { ListComponent } from "./list/list.component";
 import { PostComponent } from "./post/post.component";
 
@@ -11,15 +16,21 @@ const routes: Routes = [
 		component : ListComponent,
 		resolve   : {
 			posts : ListResolve,
-		}
+		},
+	}, {
+		path      : ":category",
+		component : ListComponent,
+		resolve   : {
+			category : CategoryDetailResolve,
+			posts    : CategoryPostListResolve,
+		},
 	}, {
 		path      : ":category/:post",
 		component : PostComponent,
 		resolve   : {
 			post : DetailResolve,
-		}
+		},
 	},
-
 ];
 
 @NgModule({

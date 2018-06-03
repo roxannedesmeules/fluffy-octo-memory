@@ -1,7 +1,7 @@
-import { Category } from "@core/data/categories";
+import { Category } from "@core/data/categories/category.model";
 import { PostCover } from "@core/data/posts/post-cover.model";
-import { Tag } from "@core/data/tags";
-import { Author } from "@core/data/users";
+import { Tag } from "@core/data/tags/tag.model";
+import { Author } from "@core/data/users/author.model";
 
 export class Post {
 	public id: number;

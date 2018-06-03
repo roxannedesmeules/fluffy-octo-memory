@@ -1,32 +1,7 @@
 <div class="container">
 	<div class="row">
 		<!-- post -->
-		<div class="post col-xl-6" *ngFor="let post of list">
-			<div class="post-thumbnail">
-				<a [routerLink]="post.getUrl()">
-					<img [src]="post.cover.url" [alt]="post.cover.alt" class="img-fluid">
-				</a>
-			</div>
-			<div class="post-details">
-				<div class="post-meta d-flex justify-content-between">
-					<div class="date meta-last">{{ post.published_on | date:'MMMM d | y' }}</div>
-					<div class="category"><a href="#">{{ post.category.name }}</a></div>
-				</div>
-				<a [routerLink]="post.getUrl()">
-					<h3 class="h4">{{ post.title }}</h3>
-				</a>
-				<p class="text-muted">{{ post.summary }}</p>
-				<footer class="post-footer d-flex align-items-center">
-					<a href="#" class="author d-flex align-items-center flex-wrap">
-						<div class="avatar">
-							<img [src]="post.author.picture" [alt]="post.author.fullname" class="img-fluid">
-						</div>
-						<div class="title"><span>{{ post.author.fullname }}</span></div>
-					</a>
-					<div class="comments meta-last"><i class="icon-comment"></i>12</div>
-				</footer>
-			</div>
-		</div>
+		<app-post-summary class="col-xl-6" *ngFor="let post of list" [post]="post"></app-post-summary>
 	</div>
 
 	<app-pagination [pagination]="pagination"></app-pagination>

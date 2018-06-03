@@ -1,11 +1,4 @@
 export class PostFilters {
-	// filters
-	public status: number = -1;
-	public lang: string | number;
-
-	// sorting
-	public orderBy: string;
-
 	// pagination
 	public pageNumber: number = 0;
 	public perPage: number    = 10;
@@ -21,10 +14,6 @@ export class PostFilters {
 	}
 
 	public reset () {
-		this.status  = -1;
-		this.lang    = null;
-		this.orderBy = null;
-
 		this.pageNumber = 0;
 		this.perPage    = 10;
 	}
@@ -45,14 +34,6 @@ export class PostFilters {
 
 	public formatRequest (): object {
 		const params: any = {};
-
-		if (this.status !== -1) {
-			params.status = this.status;
-		}
-
-		if (this.lang !== -1) {
-			params.lang = this.lang;
-		}
 
 		params[ "page" ]     = this.pageNumber;
 		params[ "per-page" ] = this.perPage;
