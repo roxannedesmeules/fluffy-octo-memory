@@ -56,13 +56,13 @@ class CategoryEx extends Category
 	}
 
 	/**
-	 * @param int $categoryId
+	 * @param int $categorySlug
 	 *
 	 * @return bool
 	 */
-	public static function idExists ( $categoryId )
+	public static function slugExists ( $categorySlug )
 	{
-		return self::find()->id($categoryId)->active()->exists();
+		return self::find()->withSlug($categorySlug)->active()->exists();
 	}
 
 	/**

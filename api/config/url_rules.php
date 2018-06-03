@@ -22,7 +22,7 @@ return [
 		"extraPatterns" => [ "GET count" => "count", "OPTIONS count" => "options", ],
 	], [
 		"class"      => 'yii\rest\UrlRule',
-		"prefix"     => "v1/categories/<categoryId:\d+>",
+		"prefix"     => "v1/categories/<categorySlug:([a-z0-9-]+)>",
 		"controller" => [ "posts" => "v1/category/post" ],
 		"except"     => [ "view", "create", "update", "delete" ],
 	],

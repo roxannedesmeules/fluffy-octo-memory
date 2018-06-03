@@ -52,6 +52,15 @@ class CategoryQuery extends \yii\db\ActiveQuery
 		return $this->andWhere([ "is_active" => Category::INACTIVE ]);
 	}
 
+	public function withSlug ( $slug )
+	{
+		return $this->joinWith([
+			"categoryLangs" => function ( CategoryLangQuery $query ) use ( $slug ) {
+				return $query->bySlug($slug);
+			}
+		]);
+	}
+
 	public function withTranslationIn ( $lang )
 	{
 		$subQuery = CategoryLang::find()

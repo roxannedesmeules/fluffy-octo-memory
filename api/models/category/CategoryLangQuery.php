@@ -40,4 +40,9 @@ class CategoryLangQuery extends \yii\db\ActiveQuery
 	{
 		return $this->andWhere([ "lang_id" => $id ]);
 	}
+
+	public function bySlug ( $slug )
+	{
+		return $this->andWhere([ "slug" => $slug ]);
+	}
 }
