@@ -84,7 +84,7 @@ class CategoryEx extends Category
 	 * Find all categories marked as active with the translation in the application language. It will then be mapped
 	 * properly according to fields defined.
 	 *
-	 * @return \app\models\category\CategoryBase[]|array
+	 * @return self[]|array
 	 */
 	public static function getAllWithLanguage ( )
 	{
@@ -95,16 +95,16 @@ class CategoryEx extends Category
 	}
 
 	/**
-	 * @param integer $categoryId
+	 * @param integer $categorySlug
 	 *
-	 * @return \app\models\category\CategoryBase[]|array
+	 * @return self
 	 */
-	public static function getOneWithLanguage ( $categoryId )
+	public static function getOneWithLanguage ( $categorySlug )
 	{
 		return self::find()
-		           ->id($categoryId)
+		           ->withSlug($categorySlug)
 		           ->active()
 		           ->with("categoryLang")
-		           ->all();
+		           ->one();
 	}
 }

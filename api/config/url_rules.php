@@ -15,6 +15,13 @@ return [
 		"class"      => 'yii\rest\UrlRule',
 		"controller" => [ "v1/categories" => "v1/category/category" ],
 		"except"     => [ "create", "update", "delete" ],
+		"patterns"   => [
+			'GET,HEAD {slug}' => 'view',
+			'GET,HEAD'        => 'index',
+			'{slug}'          => 'options',
+			''                => 'options',
+		],
+		"tokens"     => [ "{slug}" => "<slug:([a-z0-9-]+)>" ],
 	], [
 		"class"         => 'yii\rest\UrlRule',
 		"controller"    => [ "v1/categories/posts" => "v1/category/post" ],

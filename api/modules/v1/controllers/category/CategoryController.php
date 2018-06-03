@@ -21,12 +21,12 @@ class CategoryController extends ControllerEx
 	}
 
 	/**
-	 * @param $id
+	 * @param $slug
 	 *
 	 * @return \app\models\category\CategoryBase[]|array
 	 */
-	public function actionView ( $id )
+	public function actionView ( $slug )
 	{
-		return CategoryEx::getOneWithLanguage($id);
+		return CategoryEx::getOneWithLanguage($slug);
 	}
 }
