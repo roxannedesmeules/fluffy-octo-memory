@@ -82,15 +82,22 @@ class PostEx extends Post
 	}
 
 	/**
-	 * @return \app\models\post\Post[]|array
+	 * @param null $categoryId
+	 *
+	 * @return self []|array
 	 */
-	public static function getAllWithLanguage ()
+	public static function getAllWithLanguage ( $categoryId = null )
 	{
-		return self::find()
+		$query = self::find()
 		           ->isPublished()
 		           ->withTranslationIn(LangEx::getIdFromIcu(\Yii::$app->language))
-		           ->orderPublication()
-		           ->all();
+		           ->orderPublication();
+
+		if (!is_null($categoryId)) {
+			$query->category($categoryId);
+		}
+
+		return $query->all();
 	}
 
 	public static function getOneBySlugWithLanguage ($slug)

@@ -73,4 +73,11 @@ class ControllerEx extends Controller
 			"view"   => [ "OPTIONS", "GET" ],
 		];
 	}
+
+	public function notFound ( $message = "" )
+	{
+		$this->response->setStatusCode(404);
+
+		return [ "message" => $message ];
+	}
 }

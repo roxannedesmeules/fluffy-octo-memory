@@ -15,12 +15,16 @@ return [
 		"class"      => 'yii\rest\UrlRule',
 		"controller" => [ "v1/categories" => "v1/category/category" ],
 		"except"     => [ "create", "update", "delete" ],
-	],
-	[
+	], [
 		"class"         => 'yii\rest\UrlRule',
 		"controller"    => [ "v1/categories/posts" => "v1/category/post" ],
 		"except"        => [ "create", "update", "delete" ],
 		"extraPatterns" => [ "GET count" => "count", "OPTIONS count" => "options", ],
+	], [
+		"class"      => 'yii\rest\UrlRule',
+		"prefix"     => "v1/categories/<categoryId:\d+>",
+		"controller" => [ "posts" => "v1/category/post" ],
+		"except"     => [ "view", "create", "update", "delete" ],
 	],
 
 	//  tags

@@ -56,6 +56,16 @@ class CategoryEx extends Category
 	}
 
 	/**
+	 * @param int $categoryId
+	 *
+	 * @return bool
+	 */
+	public static function idExists ( $categoryId )
+	{
+		return self::find()->id($categoryId)->active()->exists();
+	}
+
+	/**
 	 * @return array
 	 */
 	public function countPostsByCategories ()

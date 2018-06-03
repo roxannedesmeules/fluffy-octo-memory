@@ -26,6 +26,11 @@ class PostQuery extends \yii\db\ActiveQuery
 		return $this->andWhere([ "id" => $postId]);
 	}
 
+	public function category ( $categoryId )
+	{
+		return $this->andWhere([ "category_id" => $categoryId ]);
+	}
+
 	public function isPublished ()
 	{
 		return $this->status(PostStatus::PUBLISHED);
