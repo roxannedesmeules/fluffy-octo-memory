@@ -1,6 +1,8 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpResponse } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 import { BaseService } from "@core/data/base.service";
+import { PostFilters } from "@core/data/posts/post.filters";
+import { Post } from "@core/data/posts/post.model";
 import { Observable } from "rxjs/Observable";
 import { catchError, map } from "rxjs/operators";
 import { CategoryCount } from "./category-count.model";
@@ -10,17 +12,48 @@ export class CategoryPostService extends BaseService {
 	public baseUrl   = "categories";
 	public modelName = "posts";
 
+	public responseHeaders: HttpHeaders;
+
+	public filters = new PostFilters();
+	public options = {
+		observe : "response",
+	};
+
 	constructor (@Inject(HttpClient) http: HttpClient) {
 		super(http);
-
-		this.model = (construct: any) => new CategoryCount(construct);
 	}
 
 	getCount () {
 		return this.http.get(this._url("count"))
 				   .pipe(
-						   map(( res: any ) => this.mapListToModelList(res)),
+						   map(( res: any ) => this.mapToModelList(CategoryCount, res)),
 						   catchError(( err: any ) => Observable.throw(this.mapError(err))),
 				   );
+	}
+
+	getAll ( categorySlug: string ) {
+		const url = `${this.baseUrl}/${categorySlug}/${this.modelName}`;
+
+		return this.http.get(url, this._getOptions())
+				   .pipe(
+						   map(( res: HttpResponse<Post[]> ) => {
+							   this.responseHeaders = res.headers;
+
+							   return this.mapToModelList(Post, res.body);
+						   }),
+						   catchError(( err: any ) => Observable.throw(this.mapError(err))),
+				   );
+	}
+
+	mapToModelList ( model: any, list: any ) {
+		list.forEach(( item, index ) => {
+			list[ index ] = new model(item);
+		});
+
+		return list;
+	}
+
+	protected _getOptions () {
+		return Object.assign({}, this.options, this.filters.formatRequest());
 	}
 }

@@ -18,7 +18,7 @@ export class Category {
 	}
 
 	public getUrl (): string {
-		return this.slug;
+		return "/blog/" + this.slug;
 	}
 
 	setPostCount ( counts: CategoryCount[] ) {

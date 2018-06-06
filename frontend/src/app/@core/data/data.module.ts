@@ -1,18 +1,25 @@
 import { ModuleWithProviders, NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { CategoryPostService, CategoryService } from "@core/data/categories";
-import { PostService, DetailResolve, ListResolve } from "@core/data/posts";
+import {
+	CategoryPostService,
+	CategoryService,
+	DetailResolve as CategoryDetailResolve,
+	PostListResolve as CategoryPostListResolve,
+} from "@core/data/categories";
+import { PostService, DetailResolve as PostDetailResolve, ListResolve as PostListResolve } from "@core/data/posts";
 import { TagService } from "@core/data/tags";
 
 const SERVICES = [
 	CategoryService,
 	CategoryPostService,
+	CategoryDetailResolve,
+	CategoryPostListResolve,
 
 	TagService,
 
 	PostService,
-	ListResolve,
-	DetailResolve,
+	PostListResolve,
+	PostDetailResolve,
 ];
 
 @NgModule({

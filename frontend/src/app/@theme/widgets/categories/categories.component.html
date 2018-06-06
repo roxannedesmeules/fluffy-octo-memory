@@ -5,7 +5,7 @@
 
 	<div class="item d-flex justify-content-between"
 		 *ngFor="let category of categories">
-		<a>{{ category.name }}</a>
+		<a [routerLink]="category.getUrl()">{{ category.name }}</a>
 		<span>{{ category.postCount }}</span>
 	</div>
 </div>
