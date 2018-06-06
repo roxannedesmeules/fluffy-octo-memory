@@ -1,4 +1,4 @@
-<nav aria-label="Page navigation example">
+<nav *ngIf="pagination.totalCount > 0" aria-label="navigation">
 	<ul class="pagination pagination-template d-flex justify-content-center">
 		<li class="page-item" (click)="goToPrevious()">
 			<a class="page-link"> <i class="fa fa-angle-left"></i></a>

@@ -9,6 +9,7 @@ import { ListResolve, DetailResolve } from "@core/data/posts";
 
 import { ListComponent } from "./list/list.component";
 import { PostComponent } from "./post/post.component";
+import { CategoryComponent } from "./category/category.component";
 
 const routes: Routes = [
 	{
@@ -19,11 +20,12 @@ const routes: Routes = [
 		},
 	}, {
 		path      : ":category",
-		component : ListComponent,
+		component : CategoryComponent,
 		resolve   : {
 			category : CategoryDetailResolve,
 			posts    : CategoryPostListResolve,
 		},
+		runGuardsAndResolvers : "always",
 	}, {
 		path      : ":category/:post",
 		component : PostComponent,
