@@ -1,9 +1,8 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
 import { Post, PostService } from "@core/data/posts";
 import { Pagination } from "@shared/pagination/pagination.model";
 import { Subscription } from "rxjs/Subscription";
-import { ErrorResponse } from "../../../../../backend/src/app/@core/data/error-response.model";
 
 @Component({
 	selector    : "app-list",
@@ -16,15 +15,18 @@ export class ListComponent implements OnInit, OnDestroy {
 	public pagination: Pagination = new Pagination();
 	public list: Post[] = [];
 
-	constructor ( private route: ActivatedRoute, private postService: PostService ) {
+	constructor ( private router: Router, private route: ActivatedRoute, private postService: PostService ) {
 	}
 
 	ngOnInit () {
-		this.list = this.route.snapshot.data[ "posts" ];
-
-		this.pagination.setPagination(this.postService.responseHeaders);
+		this.initPosts();
 
 		this._subscriptions[ "pagination" ] = this.pagination.getService().subscribe((res) => { this.updatePagination(res); });
+		this._subscriptions[ "navigation" ] = this.router.events.subscribe((ev: any) => {
+			if (ev instanceof NavigationEnd) {
+				this.initPosts();
+			}
+		});
 	}
 
 	ngOnDestroy () {
@@ -32,30 +34,23 @@ export class ListComponent implements OnInit, OnDestroy {
 	}
 
 	/**
-	 *
+	 * This method is called when the component is initialized or when a route is updated. This will set the post list
+	 * from the resolver result and the pagination accordingly.
 	 */
-	updateList () {
-		this.postService
-			.findAll()
-			.subscribe(
-					(result: Post[]) => {
-						this.pagination.setPagination(this.postService.responseHeaders);
+	initPosts () {
+		this.list = this.route.snapshot.data[ "posts" ];
 
-						this.list = result;
-					},
-					(err: ErrorResponse) => {},
-			);
+		this.pagination.setPagination(this.postService.responseHeaders);
 	}
 
 	/**
-	 * This method is called is time a change is made to the pagination object (current page, page size, ...). The
+	 * This method is called each time a change is made to the pagination object (current page, page size, ...). The
 	 * service filters will be updated accordingly, then the list will be updated.
 	 *
 	 * @param data
 	 */
 	updatePagination ( data ) {
-		this.postService.filters.setPagination( this.pagination );
-
-		this.updateList();
+		// this.router.navigateByUrl(url);
+		this.router.navigate([ "/blog" ], { queryParams : { page : data.currentPage, "per-page" : data.perPage } });
 	}
 }

@@ -18,6 +18,7 @@ const routes: Routes = [
 		resolve   : {
 			posts : ListResolve,
 		},
+		runGuardsAndResolvers : "always",
 	}, {
 		path      : ":category",
 		component : CategoryComponent,

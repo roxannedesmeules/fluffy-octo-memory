@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
-import { ErrorResponse } from "../../../../../backend/src/app/@core/data/error-response.model";
-import { Category, CategoryPostService } from "../../@core/data/categories";
-import { Post } from "../../@core/data/posts";
-import { Pagination } from "../../@shared/pagination/pagination.model";
+import { ErrorResponse } from "@core/data/error-response.model";
+import { Category, CategoryPostService } from "@core/data/categories";
+import { Post } from "@core/data/posts";
+import { Pagination } from "@shared/pagination/pagination.model";
 
 @Component({
 	selector    : "app-blog-category",
@@ -35,6 +35,7 @@ export class CategoryComponent implements OnInit, OnDestroy {
 
 	ngOnDestroy () {
 		this._subscriptions[ "pagination" ].unsubscribe();
+		this._subscriptions[ "navigation" ].unsubscribe();
 	}
 
 	initPosts () {
@@ -56,7 +57,6 @@ export class CategoryComponent implements OnInit, OnDestroy {
 
 						this.list = result;
 					},
-					(err: ErrorResponse) => {},
 			);
 	}
 
