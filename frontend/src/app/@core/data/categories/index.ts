@@ -4,4 +4,3 @@ export * from "./category-count.model";
 export * from "./category-post.service";
 
 export * from "./resolvers/detail.resolve";
-export * from "./resolvers/post-list.resolve";

@@ -5,7 +5,6 @@ import { PipesModule } from "@shared/pipes/pipes.module";
 import { PostSummaryModule } from "@shared/post-summary/post-summary.module";
 
 import { BlogRoutingModule } from "./blog-routing.module";
-import { CategoryComponent } from "./category/category.component";
 import { ListComponent } from "./list/list.component";
 import { TagsComponent } from "./post/tags/tags.component";
 import { FooterComponent } from "./post/footer/footer.component";
@@ -16,7 +15,6 @@ const COMPONENTS = [
 	FooterComponent,
 	PostComponent,
 	TagsComponent,
-	CategoryComponent,
 ];
 
 @NgModule({

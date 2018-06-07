@@ -3,8 +3,7 @@ import { CommonModule } from "@angular/common";
 import {
 	CategoryPostService,
 	CategoryService,
-	DetailResolve as CategoryDetailResolve,
-	PostListResolve as CategoryPostListResolve,
+	DetailResolve as CategoryDetailResolve
 } from "@core/data/categories";
 import { PostService, DetailResolve as PostDetailResolve, ListResolve as PostListResolve } from "@core/data/posts";
 import { TagService } from "@core/data/tags";
@@ -13,7 +12,6 @@ const SERVICES = [
 	CategoryService,
 	CategoryPostService,
 	CategoryDetailResolve,
-	CategoryPostListResolve,
 
 	TagService,
 

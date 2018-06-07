@@ -3,13 +3,11 @@ import { Routes, RouterModule } from "@angular/router";
 
 import {
 	DetailResolve as CategoryDetailResolve,
-	PostListResolve as CategoryPostListResolve,
 } from "@core/data/categories";
 import { ListResolve, DetailResolve } from "@core/data/posts";
 
 import { ListComponent } from "./list/list.component";
 import { PostComponent } from "./post/post.component";
-import { CategoryComponent } from "./category/category.component";
 
 const routes: Routes = [
 	{
@@ -21,10 +19,10 @@ const routes: Routes = [
 		runGuardsAndResolvers : "always",
 	}, {
 		path      : ":category",
-		component : CategoryComponent,
+		component : ListComponent,
 		resolve   : {
 			category : CategoryDetailResolve,
-			posts    : CategoryPostListResolve,
+			posts    : ListResolve,
 		},
 		runGuardsAndResolvers : "always",
 	}, {

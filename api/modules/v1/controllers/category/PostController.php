@@ -43,20 +43,4 @@ class PostController extends ControllerEx
 	{
 		return CategoryEx::countPostsByCategories();
 	}
-
-	public function actionIndex ( $categorySlug )
-	{
-		if (!CategoryEx::slugExists($categorySlug)) {
-			return $this->notFound("Category not found");
-		}
-
-		$category = CategoryEx::find()->withSlug($categorySlug)->active()->one();
-
-		$data = [
-			"allModels"  => PostEx::getAllWithLanguage( $category->id ),
-			"pagination" => $this->pagination,
-		];
-
-		return new ArrayDataProvider($data);
-	}
 }

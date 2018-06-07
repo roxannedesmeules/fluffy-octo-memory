@@ -4,6 +4,7 @@ namespace app\modules\v1\controllers;
 
 use app\helpers\ArrayHelperEx;
 use app\modules\v1\components\ControllerEx;
+use app\modules\v1\components\parameters\Category;
 use app\modules\v1\components\parameters\Pagination;
 use app\modules\v1\models\post\PostEx;
 use yii\data\ArrayDataProvider;
@@ -14,6 +15,7 @@ use yii\data\ArrayDataProvider;
  * @package app\modules\v1\controllers
  *
  * @property array $pagination set from Pagination Parameter
+ * @property int   $category   set from Category Parameter
  */
 class PostController extends ControllerEx
 {
@@ -23,6 +25,7 @@ class PostController extends ControllerEx
 		return ArrayHelperEx::merge(parent::behaviors(),
 			[
 				"Pagination" => Pagination::className(),
+				"Category"   => Category::className(),
 			]);
 	}
 
@@ -31,8 +34,12 @@ class PostController extends ControllerEx
 	 */
 	public function actionIndex ()
 	{
+		$filters = [
+			"category" => $this->category,
+		];
+
 		$data = [
-			"allModels"  => PostEx::getAllWithLanguage(),
+			"allModels"  => PostEx::getAllWithLanguage($filters),
 			"pagination" => $this->pagination,
 		];
 

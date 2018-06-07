@@ -1,7 +1,13 @@
 export class PostFilters {
+	protected static DEFAULT_CURRENT_PAGE = 0;
+	protected static DEFAULT_PER_PAGE     = 10;
+
 	// pagination
-	public pageNumber: number = 0;
-	public perPage: number    = 10;
+	public pageNumber: number = PostFilters.DEFAULT_CURRENT_PAGE;
+	public perPage: number    = PostFilters.DEFAULT_PER_PAGE;
+
+	// category
+	public category: string = "";
 
 	constructor () {}
 
@@ -10,7 +16,7 @@ export class PostFilters {
 			return false;
 		}
 
-		return (this[ attribute ] !== -1);
+		return (this[ attribute ] !== -1 && this[ attribute ] !== "");
 	}
 
 	public reset () {
@@ -28,12 +34,16 @@ export class PostFilters {
 	}
 
 	public setPagination ( data ) {
-		this.pageNumber = data.currentPage;
-		this.perPage    = data.perPage;
+		this.pageNumber = data.currentPage || PostFilters.DEFAULT_CURRENT_PAGE;
+		this.perPage    = data.perPage || PostFilters.DEFAULT_PER_PAGE;
 	}
 
 	public formatRequest (): object {
 		const params: any = {};
+
+		if (this.isSet("category")) {
+			params[ "category" ] = this.category;
+		}
 
 		params[ "page" ]     = this.pageNumber;
 		params[ "per-page" ] = this.perPage;
