@@ -35,10 +35,17 @@ class TagEx extends Tag
 		return self::find()
 		           ->withPublishedPosts()
 		           ->with("tagLang")
+		           ->withTranslationIn(LangEx::getIdFromIcu(\Yii::$app->language))
 		           ->all();
 	}
 
-	public static function getOneWithLanguage ( $tagId ) {}
+	public static function getOneWithLanguage ( $slug )
+	{
+		return self::find()
+		           ->withSlug($slug)
+		           ->withTranslationIn(LangEx::getIdFromIcu(\Yii::$app->language))
+		           ->one();
+	}
 
 	/**
 	 * This method will check if the slug passed in parameter exists for a Tag and that the Tag entry

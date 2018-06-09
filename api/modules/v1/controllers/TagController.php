@@ -19,4 +19,13 @@ class TagController extends ControllerEx
 	{
 		return TagEx::getAllWithLanguage();
 	}
+
+	public function actionView ( $slug )
+	{
+		if (!TagEx::slugExists($slug)) {
+			return $this->notFound("Tag could not be found");
+		}
+
+		return TagEx::getOneBySlugWithLanguage($slug);
+	}
 }

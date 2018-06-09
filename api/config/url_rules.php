@@ -2,6 +2,7 @@
 
 $admin = "v1/admin";
 $int   = "\\d[\\d,]*";
+$slug  = "<slug:([a-z0-9-]+)>";
 
 return [
 	""           => "site",
@@ -21,7 +22,7 @@ return [
 			'{slug}'          => 'options',
 			''                => 'options',
 		],
-		"tokens"     => [ "{slug}" => "<slug:([a-z0-9-]+)>" ],
+		"tokens"     => [ "{slug}" => $slug ],
 	], [
 		"class"         => 'yii\rest\UrlRule',
 		"controller"    => [ "v1/categories/posts" => "v1/category/post" ],
@@ -39,6 +40,13 @@ return [
 		"class"      => 'yii\rest\UrlRule',
 		"controller" => [ "v1/tag" ],
 		"except"     => [ "create", "update", "delete" ],
+		"patterns"   => [
+			'GET,HEAD {slug}' => 'view',
+			'GET,HEAD'        => 'index',
+			'{slug}'          => 'options',
+			''                => 'options',
+		],
+		"tokens"     => [ "{slug}" => $slug ],
 	],
 
 	//  posts
@@ -52,7 +60,7 @@ return [
 			'{slug}'          => 'options',
 			''                => 'options',
 		],
-		"tokens"     => [ "{slug}" => "<slug:([a-z0-9-]+)>" ],
+		"tokens"     => [ "{slug}" => $slug ],
 	],
 
 	//  V1 Admin rules
