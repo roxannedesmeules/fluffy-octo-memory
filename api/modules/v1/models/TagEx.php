@@ -39,4 +39,17 @@ class TagEx extends Tag
 	}
 
 	public static function getOneWithLanguage ( $tagId ) {}
+
+	/**
+	 * This method will check if the slug passed in parameter exists for a Tag and that the Tag entry
+	 * is linked to published posts.
+	 *
+	 * @param string $slug
+	 *
+	 * @return bool
+	 */
+	public static function slugExists ( $slug )
+	{
+		return self::find()->withSlug($slug)->withPublishedPosts()->exists();
+	}
 }

@@ -56,16 +56,6 @@ class CategoryEx extends Category
 	}
 
 	/**
-	 * @param int $categorySlug
-	 *
-	 * @return bool
-	 */
-	public static function slugExists ( $categorySlug )
-	{
-		return self::find()->withSlug($categorySlug)->active()->exists();
-	}
-
-	/**
 	 * @return array
 	 */
 	public function countPostsByCategories ()
@@ -106,5 +96,15 @@ class CategoryEx extends Category
 		           ->active()
 		           ->with("categoryLang")
 		           ->one();
+	}
+
+	/**
+	 * @param int $categorySlug
+	 *
+	 * @return bool
+	 */
+	public static function slugExists ( $categorySlug )
+	{
+		return self::find()->withSlug($categorySlug)->active()->exists();
 	}
 }

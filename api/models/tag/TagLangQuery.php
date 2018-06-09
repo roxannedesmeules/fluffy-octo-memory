@@ -22,16 +22,8 @@ class TagLangQuery extends \yii\db\ActiveQuery
 	public function one ( $db = null ) { return parent::one($db); }
 
 	/**
-	 * @param integer $tagId
+	 * Add a condition to fetch TagLang entries matching a specific lang ID.
 	 *
-	 * @return $this
-	 */
-	public function byTag ( $tagId )
-	{
-		return $this->andWhere([ "tag_id" => $tagId ]);
-	}
-
-	/**
 	 * @param integer $langId
 	 *
 	 * @return $this
@@ -39,5 +31,29 @@ class TagLangQuery extends \yii\db\ActiveQuery
 	public function byLang ( $langId )
 	{
 		return $this->andWhere([ "lang_id" => $langId ]);
+	}
+
+	/**
+	 * Add a condition to fetch TagLang entries matching a specific slug.
+	 *
+	 * @param $slug
+	 *
+	 * @return $this
+	 */
+	public function bySlug ( $slug )
+	{
+		return $this->andWhere([ "slug" => $slug ]);
+	}
+
+	/**
+	 * Add a condition to fetch TagLang entries matching a specific tag ID.
+	 *
+	 * @param integer $tagId
+	 *
+	 * @return $this
+	 */
+	public function byTag ( $tagId )
+	{
+		return $this->andWhere([ "tag_id" => $tagId ]);
 	}
 }

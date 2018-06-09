@@ -6,6 +6,7 @@ use app\helpers\ArrayHelperEx;
 use app\modules\v1\components\ControllerEx;
 use app\modules\v1\components\parameters\Category;
 use app\modules\v1\components\parameters\Pagination;
+use app\modules\v1\components\parameters\Tag;
 use app\modules\v1\models\post\PostEx;
 use yii\data\ArrayDataProvider;
 
@@ -16,6 +17,7 @@ use yii\data\ArrayDataProvider;
  *
  * @property array $pagination set from Pagination Parameter
  * @property int   $category   set from Category Parameter
+ * @property int   $tag        set from Tag Parameter
  */
 class PostController extends ControllerEx
 {
@@ -26,16 +28,18 @@ class PostController extends ControllerEx
 			[
 				"Pagination" => Pagination::className(),
 				"Category"   => Category::className(),
+				"Tag"        => Tag::className(),
 			]);
 	}
 
 	/**
-	 * @return \yii\data\ActiveDataProvider
+	 * @return \yii\data\ArrayDataProvider
 	 */
 	public function actionIndex ()
 	{
 		$filters = [
 			"category" => $this->category,
+			"tag"      => $this->tag,
 		];
 
 		$data = [

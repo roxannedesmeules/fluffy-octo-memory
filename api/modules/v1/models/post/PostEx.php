@@ -97,6 +97,10 @@ class PostEx extends Post
 			$query->category($filters[ "category" ]);
 		}
 
+		if (!is_null($filters[ "tag" ])) {
+			$query->withTag($filters[ "tag" ]);
+		}
+
 		return $query->all();
 	}
 
