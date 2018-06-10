@@ -1,6 +1,12 @@
 <div class="container">
 	<div class="row">
-		<!-- post -->
+		<div class="col-8" *ngIf="category || tag">
+			<h2 class="h3" *ngIf="category"> {{ category?.name }} </h2>
+			<h2 class="h3" *ngIf="tag"> {{ tag?.name }} </h2>
+			<p class="text-big"> {{ list.length }} posts available </p>
+		</div>
+	</div>
+	<div class="row">
 		<app-post-summary class="col-xl-6" *ngFor="let post of list" [post]="post"></app-post-summary>
 	</div>
 

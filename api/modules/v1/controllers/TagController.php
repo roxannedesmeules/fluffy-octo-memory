@@ -26,6 +26,6 @@ class TagController extends ControllerEx
 			return $this->notFound("Tag could not be found");
 		}
 
-		return TagEx::getOneBySlugWithLanguage($slug);
+		return TagEx::getOneWithLanguage($slug);
 	}
 }

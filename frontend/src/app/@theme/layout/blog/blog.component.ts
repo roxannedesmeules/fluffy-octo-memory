@@ -11,7 +11,10 @@ export class BlogComponent {
 	constructor (private router: Router) {
 	}
 
-	currentPageIs ( route: string ): boolean {
-		return this.router.isActive(route, true);
+	currentPageList (): boolean {
+		let isBlog = this.router.url.includes("/blog");
+		let isPost = ((this.router.url.match(/\//g) || []).length === 3);
+
+		return (isBlog && !isPost);
 	}
 }

@@ -11,6 +11,7 @@ export class ListResolve implements Resolve<Post[]> {
 
 	resolve ( route: ActivatedRouteSnapshot ) {
 		this.service.filters.set("category", route.paramMap.get("category"));
+		this.service.filters.set("tag", route.queryParamMap.get("tag"));
 
 		this.service.filters.setPagination({
 			currentPage : route.queryParamMap.get("page"),

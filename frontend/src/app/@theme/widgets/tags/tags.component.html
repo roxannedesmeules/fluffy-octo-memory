@@ -4,7 +4,9 @@
 	</header>
 	<ul class="list-inline">
 		<li class="list-inline-item" *ngFor="let tag of tags">
-			<a href="#" class="tag">#{{ tag.name }}</a>
+			<a routerLink="/blog" [queryParams]="getParams(tag)" class="tag">
+				#{{ tag.name }}
+			</a>
 		</li>
 	</ul>
 </div>

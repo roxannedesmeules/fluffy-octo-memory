@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
+import { Category } from "@core/data/categories";
 import { Post, PostService } from "@core/data/posts";
+import { Tag } from "@core/data/tags";
 import { Pagination } from "@shared/pagination/pagination.model";
 import { Subscription } from "rxjs/Subscription";
 
@@ -15,7 +17,12 @@ export class ListComponent implements OnInit, OnDestroy {
 	public pagination: Pagination = new Pagination();
 	public list: Post[] = [];
 
-	constructor ( private router: Router, private route: ActivatedRoute, private postService: PostService ) {
+	public category: Category = null;
+	public tag: Tag = null;
+
+	constructor ( private router: Router,
+				  private route: ActivatedRoute,
+				  private postService: PostService) {
 	}
 
 	ngOnInit () {
@@ -38,7 +45,9 @@ export class ListComponent implements OnInit, OnDestroy {
 	 * from the resolver result and the pagination accordingly.
 	 */
 	initPosts () {
-		this.list = this.route.snapshot.data[ "posts" ];
+		this.list     = this.route.snapshot.data[ "posts" ];
+		this.category = this.route.snapshot.data[ "category" ] || null;
+		this.tag      = this.route.snapshot.data[ "tag" ] || null;
 
 		this.pagination.setPagination(this.postService.responseHeaders);
 	}
@@ -50,7 +59,6 @@ export class ListComponent implements OnInit, OnDestroy {
 	 * @param data
 	 */
 	updatePagination ( data ) {
-		// this.router.navigateByUrl(url);
 		this.router.navigate([ "/blog" ], { queryParams : { page : data.currentPage, "per-page" : data.perPage } });
 	}
 }

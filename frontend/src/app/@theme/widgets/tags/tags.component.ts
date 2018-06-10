@@ -28,4 +28,12 @@ export class TagsComponent implements OnInit {
 						(err: ErrorResponse) => { console.log(err); }
 				);
 	}
+
+	public getParams ( tag: Tag ): object {
+		return {
+			"tag"      : tag.slug,
+			"page"     : 0,
+			"per-page" : 10,
+		};
+	}
 }
