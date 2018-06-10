@@ -36,17 +36,18 @@ export class PostService extends BaseService {
 	}
 
 	public latests () {
-		this.filters.perPage = 3;
+		this.filters.reset();
+		this.filters.set("perPage", 3);
 
-		return this.http.get(this._url(), this._getOptions())
-				   .pipe(
-						   map(( res: HttpResponse<Post[]> ) => {
-							   this.responseHeaders = res.headers;
+		return this.findAll();
+	}
 
-							   return this.mapListToModelList(res.body);
-						   }),
-						   catchError(( err: any ) => Observable.throw(this.mapError(err))),
-				   );
+	public featured () {
+		this.filters.reset();
+		this.filters.set("featured", Post.FEATURED);
+		this.filters.set("perPage", 3);
+
+		return this.findAll();
 	}
 
 	protected _getOptions () {

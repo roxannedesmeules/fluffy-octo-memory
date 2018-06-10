@@ -7,6 +7,7 @@ use app\helpers\DateHelper;
 use app\models\app\Lang;
 use app\models\category\Category;
 use app\models\tag\Tag;
+use app\models\tag\AssoTagPost;
 use Yii;
 
 /**
@@ -15,6 +16,7 @@ use Yii;
  * @property int    $id
  * @property int    $category_id
  * @property int    $post_status_id
+ * @property int    $is_featured
  * @property string $created_on
  * @property string $updated_on
  * @property string $published_on
@@ -84,8 +86,11 @@ abstract class PostBase extends \yii\db\ActiveRecord
 				"message"         => self::ERR_FIELD_NOT_FOUND,
 			],
 
+			[ "is_featured", "integer", "message" => self::ERR_FIELD_TYPE ],
+
 			[ "created_on", "safe" ],
 			[ "updated_on", "safe" ],
+			[ "published_on", "safe" ],
 		];
 	}
 
@@ -199,9 +204,9 @@ abstract class PostBase extends \yii\db\ActiveRecord
 	}
 
 	/**
-	 * TODO add comments
+	 * Verify if a specific post ID exists.
 	 *
-	 * @param $postId
+	 * @param int $postId
 	 *
 	 * @return bool
 	 */

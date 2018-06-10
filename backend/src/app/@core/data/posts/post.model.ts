@@ -5,9 +5,13 @@ import { Tag } from "@core/data/tags";
  * @class Post
  */
 export class Post {
+	public static NOT_FEATURED = 0;
+	public static FEATURED     = 1;
+
 	public id: number;
 	public category_id: number;
 	public post_status_id: number;
+	public is_featured: number = Post.NOT_FEATURED;
 
 	public translations: PostLang[] = [];
 	public tags: Tag[] = [];
@@ -18,9 +22,10 @@ export class Post {
 	constructor ( model: any = null ) {
 		if (!model) { return; }
 
-		this.id             = model.id;
-		this.category_id    = model.category_id;
-		this.post_status_id = model.post_status_id;
+		this.id             = parseInt(model.id);
+		this.category_id    = parseInt(model.category_id);
+		this.post_status_id = parseInt(model.post_status_id);
+		this.is_featured    = parseInt(model.is_featured);
 
 		this.translations = this.mapTranslations(model.translations);
 
@@ -45,7 +50,7 @@ export class Post {
 	 *
 	 * @param {any[]} toCompare
 	 *
-	 * @return {{add: any[]; delete: any[]}}
+	 * @return {object}
 	 */
 	compareTags ( toCompare: any[] ) {
 		let toAdd    = [];
@@ -104,8 +109,17 @@ export class Post {
 		return {
 			category_id    : model.category_id,
 			post_status_id : model.post_status_id,
+			is_featured    : model.is_featured,
 			translations   : this.mapFormTranslations(model.translations),
 		};
+	}
+
+	isFeatured () {
+		return (this.is_featured === Post.FEATURED);
+	}
+
+	isNotFeatured () {
+		return (this.is_featured === Post.NOT_FEATURED);
 	}
 
 	/**

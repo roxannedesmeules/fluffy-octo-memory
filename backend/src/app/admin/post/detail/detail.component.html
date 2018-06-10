@@ -140,18 +140,30 @@
 					</ngb-tabset>
 				</div>
 				<div class="card-footer text-right">
-					<button type="button" class="btn btn-outline-success d-none" [class.d-inline]="displayStatusChangeBtn('draft')"
-					        (click)="updateStatus('unpublished')" [ladda]="statusLoading" data-style="zoom-in">
-						Review
+					<button type="button" class="btn btn-outline-primary" [class.d-none]="isCreate() || post.isFeatured()"
+					        (click)="updateFeatured(1)" [ladda]="featureLoading" data-style="zoom-in">
+						Feature post
 					</button>
-					<button type="button" class="btn btn-outline-primary d-none" [class.d-inline]="displayStatusChangeBtn('unpublished')"
-					        (click)="updateStatus('published')" [ladda]="statusLoading" data-style="zoom-in">
-						Publish
+
+					<button type="button" class="btn btn-outline-secondary" [class.d-none]="isCreate() || post.isNotFeatured()"
+					        (click)="updateFeatured(0)" [ladda]="featureLoading" data-style="zoom-in">
+						Remove from featured post
 					</button>
-					<button type="button" class="btn btn-outline-secondary d-none" [class.d-inline]="displayStatusChangeBtn('published')"
-					        (click)="updateStatus('archived')" [ladda]="statusLoading" data-style="zoom-in">
-						Archive
-					</button>
+
+					<div [class.divider]="!isCreate()">
+						<button type="button" class="btn btn-outline-success d-none" [class.d-inline]="displayStatusChangeBtn('draft')"
+						        (click)="updateStatus('unpublished')" [ladda]="statusLoading" data-style="zoom-in">
+							Review
+						</button>
+						<button type="button" class="btn btn-outline-primary d-none" [class.d-inline]="displayStatusChangeBtn('unpublished')"
+						        (click)="updateStatus('published')" [ladda]="statusLoading" data-style="zoom-in">
+							Publish
+						</button>
+						<button type="button" class="btn btn-outline-secondary d-none" [class.d-inline]="displayStatusChangeBtn('published')"
+						        (click)="updateStatus('archived')" [ladda]="statusLoading" data-style="zoom-in">
+							Archive
+						</button>
+					</div>
 
 					<div [class.divider]="!isCreate()">
 						<button type="submit" class="btn btn-primary" [ladda]="formLoading" data-style="zoom-in">

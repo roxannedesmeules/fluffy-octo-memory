@@ -5,6 +5,7 @@ namespace app\modules\v1\controllers;
 use app\helpers\ArrayHelperEx;
 use app\modules\v1\components\ControllerEx;
 use app\modules\v1\components\parameters\Category;
+use app\modules\v1\components\parameters\Featured;
 use app\modules\v1\components\parameters\Pagination;
 use app\modules\v1\components\parameters\Tag;
 use app\modules\v1\models\post\PostEx;
@@ -18,6 +19,7 @@ use yii\data\ArrayDataProvider;
  * @property array $pagination set from Pagination Parameter
  * @property int   $category   set from Category Parameter
  * @property int   $tag        set from Tag Parameter
+ * @property int   $featured   set from Featured Parameter
  */
 class PostController extends ControllerEx
 {
@@ -29,6 +31,7 @@ class PostController extends ControllerEx
 				"Pagination" => Pagination::className(),
 				"Category"   => Category::className(),
 				"Tag"        => Tag::className(),
+				"Featured"   => Featured::className()
 			]);
 	}
 
@@ -40,6 +43,7 @@ class PostController extends ControllerEx
 		$filters = [
 			"category" => $this->category,
 			"tag"      => $this->tag,
+			"featured" => $this->featured,
 		];
 
 		$data = [

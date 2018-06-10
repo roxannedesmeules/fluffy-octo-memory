@@ -48,6 +48,18 @@ class PostQuery extends \yii\db\ActiveQuery
 	}
 
 	/**
+	 * Add a condition to filter Post entries by featured flag.
+	 *
+	 * @param int $flag
+	 *
+	 * @return $this
+	 */
+	public function featured ( $flag )
+	{
+		return $this->andWhere([ "is_featured"  => $flag ]);
+	}
+
+	/**
 	 * Add a condition to filter Post entries by status ID that are set to published.
 	 *
 	 * @see PostStatus::PUBLISHED

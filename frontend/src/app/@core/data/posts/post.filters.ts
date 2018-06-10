@@ -10,6 +10,9 @@ export class PostFilters {
 	public category: string = "";
 	public tag: string = "";
 
+	// filter by attributes
+	public featured: number = -1;
+
 	constructor () {}
 
 	/**
@@ -34,6 +37,7 @@ export class PostFilters {
 	public reset () {
 		this.category = "";
 		this.tag      = "";
+		this.featured = -1;
 
 		this.pageNumber = PostFilters.DEFAULT_CURRENT_PAGE;
 		this.perPage    = PostFilters.DEFAULT_PER_PAGE;
@@ -79,6 +83,10 @@ export class PostFilters {
 
 		if (this.isSet("tag")) {
 			params[ "tag" ] = this.tag;
+		}
+
+		if (this.isSet("featured")) {
+			params[ "featured" ] = this.featured;
 		}
 
 		params[ "page" ]     = this.pageNumber;

@@ -17,6 +17,7 @@ const COMPONENTS = [
 	TagsComponent,
 ];
 
+
 @NgModule({
 	imports      : [
 		CommonModule,

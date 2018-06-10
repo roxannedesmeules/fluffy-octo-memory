@@ -31,8 +31,9 @@ export class DetailComponent implements OnInit {
 	public form: FormGroup;
 	public errors: any  = {};
 
-	public formLoading   = false;
-	public statusLoading = false;
+	public formLoading    = false;
+	public statusLoading  = false;
+	public featureLoading = false;
 
 	public editorOptions: Object = {
 		charCounterCount : true,
@@ -80,6 +81,7 @@ export class DetailComponent implements OnInit {
 		this.form = this._builder.group({
 			category_id    : this._builder.control(this.post.category_id, [ Validators.required ]),
 			post_status_id : this._builder.control(status, [ Validators.required ]),
+			is_featured    : this._builder.control(this.post.is_featured),
 			tags           : this._builder.control([]),
 			translations   : this._builder.array([]),
 		});
@@ -403,7 +405,7 @@ export class DetailComponent implements OnInit {
 				  .subscribe(
 						  ( results: Post[] ) => {
 							  this.formLoading = false;
-							  this.post        = results[ (results.length - 1) ];;
+							  this.post        = results[ (results.length - 1) ];
 						  },
 						  ( err: ErrorResponse ) => {
 							  this.formLoading = false;
@@ -415,6 +417,14 @@ export class DetailComponent implements OnInit {
 		return true;
 	}
 
+	public updateFeatured ( featuredFlag: number ) {
+		this.form.get("is_featured").setValue(featuredFlag);
+
+		let body = this.post.form(this.form.getRawValue());
+
+		this._updatePost(body, "featureLoading");
+	}
+
 	public updateStatus ( statusName: string ) {
 		//  get the status ID related to the name passed in parameter
 		const statusId = this.atIndexOf.transform(statusName, this.statuses, "name", "id");
@@ -422,26 +432,30 @@ export class DetailComponent implements OnInit {
 		//  update the form post status id
 		this.form.get("post_status_id").setValue(statusId);
 
-		this.errors        = [];
-		this.statusLoading = true;
-
 		let body = this.post.form(this.form.getRawValue());
+
+		this._updatePost(body, "statusLoading");
+	}
+
+	private _updatePost (body: any, loading: string) {
+		this.errors     = [];
+		this[ loading ] = true;
 
 		this.service
 			.update(this.post.id, body)
 			.subscribe(
-				(result: Post) => {
-					this.post          = result;
-					this.statusLoading = false;
+					(result: Post) => {
+						this.post       = result;
+						this[ loading ] = false;
 
-					this._showSuccessMessage();
-				},
-				(err: ErrorResponse) => {
-					this.statusLoading = false;
-					this.errors        = err.form_error;
+						this._showSuccessMessage();
+					},
+					(err: ErrorResponse) => {
+						this[ loading ] = false;
+						this.errors     = err.form_error;
 
-					this.resetForm();
-				},
-		);
+						this.resetForm();
+					},
+			);
 	}
 }

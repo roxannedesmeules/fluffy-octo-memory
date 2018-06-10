@@ -45,6 +45,7 @@ class PostEx extends Post
 		$fields = [
 			"id",
 			"category"     => "category",
+			"featured"     => "is_featured",
 			"title"        => function ( self $model ) {
 				return PostLangEx::getTranslationTitle($model->postLangs, LangEx::getIdFromIcu(\Yii::$app->language));
 			},
@@ -99,6 +100,10 @@ class PostEx extends Post
 
 		if (!is_null($filters[ "tag" ])) {
 			$query->withTag($filters[ "tag" ]);
+		}
+
+		if (!is_null($filters[ "featured" ])) {
+			$query->featured($filters[ "featured" ]);
 		}
 
 		return $query->all();

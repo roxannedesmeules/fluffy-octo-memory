@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { PipesModule } from "@shared/pipes/pipes.module";
 import { PostSummaryModule } from "@shared/post-summary/post-summary.module";
 import { DirectivesModule } from "@shared/directives/directives.module";
 
@@ -11,8 +12,10 @@ import { LatestPostComponent } from './latest-post/latest-post.component';
 @NgModule({
 	imports      : [
 		CommonModule,
-		DirectivesModule,
 		HomeRoutingModule,
+
+		DirectivesModule,
+		PipesModule,
 		PostSummaryModule,
 	],
 	declarations : [

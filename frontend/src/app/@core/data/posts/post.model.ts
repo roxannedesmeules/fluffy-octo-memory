@@ -4,8 +4,12 @@ import { Tag } from "@core/data/tags/tag.model";
 import { Author } from "@core/data/users/author.model";
 
 export class Post {
+	public static NOT_FEATURED = 0;
+	public static FEATURED     = 1;
+
 	public id: number;
 	public category: Category;
+	public featured: number;
 	public title: string;
 	public slug: string;
 	public summary: string;
@@ -22,6 +26,7 @@ export class Post {
 
 		this.id       = model.id;
 		this.category = new Category(model.category);
+		this.featured = parseInt(model.featured);
 		this.title    = model.title;
 		this.slug     = model.slug;
 		this.summary  = model.summary;

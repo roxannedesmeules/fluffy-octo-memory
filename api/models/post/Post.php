@@ -16,7 +16,10 @@ use app\models\category\Category;
 class Post extends PostBase
 {
 	/**
-	 * @return bool
+	 * This method will verify if a specific post can be published. It will make sure that there is a translation in
+	 * every language available AND that each translation have the proper fields filled.
+	 *
+	 * @return array
 	 */
 	public function canBePublished ()
 	{
@@ -188,6 +191,7 @@ class Post extends PostBase
 		//  assign all attributes
 		$model->category_id    = ArrayHelperEx::getValue($data, "category_id", $model->category_id);
 		$model->post_status_id = ArrayHelperEx::getValue($data, "post_status_id", $model->post_status_id);
+		$model->is_featured    = ArrayHelperEx::getValue($data, "is_featured", $model->is_featured);
 
 		// if the model doesn't validate, return error
 		if ( !$model->validate() ) {

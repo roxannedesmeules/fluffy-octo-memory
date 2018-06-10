@@ -25,9 +25,9 @@
 
 <section class="featured-posts no-padding-top">
 	<div class="container">
-		<app-home-featured-post [post]="" imgSide="right"></app-home-featured-post>
-		<app-home-featured-post [post]="" imgSide="left"></app-home-featured-post>
-		<app-home-featured-post [post]="" imgSide="right"></app-home-featured-post>
+		<app-home-featured-post *ngFor="let post of featured; let idx = index;"
+		                        [post]="post" [imgSide]="(idx % 2 === 0) ? 'right' : 'left'">
+		</app-home-featured-post>
 	</div>
 </section>
 

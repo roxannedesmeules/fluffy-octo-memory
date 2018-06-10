@@ -9,11 +9,13 @@ import { Post, PostService } from "@core/data/posts";
 export class HomeComponent implements OnInit {
 
 	public latests: Post[] = [];
+	public featured: Post[] = [];
 
 	constructor (private postService: PostService) {
 	}
 
 	ngOnInit () {
+		this._getFeaturedPost();
 		this._getLatestPosts();
 	}
 
@@ -21,5 +23,11 @@ export class HomeComponent implements OnInit {
 		this.postService
 			.latests()
 			.subscribe((result: Post[]) => { this.latests = result; });
+	}
+
+	private _getFeaturedPost () {
+		this.postService
+			.featured()
+			.subscribe((result: Post[]) => { this.featured = result; });
 	}
 }
