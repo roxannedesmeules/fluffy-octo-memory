@@ -60,10 +60,7 @@ class ControllerEx extends Controller
 	}
 
 	/** @inheritdoc */
-	public function actions ()
-	{
-		return ArrayHelperEx::merge(parent::actions(), [ "options" => OptionsAction::className(), ]);
-	}
+	public function actionOptions() {}
 
 	/** @inheritdoc */
 	protected function verbs ()
@@ -74,10 +71,28 @@ class ControllerEx extends Controller
 		];
 	}
 
+	public function error ( $code, $error )
+	{
+		$this->response->setStatusCode($code);
+
+		if (is_array($error)) {
+			return [ "error" => $error ];
+		}
+
+		return [ "message" => $error ];
+	}
+
 	public function notFound ( $message = "" )
 	{
 		$this->response->setStatusCode(404);
 
 		return [ "message" => $message ];
+	}
+
+	protected function unprocessableResult ( $errors )
+	{
+		$this->response->setStatusCode(422);
+
+		return [ "error" => $errors ];
 	}
 }

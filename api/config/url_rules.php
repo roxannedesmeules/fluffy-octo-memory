@@ -52,7 +52,7 @@ return [
 	//  posts
 	[
 		"class"      => 'yii\rest\UrlRule',
-		"controller" => [ "v1/post" ],
+		"controller" => [ "v1/posts" => "v1/post/post" ],
 		"except"     => [ "create", "update", "delete" ],
 		"patterns"   => [
 			'GET,HEAD {slug}' => 'view',
@@ -61,6 +61,11 @@ return [
 			''                => 'options',
 		],
 		"tokens"     => [ "{slug}" => $slug ],
+	], [
+		"class"      => 'yii\rest\UrlRule',
+		"prefix"     => "v1/posts/<postId:$int>",
+		"controller" => [ "comments" => "v1/post/comment" ],
+		"except"     => [ "view", "update", "delete" ],
 	],
 
 	//  V1 Admin rules

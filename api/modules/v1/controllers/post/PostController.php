@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\v1\controllers;
+namespace app\modules\v1\controllers\post;
 
 use app\helpers\ArrayHelperEx;
 use app\modules\v1\components\ControllerEx;
