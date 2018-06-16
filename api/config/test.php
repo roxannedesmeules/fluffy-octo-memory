@@ -25,6 +25,7 @@ return [
 		"@v1"     => "/app/modules/v1",
 		"@models" => "/app/models",
 		"@upload" => "/app/web/upload",
+		"@tests"  => "/app/tests",
 	],
 
 	// set target language to be Russian
@@ -46,9 +47,6 @@ return [
 		],
 		'assetManager' => [
 			'basePath' => __DIR__ . '/../web/assets',
-		],
-		'urlManager'   => [
-			'showScriptName' => true,
 		],
 		'user'         => [
 			'identityClass' => 'app\models\user\User',

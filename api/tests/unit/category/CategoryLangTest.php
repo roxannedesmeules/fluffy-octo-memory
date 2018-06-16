@@ -1,14 +1,15 @@
 <?php
-namespace app\tests\unit\category;
+namespace tests\unit\category;
 
-use app\tests\_support\_fixtures\CategoryLangFixture;
+use app\models\app\Lang;
 use app\models\category\CategoryLang as Model;
+use app\tests\fixtures;
 use Faker\Factory as Faker;
 
 /**
  * Class ModelTest
  *
- * @package app\tests\unit\category
+ * @package tests\unit\category
  *
  * @group   category
  */
@@ -35,9 +36,7 @@ class CategoryLangTest extends \Codeception\Test\Unit
 	public function _fixtures()
 	{
 		return [
-			'categoryLang' => [
-				'class' => CategoryLangFixture::className(),
-			],
+			'categoryLang' => [ 'class' => fixtures\CategoryLangFixture::class, ],
 		];
 	}
 
@@ -90,14 +89,14 @@ class CategoryLangTest extends \Codeception\Test\Unit
 			$this->tester->assertContains(Model::ERR_FIELD_TOO_LONG, $this->model->getErrors("name"));
 		});
 		$this->specify("name is expected to be unique in a language", function () {
-			$this->model->lang_id = 2;
-			$this->model->name    = $this->tester->grabFixture("categoryLang", "inactive-fr")->name;
+			$this->model->lang_id = Lang::EN;
+			$this->model->name    = $this->tester->grabFixture("categoryLang", "category_lang0")->name;
 
 			$this->tester->assertFalse($this->model->validate([ "name" ]));
 			$this->tester->assertContains(Model::ERR_FIELD_NOT_UNIQUE, $this->model->getErrors("name"));
 
 			//  this name should work even though it exists, since it's for another language
-			$this->model->lang_id = 1;
+			$this->model->lang_id = Lang::FR;
 
 			$this->tester->assertTrue($this->model->validate([ "name" ]), "name should only be unique by language");
 		});
@@ -113,53 +112,49 @@ class CategoryLangTest extends \Codeception\Test\Unit
 			$this->tester->assertContains(Model::ERR_FIELD_TOO_LONG, $this->model->getErrors("slug"));
 		});
 		$this->specify("slug is expected to be unique in a language", function () {
-			$this->model->lang_id = 2;
-			$this->model->slug    = $this->tester->grabFixture("categoryLang", "inactive-fr")->slug;
+			$this->model->lang_id = Lang::EN;
+			$this->model->slug    = $this->tester->grabFixture("categoryLang", "category_lang0")->slug;
 
 			$this->tester->assertFalse($this->model->validate([ "slug" ]));
 			$this->tester->assertContains(Model::ERR_FIELD_NOT_UNIQUE, $this->model->getErrors("slug"));
 
 			//  this slug should work even though it exists, since it's for another language
-			$this->model->lang_id = 1;
+			$this->model->lang_id = Lang::FR;
 
 			$this->tester->assertTrue($this->model->validate([ "slug" ]), "slug should only be unique by language");
 		});
 	}
-
 
 	public function testCreate ()
 	{
 		$this->model = new Model();
 
 		$this->specify("not create with invalid category", function () {
-			$this->model = CategoryLangFixture::build(1000, 2);
+			$this->model = fixtures\CategoryLangFixture::build(1000, Lang::FR);
 
 			$result      = Model::createTranslation($this->model[ "category_id" ], $this->model);
 
 			$this->tester->assertTrue(($result[ "status" ] === Model::ERROR), "should not create with invalid category");
 			$this->tester->assertTrue(($result[ "error" ] === Model::ERR_CATEGORY_NOT_FOUND), "should return ERR_CATEGORY_NOT_FOUND");
 		});
-
 		$this->specify("not create with invalid model", function () {
-			$this->model = CategoryLangFixture::build(2, 1, false);
+			$this->model = fixtures\CategoryLangFixture::build(10, Lang::FR, false);
 
 			$result      = Model::createTranslation($this->model[ "category_id" ], $this->model);
 
 			$this->tester->assertTrue(($result[ "status" ] === Model::ERROR));
 			$this->tester->assertTrue(is_array($result[ "error" ]));
 		});
-
 		$this->specify("not create an existing translation", function () {
-			$this->model = CategoryLangFixture::build(1, 1);
+			$this->model = fixtures\CategoryLangFixture::build(1, Lang::EN);
 
 			$result      = Model::createTranslation($this->model[ "category_id" ], $this->model);
 
 			$this->tester->assertTrue(($result[ "status" ] === Model::ERROR), "should not create an existing translation");
 			$this->tester->assertTrue(($result[ "error" ] === Model::ERR_TRANSLATION_EXISTS), "should return ERR_TRANSLATION_ALREADY_EXISTS");
 		});
-
 		$this->specify("create translation", function () {
-			$this->model = CategoryLangFixture::build(2, 1);
+			$this->model = fixtures\CategoryLangFixture::build(10, Lang::FR);
 
 			$result      = Model::createTranslation($this->model[ "category_id" ], $this->model);
 
@@ -169,7 +164,7 @@ class CategoryLangTest extends \Codeception\Test\Unit
 
 	public function testUpdate ()
 	{
-		$this->model = $this->tester->grabFixture("categoryLang", "inactive-fr");
+		$this->model = $this->tester->grabFixture("categoryLang", "category_lang1");
 
 		$this->specify("not update a non-existing translation", function () {
 			$result = Model::updateTranslation(1000, 1000, $this->model);
@@ -177,7 +172,6 @@ class CategoryLangTest extends \Codeception\Test\Unit
 			$this->tester->assertTrue(($result[ "status" ] === Model::ERROR), "should not update non-existing translation");
 			$this->tester->assertTrue(($result[ "error" ] === Model::ERR_NOT_FOUND), "should return ERR_NOT_FOUND");
 		});
-
 		$this->specify("not update an invalid translation", function () {
 			$this->model->name = \Yii::$app->getSecurity()->generateRandomString(256);
 
@@ -186,7 +180,6 @@ class CategoryLangTest extends \Codeception\Test\Unit
 			$this->tester->assertTrue(($result[ "status" ] === Model::ERROR), "should not update an invalid translation");
 			$this->tester->assertTrue(is_array($result[ "error" ]), "should return list of errors for each fields");
 		});
-
 		$this->specify("update translation", function () {
 			$this->model->name = $this->faker->text();
 
@@ -198,7 +191,7 @@ class CategoryLangTest extends \Codeception\Test\Unit
 
 	public function testDelete ()
 	{
-		$this->model = $this->tester->grabFixture("categoryLang", "inactive-en");
+		$this->model = $this->tester->grabFixture("categoryLang", "category_lang2");
 
 		$this->specify("delete all translations of category", function () {
 			$result = Model::deleteTranslations($this->model->category_id);
