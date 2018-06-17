@@ -1,12 +1,10 @@
 <?php
 
-namespace app\tests\unit\post;
+namespace tests\unit\post;
 
 use app\models\post\Post;
 use app\models\post\PostStatus;
-use app\tests\_support\_fixtures\CategoryFixture;
-use app\tests\_support\_fixtures\PostFixture;
-use app\tests\_support\_fixtures\PostLangFixture;
+use app\tests\fixtures;
 use Faker\Factory as Faker;
 
 /**
@@ -30,15 +28,18 @@ class PostTest extends \Codeception\Test\Unit
 	protected function _before ()
 	{
 		$this->faker = Faker::create();
-
-		$this->tester->haveFixtures([
-										"category" => CategoryFixture::className(),
-										"postLang" => PostLangFixture::className(),
-										"post"     => PostFixture::className(),
-									]);
 	}
 
 	protected function _after () { }
+
+	public function _fixtures ()
+	{
+		return [
+			"category" => fixtures\CategoryFixture::class,
+			"postLang" => fixtures\PostLangFixture::class,
+			"post"     => fixtures\PostFixture::class,
+		];
+	}
 
 	public function testValidation ()
 	{
@@ -70,7 +71,7 @@ class PostTest extends \Codeception\Test\Unit
 		});
 
 		$this->specify("valid model", function () {
-			$this->model->category_id    = $this->tester->grabFixture("category", "active")->id;
+			$this->model->category_id    = $this->tester->grabFixture("category", "category0")->id;
 			$this->model->post_status_id = PostStatus::UNPUBLISHED;
 
 			$this->tester->assertTrue($this->model->validate());
@@ -89,7 +90,7 @@ class PostTest extends \Codeception\Test\Unit
 			$this->_error(Post::ERR_CATEGORY_NOT_FOUND, $result);
 		});
 		$this->specify("not create post status not found", function () {
-			$this->model->category_id 	 = $this->tester->grabFixture("category", "inactive")->id;
+			$this->model->category_id 	 = $this->tester->grabFixture("category", "category0")->id;
 			$this->model->post_status_id = 1000;
 
 			$result = Post::createPost($this->model);
@@ -97,7 +98,7 @@ class PostTest extends \Codeception\Test\Unit
 			$this->_error(Post::ERR_STATUS_NOT_FOUND, $result);
 		});
 		$this->specify("create valid model", function () {
-			$this->model->category_id    = $this->tester->grabFixture("category", "inactive")->id;
+			$this->model->category_id    = $this->tester->grabFixture("category", "category0")->id;
 			$this->model->post_status_id = PostStatus::UNPUBLISHED;
 
 			$result = Post::createPost($this->model);
@@ -105,17 +106,17 @@ class PostTest extends \Codeception\Test\Unit
 			$this->tester->assertEquals(Post::SUCCESS, $result[ "status" ]);
 			$this->tester->assertArrayHasKey("post_id", $result);
 
-			$this->tester->canSeeInDatabase(Post::tableName(), [ "id" => $result[ "post_id" ] ]);
+			$this->tester->canSeeRecord(Post::class, [ "id" => $result[ "post_id" ] ]);
 		});
 		$this->specify("create valid model without post status", function () {
-			$this->model->category_id    = $this->tester->grabFixture("category", "active")->id;
+			$this->model->category_id    = $this->tester->grabFixture("category", "category1")->id;
 
 			$result = Post::createPost($this->model);
 
 			$this->tester->assertEquals(Post::SUCCESS, $result[ "status" ]);
 			$this->tester->assertArrayHasKey("post_id", $result);
 
-			$this->tester->canSeeInDatabase(Post::tableName(), [ "id" => $result[ "post_id" ], "post_status_id" => PostStatus::DRAFT ]);
+			$this->tester->canSeeRecord(Post::class, [ "id" => $result[ "post_id" ], "post_status_id" => PostStatus::DRAFT ]);
 		});
 	}
 
@@ -127,25 +128,33 @@ class PostTest extends \Codeception\Test\Unit
 			$this->_error(Post::ERR_NOT_FOUND, $result);
 		});
 		$this->specify("not delete a published post", function () {
-			$model  = $this->tester->grabFixture("post", "published");
+			$model  = $this->tester->grabFixture("post", "post3");
 			$result = Post::deletePost($model->id);
 
 			$this->_error(Post::ERR_POST_PUBLISHED, $result);
 
-			$this->tester->canSeeInDatabase(Post::tableName(), [ "id" => $model->id ]);
+			$this->tester->canSeeRecord(Post::class, [ "id" => $model->id ]);
+		});
+		$this->specify("not delete a post with comments", function () {
+			$model  = $this->tester->grabFixture("post", "post0");
+			$result = Post::deletePost($model->id);
+
+			$this->_error(Post::ERR_POST_DELETE_COMMENTS, $result);
+
+			$this->tester->canSeeRecord(Post::class, [ "id" => $model->id ]);
 		});
 		$this->specify("delete a post", function () {
-			$model  = $this->tester->grabFixture("post", "unpublished");
+			$model  = $this->tester->grabFixture("post", "post4");
 			$result = Post::deletePost($model->id);
 
 			$this->tester->assertEquals(Post::SUCCESS, $result[ "status" ]);
-			$this->tester->cantSeeInDatabase(Post::tableName(), [ "id" => $model->id ]);
+			$this->tester->cantSeeRecord(Post::class, [ "id" => $model->id ]);
 		});
 	}
 
 	public function testUpdate ()
 	{
-		$this->model = $this->tester->grabFixture("post", "unpublished");
+		$this->model = $this->tester->grabFixture("post", "post6");
 
 		$this->specify("not update invalid post id", function () {
 			$result = Post::updatePost(1000, $this->model);
@@ -167,12 +176,12 @@ class PostTest extends \Codeception\Test\Unit
 			$this->_error(Post::ERR_STATUS_NOT_FOUND, $result);
 		});
 		$this->specify("update valid model", function () {
-			$this->model->category_id = $this->tester->grabFixture("category", "active")->id;
+			$this->model->category_id = $this->tester->grabFixture("category", "category2")->id;
 
 			$result = Post::updatePost($this->model->id, $this->model);
 
 			$this->tester->assertEquals(Post::SUCCESS, $result[ "status" ]);
-			$this->tester->canSeeInDatabase(Post::tableName(), [ "id" => $this->model->id, "category_id" => $this->model->category_id ]);
+			$this->tester->canSeeRecord(Post::class, [ "id" => $this->model->id, "category_id" => $this->model->category_id ]);
 		});
 	}
 
