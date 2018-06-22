@@ -10,6 +10,7 @@ export class PostLang {
 	public slug: string;
 	public summary: string;
 	public content: string;
+	public comments_count: number;
 
 	public author: Author;
 
@@ -29,6 +30,7 @@ export class PostLang {
 		this.slug     = model.slug;
 		this.summary  = model.summary;
 		this.content  = model.content;
+		this.comments_count = model.comments_count;
 
 		this.cover     = new PostCover(model.cover);
 		this.cover_alt = model.cover_alt || model.file_alt;

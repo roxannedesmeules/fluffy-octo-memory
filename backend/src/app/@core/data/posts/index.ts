@@ -15,5 +15,9 @@ export * from "./post-status.service";
 // post tag relation
 export * from "./post-tag.service";
 
+// post comments
+export * from "./post-comment.model";
+export * from "./post-comment.service";
+
 // resolvers
 export * from "./resolvers";

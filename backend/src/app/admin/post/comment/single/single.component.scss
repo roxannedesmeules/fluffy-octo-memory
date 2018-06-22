@@ -1,0 +1,59 @@
+$templateColour : 'ladydev';
+
+@import "../../../../../assets/theme/style/modules/colors";
+
+h3 {
+	color       : #555555;
+	font-weight : 400;
+}
+
+small {
+	color     : #aaaaaa;
+	font-size : 0.75em;
+}
+
+p {
+	font-weight   : 300;
+	font-size     : 0.9em;
+	color         : #aaaaaa;
+	margin-bottom : 0;
+}
+
+.fa-check {
+	&:hover {
+		color  : #555555;
+		cursor : pointer;
+	}
+
+	&.approved {
+		color : $primary;
+
+		&:hover {
+			color  : darken($primary, $theme-color-interval);
+			cursor : pointer;
+		}
+	}
+}
+
+.date {
+	font-size    : 0.9em;
+	color        : #adadad;
+	margin-right : 20px;
+
+	strong {
+		font-size   : 1.4em;
+		line-height : 0.8em;
+		display     : block;
+	}
+
+	span {
+		font-size   : 0.9em;
+		font-weight : 300;
+	}
+
+	small {
+		line-height    : 0.8em;
+		letter-spacing : 0.2em;
+		display        : block;
+	}
+}

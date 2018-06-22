@@ -114,6 +114,14 @@ export class Post {
 		};
 	}
 
+	hasComments () {
+		let total = 0;
+
+		this.translations.forEach((val) => { total += val.comments_count; });
+
+		return (total > 0);
+	}
+
 	isFeatured () {
 		return (this.is_featured === Post.FEATURED);
 	}

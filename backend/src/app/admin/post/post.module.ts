@@ -14,6 +14,8 @@ import { FileInputModule } from "@shared/file-input/file-input.module";
 import { PostComponent } from "admin/post/post.component";
 import { ListComponent } from "admin/post/list/list.component";
 import { DetailComponent } from "admin/post/detail/detail.component";
+import { CommentComponent } from "admin/post/comment/comment.component";
+import { SingleComponent } from './comment/single/single.component';
 
 
 @NgModule({
@@ -36,6 +38,8 @@ import { DetailComponent } from "admin/post/detail/detail.component";
 		PostComponent,
 		ListComponent,
 		DetailComponent,
+		CommentComponent,
+		SingleComponent,
 	],
 })
 export class PostModule {

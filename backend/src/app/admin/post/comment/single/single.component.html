@@ -1,0 +1,20 @@
+<div class="d-flex flex-row">
+	<div class="date text-center">
+		<strong>{{ comment.created_on | date:'d' }}</strong>
+		<span>{{ comment.created_on | date:'MMM' }}</span>
+		<small>{{ comment.created_on | date:'y' }}</small>
+	</div>
+	<div class="text clearfix">
+		<h3 class="h5">
+			<small (click)="toggleApprobation()"><i class="fas fa-check" [class.approved]="comment.isApproved()"></i></small>
+			{{ comment.author }}
+		</h3>
+		<p>{{ comment.comment }}</p>
+	</div>
+</div>
+
+<div class="d-flex flex-column mt-3 ml-4">
+	<div class="border-top pt-3" *ngFor="let reply of comment.replies">
+		<app-post-comment-single [comment]="reply" (onUpdate)="sendToParent($event)"></app-post-comment-single>
+	</div>
+</div>

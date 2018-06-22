@@ -1,0 +1,9 @@
+.comment-list {
+	.item {
+		padding : 20px;
+
+		&:nth-of-type(even) {
+			background : #fafafa;
+		}
+	}
+}

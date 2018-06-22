@@ -2,7 +2,7 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 
 import { LanguageResolve } from "@core/data/languages";
-import { ListResolve, DetailResolve } from "@core/data/posts";
+import { ListResolve, DetailResolve, CommentResolve } from "@core/data/posts";
 import { StatusResolve } from "@core/data/posts/resolvers/status.resolve";
 import { FullListResolve as CategoryListResolve } from "@core/data/categories";
 import { FullListResolve as TagListResolve } from "@core/data/tags";
@@ -10,6 +10,7 @@ import { FullListResolve as TagListResolve } from "@core/data/tags";
 import { PostComponent } from "admin/post/post.component";
 import { ListComponent } from "admin/post/list/list.component";
 import { DetailComponent } from "admin/post/detail/detail.component";
+import { CommentComponent } from "admin/post/comment/comment.component";
 
 const routes: Routes = [
 	{
@@ -43,7 +44,14 @@ const routes: Routes = [
 					categories : CategoryListResolve,
 					tags       : TagListResolve,
 				},
-			},
+			}, {
+				path      : ":id/comments",
+				component : CommentComponent,
+				resolve   : {
+					languages : LanguageResolve,
+					comments  : CommentResolve,
+				},
+			}
 		],
 	},
 ];
