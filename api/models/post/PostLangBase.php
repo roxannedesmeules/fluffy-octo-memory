@@ -28,6 +28,7 @@ use Yii;
  * @property Post   $post
  * @property User   $user
  * @property File   $file
+ * @property PostComment[] $comments
  */
 abstract class PostLangBase extends \yii\db\ActiveRecord
 {
@@ -143,6 +144,12 @@ abstract class PostLangBase extends \yii\db\ActiveRecord
 			'created_on' => Yii::t('app.post', 'Created On'),
 			'updated_on' => Yii::t('app.post', 'Updated On'),
 		];
+	}
+
+	/** @return \yii\db\ActiveQuery */
+	public function getComments ()
+	{
+		return $this->hasMany(PostComment::class, [ "lang_id" => "lang_id", "post_id" => "post_id" ]);
 	}
 
 	/** @return \yii\db\ActiveQuery */

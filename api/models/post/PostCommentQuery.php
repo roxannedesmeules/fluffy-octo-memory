@@ -45,16 +45,20 @@ class PostCommentQuery extends \yii\db\ActiveQuery
 	}
 
 	/**
-	 * Add condition to fetch post comment by post ID and lang ID
+	 * Add condition to fetch post comment by post ID
 	 *
 	 * @param int $postId
-	 * @param int $langId
 	 *
 	 * @return $this
 	 */
-	public function byPost ( $postId, $langId )
+	public function byPost ( $postId )
 	{
-		return $this->andWhere([ "post_id" => $postId, "lang_id" => $langId ]);
+		return $this->andWhere([ "post_id" => $postId ]);
+	}
+
+	public function byLang ( $langId )
+	{
+		return $this->andWhere([ "lang_id" => $langId ]);
 	}
 
 	/**

@@ -31,6 +31,9 @@ use Yii;
  */
 abstract class PostBase extends \yii\db\ActiveRecord
 {
+	const NOT_FEATURED = 0;
+	const FEATURED     = 1;
+
 	const ERROR   = 0;
 	const SUCCESS = 1;
 
@@ -41,6 +44,7 @@ abstract class PostBase extends \yii\db\ActiveRecord
 	const ERR_STATUS_NOT_FOUND    = "ERR_POST_STATUS_NOT_FOUND";
 	const ERR_POST_PUBLISHED      = "ERR_POST_PUBLISHED";
 	const ERR_MISSING_TRANSLATION = "ERR_MISSING_TRANSLATION_ON_PUBLISHED";
+	const ERR_POST_DELETE_COMMENTS = "ERR_POST_DELETE_COMMENTS";
 
 	const ERR_FIELD_REQUIRED    = "ERR_FIELD_VALUE_REQUIRED";
 	const ERR_FIELD_TYPE        = "ERR_FIELD_VALUE_WRONG_TYPE";
@@ -87,6 +91,7 @@ abstract class PostBase extends \yii\db\ActiveRecord
 			],
 
 			[ "is_featured", "integer", "message" => self::ERR_FIELD_TYPE ],
+			[ "is_featured", "default", "value" => 0 ],
 
 			[ "created_on", "safe" ],
 			[ "updated_on", "safe" ],
@@ -156,10 +161,6 @@ abstract class PostBase extends \yii\db\ActiveRecord
 	/** @inheritdoc */
 	public function beforeSave ( $insert )
 	{
-		if (!parent::beforeSave($insert)) {
-			return false;
-		}
-
 		switch ($insert) {
 			case true:
 				$this->created_on = date(DateHelper::DATETIME_FORMAT);
@@ -174,7 +175,7 @@ abstract class PostBase extends \yii\db\ActiveRecord
 			$this->published_on = date(DateHelper::DATETIME_FORMAT);
 		}
 
-		return true;
+		return parent::beforeSave($insert);
 	}
 
 	/**

@@ -1,11 +1,11 @@
 <?php
 
 namespace app\models\post;
+
 use app\helpers\ArrayHelperEx;
 use app\helpers\DateHelper;
 use app\models\app\Lang;
 use app\models\category\Category;
-
 
 /**
  * Class Post
@@ -75,7 +75,7 @@ class Post extends PostBase
 
 		//  make sure post status id exists
 		if (!PostStatus::idExists(ArrayHelperEx::getValue($data, "post_status_id")) &&
-			!is_null(ArrayHelperEx::getValue($data, "post_status_id"))) {
+		    !is_null(ArrayHelperEx::getValue($data, "post_status_id"))) {
 			return self::buildError(self::ERR_STATUS_NOT_FOUND);
 		}
 
@@ -85,6 +85,7 @@ class Post extends PostBase
 		//  assign all attributes
 		$model->category_id    = ArrayHelperEx::getValue($data, "category_id");
 		$model->post_status_id = ArrayHelperEx::getValue($data, "post_status_id", PostStatus::DRAFT);
+		$model->is_featured    = self::NOT_FEATURED;
 
 		// if the model doesn't validate, return error
 		if ( !$model->validate() ) {
@@ -123,6 +124,10 @@ class Post extends PostBase
 		//  find the model to delete
 		$model = self::find()->id($postId)->one();
 
+		if ($model->hasComments()) {
+			return self::buildError(self::ERR_POST_DELETE_COMMENTS);
+		}
+
 		//  delete model, in case of error, return it
 		if ( !$model->delete() ) {
 			return self::buildError(self::ERR_ON_DELETE);
@@ -130,6 +135,11 @@ class Post extends PostBase
 
 		//  return success
 		return self::buildSuccess([]);
+	}
+
+	public function hasComments ()
+	{
+		return PostComment::find()->byPost($this->id)->exists();
 	}
 
 	/**

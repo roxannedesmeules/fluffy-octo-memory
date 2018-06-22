@@ -51,8 +51,9 @@ class PostLangEx extends PostLang
 			"author"    => function ( self $model ) {
 				return [ "id" => $model->user_id, "fullname" => $model->user->userProfile->getFullname() ];
 			},
-			"created_on"   => function ( self $model ) { return DateHelper::formatDate($model->created_on); },
-			"updated_on"   => function ( self $model ) { return DateHelper::formatDate($model->updated_on); },
+			"comments_count" => function ( self $model ) { return count($model->comments); },
+			"created_on" => function ( self $model ) { return DateHelper::formatDate($model->created_on); },
+			"updated_on" => function ( self $model ) { return DateHelper::formatDate($model->updated_on); },
 		];
 	}
 

@@ -87,12 +87,20 @@ return [
 	],
 
 	//  posts
-	[ "class" => 'yii\rest\UrlRule', "controller" => [ "$admin/posts" => "$admin/post/post" ], ],
-
-	//  posts translation cover
-	"OPTIONS $admin/posts/<postId:$int>/<langId:$int>/cover" => "$admin/post/cover/options",
-	"POST    $admin/posts/<postId:$int>/<langId:$int>/cover" => "$admin/post/cover/create",
-	"DELETE  $admin/posts/<postId:$int>/<langId:$int>/cover" => "$admin/post/cover/delete",
+	[
+		"class"      => 'yii\rest\UrlRule',
+		"controller" => [ "$admin/posts" => "$admin/post/post" ],
+	], [
+		"class"      => 'yii\rest\UrlRule',
+		"prefix"     => "$admin/posts/<postId:$int>/<langId:$int>",
+		"controller" => [ "cover" => "$admin/post/cover" ],
+		"except"     => [ "index", "view", "update" ],
+	], [
+		"class"      => 'yii\rest\UrlRule',
+		"prefix"     => "$admin/posts/<postId:$int>",
+		"controller" => [ "comments" => "$admin/post/comment" ],
+		"except"     => [ "view", "delete" ],
+	],
 
 	//  post statuses
 	[

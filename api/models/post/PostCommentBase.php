@@ -182,6 +182,6 @@ abstract class PostCommentBase extends \yii\db\ActiveRecord
 	 */
 	public static function idExists ( $commentId )
 	{
-		return self::model()->byId($commentId)->exists();
+		return self::find()->byId($commentId)->exists();
 	}
 }
