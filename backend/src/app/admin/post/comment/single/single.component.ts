@@ -35,6 +35,18 @@ export class SingleComponent implements OnInit {
 				);
 	}
 
+	public openEdit () {
+		const options = {
+			size     : "lg",
+			centered : true,
+		} as NgbModalOptions;
+
+		const instance = this._modal.open(ReplyComponent, options);
+
+		instance.componentInstance.isUpdate = true;
+		instance.componentInstance.comment = this.comment;
+	}
+
 	public openReply () {
 		const options = {
 			size     : "lg",
@@ -43,7 +55,8 @@ export class SingleComponent implements OnInit {
 
 		const instance = this._modal.open(ReplyComponent, options);
 
-		instance.componentInstance.comment = this.comment;
+		instance.componentInstance.isUpdate = false;
+		instance.componentInstance.comment  = this.comment;
 
 		instance
 				.result

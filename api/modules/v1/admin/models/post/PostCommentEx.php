@@ -40,7 +40,13 @@ class PostCommentEx extends PostComment
 					return $model->author;
 				}
 			},
-			"user",
+			"user" => function ( self $model ) {
+				if (!is_null($model->user_id)) {
+					return [ "id" => $model->user_id, "fullname" => $model->user->userProfile->getFullname() ];
+				} else {
+					return null;
+				}
+			},
 			"comment",
 			"replies",
 			"is_approved",

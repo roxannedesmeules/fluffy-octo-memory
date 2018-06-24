@@ -6,7 +6,7 @@ import { User } from "./user.model";
 
 @Injectable()
 export class UserService extends BaseService {
-	private STORAGE_KEY = "user";
+	public static STORAGE_KEY = "user";
 
 	constructor (@Inject(HttpClient) http: HttpClient) {
 		super(http);
@@ -19,14 +19,14 @@ export class UserService extends BaseService {
 	 * @return {any}
 	 */
 	public getAppUser () {
-		return JSON.parse(localStorage.getItem(this.STORAGE_KEY));
+		return JSON.parse(localStorage.getItem(UserService.STORAGE_KEY));
 	}
 
 	/**
 	 * Delete the user object saved in local storage
 	 */
 	public removeAppUser () {
-		localStorage.removeItem(this.STORAGE_KEY);
+		localStorage.removeItem(UserService.STORAGE_KEY);
 	}
 
 	/**
@@ -34,6 +34,6 @@ export class UserService extends BaseService {
 	 * @param {User} user
 	 */
 	public saveAppUser (user: User) {
-		localStorage.setItem(this.STORAGE_KEY, JSON.stringify(user));
+		localStorage.setItem(UserService.STORAGE_KEY, JSON.stringify(user));
 	}
 }

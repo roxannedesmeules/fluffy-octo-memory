@@ -106,7 +106,8 @@ class PostComment extends PostCommentBase
 		//  find the model
 		$model = self::find()->byId($commentId)->one();
 
-		//  mark as approved
+		//  update the model attributes
+		$model->comment     = ArrayHelperEx::getValue($data, "comment", $model->comment);
 		$model->is_approved = ArrayHelperEx::getValue($data, "is_approved", $model->is_approved);
 
 		// if the model doesn't validate, return error

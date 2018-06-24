@@ -1,3 +1,5 @@
+import { Author, UserService } from "@core/data/users";
+
 export class PostComment {
 	public static IS_APPROVED  = 1;
 	public static NOT_APPROVED = 0;
@@ -5,7 +7,8 @@ export class PostComment {
 	public id: number;
 	public post_id: number;
 	public lang_id: number;
-	public user_id: number;
+
+	public user: Author;
 
 	public author: string;
 	public comment: string;
@@ -23,7 +26,8 @@ export class PostComment {
 		this.id      = model.id;
 		this.post_id = model.post_id;
 		this.lang_id = model.lang_id;
-		this.user_id = model.user_id;
+
+		this.user = new Author(model.user);
 
 		this.author  = model.author;
 		this.comment = model.comment;
@@ -51,5 +55,15 @@ export class PostComment {
 
 	public isNotApproved (): boolean {
 		return (this.is_approved === PostComment.NOT_APPROVED);
+	}
+
+	public isOwner (): boolean {
+		if (this.user === null) {
+			return false;
+		}
+
+		const user = JSON.parse(localStorage.getItem(UserService.STORAGE_KEY));
+
+		return (this.user.id == user.id);
 	}
 }

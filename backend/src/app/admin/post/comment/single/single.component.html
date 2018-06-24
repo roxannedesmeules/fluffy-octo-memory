@@ -12,7 +12,12 @@
 
 		<p>{{ comment.comment }}</p>
 
-		<button class="btn btn-link btn-sm" (click)="openReply(comment.id)"> reply <i class="fas fa-reply"></i></button>
+		<button class="btn btn-link btn-sm" *ngIf="comment.isOwner()" (click)="openEdit()">
+			edit <i class="fas fa-pencil-alt"></i>
+		</button>
+		<button class="btn btn-link btn-sm" *ngIf="!comment.isOwner()" (click)="openReply()">
+			reply <i class="fas fa-reply"></i>
+		</button>
 	</div>
 </div>
 

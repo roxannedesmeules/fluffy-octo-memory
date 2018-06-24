@@ -32,7 +32,7 @@
 		"codeception/base"    : "^2.2.3",
 		"codeception/verify"  : "~0.3.1",
 		"codeception/specify" : "~0.4.3",
-		"light/yii2-swagger"  : "^1.0"
+		"light/yii2-swagger": "2.0.0-alpha"
 	},
 	"config"            : {
 		"process-timeout" : 1800,
@@ -66,10 +66,6 @@
 			"generateCookieValidationKey" : [
 				"config/web.php"
 			]
-		},
-		"asset-installer-paths"                       : {
-			"npm-asset-library"   : "vendor/npm",
-			"bower-asset-library" : "vendor/bower"
 		}
 	},
 	"repositories"      : [

@@ -3,11 +3,13 @@
 </div>
 <div class="modal-body">
 	<form [formGroup]="form" class="forms" novalidate>
-		<div class="form-group col-sm-10">
+		<div class="form-group col-sm-10" *ngIf="!isUpdate">
 			<h3>{{ comment.author }}</h3>
 			<p>{{ comment.comment }}</p>
 		</div>
-		<div class="line"></div>
+
+		<div class="line" *ngIf="!isUpdate"></div>
+
 		<div class="form-group col-sm-10">
 			<label for="comment" class="form-control-label"> Comment </label>
 			<textarea formControlName="comment" id="comment" class="form-control" rows="4"></textarea>

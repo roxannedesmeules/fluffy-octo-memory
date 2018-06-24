@@ -22,7 +22,12 @@ p {
 .btn-link {
 	padding: { left: 0; right: 0; };
 	text-decoration : none;
+
 	.fa-reply {
+		font-size : 0.75em;
+	}
+
+	.fa-pencil-alt {
 		font-size : 0.75em;
 	}
 }
