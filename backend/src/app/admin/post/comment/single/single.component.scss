@@ -9,14 +9,22 @@ h3 {
 
 small {
 	color     : #aaaaaa;
-	font-size : 0.75em;
+	font-size : 0.80em;
 }
 
 p {
 	font-weight   : 300;
-	font-size     : 0.9em;
+	font-size     : 0.95em;
 	color         : #aaaaaa;
 	margin-bottom : 0;
+}
+
+.btn-link {
+	padding: { left: 0; right: 0; };
+	text-decoration : none;
+	.fa-reply {
+		font-size : 0.75em;
+	}
 }
 
 .fa-check {

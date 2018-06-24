@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { P } from "@angular/core/src/render3";
 import { ErrorResponse } from "@core/data/error-response.model";
 import { PostComment, PostCommentService } from "@core/data/posts";
+import { NgbModal, NgbModalOptions } from "@ng-bootstrap/ng-bootstrap";
+import { ReplyComponent } from "admin/post/comment/reply/reply.component";
 
 @Component({
 	selector    : "app-post-comment-single",
@@ -13,7 +14,7 @@ export class SingleComponent implements OnInit {
 	@Input() comment: PostComment;
 	@Output() onUpdate: EventEmitter<PostComment[]> = new EventEmitter<PostComment[]>();
 
-	constructor ( private service: PostCommentService ) {
+	constructor ( private _modal: NgbModal, private service: PostCommentService ) {
 	}
 
 	ngOnInit () {
@@ -32,6 +33,25 @@ export class SingleComponent implements OnInit {
 						},
 						(err: ErrorResponse) => { console.log(err); }
 				);
+	}
+
+	public openReply () {
+		const options = {
+			size     : "lg",
+			centered : true,
+		} as NgbModalOptions;
+
+		const instance = this._modal.open(ReplyComponent, options);
+
+		instance.componentInstance.comment = this.comment;
+
+		instance
+				.result
+				.then((result: any) => {
+					if (result != undefined) {
+						this.onUpdate.emit(result);
+					}
+				}).catch((err) => { console.log(err); });
 	}
 
 	public sendToParent ( $event ) {

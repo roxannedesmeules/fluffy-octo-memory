@@ -5,15 +5,18 @@
 		<small>{{ comment.created_on | date:'y' }}</small>
 	</div>
 	<div class="text clearfix">
-		<h3 class="h5">
+		<h3 class="h4">
 			<small (click)="toggleApprobation()"><i class="fas fa-check" [class.approved]="comment.isApproved()"></i></small>
 			{{ comment.author }}
 		</h3>
+
 		<p>{{ comment.comment }}</p>
+
+		<button class="btn btn-link btn-sm" (click)="openReply(comment.id)"> reply <i class="fas fa-reply"></i></button>
 	</div>
 </div>
 
-<div class="d-flex flex-column mt-3 ml-4">
+<div class="d-flex flex-column mt-2 ml-4">
 	<div class="border-top pt-3" *ngFor="let reply of comment.replies">
 		<app-post-comment-single [comment]="reply" (onUpdate)="sendToParent($event)"></app-post-comment-single>
 	</div>

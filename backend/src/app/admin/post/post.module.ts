@@ -16,6 +16,7 @@ import { ListComponent } from "admin/post/list/list.component";
 import { DetailComponent } from "admin/post/detail/detail.component";
 import { CommentComponent } from "admin/post/comment/comment.component";
 import { SingleComponent } from './comment/single/single.component';
+import { ReplyComponent } from './comment/reply/reply.component';
 
 
 @NgModule({
@@ -40,6 +41,10 @@ import { SingleComponent } from './comment/single/single.component';
 		DetailComponent,
 		CommentComponent,
 		SingleComponent,
+		ReplyComponent,
+	],
+	entryComponents : [
+		ReplyComponent,
 	],
 })
 export class PostModule {

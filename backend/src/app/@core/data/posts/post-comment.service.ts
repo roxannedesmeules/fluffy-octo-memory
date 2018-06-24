@@ -17,26 +17,72 @@ export class PostCommentService extends BaseService {
 		this.model = ( construct: any ) => new PostComment(construct);
 	}
 
-	findAllForPost ( postId: number | string ): Observable<any> {
-		return this.http.get(this._commentsUrl(postId), { observe : "response", })
+	/**
+	 * Make an API call to create a single comment for a specific post.
+	 *
+	 * @param {number | string} postId
+	 * @param body
+	 *
+	 * @return {Observable<any>}
+	 */
+	createForPost ( postId: number | string, body: any ): Observable<any> {
+		return this.http.post(this._commentsUrl(postId), body, { observe : "response" })
 				   .pipe(
 						   map(( res: any ) => this.mapListToModelList(res.body)),
 						   catchError(( err: any ) => Observable.throw(this.mapError(err))),
-				   )
+				   );
 	}
 
+	/**
+	 * Make an API call to get all comments for a specific posts.
+	 *
+	 * @param {number | string} postId
+	 *
+	 * @return {Observable<any>}
+	 */
+	findAllForPost ( postId: number | string ): Observable<any> {
+		return this.http.get(this._commentsUrl(postId), { observe : "response" })
+				   .pipe(
+						   map(( res: any ) => this.mapListToModelList(res.body)),
+						   catchError(( err: any ) => Observable.throw(this.mapError(err))),
+				   );
+	}
+
+	/**
+	 * Make an API call to update a specific post comment.
+	 *
+	 * @param {number | string} postId
+	 * @param {number | string} commentId
+	 * @param body
+	 *
+	 * @return {Observable<any>}
+	 */
 	updateForPost ( postId: number | string, commentId: number | string, body: any ): Observable<any> {
 		return this.http.put(this._commentsUrl(postId, commentId), body, { observe : "response" })
 				   .pipe(
 						   map(( res: any ) => this.mapListToModelList(res.body)),
 						   catchError(( err: any ) => Observable.throw(this.mapError(err))),
-				   )
+				   );
 	}
 
-	protected _commentsUrl (postId: number | string, commentId?: number | string): string {
-		return `${this.baseUrl}/${postId}/${this.modelName}` + ((commentId) ? `/${commentId}`: "");
+	/**
+	 *
+	 * @param {number | string} postId
+	 * @param {number | string} commentId
+	 *
+	 * @return {string}
+	 * @private
+	 */
+	protected _commentsUrl ( postId: number | string, commentId?: number | string ): string {
+		return `${this.baseUrl}/${postId}/${this.modelName}` + ((commentId) ? `/${commentId}` : "");
 	}
 
+	/**
+	 *
+	 * @param body
+	 *
+	 * @return {any}
+	 */
 	mapListToModelList ( body ) {
 		for (let lang in body) {
 			if (!body.hasOwnProperty(lang)) {
