@@ -1,5 +1,5 @@
 <div class="modal-header">
-	<h4 class="h2"> Reply </h4>
+	<h4 class="h2"> {{ (isUpdate) ? 'Update reply' : 'Create a reply' }} </h4>
 </div>
 <div class="modal-body">
 	<form [formGroup]="form" class="forms" novalidate>
@@ -18,9 +18,9 @@
 </div>
 <div class="modal-footer">
 	<button type="button" class="btn btn-primary" (click)="save()">
-		create
+		{{ (isUpdate) ? 'Save' : 'Create' }}
 	</button>
 	<button type="button" class="btn btn-outline-secondary" (click)="close()">
-		close
+		Close
 	</button>
 </div>
