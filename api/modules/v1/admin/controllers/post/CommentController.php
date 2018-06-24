@@ -3,6 +3,7 @@
 namespace app\modules\v1\admin\controllers\post;
 
 use app\modules\v1\admin\components\ControllerAdminEx;
+use app\modules\v1\admin\models\LangEx;
 use app\modules\v1\admin\models\post\PostCommentEx;
 use app\modules\v1\admin\models\post\PostEx;
 
@@ -21,10 +22,12 @@ class CommentController extends ControllerAdminEx
 	 * @return array|mixed
 	 *
 	 * @SWG\Get(
-	 *     path = "/posts/:postid/comments",
-	 *     tags = { "Post comments" },
+	 *     path = "/posts/:postId/comments",
+	 *     tags = { "Posts", "Post comments" },
 	 *     summary = "Get all comments linked to a post",
 	 *     description = "Get the comment tree linked to a specific post grouped by language.",
+	 *
+	 *     @SWG\Parameter( name = "postId", in = "path", type = "integer", required = true, description = "Post ID for which the comments needs to be fetch." ),
 	 *
 	 *     @SWG\Response( response = 200, description = "List of comments", ),
 	 *     @SWG\Response( response = 401, description = "Invalid credentials", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
@@ -42,14 +45,71 @@ class CommentController extends ControllerAdminEx
 
 	/**
 	 * @param $postId
+	 *
+	 * @return array|mixed
+	 * @throws \yii\base\InvalidConfigException
+	 *
+	 * @SWG\Post(
+	 *     path = "/posts/:postId/comments",
+	 *     tags = { "Posts", "Post comments" },
+	 *     summary = "Create a comment",
+	 *     description = "Create a comment for a specific post and mark the author as the authenticated user",
+	 *
+	 *     @SWG\Parameter( name = "postId", in = "path", type = "integer", required = true, description = "Post ID for which the comment needs to be created" ),
+	 *
+	 *     @SWG\Response( response = 200, description = "List of comments", ),
+	 *     @SWG\Response( response = 400, description = "An error occurred", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
+	 *     @SWG\Response( response = 401, description = "Invalid credentials", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
+	 *     @SWG\Response( response = 404, description = "Post not found", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
+	 *     @SWG\Response( response = 422, description = "Comment couldn't be created", @SWG\Schema( ref = "#/definitions/UnprocessableError" ), ),
+	 * )
 	 */
-	public function actionCreate ( $postId ) {}
+	public function actionCreate ( $postId )
+	{
+		if (!PostEx::idExists($postId)) {
+			return $this->error(404, "Post not found");
+		}
+
+		$form = new PostCommentEx();
+
+		$form->setAttributes($this->request->getBodyParams());
+		$form->post_id = $postId;
+
+		if (!$form->validate()) {
+			return $this->error(422, $form->getErrors());
+		}
+
+		$result = PostCommentEx::createByUser($postId, $form);
+
+		if ($result[ "status" ] === PostCommentEx::ERROR) {
+			$this->error(400, $result[ "error" ]);
+		}
+
+		return PostCommentEx::getCommentsForPost($postId);
+	}
 
 	/**
 	 * @param int $postId   - post ID to which the comment is linked
 	 * @param int $id       - comment ID to update
 	 *
 	 * @return array
+	 * @throws \yii\base\InvalidConfigException
+	 *
+	 * @SWG\Put(
+	 *     path = "/posts/:postId/comments/:id",
+	 *     tags = { "Posts", "Post comments" },
+	 *     summary = "Update a single comment",
+	 *     description = "Update the attributes of a specific comment.",
+	 *
+	 *     @SWG\Parameter( name = "postId", in = "path", type = "integer", required = true ),
+	 *     @SWG\Parameter( name = "id", in = "path", type = "integer", required = true ),
+	 *
+	 *     @SWG\Response( response = 200, description = "List of comments", ),
+	 *     @SWG\Response( response = 400, description = "An error occurred", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
+	 *     @SWG\Response( response = 401, description = "Invalid credentials", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
+	 *     @SWG\Response( response = 404, description = "Post not found", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
+	 *     @SWG\Response( response = 422, description = "Comment couldn't be created", @SWG\Schema( ref = "#/definitions/UnprocessableError" ), ),
+	 * )
 	 */
 	public function actionUpdate ( $postId, $id )
 	{

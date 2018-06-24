@@ -35,7 +35,7 @@ class PostCommentEx extends PostComment
 			"lang_id",
 			"author" => function ( self $model ) {
 				if (!is_null($model->user_id)) {
-					return $model->user->profile->getFullname();
+					return $model->user->userProfile->getFullname();
 				} else {
 					return $model->author;
 				}
@@ -52,7 +52,53 @@ class PostCommentEx extends PostComment
 	public function rules ()
 	{
 		return [
+			[ "post_id", "required", "message" => self::ERR_FIELD_REQUIRED ],
+			[
+				[ "post_id" ], "exist",
+				"skipOnError"     => true,
+				"targetClass"     => PostEx::className(),
+				"targetAttribute" => [ "post_id" => "id" ],
+				"message"         => self::ERR_FIELD_NOT_FOUND,
+			],
+
+			[ "lang_id", "required", "message" => self::ERR_FIELD_REQUIRED ],
+			[
+				[ "lang_id" ], "exist",
+				"skipOnError"     => true,
+				"targetClass"     => LangEx::className(),
+				"targetAttribute" => [ "lang_id" => "id" ],
+				"message"         => self::ERR_FIELD_NOT_FOUND,
+			],
+
+			[
+				"reply_comment_id", "exist",
+				"skipOnEmpty"     => true,
+				"targetClass"     => self::className(),
+				"targetAttribute" => [ "reply_comment_id" => "id" ],
+				"message"         => self::ERR_FIELD_NOT_FOUND,
+			],
+
+			[ "comment", "required", "message" => self::ERR_FIELD_REQUIRED ],
 		];
+	}
+
+	/**
+	 * This method will create a single comment where the author is the authenticated user. Since it is created from the
+	 * admin panel, the comment is automatically approved.
+	 *
+	 * @param int  $postId
+	 * @param self $data
+	 *
+	 * @return array
+	 */
+	public static function createByUser ( $postId, $data )
+	{
+		//  update some of the data, so the comment is properly created
+		$data->user_id     = \Yii::$app->getUser()->id;
+		$data->is_approved = self::IS_APPROVED;
+
+		//  call the general create method to create the comment.
+		return self::createOne($postId, $data->lang_id, $data);
 	}
 
 	/**

@@ -16,10 +16,11 @@ use yii\web\UploadedFile;
 class CoverController extends ControllerAdminEx
 {
 	/**
-	 * @param integer $postId
-	 * @param integer $langId
+	 * @param int $postId
+	 * @param int $langId
 	 *
-	 * @return PostEx
+	 * @return array
+	 * @throws \yii\base\Exception
 	 *
 	 * @SWG\Post(
 	 *     path    = "/posts/:postid/:langid/cover",

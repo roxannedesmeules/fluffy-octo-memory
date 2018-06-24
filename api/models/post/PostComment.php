@@ -53,6 +53,40 @@ class PostComment extends PostCommentBase
 		return self::buildSuccess([]);
 	}
 
+	public static function createOne ( $postId, $langId, $data )
+	{
+		//  check if the post exists
+		if (!PostLang::translationExists($postId, $langId)) {
+			return self::buildError(self::ERR_POST_NOT_FOUND);
+		}
+
+		//  create a model
+		$model = new self();
+
+		$model->post_id = $postId;
+		$model->lang_id = $langId;
+		$model->reply_comment_id = ArrayHelperEx::getValue($data, "reply_comment_id");
+
+		$model->user_id = ArrayHelperEx::getValue($data, "user_id");
+		$model->author  = ArrayHelperEx::getValue($data, "author");
+		$model->comment = ArrayHelperEx::getValue($data, "comment");
+
+		$model->is_approved = ArrayHelperEx::getValue($data, "is_approved", self::NOT_APPROVED);
+
+		// if the model doesn't validate, return error
+		if ( !$model->validate() ) {
+			return self::buildError($model->getErrors());
+		}
+
+		// if the model doesn't save, then return error
+		if ( !$model->save() ) {
+			return self::buildError(self::ERR_ON_SAVE);
+		}
+
+		//  if the model does save, return success
+		return self::buildSuccess([]);
+	}
+
 	/**
 	 * This method will update a single comment. It will first verify that the comment ID exists, then find the model
 	 * and update it.

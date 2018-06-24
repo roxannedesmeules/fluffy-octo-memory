@@ -9,7 +9,6 @@
       <path value="$PROJECT_DIR$/api/vendor/psr/log" />
       <path value="$PROJECT_DIR$/api/vendor/myclabs/deep-copy" />
       <path value="$PROJECT_DIR$/api/vendor/phar-io/manifest" />
-      <path value="$PROJECT_DIR$/api/vendor/light/yii2-swagger" />
       <path value="$PROJECT_DIR$/api/vendor/ezyang/htmlpurifier" />
       <path value="$PROJECT_DIR$/api/vendor/phpspec/prophecy" />
       <path value="$PROJECT_DIR$/api/vendor/phpunit/php-file-iterator" />
@@ -38,9 +37,6 @@
       <path value="$PROJECT_DIR$/api/vendor/yiisoft/yii2-swiftmailer" />
       <path value="$PROJECT_DIR$/api/vendor/yiisoft/yii2-debug" />
       <path value="$PROJECT_DIR$/api/vendor/yiisoft/yii2-gii" />
-      <path value="$PROJECT_DIR$/api/vendor/doctrine/annotations" />
-      <path value="$PROJECT_DIR$/api/vendor/doctrine/lexer" />
-      <path value="$PROJECT_DIR$/api/vendor/zircote/swagger-php" />
       <path value="$PROJECT_DIR$/api/vendor/doctrine/instantiator" />
       <path value="$PROJECT_DIR$/api/vendor/sebastian/environment" />
       <path value="$PROJECT_DIR$/api/vendor/sebastian/exporter" />
@@ -64,12 +60,16 @@
       <path value="$PROJECT_DIR$/api/vendor/bower-asset/bootstrap" />
       <path value="$PROJECT_DIR$/api/vendor/codeception/verify" />
       <path value="$PROJECT_DIR$/api/vendor/codeception/base" />
-      <path value="$PROJECT_DIR$/api/vendor/bower-asset/swagger-ui" />
       <path value="$PROJECT_DIR$/api/vendor/codeception/specify" />
       <path value="$PROJECT_DIR$/api/vendor/phpdocumentor/type-resolver" />
       <path value="$PROJECT_DIR$/api/vendor/phpdocumentor/reflection-common" />
       <path value="$PROJECT_DIR$/api/vendor/swiftmailer/swiftmailer" />
       <path value="$PROJECT_DIR$/api/vendor/phpdocumentor/reflection-docblock" />
+      <path value="$PROJECT_DIR$/api/vendor/zircote/swagger-php" />
+      <path value="$PROJECT_DIR$/api/vendor/light/yii2-swagger" />
+      <path value="$PROJECT_DIR$/api/vendor/doctrine/lexer" />
+      <path value="$PROJECT_DIR$/api/vendor/doctrine/annotations" />
+      <path value="$PROJECT_DIR$/api/vendor/bower-asset/swagger-ui" />
     </include_path>
   </component>
   <component name="PhpInterpreters">

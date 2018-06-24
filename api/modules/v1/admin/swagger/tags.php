@@ -46,6 +46,13 @@ namespace app\modules\v1\admin\swagger;
 
 /**
  * @SWG\Tag(
+ *    name = "Post Comments",
+ *    description = "All endpoints managing comments",
+ * )
+ */
+
+/**
+ * @SWG\Tag(
  *    name = "Post Statuses",
  *    description = "All endpoints managing post statuses",
  * )

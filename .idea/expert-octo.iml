@@ -15,7 +15,6 @@
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/bower-asset/inputmask" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/bower-asset/jquery" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/bower-asset/punycode" />
-      <excludeFolder url="file://$MODULE_DIR$/api/vendor/bower-asset/swagger-ui" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/bower-asset/typeahead.js" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/bower-asset/yii2-pjax" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/cebe/markdown" />
@@ -23,13 +22,10 @@
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/codeception/specify" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/codeception/verify" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/composer" />
-      <excludeFolder url="file://$MODULE_DIR$/api/vendor/doctrine/annotations" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/doctrine/instantiator" />
-      <excludeFolder url="file://$MODULE_DIR$/api/vendor/doctrine/lexer" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/ezyang/htmlpurifier" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/fzaninotto/faker" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/guzzlehttp/psr7" />
-      <excludeFolder url="file://$MODULE_DIR$/api/vendor/light/yii2-swagger" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/myclabs/deep-copy" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/phar-io/manifest" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/phar-io/version" />
@@ -77,7 +73,6 @@
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/yiisoft/yii2-faker" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/yiisoft/yii2-gii" />
       <excludeFolder url="file://$MODULE_DIR$/api/vendor/yiisoft/yii2-swiftmailer" />
-      <excludeFolder url="file://$MODULE_DIR$/api/vendor/zircote/swagger-php" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

@@ -54,7 +54,7 @@ class PostCommentEx extends PostComment
 				"reply_comment_id", "exist",
 				"skipOnEmpty"     => true,
 				"targetClass"     => self::className(),
-				"targetAttribute" => [ "post_id" => "id" ],
+				"targetAttribute" => [ "reply_comment_id" => "id" ],
 				"message"         => self::ERR_FIELD_NOT_FOUND,
 			],
 
@@ -88,7 +88,8 @@ class PostCommentEx extends PostComment
 		$langId = LangEx::getIdFromIcu(\Yii::$app->language);
 
 		return self::find()
-		           ->byPost($postId, $langId)
+		           ->byPost($postId)
+		           ->byLang($langId)
 		           ->firstComment()
 		           ->approved()
 		           ->all();
