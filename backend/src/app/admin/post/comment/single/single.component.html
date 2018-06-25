@@ -15,6 +15,9 @@
 		<button class="btn btn-link btn-sm" *ngIf="comment.isOwner()" (click)="openEdit()">
 			edit <i class="fas fa-pencil-alt"></i>
 		</button>
+		<button class="btn btn-link btn-sm" *ngIf="comment.isOwner()" (click)="deleteComment()">
+			delete <i class="far fa-trash-alt"></i>
+		</button>
 		<button class="btn btn-link btn-sm" *ngIf="!comment.isOwner()" (click)="openReply()">
 			reply <i class="fas fa-reply"></i>
 		</button>

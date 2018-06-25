@@ -129,4 +129,46 @@ class CommentController extends ControllerAdminEx
 
 		return PostCommentEx::getCommentsForPost($postId);
 	}
+
+	/**
+	 * @param $postId
+	 * @param $id
+	 *
+	 * @return array|mixed
+	 *
+	 * @SWG\Delete(
+	 *     path = "/posts/:postId/comments/:id",
+	 *     tags = { "Posts", "Post comments" },
+	 *     summary = "Delete a single comment",
+	 *     description = "Delete a comment that doesn't have any replies.",
+	 *
+	 *     @SWG\Parameter( name = "postId", in = "path", type = "integer", required = true ),
+	 *     @SWG\Parameter( name = "id", in = "path", type = "integer", required = true ),
+	 *
+	 *     @SWG\Response( response = 200, description = "List of comments", ),
+	 *     @SWG\Response( response = 400, description = "An error occurred", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
+	 *     @SWG\Response( response = 401, description = "Invalid credentials", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
+	 *     @SWG\Response( response = 404, description = "Post not found", @SWG\Schema( ref = "#/definitions/GeneralError" ), ),
+	 * )
+	 */
+	public function actionDelete ( $postId, $id )
+	{
+		//  look for the post
+		if (!PostEx::idExists($postId)) {
+			return $this->error(404, "Post not found");
+		}
+
+		//  look for the comment
+		if (!PostCommentEx::idExists($id)) {
+			return $this->error(404, "Comment not found");
+		}
+
+		$result = PostCommentEx::deleteOne($id);
+
+		if ($result[ "status" ] === PostCommentEx::ERROR) {
+			$this->error(400, $result[ "error" ]);
+		}
+
+		return PostCommentEx::getCommentsForPost($postId);
+	}
 }

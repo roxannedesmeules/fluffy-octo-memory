@@ -38,6 +38,8 @@ abstract class PostCommentBase extends \yii\db\ActiveRecord
 	const ERR_ON_SAVE           = "ERR_COMMENT_ON_SAVE";
 	const ERR_POST_NOT_FOUND    = "ERR_POST_NOT_FOUND";
 	const ERR_COMMENT_NOT_FOUND = "ERR_COMMENT_NOT_FOUND";
+	const ERR_ON_DELETE          = "ERR_ON_DELETE";
+	const ERR_DELETE_HAS_REPLIES = "ERR_DELETE_HAS_REPLIES";
 
 	const ERR_FIELD_REQUIRED    = "ERR_FIELD_VALUE_REQUIRED";
 	const ERR_FIELD_TYPE        = "ERR_FIELD_VALUE_WRONG_TYPE";

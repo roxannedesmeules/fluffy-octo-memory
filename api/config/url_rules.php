@@ -99,7 +99,7 @@ return [
 		"class"      => 'yii\rest\UrlRule',
 		"prefix"     => "$admin/posts/<postId:$int>",
 		"controller" => [ "comments" => "$admin/post/comment" ],
-		"except"     => [ "view", "delete" ],
+		"except"     => [ "view" ],
 	],
 
 	//  post statuses

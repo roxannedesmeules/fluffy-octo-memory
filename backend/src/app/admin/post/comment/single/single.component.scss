@@ -23,11 +23,7 @@ p {
 	padding: { left: 0; right: 0; };
 	text-decoration : none;
 
-	.fa-reply {
-		font-size : 0.75em;
-	}
-
-	.fa-pencil-alt {
+	.fa-reply, .fa-pencil-alt, .fa-trash-alt {
 		font-size : 0.75em;
 	}
 }

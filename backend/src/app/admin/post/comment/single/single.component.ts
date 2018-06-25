@@ -20,19 +20,13 @@ export class SingleComponent implements OnInit {
 	ngOnInit () {
 	}
 
-	public toggleApprobation () {
-		const body = {
-			is_approved : (this.comment.isNotApproved()) ? PostComment.IS_APPROVED : PostComment.NOT_APPROVED
-		};
-
+	public deleteComment () {
 		this.service
-				.updateForPost(this.comment.post_id, this.comment.id, body)
-				.subscribe(
-						(result: PostComment[]) => {
-							this.onUpdate.emit(result);
-						},
-						(err: ErrorResponse) => { console.log(err); }
-				);
+			.deleteForPost(this.comment.post_id, this.comment.id)
+			.subscribe(
+					(result: PostComment[]) => { this.onUpdate.emit(result); },
+					(err: ErrorResponse) => { console.log(err); }
+			);
 	}
 
 	public openEdit () {
@@ -69,5 +63,18 @@ export class SingleComponent implements OnInit {
 
 	public sendToParent ( $event ) {
 		this.onUpdate.emit($event);
+	}
+
+	public toggleApprobation () {
+		const body = {
+			is_approved : (this.comment.isNotApproved()) ? PostComment.IS_APPROVED : PostComment.NOT_APPROVED
+		};
+
+		this.service
+			.updateForPost(this.comment.post_id, this.comment.id, body)
+			.subscribe(
+					(result: PostComment[]) => { this.onUpdate.emit(result); },
+					(err: ErrorResponse) => { console.log(err); }
+			);
 	}
 }

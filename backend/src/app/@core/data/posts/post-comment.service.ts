@@ -34,6 +34,22 @@ export class PostCommentService extends BaseService {
 	}
 
 	/**
+	 * Make an API call to delete a single comment for a specific post.
+	 *
+	 * @param {number | string} postId
+	 * @param {number | string} commentId
+	 *
+	 * @return {Observable<any>}
+	 */
+	deleteForPost ( postId: number | string, commentId: number | string ): Observable<any> {
+		return this.http.delete(this._commentsUrl(postId, commentId), { observe : "response" })
+				   .pipe(
+						   map(( res: any ) => this.mapListToModelList(res.body)),
+						   catchError(( err: any ) => Observable.throw(this.mapError(err))),
+				   );
+	}
+
+	/**
 	 * Make an API call to get all comments for a specific posts.
 	 *
 	 * @param {number | string} postId
@@ -66,12 +82,13 @@ export class PostCommentService extends BaseService {
 	}
 
 	/**
+	 * Build the complete url for API calls.
 	 *
 	 * @param {number | string} postId
 	 * @param {number | string} commentId
 	 *
 	 * @return {string}
-	 * @private
+	 * @protected
 	 */
 	protected _commentsUrl ( postId: number | string, commentId?: number | string ): string {
 		return `${this.baseUrl}/${postId}/${this.modelName}` + ((commentId) ? `/${commentId}` : "");

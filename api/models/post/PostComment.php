@@ -87,6 +87,34 @@ class PostComment extends PostCommentBase
 		return self::buildSuccess([]);
 	}
 
+	public static function deleteOne ( $commentId )
+	{
+		//  if the comment doesn't exists, return an error
+		if (!self::idExists($commentId)) {
+			return self::buildError(self::ERR_COMMENT_NOT_FOUND);
+		}
+
+		//  find the model
+		$model = self::find()->byId($commentId)->one();
+
+		//  check if the comment has replies
+		if ($model->hasReplies()) {
+			return self::buildError(self::ERR_DELETE_HAS_REPLIES);
+		}
+
+		//  delete the comment
+		if (!$model->delete()) {
+			return self::buildError(self::ERR_ON_DELETE);
+		}
+
+		return self::buildSuccess([]);
+	}
+
+	public function hasReplies ()
+	{
+		return !empty($this->replies);
+	}
+
 	/**
 	 * This method will update a single comment. It will first verify that the comment ID exists, then find the model
 	 * and update it.
