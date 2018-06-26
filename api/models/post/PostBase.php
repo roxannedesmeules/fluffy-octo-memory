@@ -17,6 +17,7 @@ use Yii;
  * @property int    $category_id
  * @property int    $post_status_id
  * @property int    $is_featured
+ * @property int    $is_comment_enabled
  * @property string $created_on
  * @property string $updated_on
  * @property string $published_on
@@ -33,6 +34,9 @@ abstract class PostBase extends \yii\db\ActiveRecord
 {
 	const NOT_FEATURED = 0;
 	const FEATURED     = 1;
+
+	const COMMENTS_DISABLED = 0;
+	const COMMENTS_ENABLED  = 1;
 
 	const ERROR   = 0;
 	const SUCCESS = 1;
@@ -91,7 +95,10 @@ abstract class PostBase extends \yii\db\ActiveRecord
 			],
 
 			[ "is_featured", "integer", "message" => self::ERR_FIELD_TYPE ],
-			[ "is_featured", "default", "value" => 0 ],
+			[ "is_featured", "default", "value" => self::NOT_FEATURED ],
+
+			[ "is_comment_enabled", "integer", "message" => self::ERR_FIELD_TYPE ],
+			[ "is_comment_enabled", "default", "value" => self::COMMENTS_ENABLED ],
 
 			[ "created_on", "safe" ],
 			[ "updated_on", "safe" ],

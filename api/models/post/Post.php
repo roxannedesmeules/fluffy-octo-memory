@@ -83,9 +83,10 @@ class Post extends PostBase
 		$model = new self();
 
 		//  assign all attributes
-		$model->category_id    = ArrayHelperEx::getValue($data, "category_id");
-		$model->post_status_id = ArrayHelperEx::getValue($data, "post_status_id", PostStatus::DRAFT);
-		$model->is_featured    = self::NOT_FEATURED;
+		$model->category_id        = ArrayHelperEx::getValue($data, "category_id");
+		$model->post_status_id     = ArrayHelperEx::getValue($data, "post_status_id", PostStatus::DRAFT);
+		$model->is_featured        = self::NOT_FEATURED;
+		$model->is_comment_enabled = self::COMMENTS_ENABLED;
 
 		// if the model doesn't validate, return error
 		if ( !$model->validate() ) {
@@ -199,9 +200,10 @@ class Post extends PostBase
 		$model = self::find()->id($postId)->one();
 
 		//  assign all attributes
-		$model->category_id    = ArrayHelperEx::getValue($data, "category_id", $model->category_id);
-		$model->post_status_id = ArrayHelperEx::getValue($data, "post_status_id", $model->post_status_id);
-		$model->is_featured    = ArrayHelperEx::getValue($data, "is_featured", $model->is_featured);
+		$model->category_id        = ArrayHelperEx::getValue($data, "category_id", $model->category_id);
+		$model->post_status_id     = ArrayHelperEx::getValue($data, "post_status_id", $model->post_status_id);
+		$model->is_featured        = ArrayHelperEx::getValue($data, "is_featured", $model->is_featured);
+		$model->is_comment_enabled = ArrayHelperEx::getValue($data, "is_comment_enabled", $model->is_comment_enabled);
 
 		// if the model doesn't validate, return error
 		if ( !$model->validate() ) {

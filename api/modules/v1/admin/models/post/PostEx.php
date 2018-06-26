@@ -56,6 +56,7 @@ class PostEx extends Post
 			"category_id",
 			"post_status_id",
 			"is_featured",
+			"is_comment_enabled",
 			"translations" => "postLangs",
 			"created_on"   => function ( self $model ) { return DateHelper::formatDate($model->created_on); },
 			"updated_on"   => function ( self $model ) { return DateHelper::formatDate($model->updated_on); },
@@ -95,7 +96,8 @@ class PostEx extends Post
 				"message"         => self::ERR_FIELD_NOT_FOUND,
 			],
 
-			[ "post_status_id", "integer", "message" => self::ERR_FIELD_TYPE ],
+			[ "is_featured", "integer", "skipOnEmpty" => true, "message" => self::ERR_FIELD_TYPE ],
+			[ "is_comment_enabled", "integer", "skipOnEmpty" => true, "message" => self::ERR_FIELD_TYPE ],
 
 			[ "translations", "required", "strict" => true, "message" => self::ERR_FIELD_REQUIRED ],
 			[ "translations", TranslationValidator::className(), "validator" => PostLangEx::className() ],
