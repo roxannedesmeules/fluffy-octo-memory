@@ -8,10 +8,13 @@ export class Post {
 	public static NOT_FEATURED = 0;
 	public static FEATURED     = 1;
 
+	public static COMMENTS_ENABLED  = 1;
+
 	public id: number;
 	public category_id: number;
 	public post_status_id: number;
 	public is_featured: number = Post.NOT_FEATURED;
+	public is_comment_enabled: number = Post.COMMENTS_ENABLED;
 
 	public translations: PostLang[] = [];
 	public tags: Tag[] = [];
@@ -26,6 +29,7 @@ export class Post {
 		this.category_id    = parseInt(model.category_id);
 		this.post_status_id = parseInt(model.post_status_id);
 		this.is_featured    = parseInt(model.is_featured);
+		this.is_comment_enabled = parseInt(model.is_comment_enabled);
 
 		this.translations = this.mapTranslations(model.translations);
 
@@ -107,10 +111,11 @@ export class Post {
 	 */
 	form ( model: any ): any {
 		return {
-			category_id    : model.category_id,
-			post_status_id : model.post_status_id,
-			is_featured    : model.is_featured,
-			translations   : this.mapFormTranslations(model.translations),
+			category_id        : model.category_id,
+			post_status_id     : model.post_status_id,
+			is_featured        : model.is_featured,
+			is_comment_enabled : model.is_comment_enabled,
+			translations       : this.mapFormTranslations(model.translations),
 		};
 	}
 
@@ -126,8 +131,8 @@ export class Post {
 		return (this.is_featured === Post.FEATURED);
 	}
 
-	isNotFeatured () {
-		return (this.is_featured === Post.NOT_FEATURED);
+	areCommentsEnabled () {
+		return (this.is_comment_enabled === Post.COMMENTS_ENABLED);
 	}
 
 	/**

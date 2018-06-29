@@ -21,4 +21,12 @@ $templateColour : "ladydev";
 		padding-right : 15px;
 		margin-right  : 10px;
 	}
+
+	&.active {
+		color : lighten($primary, 0.4);
+
+		&:hover {
+			color: darken($primary, 0.4);
+		}
+	}
 }

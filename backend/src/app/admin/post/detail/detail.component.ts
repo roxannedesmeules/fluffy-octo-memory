@@ -79,11 +79,12 @@ export class DetailComponent implements OnInit {
 		}
 
 		this.form = this._builder.group({
-			category_id    : this._builder.control(this.post.category_id, [ Validators.required ]),
-			post_status_id : this._builder.control(status, [ Validators.required ]),
-			is_featured    : this._builder.control(this.post.is_featured),
-			tags           : this._builder.control([]),
-			translations   : this._builder.array([]),
+			category_id        : this._builder.control(this.post.category_id, [ Validators.required ]),
+			post_status_id     : this._builder.control(status, [ Validators.required ]),
+			is_featured        : this._builder.control(this.post.is_featured),
+			is_comment_enabled : this._builder.control(this.post.is_comment_enabled),
+			tags               : this._builder.control([]),
+			translations       : this._builder.array([]),
 		});
 
 		this.languages.forEach(( lang: Lang ) => {
@@ -417,6 +418,14 @@ export class DetailComponent implements OnInit {
 		return true;
 	}
 
+	public updateFlag ( flag: string, value: number ) {
+		this.form.get(flag).setValue(value);
+
+		let body = this.post.form(this.form.getRawValue());
+
+		this._updatePost(body);
+	}
+
 	public updateFeatured ( featuredFlag: number ) {
 		this.form.get("is_featured").setValue(featuredFlag);
 
@@ -437,22 +446,31 @@ export class DetailComponent implements OnInit {
 		this._updatePost(body, "statusLoading");
 	}
 
-	private _updatePost (body: any, loading: string) {
+	private _updatePost (body: any, loading?: string) {
 		this.errors     = [];
-		this[ loading ] = true;
+
+		if (loading) {
+			this[ loading ] = true;
+		}
 
 		this.service
 			.update(this.post.id, body)
 			.subscribe(
 					(result: Post) => {
-						this.post       = result;
-						this[ loading ] = false;
+						this.post = result;
+
+						if (loading) {
+							this[ loading ] = false;
+						}
 
 						this._showSuccessMessage();
 					},
 					(err: ErrorResponse) => {
-						this[ loading ] = false;
-						this.errors     = err.form_error;
+						this.errors = err.form_error;
+
+						if (loading) {
+							this[ loading ] = false;
+						}
 
 						this.resetForm();
 					},

@@ -3,6 +3,24 @@
 		<form [formGroup]="form" (submit)="save()" novalidate class="forms form-horizontal">
 			<div class="card">
 				<div class="card-close">
+					<span class="action active" *ngIf="post.hasComments()">
+						<a [routerLink]="[ '/admin/posts', post.id, 'comments' ]">
+							<i class="far fa-comments"></i>
+						</a>
+					</span>
+
+					<span class="action" [class.active]="post.areCommentsEnabled()"
+					      (click)="updateFlag('is_comment_enabled', post.areCommentsEnabled() ? 0 : 1)">
+						<span *ngIf="post.areCommentsEnabled()"><i class="fas fa-comment"></i></span>
+						<span *ngIf="!post.areCommentsEnabled()"><i class="fas fa-comment-slash"></i></span>
+					</span>
+
+					<span class="action" [class.active]="post.isFeatured()" *ngIf="!isCreate()"
+					      (click)="updateFlag('is_featured', post.isFeatured() ? 0 : 1)">
+						<span *ngIf="!post.isFeatured()"><i class="far fa-star"></i></span>
+						<span *ngIf="post.isFeatured()"><i class="fas fa-star"></i></span>
+					</span>
+
 					<span class="action" (click)="resetForm()"> <i class="fas fa-sync"></i> </span>
 				</div>
 				<div class="card-header">
@@ -140,30 +158,18 @@
 					</ngb-tabset>
 				</div>
 				<div class="card-footer text-right">
-					<button type="button" class="btn btn-outline-primary" [class.d-none]="isCreate() || post.isFeatured()"
-					        (click)="updateFeatured(1)" [ladda]="featureLoading" data-style="zoom-in">
-						Feature post
+					<button type="button" class="btn btn-outline-success d-none" [class.d-inline]="displayStatusChangeBtn('draft')"
+					        (click)="updateStatus('unpublished')" [ladda]="statusLoading" data-style="zoom-in">
+						Review
 					</button>
-
-					<button type="button" class="btn btn-outline-secondary" [class.d-none]="isCreate() || post.isNotFeatured()"
-					        (click)="updateFeatured(0)" [ladda]="featureLoading" data-style="zoom-in">
-						Remove from featured post
+					<button type="button" class="btn btn-outline-primary d-none" [class.d-inline]="displayStatusChangeBtn('unpublished')"
+					        (click)="updateStatus('published')" [ladda]="statusLoading" data-style="zoom-in">
+						Publish
 					</button>
-
-					<div [class.divider]="!isCreate()">
-						<button type="button" class="btn btn-outline-success d-none" [class.d-inline]="displayStatusChangeBtn('draft')"
-						        (click)="updateStatus('unpublished')" [ladda]="statusLoading" data-style="zoom-in">
-							Review
-						</button>
-						<button type="button" class="btn btn-outline-primary d-none" [class.d-inline]="displayStatusChangeBtn('unpublished')"
-						        (click)="updateStatus('published')" [ladda]="statusLoading" data-style="zoom-in">
-							Publish
-						</button>
-						<button type="button" class="btn btn-outline-secondary d-none" [class.d-inline]="displayStatusChangeBtn('published')"
-						        (click)="updateStatus('archived')" [ladda]="statusLoading" data-style="zoom-in">
-							Archive
-						</button>
-					</div>
+					<button type="button" class="btn btn-outline-secondary d-none" [class.d-inline]="displayStatusChangeBtn('published')"
+					        (click)="updateStatus('archived')" [ladda]="statusLoading" data-style="zoom-in">
+						Archive
+					</button>
 
 					<div [class.divider]="!isCreate()">
 						<button type="submit" class="btn btn-primary" [ladda]="formLoading" data-style="zoom-in">
