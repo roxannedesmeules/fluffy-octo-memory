@@ -10,6 +10,7 @@ import { PostComment } from "@core/data/posts";
 })
 export class CommentComponent implements OnInit {
 
+	public postId: any;
 	public languages: Lang[];
 	public comments: any;
 
@@ -35,6 +36,7 @@ export class CommentComponent implements OnInit {
 	}
 
 	private _setData () {
+		this.postId    = this._route.snapshot.paramMap.get("id");
 		this.languages = this._route.snapshot.data[ "languages" ];
 		this.comments  = this._route.snapshot.data[ "comments" ];
 	}

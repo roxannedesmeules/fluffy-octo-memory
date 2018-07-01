@@ -1,6 +1,16 @@
 <section>
 	<div class="container-fluid">
 		<div class="card">
+			<div class="card-close">
+				<span class="action">
+					<a [routerLink]="[ '/admin/posts/update', postId ]">
+						<i class="far fa-file-alt"></i>
+					</a>
+				</span>
+			</div>
+			<div class="card-header">
+				Post Comments
+			</div>
 			<div class="card-body">
 				<ngb-tabset justify="justified" type="pills">
 					<ngb-tab *ngFor="let lang of languages">

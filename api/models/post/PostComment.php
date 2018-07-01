@@ -37,6 +37,7 @@ class PostComment extends PostCommentBase
 		$model->reply_comment_id = ArrayHelperEx::getValue($data, "reply_comment_id");
 
 		$model->author  = ArrayHelperEx::getValue($data, "author");
+		$model->email   = ArrayHelperEx::getValue($data, "email");
 		$model->comment = ArrayHelperEx::getValue($data, "comment");
 
 		// if the model doesn't validate, return error
@@ -69,6 +70,7 @@ class PostComment extends PostCommentBase
 
 		$model->user_id = ArrayHelperEx::getValue($data, "user_id");
 		$model->author  = ArrayHelperEx::getValue($data, "author");
+		$model->email   = ArrayHelperEx::getValue($data, "email");
 		$model->comment = ArrayHelperEx::getValue($data, "comment");
 
 		$model->is_approved = ArrayHelperEx::getValue($data, "is_approved", self::NOT_APPROVED);

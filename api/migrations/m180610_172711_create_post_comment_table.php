@@ -24,8 +24,9 @@ class m180610_172711_create_post_comment_table extends Migration
 			"reply_comment_id" => $this->integer()->defaultValue(null),
 			"user_id"          => $this->integer()->defaultValue(null),
 			"author"           => $this->string(140)->defaultValue(null),
+			"email"            => $this->string(255)->defaultValue(null),
 			"comment"          => $this->text()->notNull(),
-			"is_approved"      => $this->smallInteger(1)->defaultValue(0),
+			"is_approved"       => $this->smallInteger(1)->defaultValue(0),
 			"created_on"       => $this->dateTime(),
 			"approved_on"      => $this->dateTime(),
 		]);

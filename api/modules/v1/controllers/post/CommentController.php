@@ -4,6 +4,7 @@ namespace app\modules\v1\controllers\post;
 
 use app\modules\v1\components\ControllerEx;
 use app\modules\v1\models\post\PostCommentEx;
+use app\modules\v1\models\post\PostEx;
 
 /**
  * Class CommentController
@@ -55,6 +56,6 @@ class CommentController extends ControllerEx
 
 		$this->response->setStatusCode(201);
 
-		return PostCommentEx::getCommentsForPost($postId);
+		return PostEx::getOneByIdWithLanguage($postId);
 	}
 }

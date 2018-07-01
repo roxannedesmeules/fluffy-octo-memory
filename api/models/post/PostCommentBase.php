@@ -16,16 +16,17 @@ use app\models\user\User;
  * @property int    $reply_comment_id
  * @property int    $user_id
  * @property string $author
+ * @property string $email
  * @property string $comment
  * @property int    $is_approved
  * @property string $created_on
  * @property string $approved_on
  *
- * @property Lang   $lang
- * @property Post   $post
- * @property self   $replyTo
- * @property self[] $replies
- * @property User   $user
+ * @property Lang          $lang
+ * @property Post          $post
+ * @property PostComment   $replyTo
+ * @property PostComment[] $replies
+ * @property User          $user
  */
 abstract class PostCommentBase extends \yii\db\ActiveRecord
 {
@@ -59,6 +60,7 @@ abstract class PostCommentBase extends \yii\db\ActiveRecord
 			[ [ 'comment' ], 'string' ],
 			[ [ 'created_on', "approved_on" ], 'safe' ],
 			[ [ 'author' ], 'string', 'max' => 140 ],
+			[ [ 'email' ], 'string', 'max' => 255 ],
 			[
 				[ 'lang_id' ],
 				'exist',

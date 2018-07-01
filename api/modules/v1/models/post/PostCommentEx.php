@@ -16,7 +16,8 @@ class PostCommentEx extends PostComment
 	/** @inheritdoc */
 	public function getReplies ()
 	{
-		return $this->hasMany(self::className(), [ "reply_comment_id" => "id" ]);
+		return $this->hasMany(self::className(), [ "reply_comment_id" => "id" ])
+		            ->approved();
 	}
 
 	/** @inheritdoc */
@@ -61,13 +62,16 @@ class PostCommentEx extends PostComment
 			[ "author", "required", "message" => self::ERR_FIELD_REQUIRED ],
 			[ "author", "string", "max" => 140, "tooLong" => self::ERR_FIELD_TOO_LONG ],
 
+			[ "email", "required", "message" => self::ERR_FIELD_REQUIRED ],
+			[ "email", "string", "max" => 255, "tooLong" => self::ERR_FIELD_TOO_LONG ],
+
 			[ "comment", "required", "message" => self::ERR_FIELD_REQUIRED ],
 		];
 	}
 
 	/**
-	 * @param int   $postId
-	 * @param array $data
+	 * @param int           $postId
+	 * @param PostCommentEx $data
 	 *
 	 * @return array
 	 */
@@ -79,9 +83,12 @@ class PostCommentEx extends PostComment
 	}
 
 	/**
+	 * This method will get all post comments that a approved for a single Post translation and organize it in a tree
+	 * so that all replies to a comment are linked to the comment itself.
+	 *
 	 * @param int $postId
 	 *
-	 * @return mixed
+	 * @return self[]
 	 */
 	public static function getCommentsForPost ( $postId )
 	{
@@ -93,5 +100,23 @@ class PostCommentEx extends PostComment
 		           ->firstComment()
 		           ->approved()
 		           ->all();
+	}
+
+	/**
+	 * This method will count the number of approved post comments for a single Post translation.
+	 *
+	 * @param int $postId
+	 *
+	 * @return int|string
+	 */
+	public static function getCommentCountForPost ( $postId )
+	{
+		$langId = LangEx::getIdFromIcu(\Yii::$app->language);
+
+		return self::find()
+		           ->byPost($postId)
+		           ->byLang($langId)
+		           ->approved()
+		           ->count();
 	}
 }

@@ -14,16 +14,19 @@ use app\modules\v1\models\TagEx;
  * Class PostEx
  *
  * @package app\modules\v1\models
+ *
+ * @property \app\modules\v1\models\post\PostLangEx $postLang
  */
 class PostEx extends Post
 {
 	const SCENARIO_DEFAULT  = "partial";
 	const SCENARIO_COMPLETE = "complete";
 
-	/** @inheritdoc */
-	public function getPostLangs ()
+	/**  */
+	public function getPostLang ()
 	{
-		return $this->hasMany(PostLangEx::className(), [ "post_id" => "id" ]);
+		return $this->hasOne(PostLangEx::className(), [ "post_id" => "id" ])
+		            ->byLang(LangEx::getIdFromIcu(\Yii::$app->language));
 	}
 
 	/** @inheritdoc */
@@ -46,32 +49,29 @@ class PostEx extends Post
 			"id",
 			"category"     => "category",
 			"featured"     => "is_featured",
-			"title"        => function ( self $model ) {
-				return PostLangEx::getTranslationTitle($model->postLangs, LangEx::getIdFromIcu(\Yii::$app->language));
-			},
-			"slug"         => function ( self $model ) {
-				return PostLangEx::getTranslationSlug($model->postLangs, LangEx::getIdFromIcu(\Yii::$app->language));
-			},
-			"summary"      => function ( self $model ) {
-				return PostLangEx::getTranslationSummary($model->postLangs, LangEx::getIdFromIcu(\Yii::$app->language));
-			},
+			"title"        => function ( self $model ) { return $model->postLang->title; },
+			"slug"         => function ( self $model ) { return $model->postLang->slug; },
+			"summary"      => function ( self $model ) { return $model->postLang->summary; },
 			"cover"        => function ( self $model ) {
 				return [
-					"url" => PostLangEx::getTranslationCoverPath($model->postLangs, LangEx::getIdFromIcu(\Yii::$app->language)),
-					"alt" => PostLangEx::getTranslationCoverAlt($model->postLangs, LangEx::getIdFromIcu(\Yii::$app->language)),
+					"url" => (isset($model->postLang->file)) ? $model->postLang->file->getFullPath() : "",
+					"alt" => $model->postLang->file_alt,
 				];
 			},
-			"author"       => function ( self $model ) {
-				return PostLangEx::getTranslationAuthor($model->postLangs, LangEx::getIdFromIcu(\Yii::$app->language));
-			},
+			"author"       => function ( self $model ) { return $model->postLang->user; },
+			"comments"     => function ( self $model ) { return [ "count" => $model->postLang->getCommentsCount() ]; },
 			"published_on" => function ( self $model ) { return DateHelper::formatDate($model->published_on, DateHelper::DATE_FORMAT); },
 		];
 
 		switch ($this->getScenario()) {
 			case self::SCENARIO_COMPLETE :
 				return ArrayHelperEx::merge($fields, [
-					"content" => function ( self $model ) {
-						return PostLangEx::getTranslationContent($model->postLangs, LangEx::getIdFromIcu(\Yii::$app->language));
+					"content"  => function ( self $model ) { return $model->postLang->content; },
+					"comments" => function ( self $model ) {
+						return [
+							"count" => $model->postLang->getCommentsCount(),
+							"list"  => $model->postLang->getCommentsTree(),
+						];
 					},
 					"tags",
 				]);
@@ -92,6 +92,7 @@ class PostEx extends Post
 		$query = self::find()
 		           ->isPublished()
 		           ->withTranslationIn(LangEx::getIdFromIcu(\Yii::$app->language))
+		           ->with("postLang")
 		           ->orderPublication();
 
 		if (!is_null($filters[ "category" ])) {
@@ -109,14 +110,26 @@ class PostEx extends Post
 		return $query->all();
 	}
 
+	public static function getOneByIdWithLanguage ( $postId )
+	{
+		$post = self::find()
+		            ->isPublished()
+		            ->id($postId)
+		            ->joinWith("postLang")
+		            ->one();
+
+		$post->setScenario(self::SCENARIO_COMPLETE);
+
+		return $post;
+	}
+
 	public static function getOneBySlugWithLanguage ($slug)
 	{
 		$post = self::find()
 					->isPublished()
 					->joinWith([
-						"postLangs" => function ( PostLangQuery $translation ) use ( $slug ) {
-							return $translation->bySlug($slug)
-							                   ->byLang(LangEx::getIdFromIcu(\Yii::$app->language));
+						"postLang" => function ( PostLangQuery $query ) use ( $slug ) {
+							return $query->bySlug($slug);
 						},
 					])
 					->one();
