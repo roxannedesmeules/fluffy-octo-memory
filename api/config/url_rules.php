@@ -68,6 +68,13 @@ return [
 		"except"     => [ "view", "update", "delete" ],
 	],
 
+	//  communication
+	[
+		"class"      => 'yii\rest\UrlRule',
+		"controller" => [ "v1/communication" ],
+		"except"     => [ "index", "view", "update", "delete" ],
+	],
+
 	//  V1 Admin rules
 	"$admin/doc" => "$admin/default/doc",
 	"$admin/api" => "$admin/default/api",
