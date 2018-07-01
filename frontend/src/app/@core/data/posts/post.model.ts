@@ -5,11 +5,14 @@ import { Tag } from "@core/data/tags/tag.model";
 import { Author } from "@core/data/users/author.model";
 
 export class Post {
-	public static FEATURED     = 1;
+	public static NOT_FEATURED     = 0;
+	public static FEATURED         = 1;
+	public static COMMENTS_ENABLED = 1;
 
 	public id: number;
 	public category: Category;
-	public featured: number;
+	public featured: number        = Post.NOT_FEATURED;
+	public comment_enabled: number = Post.COMMENTS_ENABLED;
 	public title: string;
 	public slug: string;
 	public summary: string;
@@ -25,25 +28,30 @@ export class Post {
 			return;
 		}
 
-		this.id       = model.id;
-		this.category = new Category(model.category);
-		this.featured = parseInt(model.featured);
-		this.title    = model.title;
-		this.slug     = model.slug;
-		this.summary  = model.summary;
-		this.content  = model.content || "";
-		this.cover    = new PostCover(model.cover);
-		this.tags     = (model.tags) ? this.mapListToModelList(Tag, model.tags) : [];
-		this.comments = {
+		this.id              = model.id;
+		this.featured        = parseInt(model.featured);
+		this.comment_enabled = parseInt(model.comment_enabled);
+
+		this.title        = model.title;
+		this.slug         = model.slug;
+		this.summary      = model.summary;
+		this.content      = model.content || "";
+
+		this.cover        = new PostCover(model.cover);
+		this.category     = new Category(model.category);
+		this.tags         = (model.tags) ? this.mapListToModelList(Tag, model.tags) : [];
+		this.author       = new Author(model.author);
+
+		this.published_on = model.published_on;
+
+		this.comments     = {
 			count : model.comments.count,
 			list  : (model.comments.list) ? this.mapListToModelList(PostComment, model.comments.list) : [],
 		};
-		this.author   = new Author(model.author);
-		this.published_on = model.published_on;
 	}
 
 	private mapListToModelList ( model, list: any[] ) {
-		list.forEach((val: any, idx: number) => {
+		list.forEach(( val: any, idx: number ) => {
 			list[ idx ] = new model(val);
 		});
 
@@ -51,6 +59,10 @@ export class Post {
 	}
 
 	public getUrl (): string {
-		return  "/blog/" + this.category.slug + "/" + this.slug;
+		return "/blog/" + this.category.slug + "/" + this.slug;
+	}
+
+	public commentsAreEnabled (): boolean {
+		return (this.comment_enabled === Post.COMMENTS_ENABLED);
 	}
 }

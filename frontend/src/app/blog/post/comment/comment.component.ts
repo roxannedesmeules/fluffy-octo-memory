@@ -9,6 +9,7 @@ import { Post, PostComment } from "@core/data/posts";
 export class CommentComponent implements OnInit {
 
 	@Input() postId: number;
+	@Input() enabled: boolean = true;
 	@Input() count: number;
 	@Input() comments: PostComment[];
 

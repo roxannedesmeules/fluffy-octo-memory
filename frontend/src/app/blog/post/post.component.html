@@ -20,7 +20,8 @@
 
 				<app-blog-post-tags [tags]="post.tags"></app-blog-post-tags>
 
-				<app-blog-post-comments [postId]="post.id" [count]="post.comments.count" [comments]="post.comments.list"
+				<app-blog-post-comments [postId]="post.id" [enabled]="post.commentsAreEnabled()"
+				                        [count]="post.comments.count" [comments]="post.comments.list"
 				                        (onCreate)="updatePost($event)">
 				</app-blog-post-comments>
 			</div>

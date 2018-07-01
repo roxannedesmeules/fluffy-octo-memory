@@ -47,20 +47,21 @@ class PostEx extends Post
 	{
 		$fields = [
 			"id",
-			"category"     => "category",
-			"featured"     => "is_featured",
-			"title"        => function ( self $model ) { return $model->postLang->title; },
-			"slug"         => function ( self $model ) { return $model->postLang->slug; },
-			"summary"      => function ( self $model ) { return $model->postLang->summary; },
-			"cover"        => function ( self $model ) {
+			"category"        => "category",
+			"featured"        => "is_featured",
+			"comment_enabled" => "is_comment_enabled",
+			"title"           => function ( self $model ) { return $model->postLang->title; },
+			"slug"            => function ( self $model ) { return $model->postLang->slug; },
+			"summary"         => function ( self $model ) { return $model->postLang->summary; },
+			"cover"           => function ( self $model ) {
 				return [
 					"url" => (isset($model->postLang->file)) ? $model->postLang->file->getFullPath() : "",
 					"alt" => $model->postLang->file_alt,
 				];
 			},
-			"author"       => function ( self $model ) { return $model->postLang->user; },
-			"comments"     => function ( self $model ) { return [ "count" => $model->postLang->getCommentsCount() ]; },
-			"published_on" => function ( self $model ) { return DateHelper::formatDate($model->published_on, DateHelper::DATE_FORMAT); },
+			"author"          => function ( self $model ) { return $model->postLang->user; },
+			"comments"        => function ( self $model ) { return [ "count" => $model->postLang->getCommentsCount() ]; },
+			"published_on"    => function ( self $model ) { return DateHelper::formatDate($model->published_on, DateHelper::DATE_FORMAT); },
 		];
 
 		switch ($this->getScenario()) {

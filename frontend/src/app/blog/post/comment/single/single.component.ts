@@ -9,6 +9,7 @@ import { Post, PostComment } from "@core/data/posts";
 export class SingleComponent implements OnInit {
 
 	@Input() postId: number;
+	@Input() enabled: boolean = true;
 	@Input() comment: PostComment;
 	@Output() onCreate: EventEmitter<Post> = new EventEmitter<Post>();
 
