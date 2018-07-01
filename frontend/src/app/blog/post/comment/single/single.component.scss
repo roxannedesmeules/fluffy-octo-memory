@@ -1,0 +1,21 @@
+.replies {
+	margin-left : 40px;
+}
+
+.comment-body.has-replies {
+	border-bottom : 1px solid #eeeeee !important;
+}
+
+.comment-body p {
+	margin-bottom : 0 !important;
+}
+
+.comment-body p.reply {
+	font-size : 0.8em;
+	color     : #999999;
+	
+	&:hover {
+		cursor          : pointer;
+		text-decoration : underline;
+	}
+}

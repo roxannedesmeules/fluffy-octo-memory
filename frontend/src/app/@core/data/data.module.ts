@@ -5,7 +5,12 @@ import {
 	CategoryPostService,
 	DetailResolve as CategoryDetailResolve
 } from "@core/data/categories";
-import { PostService, DetailResolve as PostDetailResolve, ListResolve as PostListResolve } from "@core/data/posts";
+import {
+	PostService,
+	DetailResolve as PostDetailResolve,
+	ListResolve as PostListResolve,
+	PostCommentService,
+} from "@core/data/posts";
 import { TagService, DetailResolve as TagDetailResolve } from "@core/data/tags";
 
 const SERVICES = [
@@ -17,6 +22,7 @@ const SERVICES = [
 	TagDetailResolve,
 
 	PostService,
+	PostCommentService,
 	PostListResolve,
 	PostDetailResolve,
 ];

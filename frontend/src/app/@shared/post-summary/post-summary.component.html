@@ -20,7 +20,10 @@
 				</div>
 				<div class="title"><span>{{ post.author.fullname }}</span></div>
 			</a>
-			<div class="comments meta-last"><i class="icon-comment"></i>12</div>
+			<div class="comments meta-last">
+				<i class="icon-comment"></i>
+				{{ post.comments.count }}
+			</div>
 		</footer>
 	</div>
 </div>

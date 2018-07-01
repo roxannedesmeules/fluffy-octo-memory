@@ -9,6 +9,8 @@ import { Author } from "@core/data/users";
 export class FooterComponent implements OnInit {
 
 	@Input() author: Author;
+	@Input() commentCount: number;
+	@Input() published: string;
 
 	constructor () {
 	}

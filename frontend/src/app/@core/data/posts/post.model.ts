@@ -1,10 +1,10 @@
 import { Category } from "@core/data/categories/category.model";
+import { PostComment } from "@core/data/posts/post-comment.model";
 import { PostCover } from "@core/data/posts/post-cover.model";
 import { Tag } from "@core/data/tags/tag.model";
 import { Author } from "@core/data/users/author.model";
 
 export class Post {
-	public static NOT_FEATURED = 0;
 	public static FEATURED     = 1;
 
 	public id: number;
@@ -16,6 +16,7 @@ export class Post {
 	public content: string;
 	public cover: PostCover;
 	public tags: Tag[];
+	public comments: any;
 	public author: Author;
 	public published_on: string;
 
@@ -33,6 +34,10 @@ export class Post {
 		this.content  = model.content || "";
 		this.cover    = new PostCover(model.cover);
 		this.tags     = (model.tags) ? this.mapListToModelList(Tag, model.tags) : [];
+		this.comments = {
+			count : model.comments.count,
+			list  : (model.comments.list) ? this.mapListToModelList(PostComment, model.comments.list) : [],
+		};
 		this.author   = new Author(model.author);
 		this.published_on = model.published_on;
 	}

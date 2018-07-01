@@ -18,4 +18,7 @@ export class PostComponent implements OnInit {
 		this.post = this.route.snapshot.data[ "post" ];
 	}
 
+	public updatePost ( post: Post ) {
+		this.post = post;
+	}
 }

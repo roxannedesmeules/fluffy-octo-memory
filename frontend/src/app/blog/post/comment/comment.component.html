@@ -1,0 +1,11 @@
+<div class="post-comments">
+	<header>
+		<h3 class="h6">Conversation <span class="no-of-comments">({{ count }})</span></h3>
+	</header>
+
+	<app-blog-post-comment-form [postId]="postId" (onCreate)="passToParent($event)"></app-blog-post-comment-form>
+
+	<app-blog-post-comment class="comment" *ngFor="let comment of comments" [comment]="comment" [postId]="postId"
+	                       (onCreate)="passToParent($event)">
+	</app-blog-post-comment>
+</div>

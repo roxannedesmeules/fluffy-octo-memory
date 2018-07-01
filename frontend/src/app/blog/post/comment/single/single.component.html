@@ -1,0 +1,24 @@
+<div class="comment-header d-flex justify-content-between">
+	<div class="user d-flex align-items-center">
+		<div class="image">
+			<img src="assets/img/user.svg" [alt]="comment.author" class="img-fluid rounded-circle"></div>
+		<div class="title">
+			<strong>{{ comment.author }}</strong>
+			<span class="date">{{ comment.created_on | date: "MMMM y" }}</span>
+		</div>
+	</div>
+</div>
+<div class="comment-body" [class.has-replies]="comment.hasReplies()">
+	<p>{{ comment.comment }}</p>
+	<p class="reply" (click)="showForm = !showForm">reply</p>
+
+	<app-blog-post-comment-form *ngIf="showForm"
+	                            [postId]="postId" [replyTo]="comment.id" (onCreate)="passToParent($event)">
+	</app-blog-post-comment-form>
+</div>
+
+<div class="replies">
+	<app-blog-post-comment class="comment" *ngFor="let reply of comment.replies"
+	                       [comment]="reply" (onCreate)="passToParent($event)">
+	</app-blog-post-comment>
+</div>

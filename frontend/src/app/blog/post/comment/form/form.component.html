@@ -1,0 +1,23 @@
+<div class="add-comment">
+	<form [formGroup]="form" class="commenting-form" novalidate>
+		<div class="row">
+			<div class="form-group col-md-6">
+				<label for="author" class="sr-only">name</label>
+				<input type="text" id="author" placeholder="Name" class="form-control" formControlName="author">
+			</div>
+			<div class="form-group col-md-6">
+				<label for="email" class="sr-only">email</label>
+				<input type="email" id="email" placeholder="Email Address (will not be published)"
+				       class="form-control" formControlName="email">
+			</div>
+			<div class="form-group col-md-12">
+				<label for="comment" class="sr-only">comment</label>
+				<textarea id="comment" placeholder="Type your comment" class="form-control"
+				          formControlName="comment"></textarea>
+			</div>
+			<div class="form-group col-md-12">
+				<button (click)="createComment()" class="btn btn-secondary">Submit Comment</button>
+			</div>
+		</div>
+	</form>
+</div>
