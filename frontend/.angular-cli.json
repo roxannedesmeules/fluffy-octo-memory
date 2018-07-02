@@ -21,6 +21,7 @@
 			"styles": [
 				"../node_modules/bootstrap/dist/css/bootstrap.min.css",
 				"../node_modules/@fortawesome/fontawesome/styles.css",
+				"../node_modules/ladda/dist/ladda.min.css",
 				"assets/theme/css/fontastic.css",
 				"assets/theme/css/style.ladydev.css",
 				"styles.scss"

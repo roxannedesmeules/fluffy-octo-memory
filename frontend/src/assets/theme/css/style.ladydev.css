@@ -1981,7 +1981,10 @@ STYLE SWITCHER FOR DEMO
 }
 
 .btn-outline-primary:active, .btn-outline-primary.active,
-.show > .btn-outline-primary.dropdown-toggle {
+.show > .btn-outline-primary.dropdown-toggle,
+.btn-primary:not(:disabled):not(.disabled).active,
+.btn-primary:not(:disabled):not(.disabled):active,
+.show>.btn-primary.dropdown-toggle {
   color: #fff;
   background-color: #841937;
   border-color: #841937;

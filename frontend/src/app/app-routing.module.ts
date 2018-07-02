@@ -1,11 +1,11 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { BlogComponent, HomeComponent } from "./@theme/layout";
+import { BlogComponent as BlogLayout, HomeComponent as HomeLayout } from "./@theme/layout";
 
 const routes: Routes = [
 	{
 		path      : "",
-		component : HomeComponent,
+		component : HomeLayout,
 		children  : [
 			{
 				path         : "",
@@ -14,12 +14,15 @@ const routes: Routes = [
 			},
 		],
 	}, {
-		path      : "blog",
-		component : BlogComponent,
+		path      : "",
+		component : BlogLayout,
 		children  : [
 			{
-				path         : "",
+				path         : "blog",
 				loadChildren : "./blog/blog.module#BlogModule",
+			}, {
+				path         : "contact",
+				loadChildren : "./contact/contact.module#ContactModule",
 			},
 		],
 	},

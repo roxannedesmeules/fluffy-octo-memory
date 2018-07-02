@@ -1,0 +1,73 @@
+<div class="container">
+	<div class="row">
+		<div class="col-8">
+			<h1 class="h3">Contact Me</h1>
+		</div>
+		<div class="col-12">
+			<p class="text-big">
+				You have a question or a comment? a post idea? Let me know by filling the form bellow and I'll get back
+				to you as soon as possible.
+			</p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-12">
+
+			<div *ngIf="success" class="alert alert-success">
+				I have received your message and I will answer you as soon as possible.
+			</div>
+
+			<div class="contact-form">
+				<form [formGroup]="form" class="commenting-form" novalidate>
+					<div class="row">
+						<div class="form-group col-md-6">
+							<label for="name" class="sr-only">name*</label>
+
+							<input type="text" id="name" placeholder="Name*"
+							       class="form-control" [class.is-invalid]="isInvalid('name')"
+							       formControlName="name">
+
+							<div class="help-block text-small text-danger" *ngIf="isInvalid('name')">
+								<span *ngIf="form.get('name').hasError('required')">Please enter your name</span>
+							</div>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="email" class="sr-only">email*</label>
+
+							<input type="email" id="email" placeholder="Email Address*"
+							       class="form-control" [class.is-invalid]="isInvalid('email')"
+							       formControlName="email">
+
+							<div class="help-block text-small text-danger" *ngIf="isInvalid('email')">
+								<span *ngIf="form.get('email').hasError('required')">Please enter your email</span>
+							</div>
+						</div>
+						<div class="form-group col-md-12">
+							<label for="subject" class="sr-only">subject</label>
+
+							<input type="text" id="subject" placeholder="Your subject" class="form-control"
+							       formControlName="subject">
+						</div>
+						<div class="form-group col-md-12">
+							<label for="comment" class="sr-only">message</label>
+
+							<textarea id="comment" placeholder="Your message*"
+							          class="form-control" [class.is-invalid]="isInvalid('message')"
+							          formControlName="message"></textarea>
+
+							<div class="help-block text-small text-danger" *ngIf="isInvalid('message')">
+								<span *ngIf="form.get('message').hasError('required')">Please enter your message</span>
+							</div>
+						</div>
+						<div class="form-group col-md-12">
+							<button (click)="saveMessage()" class="btn btn-primary"
+							        [ladda]="loading" data-style="zoom-in">
+								Send Message
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

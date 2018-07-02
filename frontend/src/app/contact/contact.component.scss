@@ -1,0 +1,37 @@
+.contact-form input,
+.contact-form textarea {
+	background    : none;
+	border        : none;
+	border-bottom : 1px solid #dddddd;
+	padding       : 10px 0;
+	border-radius : 0;
+	font-family   : "Open Sans", sans-serif;
+
+	&::-moz-placeholder,
+	&::-webkit-input-placeholder,
+	&:-ms-input-placeholder {
+		font-weight : 400;
+		font-size   : 0.9em;
+		color       : #aaaaaa;
+		font-family : "Open Sans", sans-serif;
+	}
+
+	&:focus {
+		-webkit-box-shadow : none;
+		box-shadow         : none;
+		border-bottom      : 1px solid #841937;
+	}
+
+	&.is-invalid {
+		border-color: #dc3545;
+	}
+}
+
+.contact-form textarea {
+	min-height : 150px;
+}
+
+.alert-success {
+	border-radius : 0;
+	border        : none;
+}

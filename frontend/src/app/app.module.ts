@@ -3,10 +3,8 @@ import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { CoreModule } from "@core/core.module";
-import { ThemeModule } from "./@theme/theme.module";
+import { ThemeModule } from "@theme/theme.module";
 import { AppRoutingModule } from "./app-routing.module";
-import { BlogModule } from "./blog/blog.module";
-import { HomeModule } from "./home/home.module";
 
 import { APP_BASE_HREF } from "@angular/common";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
@@ -24,9 +22,6 @@ const MODULES = [
 
 	ThemeModule.forRoot(),
 	CoreModule.forRoot(),
-
-	HomeModule,
-	BlogModule,
 ];
 
 const COMPONENTS = [
