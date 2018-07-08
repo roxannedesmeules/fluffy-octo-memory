@@ -64,9 +64,6 @@ class ControllerAdminEx extends Controller
 	}
 
 	/** @inheritdoc */
-	public function actionOptions() {}
-
-	/** @inheritdoc */
 	protected function verbs ()
 	{
 		return [
@@ -77,6 +74,9 @@ class ControllerAdminEx extends Controller
 			"delete" => [ "DELETE" ],
 		];
 	}
+
+	/** @inheritdoc */
+	public function actionOptions() {}
 
 	protected function createdResult ( $result )
 	{

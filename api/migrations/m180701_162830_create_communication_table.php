@@ -16,6 +16,7 @@ class m180701_162830_create_communication_table extends Migration
 			"email"      => $this->string(255)->notNull(),
 			"subject"    => $this->string(255)->defaultValue(null),
 			"message"    => $this->text()->notNull(),
+			"is_viewed"  => $this->smallInteger(1)->defaultValue(0),
 			"is_replied" => $this->smallInteger(1)->defaultValue(0),
 			"created_on" => $this->dateTime(),
 		]);

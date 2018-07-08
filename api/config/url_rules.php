@@ -93,6 +93,17 @@ return [
 		"except"     => [ "view", "create", "update", "delete" ],
 	],
 
+	//  communication
+	[
+		"class"         => 'yii\rest\UrlRule',
+		"controller"    => [ "$admin/communication" ],
+		"except"        => [ "create", "delete" ],
+		"extraPatterns" => [
+			"OPTIONS count" => "options",
+			"GET count"     => "count",
+		],
+	],
+
 	//  posts
 	[
 		"class"      => 'yii\rest\UrlRule',

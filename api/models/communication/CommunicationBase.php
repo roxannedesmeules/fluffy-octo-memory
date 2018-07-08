@@ -13,6 +13,7 @@ use app\helpers\DateHelper;
  * @property string $email
  * @property string $subject
  * @property string $message
+ * @property int    $is_viewed
  * @property int    $is_replied
  * @property string $created_on
  */
@@ -21,9 +22,13 @@ abstract class CommunicationBase extends \yii\db\ActiveRecord
 	const NOT_REPLIED = 0;
 	const REPLIED     = 1;
 
+	const NOT_VIEWED = 0;
+	const VIEWED     = 1;
+
 	const ERROR   = 0;
 	const SUCCESS = 1;
 
+	const ERR_NOT_FOUND = "ERR_NOT_FOUND";
 	const ERR_ON_SAVE = "ERR_ON_SAVE";
 
 	const ERR_FIELD_REQUIRED = "ERR_FIELD_REQUIRED";
@@ -39,7 +44,7 @@ abstract class CommunicationBase extends \yii\db\ActiveRecord
 		return [
 			[ [ 'name', 'email', 'message' ], 'required' ],
 			[ [ 'message' ], 'string' ],
-			[ [ 'is_replied' ], 'integer' ],
+			[ [ 'is_replied', 'is_viewed' ], 'integer' ],
 			[ [ 'created_on' ], 'safe' ],
 			[ [ 'name', 'email', 'subject' ], 'string', 'max' => 255 ],
 		];
@@ -54,6 +59,7 @@ abstract class CommunicationBase extends \yii\db\ActiveRecord
 			'email'      => 'Email',
 			'subject'    => 'Subject',
 			'message'    => 'Message',
+			'is_viewed'  => 'Is Viewed',
 			'is_replied' => 'Is Replied',
 			'created_on' => 'Created On',
 		];
@@ -73,10 +79,23 @@ abstract class CommunicationBase extends \yii\db\ActiveRecord
 	{
 		if ($insert) {
 			$this->created_on = date(DateHelper::DATETIME_FORMAT);
+			$this->is_viewed  = self::NOT_VIEWED;
 			$this->is_replied = self::NOT_REPLIED;
 		}
 
 		return parent::beforeSave($insert);
+	}
+
+	/**
+	 * This method will check if a specific communication ID exists.
+	 *
+	 * @param int $id
+	 *
+	 * @return bool
+	 */
+	public static function idExists ( $id )
+	{
+		return self::find()->byId($id)->exists();
 	}
 
 	/**
