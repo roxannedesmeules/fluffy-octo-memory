@@ -3,3 +3,29 @@
 	margin  : 0;
 	content : "";
 }
+
+.msg-profile {
+	padding-top  : 15px;
+	margin-right : 20px !important;
+
+	text-align   : center;
+	font-size    : 0.9em;
+	color        : #adadad;
+
+	strong {
+		font-size   : 1.4em;
+		line-height : 0.8em;
+		display     : block;
+	}
+
+	span {
+		font-size   : 0.9em;
+		font-weight : 300;
+	}
+
+	small {
+		line-height    : 0.8em;
+		letter-spacing : 0.2em;
+		display        : block;
+	}
+}

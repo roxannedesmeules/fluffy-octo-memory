@@ -1,0 +1,31 @@
+<div class="card">
+	<div class="card-body">
+		<h5 class="card-title">
+			{{ message.subject || '---' }}
+
+			<span *ngIf="message.isNotViewed()" class="badge badge-primary badge-corner"
+			      (click)="markAsViewed()">
+				<fa-icon [icon]="[ 'far', 'bell' ]"></fa-icon>
+			</span>
+		</h5>
+		<p class="card-text">{{ message.message }}</p>
+
+		<p class="text-right mb-0" *ngIf="message.isNotReplied()">
+			<a [href]="message.getReplyUrl()" rel="nofollow" target="_blank" class="card-link"
+			   (click)="replying()" *ngIf="!canMarkAsReplied">
+				reply to {{ message.name }}
+			</a>
+			<span (click)="markAsReplied()" *ngIf="canMarkAsReplied">mark as replied</span>
+		</p>
+
+		<p class="text-right mb-0" *ngIf="message.isReplied()">
+			reply sent
+		</p>
+	</div>
+	<div class="card-footer">
+		<p class="card-text">
+			{{ message.name }}
+			<small class="text-muted">{{ message.created_on | date: 'MMMM dd, y' }}</small>
+		</p>
+	</div>
+</div>

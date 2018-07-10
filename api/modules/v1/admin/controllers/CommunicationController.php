@@ -79,7 +79,37 @@ class CommunicationController extends ControllerAdminEx
 		return CommunicationEx::find()->byId($id)->one();
 	}
 
-	public function actionUpdate ( $id ) {}
+	/**
+	 * This method is called to update the viewed and replied flags on a specific message. It will verify that the message
+	 * exists and then will update the message.
+	 *
+	 * @param int $id
+	 *
+	 * @return \app\models\communication\Communication|array|null
+	 * @throws \yii\base\InvalidConfigException
+	 */
+	public function actionUpdate ( $id )
+	{
+		if (!CommunicationEx::idExists($id)) {
+			return $this->error(404, self::ERR_NOT_FOUND);
+		}
+
+		$form = new CommunicationEx();
+
+		$form->setAttributes($this->request->getBodyParams());
+
+		if (!$form->validate()) {
+			return $this->error(422, $form->getErrors());
+		}
+
+		$result = CommunicationEx::updateMessage($id, $form);
+
+		if ($result[ "status" ] === CommunicationEx::ERROR) {
+			return $this->error(400, $result[ "error" ]);
+		}
+
+		return CommunicationEx::find()->byId($id)->one();
+	}
 
 	/**
 	 * This method will count the number of messages depending on some filters. It will also wrap the response in an

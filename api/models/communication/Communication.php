@@ -37,4 +37,35 @@ class Communication extends CommunicationBase
 
 		return self::buildSuccess([ "id" => $model->id ]);
 	}
+
+	/**
+	 * This method will update a specific message in the communication table. To keep the integrity of the data received,
+	 * only viewed and replied flags are allowed to be updated.
+	 *
+	 * @param int $id
+	 * @param $data
+	 *
+	 * @return array
+	 */
+	public static function updateMessage ( $id, $data )
+	{
+		if (!self::idExists($id)) {
+			return self::buildError(self::ERR_NOT_FOUND);
+		}
+
+		$model = self::find()->byId($id)->one();
+
+		$model->is_replied = ArrayHelperEx::getValue($data, "is_replied", $model->is_replied);
+		$model->is_viewed  = ArrayHelperEx::getValue($data, "is_viewed", ($model->is_replied) ? $model->is_replied : $model->is_viewed);
+
+		if (!$model->validate()) {
+			return self::buildError($model->getErrors());
+		}
+
+		if (!$model->save()) {
+			return self::buildError(self::ERR_ON_SAVE);
+		}
+
+		return self::buildSuccess([]);
+	}
 }

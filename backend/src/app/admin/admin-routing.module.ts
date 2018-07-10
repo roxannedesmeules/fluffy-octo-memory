@@ -17,15 +17,18 @@ const routes: Routes = [
 			}, {
 				path         : "categories",
 				loadChildren : "./category/category.module#CategoryModule",
-			},  {
+			}, {
 				path         : "tags",
 				loadChildren : "./tag/tag.module#TagModule",
 			}, {
 				path         : "posts",
 				loadChildren : "./post/post.module#PostModule",
 			}, {
-				path : "user",
+				path         : "user",
 				loadChildren : "./user/user.module#UserModule",
+			}, {
+				path         : "messages",
+				loadChildren : "./communication/communication.module#CommunicationModule",
 			}, {
 				path       : "",
 				redirectTo : "dashboard",

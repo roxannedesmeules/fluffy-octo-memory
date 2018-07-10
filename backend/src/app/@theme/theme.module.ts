@@ -1,6 +1,7 @@
 import { ModuleWithProviders, NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { PageTitleService } from "@theme/components/page-title/page-title.service";
 
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
@@ -12,7 +13,7 @@ import {
 	SidemenuComponent,
 } from "./components";
 import { LayoutComponent } from "./layout/layout.component";
-import { MessagesComponent, NotificationsComponent, UserComponent } from "./widgets";
+import { MessagesComponent, MessagesService, NotificationsComponent, UserComponent } from "./widgets";
 
 const MODULES = [
 	//  core modules
@@ -23,6 +24,7 @@ const MODULES = [
 	NgbModule,
 	LaddaModule,
 	NgxSpinnerModule,
+	FontAwesomeModule,
 ];
 
 const COMPONENTS = [
@@ -45,6 +47,7 @@ const COMPONENTS = [
 
 const PROVIDERS = [
 	PageTitleService,
+	MessagesService,
 ];
 
 @NgModule({

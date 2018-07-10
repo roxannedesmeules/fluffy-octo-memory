@@ -27,6 +27,15 @@ class CommunicationEx extends Communication
 		];
 	}
 
+	/** @inheritdoc */
+	public function rules ()
+	{
+		return [
+			[ "is_viewed", "integer", "message" => self::ERR_FIELD_TYPE ],
+			[ "is_replied", "integer", "message" => self::ERR_FIELD_TYPE ],
+		];
+	}
+
 	/**
 	 * @param array $filters
 	 *

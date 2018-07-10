@@ -1,56 +1,21 @@
 import { ModuleWithProviders, NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 
-import { LangService, LanguageResolve } from "@core/data/languages";
-import {
-	CategoryService,
-	DetailResolve as CategoryDetailResolve,
-	PartialListResolve as CategoryPartialListResolve,
-	FullListResolve as CategoryFullListResolve,
-} from "@core/data/categories";
-import {
-	PostService,
-	DetailResolve as PostDetailResolve,
-	ListResolve as PostListResolve,
-	PostStatusService,
-	StatusResolve, PostCoverService, PostTagService, PostCommentService, CommentResolve,
-} from "@core/data/posts";
-import {
-	TagService,
-	DetailResolve as TagDetailResolve,
-	PartialListResolve as TagPartialListResolve,
-	FullListResolve as TagFullListResolve
-} from "@core/data/tags";
-import { AuthService, UserService, UserProfileService, MeResolve } from "@core/data/users";
+import { SERVICES as CATEGORY_SERVICES } from "@core/data/categories";
+import { SERVICES as COMMUNICATION_SERVICES } from "@core/data/communication";
+import { SERVICES as LANGUAGE_SERVICES } from "@core/data/languages";
+import { SERVICES as POST_SERVICES } from "@core/data/posts";
+import { SERVICES as TAG_SERVICES } from "@core/data/tags";
+import { SERVICES as USER_SERVICES } from "@core/data/users";
+
 
 const SERVICES = [
-	LangService,
-	LanguageResolve,
-
-	CategoryService,
-	CategoryDetailResolve,
-	CategoryPartialListResolve,
-	CategoryFullListResolve,
-
-	TagService,
-	TagDetailResolve,
-	TagPartialListResolve,
-	TagFullListResolve,
-
-	PostService,
-	PostCoverService,
-	PostTagService,
-	PostDetailResolve,
-	PostListResolve,
-	PostStatusService,
-	StatusResolve,
-	PostCommentService,
-	CommentResolve,
-
-	AuthService,
-	UserService,
-	UserProfileService,
-	MeResolve,
+	...CATEGORY_SERVICES,
+	...COMMUNICATION_SERVICES,
+	...LANGUAGE_SERVICES,
+	...POST_SERVICES,
+	...TAG_SERVICES,
+	...USER_SERVICES,
 ];
 
 @NgModule({
@@ -58,7 +23,7 @@ const SERVICES = [
 		CommonModule,
 	],
 	providers : [
-		...SERVICES,
+		...SERVICES
 	],
 })
 export class DataModule {
