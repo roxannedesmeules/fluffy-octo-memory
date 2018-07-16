@@ -43,6 +43,14 @@ export class CommunicationFilters {
 		this.perPage    = pagination.perPage;
 	}
 
+	public reset () {
+		this.replied = -1;
+		this.viewed  = -1;
+
+		this.pageNumber = 0;
+		this.perPage    = 10;
+	}
+
 	/**
 	 * This method will get all filters that are set and will create an object usable in services requests.
 	 *

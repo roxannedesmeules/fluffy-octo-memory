@@ -10,6 +10,7 @@ export class FullListResolve implements Resolve<Communication[]> {
 	constructor ( private service: CommunicationService ) { }
 
 	resolve ( route: ActivatedRouteSnapshot ) {
+		this.service.filters.reset();
 		this.service.filters.setPagination({ currentPage: 0, perPage: -1 });
 
 		return this.service

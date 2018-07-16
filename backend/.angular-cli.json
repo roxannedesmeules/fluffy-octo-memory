@@ -24,6 +24,7 @@
 				"../node_modules/froala-editor/css/froala_style.min.css",
 				"../node_modules/ngx-toastr/toastr.css",
 				"../node_modules/ladda/dist/ladda.min.css",
+				"../node_modules/font-awesome/css/font-awesome.css",
 				"styles.scss"
 			],
 			"scripts": [
