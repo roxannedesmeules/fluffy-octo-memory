@@ -12,80 +12,30 @@
         </context-group>
       </trans-unit>
       <trans-unit id="intro-title" datatype="html">
-        <source>Some great intro here</source>
-        <target state="new">Some great intro here</target>
+        <source>Hi, I'm Roxanne</source>
+        <target>Salut, je suis Roxanne</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/home/home.component.ts</context>
           <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit id="intro" datatype="html">
-        <source>Place a nice 
-          <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong>"/>introduction
-          <x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong>"/> here 
-          <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong>"/>to catch reader's
-				                                                                                 attention
-          <x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong>"/>.
-				                         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-				                         incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-				                         nostrud nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-				                         reprehenderi.
+        <source>
+                    I am here to 
+          <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/>share
+          <x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/> what I have learned during my years of being a professional web developer, help
+                    you try to make sense of it all. I am also here to share my experience as a 
+          <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/>woman in tech
+          <x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/> and help
+                    others that want to enter the industry by making it less intimidating and more inclusive.
+                
         </source>
-        <target state="new">Place a nice 
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong>"/>introduction
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          <x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong>"/> here 
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong>"/>to catch reader's
-				                                                                                 attention
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          <x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong>"/>.
-				                         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-				                         incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-				                         nostrud nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-				                         reprehenderi.
-        
-        
-        
-        
-        
-        
-        
-        
-        
+        <target>
+            Je suis ici pour
+                      <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/>partager
+                      <x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/> ce que j’ai appris pendant mes années à travailler comme développeuse web et vous aider à donner un sens à tout cela. Je suis également ici pour partager mon expérience en tant que
+                      <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/>femme dans la technologie
+                      <x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/> et aider celles qui le désire entrer l’industrie en la rendant moins intimidante et plus inclusive.
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/home/home.component.ts</context>
@@ -93,13 +43,14 @@
         </context-group>
       </trans-unit>
       <trans-unit id="divider" datatype="html">
-        <source>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-				         labore et dolore magna aliqua</source>
+        <source>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                     incididunt ut
+                                     labore et dolore magna aliqua</source>
         <target state="new">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
 				         labore et dolore magna aliqua</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/home/home.component.ts</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">45</context>
         </context-group>
       </trans-unit>
       <trans-unit id="viewmore" datatype="html">
@@ -107,7 +58,7 @@
         <target>Voir Plus</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/home/home.component.ts</context>
-          <context context-type="linenumber">46</context>
+          <context context-type="linenumber">48</context>
         </context-group>
       </trans-unit>
       <trans-unit id="latest-title" datatype="html">
@@ -115,7 +66,7 @@
         <target>Les nouveautés du blog</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/home/home.component.ts</context>
-          <context context-type="linenumber">55</context>
+          <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit>
       <trans-unit id="latest-desc" datatype="html">
@@ -123,7 +74,7 @@
         <target>Voir les articles publiés récemment sur le blog</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/home/home.component.ts</context>
-          <context context-type="linenumber">56</context>
+          <context context-type="linenumber">58</context>
         </context-group>
       </trans-unit>
       <trans-unit id="scroll" datatype="html">
@@ -278,7 +229,11 @@
         <target>Courriel:
           
           
+          
+          
           <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>info@ladydev.io
+          
+          
           
           
           <x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>
@@ -295,7 +250,11 @@
         <target>©
           
           
+          
+          
           <x id="INTERPOLATION" equiv-text="{{ year }}"/>. Tous droits réservés. ladydev.io
+        
+        
         
         
         </target>
@@ -312,7 +271,11 @@
         <target>Template par
           
           
+          
+          
           <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>Bootstrap Temple
+          
+          
           
           
           <x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/>

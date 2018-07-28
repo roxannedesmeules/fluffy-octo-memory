@@ -1,109 +1,110 @@
 <section class="hero hero-image">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-7">
-				<h1 i18n="@@home-title">ladydev.io sharing tips and tricks about web development</h1>
-			</div>
-		</div>
-		<a href=".intro" class="continue link-scroll">
-			<i class="fas fa-long-arrow-alt-down"></i>
-			<span i18n="@@scroll">Scroll Down</span>
-		</a>
-	</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7">
+                <h1 i18n="@@home-title">ladydev.io sharing tips and tricks about web development</h1>
+            </div>
+        </div>
+        <a href=".intro" class="continue link-scroll">
+            <i class="fas fa-long-arrow-alt-down"></i>
+            <span i18n="@@scroll">Scroll Down</span>
+        </a>
+    </div>
 </section>
 
 <section class="intro">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-8">
-				<h2 class="h3" i18n="@@intro-title">Some great intro here</h2>
-				<p class="text-big" i18n="@@intro">Place a nice <strong>introduction</strong> here <strong>to catch reader's
-				                                                                                 attention</strong>.
-				                         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-				                         incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-				                         nostrud nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-				                         reprehenderi.</p>
-			</div>
-		</div>
-	</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <h2 class="h3" i18n="@@intro-title">Hi, I'm Roxanne</h2>
+                <p class="text-big" i18n="@@intro">
+                    I am here to <b>share</b> what I have learned during my years of being a professional web developer, help
+                    you try to make sense of it all. I am also here to share my experience as a <b>woman in tech</b> and help
+                    others that want to enter the industry by making it less intimidating and more inclusive.
+                </p>
+            </div>
+        </div>
+    </div>
 </section>
 
 <section class="featured-posts no-padding-top">
-	<div class="container">
-		<app-home-featured-post *ngFor="let post of featured; let idx = index;"
-		                        [post]="post" [imgSide]="(idx % 2 === 0) ? 'right' : 'left'">
-		</app-home-featured-post>
-	</div>
+    <div class="container">
+        <app-home-featured-post *ngFor="let post of featured; let idx = index;"
+                                [post]="post" [imgSide]="(idx % 2 === 0) ? 'right' : 'left'">
+        </app-home-featured-post>
+    </div>
 </section>
 
 <!-- Divider Section-->
-<section style="background: url(assets/theme/img/divider-bg.jpg); background-size: cover; background-position: center bottom" class="divider">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-7">
-				<h2 i18n="@@divider">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-				         labore et dolore magna aliqua</h2>
-				<a href="#" class="hero-link" i18n="@@viewmore">View More</a>
-			</div>
-		</div>
-	</div>
+<section
+        style="background: url(assets/theme/img/divider-bg.jpg); background-size: cover; background-position: center bottom"
+        class="divider">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7">
+                <h2>if (awake) &#123; <br> &nbsp;&nbsp;&nbsp;&nbsp; drink(☕); <br> &nbsp;&nbsp;&nbsp;&nbsp; code(); <br> &#125;</h2>
+                <a routerLink="/blog" [queryParams]="{ 'page': 0, 'per-page': 10 }"
+                   class="hero-link" i18n="@@viewmore">View More</a>
+            </div>
+        </div>
+    </div>
 </section>
 <!-- Latest Posts -->
 <section class="latest-posts">
-	<div class="container">
-		<header>
-			<h2 i18n="@@latest-title">Latest from the blog</h2>
-			<p class="text-big" i18n="@@latest-desc">See latest articles published on the blog</p>
-		</header>
-		<div class="row">
-			<app-post-summary class="col-md-4" *ngFor="let post of latests" [post]="post"
-			                  format="partial"></app-post-summary>
-		</div>
-	</div>
+    <div class="container">
+        <header>
+            <h2 i18n="@@latest-title">Latest from the blog</h2>
+            <p class="text-big" i18n="@@latest-desc">See latest articles published on the blog</p>
+        </header>
+        <div class="row">
+            <app-post-summary class="col-md-4" *ngFor="let post of latests" [post]="post"
+                              format="partial"></app-post-summary>
+        </div>
+    </div>
 </section>
 
 <!-- Gallery Section-->
 <section class="gallery no-padding">
-	<div class="row">
-		<div class="mix col-lg-3 col-md-3 col-sm-6">
-			<div class="item">
-				<a href="assets/theme/img/gallery-1.jpg" data-fancybox="gallery" class="image">
-					<img src="assets/theme/img/gallery-1.jpg" alt="..." class="img-fluid">
-					<div class="overlay d-flex align-items-center justify-content-center">
-						<i class="icon-search"></i>
-					</div>
-				</a>
-			</div>
-		</div>
-		<div class="mix col-lg-3 col-md-3 col-sm-6">
-			<div class="item">
-				<a href="assets/theme/img/gallery-2.jpg" data-fancybox="gallery" class="image">
-					<img src="assets/theme/img/gallery-2.jpg" alt="..." class="img-fluid">
-					<div class="overlay d-flex align-items-center justify-content-center">
-						<i class="icon-search"></i>
-					</div>
-				</a>
-			</div>
-		</div>
-		<div class="mix col-lg-3 col-md-3 col-sm-6">
-			<div class="item">
-				<a href="assets/theme/img/gallery-3.jpg" data-fancybox="gallery" class="image">
-					<img src="assets/theme/img/gallery-3.jpg" alt="..." class="img-fluid">
-					<div class="overlay d-flex align-items-center justify-content-center">
-						<i class="icon-search"></i>
-					</div>
-				</a>
-			</div>
-		</div>
-		<div class="mix col-lg-3 col-md-3 col-sm-6">
-			<div class="item">
-				<a href="assets/theme/img/gallery-4.jpg" data-fancybox="gallery" class="image">
-					<img src="assets/theme/img/gallery-4.jpg" alt="..." class="img-fluid">
-					<div class="overlay d-flex align-items-center justify-content-center">
-						<i class="icon-search"></i>
-					</div>
-				</a>
-			</div>
-		</div>
-	</div>
+    <div class="row">
+        <div class="mix col-lg-3 col-md-3 col-sm-6">
+            <div class="item">
+                <a href="assets/theme/img/gallery-1.jpg" data-fancybox="gallery" class="image">
+                    <img src="assets/theme/img/gallery-1.jpg" alt="..." class="img-fluid">
+                    <div class="overlay d-flex align-items-center justify-content-center">
+                        <i class="icon-search"></i>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="mix col-lg-3 col-md-3 col-sm-6">
+            <div class="item">
+                <a href="assets/theme/img/gallery-2.jpg" data-fancybox="gallery" class="image">
+                    <img src="assets/theme/img/gallery-2.jpg" alt="..." class="img-fluid">
+                    <div class="overlay d-flex align-items-center justify-content-center">
+                        <i class="icon-search"></i>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="mix col-lg-3 col-md-3 col-sm-6">
+            <div class="item">
+                <a href="assets/theme/img/gallery-3.jpg" data-fancybox="gallery" class="image">
+                    <img src="assets/theme/img/gallery-3.jpg" alt="..." class="img-fluid">
+                    <div class="overlay d-flex align-items-center justify-content-center">
+                        <i class="icon-search"></i>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="mix col-lg-3 col-md-3 col-sm-6">
+            <div class="item">
+                <a href="assets/theme/img/gallery-4.jpg" data-fancybox="gallery" class="image">
+                    <img src="assets/theme/img/gallery-4.jpg" alt="..." class="img-fluid">
+                    <div class="overlay d-flex align-items-center justify-content-center">
+                        <i class="icon-search"></i>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
 </section>

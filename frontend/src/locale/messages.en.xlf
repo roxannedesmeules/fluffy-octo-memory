@@ -12,35 +12,33 @@
         </context-group>
       </trans-unit>
       <trans-unit id="intro-title" datatype="html">
-        <source>Some great intro here</source>
-        <target state="final">Some great intro here</target>
+        <source>Hi, I'm Roxanne</source>
+        <target state="final">Hi, I'm Roxanne</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/home/home.component.ts</context>
           <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit id="intro" datatype="html">
-        <source>Place a nice 
-          <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong>"/>introduction
-          <x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong>"/> here 
-          <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong>"/>to catch reader's
-				                                                                                 attention
-          <x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong>"/>.
-				                         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-				                         incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-				                         nostrud nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-				                         reprehenderi.
+        <source>
+                    I am here to 
+          <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/>share
+          <x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/> what I have learned during my years of being a professional web developer, help
+                    you try to make sense of it all. I am also here to share my experience as a 
+          <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/>woman in tech
+          <x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/> and help
+                    others that want to enter the industry by making it less intimidating and more inclusive.
+                
         </source>
-        <target state="final">Place a nice 
-          <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong>"/>introduction
-          <x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong>"/> here 
-          <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong>"/>to catch reader's
-				                                                                                 attention
-          <x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong>"/>.
-				                         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-				                         incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-				                         nostrud nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-				                         reprehenderi.
+        <target state="final">
+                    I am here to 
+          <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/>share
+          <x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/> what I have learned during my years of being a professional web developer, help
+                    you try to make sense of it all. I am also here to share my experience as a 
+          <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/>woman in tech
+          <x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/> and help
+                    others that want to enter the industry by making it less intimidating and more inclusive.
+                
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/home/home.component.ts</context>
@@ -48,13 +46,15 @@
         </context-group>
       </trans-unit>
       <trans-unit id="divider" datatype="html">
-        <source>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-				         labore et dolore magna aliqua</source>
-        <target state="final">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-				         labore et dolore magna aliqua</target>
+        <source>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                     incididunt ut
+                                     labore et dolore magna aliqua</source>
+        <target state="final">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                     incididunt ut
+                                     labore et dolore magna aliqua</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/home/home.component.ts</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">45</context>
         </context-group>
       </trans-unit>
       <trans-unit id="viewmore" datatype="html">
@@ -62,7 +62,7 @@
         <target state="final">View More</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/home/home.component.ts</context>
-          <context context-type="linenumber">46</context>
+          <context context-type="linenumber">48</context>
         </context-group>
       </trans-unit>
       <trans-unit id="latest-title" datatype="html">
@@ -70,7 +70,7 @@
         <target state="final">Latest from the blog</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/home/home.component.ts</context>
-          <context context-type="linenumber">55</context>
+          <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit>
       <trans-unit id="latest-desc" datatype="html">
@@ -78,7 +78,7 @@
         <target state="final">See latest articles published on the blog</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/home/home.component.ts</context>
-          <context context-type="linenumber">56</context>
+          <context context-type="linenumber">58</context>
         </context-group>
       </trans-unit>
       <trans-unit id="scroll" datatype="html">

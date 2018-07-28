@@ -228,51 +228,51 @@
         </context-group>
       </trans-unit>
       <trans-unit id="intro-title" datatype="html">
-        <source>Some great intro here</source>
+        <source>Hi, I&apos;m Roxanne</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/home/home.component.ts</context>
           <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit id="intro" datatype="html">
-        <source>Place a nice <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>introduction<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> here <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>to catch reader&apos;s
-				                                                                                 attention<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>.
-				                         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-				                         incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-				                         nostrud nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-				                         reprehenderi.</source>
+        <source>
+                    I am here to <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>share<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/> what I have learned during my years of being a professional web developer, help
+                    you try to make sense of it all. I am also here to share my experience as a <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>woman in tech<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/> and help
+                    others that want to enter the industry by making it less intimidating and more inclusive.
+                </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/home/home.component.ts</context>
           <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
       <trans-unit id="divider" datatype="html">
-        <source>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-				         labore et dolore magna aliqua</source>
+        <source>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                     incididunt ut
+                                     labore et dolore magna aliqua</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/home/home.component.ts</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">45</context>
         </context-group>
       </trans-unit>
       <trans-unit id="viewmore" datatype="html">
         <source>View More</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/home/home.component.ts</context>
-          <context context-type="linenumber">46</context>
+          <context context-type="linenumber">48</context>
         </context-group>
       </trans-unit>
       <trans-unit id="latest-title" datatype="html">
         <source>Latest from the blog</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/home/home.component.ts</context>
-          <context context-type="linenumber">55</context>
+          <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit>
       <trans-unit id="latest-desc" datatype="html">
         <source>See latest articles published on the blog</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/home/home.component.ts</context>
-          <context context-type="linenumber">56</context>
+          <context context-type="linenumber">58</context>
         </context-group>
       </trans-unit>
     </body>
