@@ -11,12 +11,10 @@ export class HomeComponent implements OnInit {
 	public latests: Post[] = [];
 	public featured: Post[] = [];
 
-	constructor (@Inject(LOCALE_ID) protected locale: string,
-				 private postService: PostService) {
+	constructor (private postService: PostService) {
 	}
 
 	ngOnInit () {
-		console.log(this.locale);
 		this._getFeaturedPost();
 		this._getLatestPosts();
 	}
@@ -31,5 +29,9 @@ export class HomeComponent implements OnInit {
 		this.postService
 			.featured()
 			.subscribe((result: Post[]) => { this.featured = result; });
+	}
+
+	public scroll ( target ) {
+		target.scrollIntoView({ behavior : "smooth" });
 	}
 }

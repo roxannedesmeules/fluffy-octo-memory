@@ -5,14 +5,14 @@
                 <h1 i18n="@@home-title">ladydev.io sharing tips and tricks about web development</h1>
             </div>
         </div>
-        <a href=".intro" class="continue link-scroll">
+        <a (click)="scroll(intro)" class="continue link-scroll">
             <i class="fas fa-long-arrow-alt-down"></i>
             <span i18n="@@scroll">Scroll Down</span>
         </a>
     </div>
 </section>
 
-<section class="intro">
+<section class="intro" #intro>
     <div class="container">
         <div class="row">
             <div class="col-lg-8">

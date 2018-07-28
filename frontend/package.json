@@ -5,7 +5,7 @@
     "scripts"         : {
         "ng"        : "ng",
         "start"     : "ng serve --aot --locale en --i18nFile=src/locale/messages.en.xlf --i18nFormat=xlf",
-        "start:fr"  : "ng serve --aot --locale fr --i18nFile=src/locale/messages.fr.xlf --i18nFormat=xlf",
+        "start:fr"  : "ng serve --aot --bh /fr/ --locale fr --i18nFile=src/locale/messages.fr.xlf --i18nFormat=xlf",
         "build"     : "ng build --prod",
         "test"      : "ng test",
         "lint"      : "ng lint",
