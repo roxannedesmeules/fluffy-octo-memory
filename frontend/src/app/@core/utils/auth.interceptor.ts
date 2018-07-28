@@ -1,11 +1,12 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import { Inject, Injectable, LOCALE_ID } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 
 import { environment } from "env/environment";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
+	constructor (@Inject(LOCALE_ID) protected localeId: string) {}
 
 	intercept ( req: HttpRequest<any>, next: HttpHandler ): Observable<HttpEvent<any>> {
 		const reqClone = req.clone({
@@ -13,7 +14,7 @@ export class AuthInterceptor implements HttpInterceptor {
 			setHeaders : {
 				"Accept"          : "application/json",
 				"Api-Client"      : AuthInterceptor._clientHeader(),
-				"Accept-Language" : navigator.language,
+				"Accept-Language" : `${this.localeId}-ca`,
 				"Client-type"     : "application/json",
 			},
 		});

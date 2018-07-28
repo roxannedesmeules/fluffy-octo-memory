@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="contact-address" datatype="html">
+        <source>Montreal, Qc</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/@theme/components/footer/footer.component.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contact-email" datatype="html">
+        <source>Email: <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>info@ladydev.io<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/@theme/components/footer/footer.component.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="link-disclosure" datatype="html">
+        <source>Disclosure Policy</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/@theme/components/footer/footer.component.ts</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="link-about" datatype="html">
+        <source>About me</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/@theme/components/footer/footer.component.ts</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="link-faq" datatype="html">
+        <source>FAQ</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/@theme/components/footer/footer.component.ts</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="link-contact" datatype="html">
+        <source>Contact</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/@theme/components/footer/footer.component.ts</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/@theme/components/header/header.component.ts</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="copyright" datatype="html">
+        <source>© <x id="INTERPOLATION" equiv-text="{{ year }}"/>. All rights reserved. ladydev.io</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/@theme/components/footer/footer.component.ts</context>
+          <context context-type="linenumber">71</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="template" datatype="html">
+        <source>Template By <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>Bootstrap Temple<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>
+					   
+					</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/@theme/components/footer/footer.component.ts</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="link-home" datatype="html">
+        <source>Home</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/@theme/components/header/header.component.ts</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="link-blog" datatype="html">
+        <source>
+							Blog
+						</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/@theme/components/header/header.component.ts</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="widget-search-title" datatype="html">
+        <source>Search the blog</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/@theme/layout/blog/blog.component.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="widget-search-placeholder" datatype="html">
+        <source>What are you looking for?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/@theme/layout/blog/blog.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="widget-category-title" datatype="html">
+        <source>Categories</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/@theme/widgets/categories/categories.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="widget-tag-title" datatype="html">
+        <source>Tags</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/@theme/widgets/tags/tags.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contact-title" datatype="html">
+        <source>Contact Me</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/contact/contact.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contact-desc" datatype="html">
+        <source>
+                You have a question or a comment? a post idea? Let me know by filling the form bellow.
+            </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/contact/contact.component.ts</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contact-success-msg" datatype="html">
+        <source>
+                I have received your message and I will answer you as soon as possible.
+            </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/contact/contact.component.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contact-form-name" datatype="html">
+        <source>Name*</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/contact/contact.component.ts</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/contact/contact.component.ts</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contact-form-name-required" datatype="html">
+        <source>
+                                    Please enter your name
+                                </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/contact/contact.component.ts</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contact-form-email" datatype="html">
+        <source>Email address*</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/contact/contact.component.ts</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/contact/contact.component.ts</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contact-form-email-required" datatype="html">
+        <source>
+                                    Please enter your email
+                                </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/contact/contact.component.ts</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contact-form-subject" datatype="html">
+        <source>Your subject</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/contact/contact.component.ts</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/contact/contact.component.ts</context>
+          <context context-type="linenumber">51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contact-form-message" datatype="html">
+        <source>Your message*</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/contact/contact.component.ts</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/contact/contact.component.ts</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contact-form-message-required" datatype="html">
+        <source>
+                                    Please enter your message
+                                </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/contact/contact.component.ts</context>
+          <context context-type="linenumber">62</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contact-form-submit" datatype="html">
+        <source>
+                                Send Message
+                            </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/contact/contact.component.ts</context>
+          <context context-type="linenumber">69</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home-title" datatype="html">
+        <source>ladydev.io sharing tips and tricks about web development</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/home/home.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="scroll" datatype="html">
+        <source>Scroll Down</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/home/home.component.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="intro-title" datatype="html">
+        <source>Some great intro here</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/home/home.component.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="intro" datatype="html">
+        <source>Place a nice <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>introduction<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/> here <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>to catch reader&apos;s
+				                                                                                 attention<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>.
+				                         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+				                         incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+				                         nostrud nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+				                         reprehenderi.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/home/home.component.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="divider" datatype="html">
+        <source>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+				         labore et dolore magna aliqua</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/home/home.component.ts</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="viewmore" datatype="html">
+        <source>View More</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/home/home.component.ts</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="latest-title" datatype="html">
+        <source>Latest from the blog</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/home/home.component.ts</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="latest-desc" datatype="html">
+        <source>See latest articles published on the blog</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/home/home.component.ts</context>
+          <context context-type="linenumber">56</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

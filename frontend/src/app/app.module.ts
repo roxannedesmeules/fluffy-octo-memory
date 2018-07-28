@@ -6,7 +6,6 @@ import { CoreModule } from "@core/core.module";
 import { ThemeModule } from "@theme/theme.module";
 import { AppRoutingModule } from "./app-routing.module";
 
-import { APP_BASE_HREF } from "@angular/common";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AuthInterceptor } from "@core/utils/auth.interceptor";
 
@@ -32,7 +31,6 @@ const COMPONENTS = [
 	imports      : [ ...BASE_MODULES, ...MODULES ],
 	declarations : [ ...COMPONENTS ],
 	providers    : [
-		{ provide : APP_BASE_HREF, useValue : "/" },
 		{ provide : HTTP_INTERCEPTORS, useClass : AuthInterceptor, multi : true },
 	],
 	bootstrap    : [ AppComponent ],

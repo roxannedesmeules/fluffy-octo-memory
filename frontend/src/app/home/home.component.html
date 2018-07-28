@@ -2,12 +2,12 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-7">
-				<h1>ladydev.io sharing tips and tricks about web development</h1>
+				<h1 i18n="@@home-title">ladydev.io sharing tips and tricks about web development</h1>
 			</div>
 		</div>
 		<a href=".intro" class="continue link-scroll">
 			<i class="fas fa-long-arrow-alt-down"></i>
-			Scroll Down
+			<span i18n="@@scroll">Scroll Down</span>
 		</a>
 	</div>
 </section>
@@ -16,8 +16,13 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-8">
-				<h2 class="h3">Some great intro here</h2>
-				<p class="text-big">Place a nice <strong>introduction</strong> here <strong>to catch reader's attention</strong>. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderi.</p>
+				<h2 class="h3" i18n="@@intro-title">Some great intro here</h2>
+				<p class="text-big" i18n="@@intro">Place a nice <strong>introduction</strong> here <strong>to catch reader's
+				                                                                                 attention</strong>.
+				                         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+				                         incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+				                         nostrud nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+				                         reprehenderi.</p>
 			</div>
 		</div>
 	</div>
@@ -36,7 +41,9 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-7">
-				<h2>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</h2><a href="#" class="hero-link">View More</a>
+				<h2 i18n="@@divider">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+				         labore et dolore magna aliqua</h2>
+				<a href="#" class="hero-link" i18n="@@viewmore">View More</a>
 			</div>
 		</div>
 	</div>
@@ -45,11 +52,12 @@
 <section class="latest-posts">
 	<div class="container">
 		<header>
-			<h2>Latest from the blog</h2>
-			<p class="text-big">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+			<h2 i18n="@@latest-title">Latest from the blog</h2>
+			<p class="text-big" i18n="@@latest-desc">See latest articles published on the blog</p>
 		</header>
 		<div class="row">
-			<app-post-summary class="col-md-4" *ngFor="let post of latests" [post]="post" format="partial"></app-post-summary>
+			<app-post-summary class="col-md-4" *ngFor="let post of latests" [post]="post"
+			                  format="partial"></app-post-summary>
 		</div>
 	</div>
 </section>
@@ -58,20 +66,44 @@
 <section class="gallery no-padding">
 	<div class="row">
 		<div class="mix col-lg-3 col-md-3 col-sm-6">
-			<div class="item"><a href="assets/theme/img/gallery-1.jpg" data-fancybox="gallery" class="image"><img src="assets/theme/img/gallery-1.jpg" alt="..." class="img-fluid">
-				<div class="overlay d-flex align-items-center justify-content-center"><i class="icon-search"></i></div></a></div>
+			<div class="item">
+				<a href="assets/theme/img/gallery-1.jpg" data-fancybox="gallery" class="image">
+					<img src="assets/theme/img/gallery-1.jpg" alt="..." class="img-fluid">
+					<div class="overlay d-flex align-items-center justify-content-center">
+						<i class="icon-search"></i>
+					</div>
+				</a>
+			</div>
 		</div>
 		<div class="mix col-lg-3 col-md-3 col-sm-6">
-			<div class="item"><a href="assets/theme/img/gallery-2.jpg" data-fancybox="gallery" class="image"><img src="assets/theme/img/gallery-2.jpg" alt="..." class="img-fluid">
-				<div class="overlay d-flex align-items-center justify-content-center"><i class="icon-search"></i></div></a></div>
+			<div class="item">
+				<a href="assets/theme/img/gallery-2.jpg" data-fancybox="gallery" class="image">
+					<img src="assets/theme/img/gallery-2.jpg" alt="..." class="img-fluid">
+					<div class="overlay d-flex align-items-center justify-content-center">
+						<i class="icon-search"></i>
+					</div>
+				</a>
+			</div>
 		</div>
 		<div class="mix col-lg-3 col-md-3 col-sm-6">
-			<div class="item"><a href="assets/theme/img/gallery-3.jpg" data-fancybox="gallery" class="image"><img src="assets/theme/img/gallery-3.jpg" alt="..." class="img-fluid">
-				<div class="overlay d-flex align-items-center justify-content-center"><i class="icon-search"></i></div></a></div>
+			<div class="item">
+				<a href="assets/theme/img/gallery-3.jpg" data-fancybox="gallery" class="image">
+					<img src="assets/theme/img/gallery-3.jpg" alt="..." class="img-fluid">
+					<div class="overlay d-flex align-items-center justify-content-center">
+						<i class="icon-search"></i>
+					</div>
+				</a>
+			</div>
 		</div>
 		<div class="mix col-lg-3 col-md-3 col-sm-6">
-			<div class="item"><a href="assets/theme/img/gallery-4.jpg" data-fancybox="gallery" class="image"><img src="assets/theme/img/gallery-4.jpg" alt="..." class="img-fluid">
-				<div class="overlay d-flex align-items-center justify-content-center"><i class="icon-search"></i></div></a></div>
+			<div class="item">
+				<a href="assets/theme/img/gallery-4.jpg" data-fancybox="gallery" class="image">
+					<img src="assets/theme/img/gallery-4.jpg" alt="..." class="img-fluid">
+					<div class="overlay d-flex align-items-center justify-content-center">
+						<i class="icon-search"></i>
+					</div>
+				</a>
+			</div>
 		</div>
 	</div>
 </section>

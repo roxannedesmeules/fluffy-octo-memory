@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Inject, LOCALE_ID, OnInit } from "@angular/core";
 import { Post, PostService } from "@core/data/posts";
 
 @Component({
@@ -11,10 +11,12 @@ export class HomeComponent implements OnInit {
 	public latests: Post[] = [];
 	public featured: Post[] = [];
 
-	constructor (private postService: PostService) {
+	constructor (@Inject(LOCALE_ID) protected locale: string,
+				 private postService: PostService) {
 	}
 
 	ngOnInit () {
+		console.log(this.locale);
 		this._getFeaturedPost();
 		this._getLatestPosts();
 	}

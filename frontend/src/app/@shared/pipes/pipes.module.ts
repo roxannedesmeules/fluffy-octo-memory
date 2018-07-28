@@ -1,11 +1,11 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { TimeAgoPipe } from "time-ago-pipe";
+// import { TimeAgoPipe } from "time-ago-pipe";
 import { SafeHtmlPipe } from "./string/safe-html.pipe";
 
 const PIPES = [
 	// third party pipes
-	TimeAgoPipe,
+	// TimeAgoPipe,
 
 	// custom pipes
 	SafeHtmlPipe,

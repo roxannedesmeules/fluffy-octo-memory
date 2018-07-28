@@ -1,72 +1,78 @@
 <div class="container">
-	<div class="row">
-		<div class="col-8">
-			<h1 class="h3">Contact Me</h1>
-		</div>
-		<div class="col-12">
-			<p class="text-big">
-				You have a question or a comment? a post idea? Let me know by filling the form bellow.
-			</p>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-12">
+    <div class="row">
+        <div class="col-8">
+            <h1 class="h3" i18n="@@contact-title">Contact Me</h1>
+        </div>
+        <div class="col-12">
+            <p class="text-big" i18n="@@contact-desc">
+                You have a question or a comment? a post idea? Let me know by filling the form bellow.
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
 
-			<div *ngIf="success" class="alert alert-success">
-				I have received your message and I will answer you as soon as possible.
-			</div>
+            <div *ngIf="success" class="alert alert-success" i18n="@@contact-success-msg">
+                I have received your message and I will answer you as soon as possible.
+            </div>
 
-			<div class="contact-form">
-				<form [formGroup]="form" class="commenting-form" novalidate>
-					<div class="row">
-						<div class="form-group col-md-6">
-							<label for="name" class="sr-only">name*</label>
+            <div class="contact-form">
+                <form [formGroup]="form" class="commenting-form" novalidate>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="name" class="sr-only" i18n="@@contact-form-name">Name*</label>
 
-							<input type="text" id="name" placeholder="Name*"
-							       class="form-control" [class.is-invalid]="isInvalid('name')"
-							       formControlName="name">
+                            <input type="text" id="name" placeholder="Name*" i18n-placeholder="@@contact-form-name"
+                                   class="form-control" [class.is-invalid]="isInvalid('name')"
+                                   formControlName="name">
 
-							<div class="help-block text-small text-danger" *ngIf="isInvalid('name')">
-								<span *ngIf="form.get('name').hasError('required')">Please enter your name</span>
-							</div>
-						</div>
-						<div class="form-group col-md-6">
-							<label for="email" class="sr-only">email*</label>
+                            <div class="help-block text-small text-danger" *ngIf="isInvalid('name')">
+                                <span *ngIf="form.get('name').hasError('required')" i18n="@@contact-form-name-required">
+                                    Please enter your name
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="email" class="sr-only" i18n="@@contact-form-email">Email address*</label>
 
-							<input type="email" id="email" placeholder="Email Address*"
-							       class="form-control" [class.is-invalid]="isInvalid('email')"
-							       formControlName="email">
+                            <input type="email" id="email" placeholder="Email address*" i18n-placeholder="@@contact-form-email"
+                                   class="form-control" [class.is-invalid]="isInvalid('email')"
+                                   formControlName="email">
 
-							<div class="help-block text-small text-danger" *ngIf="isInvalid('email')">
-								<span *ngIf="form.get('email').hasError('required')">Please enter your email</span>
-							</div>
-						</div>
-						<div class="form-group col-md-12">
-							<label for="subject" class="sr-only">subject</label>
+                            <div class="help-block text-small text-danger" *ngIf="isInvalid('email')">
+                                <span *ngIf="form.get('email').hasError('required')" i18n="@@contact-form-email-required">
+                                    Please enter your email
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="subject" class="sr-only" i18n="@@contact-form-subject">Your subject</label>
 
-							<input type="text" id="subject" placeholder="Your subject" class="form-control"
-							       formControlName="subject">
-						</div>
-						<div class="form-group col-md-12">
-							<label for="comment" class="sr-only">message</label>
+                            <input type="text" id="subject" placeholder="Your subject" i18n-placeholder="@@contact-form-subject"
+                                   class="form-control" formControlName="subject">
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="comment" class="sr-only" i18n="@@contact-form-message">Your message*</label>
 
-							<textarea id="comment" placeholder="Your message*"
-							          class="form-control" [class.is-invalid]="isInvalid('message')"
-							          formControlName="message"></textarea>
+                            <textarea id="comment" placeholder="Your message*" i18n-placeholder="@@contact-form-message"
+                                      class="form-control" [class.is-invalid]="isInvalid('message')"
+                                      formControlName="message"></textarea>
 
-							<div class="help-block text-small text-danger" *ngIf="isInvalid('message')">
-								<span *ngIf="form.get('message').hasError('required')">Please enter your message</span>
-							</div>
-						</div>
-						<div class="form-group col-md-12">
-							<button (click)="saveMessage()" class="btn btn-primary"
-							        [ladda]="loading" data-style="zoom-in">
-								Send Message
-							</button>
-						</div>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
+                            <div class="help-block text-small text-danger" *ngIf="isInvalid('message')">
+                                <span *ngIf="form.get('message').hasError('required')" i18n="@@contact-form-message-required">
+                                    Please enter your message
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <button (click)="saveMessage()" class="btn btn-primary" i18n="@@contact-form-submit"
+                                    [ladda]="loading" data-style="zoom-in">
+                                Send Message
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>

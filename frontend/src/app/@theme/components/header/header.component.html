@@ -41,15 +41,16 @@
 			<div id="navbarcollapse" class="collapse navbar-collapse">
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item">
-						<a routerLink="/" class="nav-link ">Home</a>
+						<a routerLink="/" class="nav-link" i18n="@@link-home">Home</a>
 					</li>
 					<li class="nav-item">
-						<a routerLink="/blog" [queryParams]="{ 'page': 0, 'per-page': 10 }" class="nav-link active">
+						<a routerLink="/blog" [queryParams]="{ 'page': 0, 'per-page': 10 }"
+						   class="nav-link active" i18n="@@link-blog">
 							Blog
 						</a>
 					</li>
 					<li class="nav-item">
-						<a routerLink="/contact" class="nav-link">Contact</a>
+						<a routerLink="/contact" class="nav-link" i18n="@@link-contact">Contact</a>
 					</li>
 				</ul>
 				<div class="navbar-text">
@@ -58,9 +59,9 @@
 					</a>
 				</div>
 				<ul class="langs navbar-text">
-					<a href="#" class="active">EN</a>
+					<a href="/en/" [class.active]="isCurrent('en')">EN</a>
 					<span>           </span>
-					<a href="#">FR</a>
+					<a href="/fr/" [class.active]="isCurrent('fr')">FR</a>
 				</ul>
 			</div>
 		</div>
