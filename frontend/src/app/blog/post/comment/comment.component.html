@@ -1,9 +1,9 @@
 <div class="post-comments">
 	<header>
-		<h3 class="h6">Conversation <span class="no-of-comments">({{ count }})</span></h3>
+		<h3 class="h6" i18n="@@comment-title">Conversation <span class="no-of-comments">({{ count }})</span></h3>
 	</header>
 
-	<div *ngIf="!enabled" class="closed-comments"> Comments are closed </div>
+	<div *ngIf="!enabled" class="closed-comments" i18n="@@comment-closed"> Comments are closed </div>
 
 	<app-blog-post-comment-form *ngIf="enabled" [postId]="postId" (onCreate)="passToParent($event)">
 	</app-blog-post-comment-form>

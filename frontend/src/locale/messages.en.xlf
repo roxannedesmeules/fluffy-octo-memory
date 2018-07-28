@@ -45,24 +45,12 @@
           <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="divider" datatype="html">
-        <source>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                     incididunt ut
-                                     labore et dolore magna aliqua</source>
-        <target state="final">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                     incididunt ut
-                                     labore et dolore magna aliqua</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/home/home.component.ts</context>
-          <context context-type="linenumber">45</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="viewmore" datatype="html">
         <source>View More</source>
         <target state="final">View More</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/home/home.component.ts</context>
-          <context context-type="linenumber">48</context>
+          <context context-type="linenumber">47</context>
         </context-group>
       </trans-unit>
       <trans-unit id="latest-title" datatype="html">
@@ -70,7 +58,7 @@
         <target state="final">Latest from the blog</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/home/home.component.ts</context>
-          <context context-type="linenumber">57</context>
+          <context context-type="linenumber">56</context>
         </context-group>
       </trans-unit>
       <trans-unit id="latest-desc" datatype="html">
@@ -78,7 +66,7 @@
         <target state="final">See latest articles published on the blog</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/home/home.component.ts</context>
-          <context context-type="linenumber">58</context>
+          <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit>
       <trans-unit id="scroll" datatype="html">
@@ -351,6 +339,124 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/@theme/widgets/tags/tags.component.ts</context>
           <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="blog-list-count" datatype="html">
+        <source>
+          <x id="INTERPOLATION" equiv-text="{{ list.length }}"/>
+          <x id="ICU" equiv-text="{list.length, plural, =0 {...} =1 {...} many {...}}"/> available 
+        </source>
+        <target state="final">
+          <x id="INTERPOLATION" equiv-text="{{ list.length }}"/>
+          <x id="ICU" equiv-text="{list.length, plural, =0 {...} =1 {...} many {...}}"/> available 
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/blog/list/list.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="baa8a5a4bc13f9ccaca2a759a355a72415de18e4" datatype="html">
+        <source>{VAR_PLURAL, plural, =0 {post} =1 {post} many {posts} }</source>
+        <target state="final">{VAR_PLURAL, plural, =0 {post} =1 {post} many {posts} }</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/blog/list/list.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="comment-title" datatype="html">
+        <source>Conversation 
+          <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span>"/>(
+          <x id="INTERPOLATION" equiv-text="{{ count }}"/>)
+          <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span>"/>
+        </source>
+        <target state="final">Conversation 
+          <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span>"/>(
+          <x id="INTERPOLATION" equiv-text="{{ count }}"/>)
+          <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span>"/>
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/blog/post/comment/comment.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="comment-closed" datatype="html">
+        <source> Comments are closed </source>
+        <target state="final"> Comments are closed </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/blog/post/comment/comment.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="comment-form-name" datatype="html">
+        <source>Name</source>
+        <target state="final">Name</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/blog/post/comment/form/form.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/blog/post/comment/form/form.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="comment-form-email" datatype="html">
+        <source>Email Address (will not be published)</source>
+        <target state="final">Email Address (will not be published)</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/blog/post/comment/form/form.component.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/blog/post/comment/form/form.component.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="comment-form-comment" datatype="html">
+        <source>Type your comment</source>
+        <target state="final">Type your comment</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/blog/post/comment/form/form.component.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/blog/post/comment/form/form.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="comment-form-submit" datatype="html">
+        <source>Submit Comment</source>
+        <target state="final">Submit Comment</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/blog/post/comment/form/form.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pagination-previous" datatype="html">
+        <source>Go to previous page</source>
+        <target state="final">Go to previous page</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/@shared/pagination/pagination.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pagination-page" datatype="html">
+        <source>Go to page #
+          <x id="INTERPOLATION" equiv-text="{{ page }}"/>
+        </source>
+        <target state="final">Go to page #
+          <x id="INTERPOLATION" equiv-text="{{ page }}"/>
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/@shared/pagination/pagination.component.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pagination-next" datatype="html">
+        <source>Go to next page</source>
+        <target state="final">Go to next page</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/@shared/pagination/pagination.component.ts</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
     </body>

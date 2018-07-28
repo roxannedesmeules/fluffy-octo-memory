@@ -2,21 +2,23 @@
 	<form [formGroup]="form" class="commenting-form" novalidate>
 		<div class="row">
 			<div class="form-group col-md-6">
-				<label for="author" class="sr-only">name</label>
-				<input type="text" id="author" placeholder="Name" class="form-control" formControlName="author">
+				<label for="author" class="sr-only" i18n="@@comment-form-name">Name</label>
+				<input type="text" id="author" placeholder="Name" i18n-placeholder="@@comment-form-name"
+				       class="form-control" formControlName="author">
 			</div>
 			<div class="form-group col-md-6">
-				<label for="email" class="sr-only">email</label>
+				<label for="email" class="sr-only" i18n="@@comment-form-email">Email Address (will not be published)</label>
 				<input type="email" id="email" placeholder="Email Address (will not be published)"
+				       i18n-placeholder="@@comment-form-email"
 				       class="form-control" formControlName="email">
 			</div>
 			<div class="form-group col-md-12">
-				<label for="comment" class="sr-only">comment</label>
-				<textarea id="comment" placeholder="Type your comment" class="form-control"
-				          formControlName="comment"></textarea>
+				<label for="comment" class="sr-only" i18n="@@comment-form-comment">Type your comment</label>
+				<textarea id="comment" placeholder="Type your comment" i18n-placeholder="@@comment-form-comment"
+				          class="form-control" formControlName="comment"></textarea>
 			</div>
 			<div class="form-group col-md-12">
-				<button (click)="createComment()" class="btn btn-secondary">Submit Comment</button>
+				<button (click)="createComment()" class="btn btn-secondary" i18n="@@comment-form-submit">Submit Comment</button>
 			</div>
 		</div>
 	</form>

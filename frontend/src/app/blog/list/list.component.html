@@ -3,7 +3,7 @@
 		<div class="col-8" *ngIf="category || tag">
 			<h2 class="h3" *ngIf="category"> {{ category?.name }} </h2>
 			<h2 class="h3" *ngIf="tag"> {{ tag?.name }} </h2>
-			<p class="text-big"> {{ list.length }} posts available </p>
+			<p class="text-big" i18n="@@blog-list-count"> {{ list.length }} {list.length, plural, =0 {post} =1 {post} many {posts}} available </p>
 		</div>
 	</div>
 	<div class="row">

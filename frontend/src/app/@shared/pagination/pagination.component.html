@@ -1,13 +1,14 @@
 <nav *ngIf="pagination.totalCount > 0" aria-label="navigation">
 	<ul class="pagination pagination-template d-flex justify-content-center">
 		<li class="page-item" (click)="goToPrevious()">
-			<a class="page-link"> <i class="fa fa-angle-left"></i></a>
+			<a class="page-link" title="Go to previous page" i18n-title="@@pagination-previous"><i class="fa fa-angle-left"></i></a>
 		</li>
 		<li class="page-item" (click)="goToPage(page)" *ngFor="let page of pageNumbers()">
-			<a class="page-link" [class.active]="isCurrent(page)">{{ page }}</a>
+			<a class="page-link" [class.active]="isCurrent(page)"
+			   title="Go to page #{{ page }}" i18n-title="@@pagination-page">{{ page }}</a>
 		</li>
 		<li class="page-item" (click)="goToNext()">
-			<a class="page-link"> <i class="fa fa-angle-right"></i></a>
+			<a class="page-link" title="Go to next page" i18n-title="@@pagination-next"><i class="fa fa-angle-right"></i></a>
 		</li>
 	</ul>
 </nav>
