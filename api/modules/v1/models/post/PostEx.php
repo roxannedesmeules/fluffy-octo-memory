@@ -22,7 +22,7 @@ class PostEx extends Post
 	const SCENARIO_DEFAULT  = "partial";
 	const SCENARIO_COMPLETE = "complete";
 
-	/**  */
+	/** @return PostLangQuery */
 	public function getPostLang ()
 	{
 		return $this->hasOne(PostLangEx::className(), [ "post_id" => "id" ])
@@ -83,33 +83,37 @@ class PostEx extends Post
 		}
 	}
 
-	/**
-	 * @param array $filters
-	 *
-	 * @return self []|array
-	 */
-	public static function getAllWithLanguage ( $filters )
-	{
-		$query = self::find()
-		           ->isPublished()
-		           ->withTranslationIn(LangEx::getIdFromIcu(\Yii::$app->language))
-		           ->with("postLang")
-		           ->orderPublication();
+    /**
+     * @param array $filters
+     *
+     * @return self[]
+     */
+    public static function getAllWithLanguage($filters)
+    {
+        $query = self::find()
+                     ->isPublished()
+                     ->withTranslationIn(LangEx::getIdFromIcu(\Yii::$app->language))
+                     ->joinWith([ "postLang" => function (PostLangQuery $query) use ($filters) {
+                         if (!is_null($filters[ "search" ])) {
+                             $query->search($filters[ "search" ], PostLangEx::$searchFields);
+                         }
+                     }])
+                     ->orderPublication();
 
-		if (!is_null($filters[ "category" ])) {
-			$query->category($filters[ "category" ]);
-		}
+        if (!is_null($filters[ "category" ])) {
+            $query->category($filters[ "category" ]);
+        }
 
-		if (!is_null($filters[ "tag" ])) {
-			$query->withTag($filters[ "tag" ]);
-		}
+        if (!is_null($filters[ "tag" ])) {
+            $query->withTag($filters[ "tag" ]);
+        }
 
-		if (!is_null($filters[ "featured" ])) {
-			$query->featured($filters[ "featured" ]);
-		}
+        if (!is_null($filters[ "featured" ])) {
+            $query->featured($filters[ "featured" ]);
+        }
 
-		return $query->all();
-	}
+        return $query->all();
+    }
 
 	public static function getOneByIdWithLanguage ( $postId )
 	{
