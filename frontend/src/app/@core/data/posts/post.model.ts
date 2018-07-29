@@ -9,19 +9,19 @@ export class Post {
 	public static FEATURED         = 1;
 	public static COMMENTS_ENABLED = 1;
 
-	public id: number;
-	public category: Category;
+	public id: number = null;
+	public category: Category = null;
 	public featured: number        = Post.NOT_FEATURED;
 	public comment_enabled: number = Post.COMMENTS_ENABLED;
-	public title: string;
-	public slug: string;
-	public summary: string;
-	public content: string;
-	public cover: PostCover;
-	public tags: Tag[];
-	public comments: any;
-	public author: Author;
-	public published_on: string;
+	public title: string = "";
+	public slug: string = "";
+	public summary: string = "";
+	public content: string = "";
+	public cover: PostCover = null;
+	public tags: Tag[] = [];
+	public comments: any = [];
+	public author: Author = null;
+	public published_on: string = "";
 
 	constructor ( model: any = null ) {
 		if (!model) {
@@ -59,6 +59,10 @@ export class Post {
 	}
 
 	public getUrl (): string {
+		if (this.id === null) {
+			return "";
+		}
+
 		return "/blog/" + this.category.slug + "/" + this.slug;
 	}
 

@@ -1,0 +1,54 @@
+.loading {
+	background        : linear-gradient(242deg, #ffffff, #c2c2c2);
+	background-size   : 400% 400%;
+	-webkit-animation : gradientLoading 16s ease infinite;
+	-moz-animation    : gradientLoading 16s ease infinite;
+	-o-animation      : gradientLoading 16s ease infinite;
+	animation         : gradientLoading 16s ease infinite;
+
+	&.post-thumbnail {
+		width         : 100%;
+		height        : 125px;
+		margin-bottom : 10px;
+		border-radius : 4px;
+	}
+
+	&.short {
+		width         : 35%;
+		height        : 15px;
+		margin-bottom : 15px;
+		border-radius : 4px;
+	}
+
+	&.medium {
+		width         : 60%;
+		height        : 15px;
+		margin-bottom : 15px;
+		border-radius : 4px;
+	}
+
+	&.long {
+		width         : 100%;
+		height        : 15px;
+		margin-bottom : 10px;
+		border-radius : 4px;
+	}
+}
+
+@-webkit-keyframes gradientLoading {
+	0% {background-position : 0% 50%}
+	50% {background-position : 100% 51%}
+	100% {background-position : 0% 50%}
+}
+
+@-moz-keyframes gradientLoading {
+	0% {background-position : 0% 50%}
+	50% {background-position : 100% 51%}
+	100% {background-position : 0% 50%}
+}
+
+@keyframes gradientLoading {
+	0% {background-position : 0% 50%}
+	50% {background-position : 100% 51%}
+	100% {background-position : 0% 50%}
+}

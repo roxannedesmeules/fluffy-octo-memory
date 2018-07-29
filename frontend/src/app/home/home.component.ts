@@ -1,4 +1,4 @@
-import { Component, Inject, LOCALE_ID, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Post, PostService } from "@core/data/posts";
 
 @Component({
@@ -8,7 +8,7 @@ import { Post, PostService } from "@core/data/posts";
 })
 export class HomeComponent implements OnInit {
 
-	public latests: Post[] = [];
+	public latest: Post[] = [];
 	public featured: Post[] = [];
 
 	constructor (private postService: PostService) {
@@ -20,9 +20,11 @@ export class HomeComponent implements OnInit {
 	}
 
 	private _getLatestPosts () {
+		this.latest = [ new Post(), new Post(), new Post() ];
+
 		this.postService
 			.latests()
-			.subscribe((result: Post[]) => { this.latests = result; });
+			.subscribe((result: Post[]) => { this.latest = result; });
 	}
 
 	private _getFeaturedPost () {

@@ -1,29 +1,35 @@
 <div class="post">
-	<div class="post-thumbnail">
-		<a [routerLink]="post.getUrl()">
-			<img [src]="post.cover.url" [alt]="post.cover.alt" class="img-fluid">
-		</a>
-	</div>
-	<div class="post-details">
-		<div class="post-meta d-flex justify-content-between">
-			<div class="date meta-last">{{ post.published_on | date:'MMMM d | y' }}</div>
-			<div class="category"><a [routerLink]="post.category.getUrl()">{{ post.category.name }}</a></div>
-		</div>
-		<a [routerLink]="post.getUrl()">
-			<h3 class="h4">{{ post.title }}</h3>
-		</a>
-		<p class="text-muted">{{ post.summary }}</p>
-		<footer *ngIf="showAuthor()" class="post-footer d-flex align-items-center">
-			<a href="#" class="author d-flex align-items-center flex-wrap">
-				<div class="avatar">
-					<img [src]="post.author.picture" [alt]="post.author.fullname" class="img-fluid">
-				</div>
-				<div class="title"><span>{{ post.author.fullname }}</span></div>
-			</a>
-			<div class="comments meta-last">
-				<i class="icon-comment"></i>
-				{{ post.comments.count }}
-			</div>
-		</footer>
-	</div>
+    <div class="post-thumbnail" [class.loading]="isLoading()">
+        <a [routerLink]="post.getUrl()" *ngIf="!isLoading()">
+            <img [src]="post.cover?.url" [alt]="post.cover?.alt" class="img-fluid">
+        </a>
+    </div>
+    <div class="post-details" *ngIf="!isLoading()">
+        <div class="post-meta d-flex justify-content-between">
+            <div class="date meta-last">{{ post.published_on | date:'MMMM d | y' }}</div>
+            <div class="category"><a [routerLink]="post.category?.getUrl()">{{ post.category?.name }}</a></div>
+        </div>
+        <a [routerLink]="post.getUrl()">
+            <h3 class="h4">{{ post.title }}</h3>
+        </a>
+        <p class="text-muted">{{ post.summary }}</p>
+        <footer *ngIf="showAuthor()" class="post-footer d-flex align-items-center">
+            <a href="#" class="author d-flex align-items-center flex-wrap">
+                <div class="avatar">
+                    <img [src]="post.author?.picture" [alt]="post.author?.fullname" class="img-fluid">
+                </div>
+                <div class="title"><span>{{ post.author?.fullname }}</span></div>
+            </a>
+            <div class="comments meta-last">
+                <i class="icon-comment"></i>
+                {{ post.comments?.count }}
+            </div>
+        </footer>
+    </div>
+    <div *ngIf="isLoading()">
+        <div class="loading medium"></div>
+        <div class="loading long"></div>
+        <div class="loading long"></div>
+        <div class="loading short"></div>
+    </div>
 </div>

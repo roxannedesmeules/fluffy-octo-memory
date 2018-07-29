@@ -36,9 +36,7 @@
 </section>
 
 <!-- Divider Section-->
-<section
-        style="background: url(assets/theme/img/divider-bg.jpg); background-size: cover; background-position: center bottom"
-        class="divider">
+<section class="divider">
     <div class="container">
         <div class="row">
             <div class="col-md-7">
@@ -57,7 +55,7 @@
             <p class="text-big" i18n="@@latest-desc">See latest articles published on the blog</p>
         </header>
         <div class="row">
-            <app-post-summary class="col-md-4" *ngFor="let post of latests" [post]="post"
+            <app-post-summary class="col-md-4" *ngFor="let post of latest" [post]="post"
                               format="partial"></app-post-summary>
         </div>
     </div>

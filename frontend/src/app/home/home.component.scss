@@ -8,3 +8,11 @@
 	-webkit-filter : grayscale(100%);
 	filter         : grayscale(100%);
 }
+
+.divider {
+	background   : {
+		image    : url("../../assets/theme/img/divider-bg.jpg");
+		size     : cover;
+		position : center bottom;
+	}
+}
