@@ -17,7 +17,6 @@ export class PaginationComponent implements OnInit {
 	constructor () { }
 
 	ngOnInit () {
-		this.current = this.pagination.currentPage;
 	}
 
 	pageNumbers (): number[] {
@@ -59,7 +58,7 @@ export class PaginationComponent implements OnInit {
 	 * @param {number} pageNumber
 	 */
 	public goToPage ( pageNumber: number ) {
-		this.current = pageNumber;
+		this.pagination.currentPage = pageNumber;
 
 		this.pagination.updateCurrentPage(pageNumber);
 	}
@@ -83,6 +82,6 @@ export class PaginationComponent implements OnInit {
 	}
 
 	public isCurrent ( page: number ): boolean {
-		return this.current === page;
+		return this.pagination.currentPage === page;
 	}
 }

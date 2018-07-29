@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
-import { Category } from "@core/data/categories";
-import { Post, PostService } from "@core/data/posts";
-import { Tag } from "@core/data/tags";
-import { Pagination } from "@shared/pagination/pagination.model";
 import { Subscription } from "rxjs/Subscription";
+
+import { Category, CategoryService } from "@core/data/categories";
+import { Post, PostService } from "@core/data/posts";
+import { Tag, TagService } from "@core/data/tags";
+import { Pagination } from "@shared/pagination/pagination.model";
 
 @Component({
 	selector    : "app-list",
@@ -15,23 +16,30 @@ export class ListComponent implements OnInit, OnDestroy {
 	private _subscriptions: Subscription[] = [];
 
 	public pagination: Pagination = new Pagination();
-	public list: Post[] = [];
+	public list: Post[]           = [];
+	public waitingList: Post[]    = [];
 
 	public category: Category = null;
-	public tag: Tag = null;
+	public tag: Tag           = null;
+
+	public waiting: boolean = true;
 
 	constructor ( private router: Router,
 				  private route: ActivatedRoute,
-				  private postService: PostService) {
+				  private categoryService: CategoryService,
+				  private postService: PostService,
+				  private tagService: TagService ) {
 	}
 
 	ngOnInit () {
-		this.initPosts();
+		this._initData();
 
-		this._subscriptions[ "pagination" ] = this.pagination.getService().subscribe((res) => { this.updatePagination(res); });
-		this._subscriptions[ "navigation" ] = this.router.events.subscribe((ev: any) => {
+		this._subscriptions[ "pagination" ] = this.pagination.getService().subscribe(( res ) => {
+			this.updatePagination(res);
+		});
+		this._subscriptions[ "navigation" ] = this.router.events.subscribe(( ev: any ) => {
 			if (ev instanceof NavigationEnd) {
-				this.initPosts();
+				this._initData();
 			}
 		});
 	}
@@ -41,15 +49,17 @@ export class ListComponent implements OnInit, OnDestroy {
 	}
 
 	/**
-	 * This method is called when the component is initialized or when a route is updated. This will set the post list
-	 * from the resolver result and the pagination accordingly.
+	 * Initialize the page data. This will get the category and tag details if necessary and load all posts according to
+	 * filters.
+	 *
+	 * @private
 	 */
-	initPosts () {
-		this.list     = this.route.snapshot.data[ "posts" ];
-		this.category = this.route.snapshot.data[ "category" ] || null;
-		this.tag      = this.route.snapshot.data[ "tag" ] || null;
+	private _initData () {
+		this.waiting = true;
 
-		this.pagination.setPagination(this.postService.responseHeaders);
+		this._loadPosts();
+		this._loadCategory();
+		this._loadTag();
 	}
 
 	/**
@@ -59,6 +69,93 @@ export class ListComponent implements OnInit, OnDestroy {
 	 * @param data
 	 */
 	updatePagination ( data ) {
-		this.router.navigate([ "/blog" ], { queryParams : { page : data.currentPage, "per-page" : data.perPage } });
+		const params = {
+			queryParams : { page : data.currentPage, "per-page" : data.perPage }
+		};
+
+		this.router.navigate([ "/blog" ], params);
+	}
+
+	/**
+	 * Get the category detail if there is a category in the URL.
+	 *
+	 * @private
+	 */
+	private _loadCategory () {
+		this.category = null;
+		const catSlug = this.route.snapshot.paramMap.get("category");
+
+		if (!catSlug) {
+			return;
+		}
+
+		this.categoryService
+			.findById(catSlug)
+			.subscribe(( result: Category ) => {
+				this.waiting  = false;
+				this.category = result;
+			});
+
+		//  todo  in case of error - redirect to error page
+	}
+
+	/**
+	 * Get a list of posts.
+	 *
+	 * @private
+	 */
+	private _loadPosts () {
+		this.list        = [];
+		this.waitingList = [
+			new Post(), new Post(),
+			new Post(), new Post(),
+			new Post(), new Post(),
+			new Post(), new Post(),
+			new Post(), new Post(),
+		];
+
+		this.postService.filters.reset();
+
+		this.postService.filters.set("category", this.route.snapshot.paramMap.get("category"));
+		this.postService.filters.set("tag", this.route.snapshot.queryParamMap.get("tag"));
+
+		this.postService.filters.setPagination({
+			currentPage : this.route.snapshot.queryParamMap.get("page"),
+			perPage     : this.route.snapshot.queryParamMap.get("per-page"),
+		});
+
+		this.postService
+			.findAll()
+			.subscribe(( result: Post[] ) => {
+				this.waiting = false;
+				this.list    = result;
+
+				this.pagination.setPagination(this.postService.responseHeaders);
+			});
+
+		//  todo  in case of error - redirect to error page
+	}
+
+	/**
+	 * Get the tag detail if there is a tag in the URL.
+	 *
+	 * @private
+	 */
+	private _loadTag () {
+		this.tag      = null;
+		const tagSlug = this.route.snapshot.queryParamMap.get("tag");
+
+		if (!tagSlug) {
+			return;
+		}
+
+		this.tagService
+			.findById(tagSlug)
+			.subscribe(( result: Tag ) => {
+				this.waiting = false;
+				this.tag     = result;
+			});
+
+		//  todo  in case of error - redirect to error page
 	}
 }

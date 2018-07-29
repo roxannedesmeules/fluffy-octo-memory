@@ -1,14 +1,17 @@
 <div class="container">
-	<div class="row">
-		<div class="col-8" *ngIf="category || tag">
-			<h2 class="h3" *ngIf="category"> {{ category?.name }} </h2>
-			<h2 class="h3" *ngIf="tag"> {{ tag?.name }} </h2>
-			<p class="text-big" i18n="@@blog-list-count"> {{ list.length }} {list.length, plural, =0 {post} =1 {post} many {posts}} available </p>
-		</div>
-	</div>
-	<div class="row">
-		<app-post-summary class="col-xl-6" *ngFor="let post of list" [post]="post"></app-post-summary>
-	</div>
+    <div class="row">
+        <div class="col-8" *ngIf="category || tag">
+            <h2 class="h3" *ngIf="category"> {{ category?.name }} </h2>
+            <h2 class="h3" *ngIf="tag"> {{ tag?.name }} </h2>
+            <p class="text-big" i18n="@@blog-list-count"> {{ list.length }} {list.length, plural, =0 {post} =1 {post} many {posts}} available </p>
+        </div>
+    </div>
+    <div class="row" *ngIf="waiting || list.length === 0">
+        <app-post-summary class="col-xl-6" *ngFor="let post of waitingList" [post]="post"></app-post-summary>
+    </div>
+    <div class="row" *ngIf="!waiting && list.length > 0">
+        <app-post-summary class="col-xl-6" *ngFor="let post of list" [post]="post"></app-post-summary>
+    </div>
 
-	<app-pagination [pagination]="pagination"></app-pagination>
+    <app-pagination [pagination]="pagination"></app-pagination>
 </div>

@@ -51,4 +51,8 @@ export class CategoriesComponent implements OnInit {
 				});
 			});
 	}
+
+	public getParams () {
+		return { "page" : 0, "per-page" : 10 };
+	}
 }
