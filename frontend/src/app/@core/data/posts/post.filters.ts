@@ -12,6 +12,7 @@ export class PostFilters {
 
 	// filter by attributes
 	public featured: number = -1;
+	public search: string = "";
 
 	constructor () {}
 
@@ -38,9 +39,19 @@ export class PostFilters {
 		this.category = "";
 		this.tag      = "";
 		this.featured = -1;
+		this.search   = "";
 
 		this.pageNumber = PostFilters.DEFAULT_CURRENT_PAGE;
 		this.perPage    = PostFilters.DEFAULT_PER_PAGE;
+	}
+
+	/**
+	 * set the search filter to the value passed in parameter.
+	 *
+	 * @param {string} value
+	 */
+	public searchFor (value: string) {
+		this.search = value;
 	}
 
 	/**
@@ -77,17 +88,13 @@ export class PostFilters {
 	public formatRequest (): object {
 		const params: any = {};
 
-		if (this.isSet("category")) {
-			params[ "category" ] = this.category;
-		}
+		const filters = [ "category", "tag", "featured", "search" ];
 
-		if (this.isSet("tag")) {
-			params[ "tag" ] = this.tag;
-		}
-
-		if (this.isSet("featured")) {
-			params[ "featured" ] = this.featured;
-		}
+		filters.forEach((val, idx) => {
+			if (this.isSet(val)) {
+				params[ val ] = this[ val ];
+			}
+		});
 
 		params[ "page" ]     = this.pageNumber;
 		params[ "per-page" ] = this.perPage;

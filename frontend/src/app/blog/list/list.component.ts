@@ -46,6 +46,7 @@ export class ListComponent implements OnInit, OnDestroy {
 
 	ngOnDestroy () {
 		this._subscriptions[ "pagination" ].unsubscribe();
+		this._subscriptions[ "navigation" ].unsubscribe();
 	}
 
 	/**
@@ -118,6 +119,7 @@ export class ListComponent implements OnInit, OnDestroy {
 
 		this.postService.filters.set("category", this.route.snapshot.paramMap.get("category"));
 		this.postService.filters.set("tag", this.route.snapshot.queryParamMap.get("tag"));
+		this.postService.filters.set("search", this.route.snapshot.queryParamMap.get("search"));
 
 		this.postService.filters.setPagination({
 			currentPage : this.route.snapshot.queryParamMap.get("page"),

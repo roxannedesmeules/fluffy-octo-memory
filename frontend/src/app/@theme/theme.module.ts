@@ -1,17 +1,18 @@
 import { ModuleWithProviders, NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
 import { FooterComponent, HeaderComponent } from "./components";
 import { BlogComponent, HomeComponent } from "./layout";
-import { CategoriesComponent, TagsComponent } from "./widgets";
+import { CategoriesComponent, SearchComponent, TagsComponent } from "./widgets";
 
 
 const BASE_MODULES = [
 	CommonModule,
 	RouterModule,
+	FormsModule,
 	ReactiveFormsModule,
 	NgbModule
 ];
@@ -26,6 +27,7 @@ const COMPONENTS = [
 
 	//  widgets
 	CategoriesComponent,
+	SearchComponent,
 	TagsComponent,
 ];
 
