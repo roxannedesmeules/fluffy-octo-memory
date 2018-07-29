@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { CoreModule } from "@core/core.module";
 import { ThemeModule } from "@theme/theme.module";
 import { AppRoutingModule } from "./app-routing.module";
+import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AuthInterceptor } from "@core/utils/auth.interceptor";
@@ -21,6 +22,8 @@ const MODULES = [
 
 	ThemeModule.forRoot(),
 	CoreModule.forRoot(),
+
+	LoadingBarRouterModule,
 ];
 
 const COMPONENTS = [
