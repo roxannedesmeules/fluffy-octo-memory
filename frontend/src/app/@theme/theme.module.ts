@@ -1,6 +1,7 @@
 import { ModuleWithProviders, NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { RouterModule } from "@angular/router";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
@@ -12,6 +13,7 @@ import { CategoriesComponent, SearchComponent, TagsComponent } from "./widgets";
 const BASE_MODULES = [
 	CommonModule,
 	RouterModule,
+	BrowserAnimationsModule,
 	FormsModule,
 	ReactiveFormsModule,
 	NgbModule
