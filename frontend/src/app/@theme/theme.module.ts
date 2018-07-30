@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { RouterModule } from "@angular/router";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { DirectivesModule } from "@shared/directives/directives.module";
 
 import { FooterComponent, HeaderComponent } from "./components";
 import { BlogComponent, HomeComponent } from "./layout";
@@ -16,7 +17,11 @@ const BASE_MODULES = [
 	BrowserAnimationsModule,
 	FormsModule,
 	ReactiveFormsModule,
-	NgbModule
+];
+
+const MODULES = [
+	NgbModule,
+	DirectivesModule,
 ];
 
 const COMPONENTS = [
@@ -36,7 +41,7 @@ const COMPONENTS = [
 const PROVIDERS = [];
 
 @NgModule({
-	imports      : [ ...BASE_MODULES ],
+	imports      : [ ...BASE_MODULES, ...MODULES ],
 	declarations : [ ...COMPONENTS ],
 	exports      : [ ...COMPONENTS ],
 })

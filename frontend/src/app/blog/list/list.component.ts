@@ -21,8 +21,10 @@ export class ListComponent implements OnInit, OnDestroy {
 
 	public category: Category = null;
 	public tag: Tag           = null;
+	public search: string     = null;
 
-	public waiting: boolean = true;
+	public waitingRelation: boolean = true;
+	public waitingPosts: boolean    = true;
 
 	constructor ( private router: Router,
 				  private route: ActivatedRoute,
@@ -56,7 +58,15 @@ export class ListComponent implements OnInit, OnDestroy {
 	 * @private
 	 */
 	private _initData () {
-		this.waiting = true;
+		this.waitingPosts    = true;
+
+		const tagSlug = this.route.snapshot.queryParamMap.get("tag");
+		const catSlug = this.route.snapshot.paramMap.get("category");
+
+		this.waitingRelation = (catSlug || tagSlug) ? true : false;
+
+		const search = this.route.snapshot.queryParamMap.get("search");
+		this.search  = (search) ? search : null;
 
 		this._loadPosts();
 		this._loadCategory();
@@ -69,7 +79,7 @@ export class ListComponent implements OnInit, OnDestroy {
 	 *
 	 * @param data
 	 */
-	updatePagination ( data ) {
+	private updatePagination ( data ) {
 		const params = {
 			queryParams : { page : data.currentPage, "per-page" : data.perPage }
 		};
@@ -93,8 +103,8 @@ export class ListComponent implements OnInit, OnDestroy {
 		this.categoryService
 			.findById(catSlug)
 			.subscribe(( result: Category ) => {
-				this.waiting  = false;
-				this.category = result;
+				this.waitingRelation = false;
+				this.category        = result;
 			});
 
 		//  todo  in case of error - redirect to error page
@@ -129,8 +139,8 @@ export class ListComponent implements OnInit, OnDestroy {
 		this.postService
 			.findAll()
 			.subscribe(( result: Post[] ) => {
-				this.waiting = false;
-				this.list    = result;
+				this.waitingPosts = false;
+				this.list         = result;
 
 				this.pagination.setPagination(this.postService.responseHeaders);
 			});
@@ -154,8 +164,8 @@ export class ListComponent implements OnInit, OnDestroy {
 		this.tagService
 			.findById(tagSlug)
 			.subscribe(( result: Tag ) => {
-				this.waiting = false;
-				this.tag     = result;
+				this.waitingRelation = false;
+				this.tag             = result;
 			});
 
 		//  todo  in case of error - redirect to error page
