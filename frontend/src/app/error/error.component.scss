@@ -1,0 +1,49 @@
+section {
+	color       : #24292e;
+	font-family : "Courier new";
+	font-size   : 18px;
+	line-height : 1.6em;
+	cursor      : default;
+	position    : relative;
+	height      : 55VH;
+}
+
+.frame {
+	padding           : 1rem;
+	position          : absolute;
+	top               : 50%;
+	left              : 50%;
+	-webkit-transform : translate(-50%, -50%);
+	transform         : translate(-50%, -50%);
+	border-radius     : 10px;
+	box-shadow        : 2px 2px 5px #777777;
+
+	& .header { top : -10px; }
+
+	& .header > .buttons {
+		display       : inline-block;
+		width         : 0.75rem;
+		height        : 0.75rem;
+		border-radius : 100%;
+		margin-right  : 0.5rem;
+	}
+
+	& > .code {
+		margin : { top : 1.5rem; bottom : 0.5rem; }
+		font-family : "Courier New", monospace;
+
+		& > span {display : block;}
+
+		.indent { padding-left : 15px; }
+
+		.comment { color : #777777; font-style : italic; }
+
+		.string { color : #a6a61f; }
+
+		.variable { color : #bdbdbd; }
+
+		.keyword { color : #d65562; }
+
+		.operator { color : #2796ec; }
+	}
+}
