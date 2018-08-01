@@ -4,14 +4,17 @@ import { ErrorComponent } from "./error.component";
 
 const routes: Routes = [
 	{
+		path      : "server-failed",
+		component : ErrorComponent,
+	}, {
 		path      : "**",
 		component : ErrorComponent,
 	},
 ];
 
 @NgModule({
-	imports : [ RouterModule.forChild(routes) ],
-	exports : [ RouterModule ],
+	imports   : [ RouterModule.forChild(routes) ],
+	exports   : [ RouterModule ],
 })
 export class ErrorRoutingModule {
 }

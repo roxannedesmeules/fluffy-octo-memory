@@ -8,10 +8,13 @@
             </span>
         </h3>
         <div class="code">
-            <span class="comment">// 404 page not found.</span>
+            <span class="comment" *ngIf="is(404)">// 404 page not found (aka it's not me, it's you)</span>
+            <span class="comment" *ngIf="is(500)">// 500 internal server error (aka it's not you, it's me)</span>
+
             <span>
                 <span class="keyword">if</span>
-                (<span class="operator">!</span><span class="variable">found</span>)
+                <span *ngIf="is(404)">(<span class="operator">!</span><span class="variable">found</span>)</span>
+                <span *ngIf="is(500)">(<span class="variable">server</span>.<span class="operator">failed</span>())</span>
                 {{'{'}}
             </span>
             <span>

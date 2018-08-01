@@ -11,9 +11,6 @@ const routes: Routes = [
 				path         : "",
 				loadChildren : "./home/home.module#HomeModule",
 				pathMatch    : "full",
-			}, {
-				path         : "**",
-				loadChildren : "./error/error.module#ErrorModule",
 			},
 		],
 	}, {
@@ -26,6 +23,15 @@ const routes: Routes = [
 			}, {
 				path         : "contact",
 				loadChildren : "./contact/contact.module#ContactModule",
+			},
+		],
+	}, {
+		path      : "",
+		component : HomeLayout,
+		children  : [
+			{
+				path         : "",
+				loadChildren : "./error/error.module#ErrorModule",
 			},
 		],
 	},

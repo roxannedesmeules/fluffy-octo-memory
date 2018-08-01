@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
+import { ErrorResponse } from "@core/data/error-response.model";
 import { Subscription } from "rxjs/Subscription";
 
 import { Category, CategoryService } from "@core/data/categories";
@@ -52,6 +53,29 @@ export class ListComponent implements OnInit, OnDestroy {
 	}
 
 	/**
+	 * This method will handle any error returned by a load request.
+	 * 404 and 500 errors will be redirected, others will simply be printed in the console.
+	 *
+	 * @param {ErrorResponse} err
+	 * @private
+	 */
+	private _handleError (err: ErrorResponse) {
+		switch (err.code) {
+			case 404 :
+				this.router.navigate([ "/not-found" ]);
+				break;
+
+			case 500 :
+				this.router.navigate([ "/server-failed" ]);
+				break;
+
+			default :
+				console.log(err);
+				break;
+		}
+	}
+
+	/**
 	 * Initialize the page data. This will get the category and tag details if necessary and load all posts according to
 	 * filters.
 	 *
@@ -74,20 +98,6 @@ export class ListComponent implements OnInit, OnDestroy {
 	}
 
 	/**
-	 * This method is called each time a change is made to the pagination object (current page, page size, ...). The
-	 * service filters will be updated accordingly, then the list will be updated.
-	 *
-	 * @param data
-	 */
-	private updatePagination ( data ) {
-		const params = {
-			queryParams : { page : data.currentPage, "per-page" : data.perPage }
-		};
-
-		this.router.navigate([ "/blog" ], params);
-	}
-
-	/**
 	 * Get the category detail if there is a category in the URL.
 	 *
 	 * @private
@@ -105,9 +115,7 @@ export class ListComponent implements OnInit, OnDestroy {
 			.subscribe(( result: Category ) => {
 				this.waitingRelation = false;
 				this.category        = result;
-			});
-
-		//  todo  in case of error - redirect to error page
+			}, this._handleError);
 	}
 
 	/**
@@ -143,9 +151,7 @@ export class ListComponent implements OnInit, OnDestroy {
 				this.list         = result;
 
 				this.pagination.setPagination(this.postService.responseHeaders);
-			});
-
-		//  todo  in case of error - redirect to error page
+			}, this._handleError);
 	}
 
 	/**
@@ -166,8 +172,20 @@ export class ListComponent implements OnInit, OnDestroy {
 			.subscribe(( result: Tag ) => {
 				this.waitingRelation = false;
 				this.tag             = result;
-			});
+			}, this._handleError);
+	}
 
-		//  todo  in case of error - redirect to error page
+	/**
+	 * This method is called each time a change is made to the pagination object (current page, page size, ...). The
+	 * service filters will be updated accordingly, then the list will be updated.
+	 *
+	 * @param data
+	 */
+	private updatePagination ( data ) {
+		const params = {
+			queryParams : { page : data.currentPage, "per-page" : data.perPage }
+		};
+
+		this.router.navigate([ "/blog" ], params);
 	}
 }
