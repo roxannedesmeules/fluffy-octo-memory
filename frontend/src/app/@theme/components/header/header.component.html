@@ -1,6 +1,7 @@
 <header class="header">
     <!-- Main Navbar-->
-    <nav class="navbar navbar-expand-lg">
+    <nav class="navbar navbar-expand-lg" [@collapse]="menuState">
+        <!-- Search Overlay -->
         <div class="overlay" [@visibilityChanged]="searchState">
             <div class="search-area-inner d-flex align-items-center justify-content-center">
                 <div class="close-btn" (click)="toggleSearch('close')">
@@ -12,7 +13,8 @@
                         <div>
                             <div class="form-group">
                                 <input type="search" name="search" id="search"
-                                       [(ngModel)]="searchValue" (keypress)="searchFor($event)" [autofocus]="searchState == 'open'"
+                                       [(ngModel)]="searchValue" (keypress)="searchFor($event)"
+                                       [autofocus]="searchState == 'open'"
                                        placeholder="What are you looking for?">
                                 <button class="submit" (click)="searchFor()"><i class="icon-search-1"></i></button>
                             </div>
@@ -29,10 +31,10 @@
                 <a routerLink="/" class="navbar-brand">
                     ladydev.io
                 </a>
+
                 <!-- Toggle Button-->
-                <button type="button" data-toggle="collapse" data-target="#navbarcollapse"
-                        aria-controls="navbarcollapse" aria-expanded="false" aria-label="Toggle navigation"
-                        class="navbar-toggler">
+                <button type="button" class="navbar-toggler" [class.active]="isOpen()" (click)="toggleMenu()"
+                        aria-label="Toggle navigation" [attr.aria-expanded]="isOpen()" aria-controls="navbarcollapse">
                     <span></span>
                     <span></span>
                     <span></span>
@@ -40,26 +42,32 @@
             </div>
 
             <!-- Navbar Menu -->
-            <div id="navbarcollapse" class="collapse navbar-collapse">
+            <div id="navbarcollapse" class="navbar-collapse" [@collapseMenu]="menuState">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a routerLink="/" class="nav-link" i18n="@@link-home">Home</a>
+                        <a routerLink="/" [routerLinkActive]="'active'" [routerLinkActiveOptions]="exactRoute"
+                           class="nav-link" i18n="@@link-home">Home</a>
                     </li>
+
                     <li class="nav-item">
-                        <a routerLink="/blog" [queryParams]="{ 'page': 0, 'per-page': 10 }"
-                           class="nav-link active" i18n="@@link-blog">
+                        <a routerLink="/blog" [queryParams]="blogParams" [routerLinkActive]="'active'"
+                           class="nav-link" i18n="@@link-blog">
                             Blog
                         </a>
                     </li>
+
                     <li class="nav-item">
-                        <a routerLink="/contact" class="nav-link" i18n="@@link-contact">Contact</a>
+                        <a routerLink="/contact" [routerLinkActive]="'active'" class="nav-link"
+                           i18n="@@link-contact">Contact</a>
                     </li>
                 </ul>
+
                 <div class="navbar-text">
                     <a class="search-btn" (click)="toggleSearch('open')">
                         <i class="icon-search-1"></i>
                     </a>
                 </div>
+
                 <ul class="langs navbar-text">
                     <a href="/en/" [class.active]="isCurrent('en')">EN</a>
                     <span>           </span>

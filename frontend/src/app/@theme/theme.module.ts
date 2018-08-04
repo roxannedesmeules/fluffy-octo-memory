@@ -7,7 +7,7 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { DirectivesModule } from "@shared/directives/directives.module";
 
 import { FooterComponent, HeaderComponent } from "./components";
-import { BlogComponent, HomeComponent } from "./layout";
+import { BlogComponent, HomeComponent, AppComponent } from "./layout";
 import { CategoriesComponent, SearchComponent, TagsComponent } from "./widgets";
 
 
@@ -29,6 +29,8 @@ const COMPONENTS = [
 	FooterComponent,
 	HeaderComponent,
 
+	//  Layouts
+	AppComponent,
 	HomeComponent,
 	BlogComponent,
 
