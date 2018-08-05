@@ -24,9 +24,12 @@ const routes: Routes = [
 					{
 						path         : "blog",
 						loadChildren : "./blog/blog.module#BlogModule",
-					}, {
-						path         : "contact",
-						loadChildren : "./contact/contact.module#ContactModule",
+					}, /*{
+					 path         : "contact",
+					 loadChildren : "./contact/contact.module#ContactModule",
+					 },*/ {
+						path         : "",
+						loadChildren : "./pages/pages.module#PagesModule",
 					},
 				],
 			}, {

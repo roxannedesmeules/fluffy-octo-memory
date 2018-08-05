@@ -13,6 +13,7 @@ import {
 	PostCommentService,
 } from "@core/data/posts";
 import { TagService, DetailResolve as TagDetailResolve } from "@core/data/tags";
+import { AuthorService } from "@core/data/users";
 
 const SERVICES = [
 	CategoryService,
@@ -28,6 +29,8 @@ const SERVICES = [
 	PostCommentService,
 	PostListResolve,
 	PostDetailResolve,
+
+	AuthorService,
 ];
 
 @NgModule({
