@@ -75,6 +75,14 @@ return [
 		"except"     => [ "index", "view", "update", "delete" ],
 	],
 
+    //  author
+    [
+        "class"      => 'yii\rest\UrlRule',
+        "pluralize"  => false,
+        "controller" => ["v1/author"],
+        "except"     => ["view", "create", "update", "delete"],
+    ],
+
 	//  V1 Admin rules
 	"$admin/doc" => "$admin/default/doc",
 	"$admin/api" => "$admin/default/api",
