@@ -1,5 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, TemplateRef, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Meta, Title } from "@angular/platform-browser";
 import { CommunicationService } from "@core/data/communications";
 import { ErrorResponse } from "@core/data/error-response.model";
 
@@ -16,11 +17,18 @@ export class ContactComponent implements OnInit {
 
 	public form: FormGroup;
 
-	constructor (private _builder: FormBuilder, private service: CommunicationService) {
+	@ViewChild('metadataTranslation') metadataTranslation: TemplateRef<any>;
+
+	constructor (private title: Title,
+				 private meta: Meta,
+				 private _builder: FormBuilder,
+				 private service: CommunicationService) {
 	}
 
 	ngOnInit () {
-		this._buildForm();
+		this.setMetadata();
+
+		this.buildForm();
 	}
 
 	/**
@@ -29,7 +37,7 @@ export class ContactComponent implements OnInit {
 	 *
 	 * @private
 	 */
-	private _buildForm () {
+	private buildForm () {
 		this.form = this._builder.group({
 			name    : this._builder.control("", [ Validators.required, ]),
 			email   : this._builder.control("", [ Validators.required, Validators.email ]),
@@ -75,5 +83,15 @@ export class ContactComponent implements OnInit {
 						console.log(err);
 					},
 			);
+	}
+
+	/**
+	 * Set metadata and title
+	 */
+	private setMetadata() {
+		const nodes = this.metadataTranslation.createEmbeddedView({}).rootNodes;
+
+		this.title.setTitle(nodes[ 1 ].innerText);
+		this.meta.updateTag({ name: "description", content: nodes[ 3 ].innerText }, "name='description'");
 	}
 }

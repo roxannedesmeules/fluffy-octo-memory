@@ -34,16 +34,31 @@
             Je suis ici pour
           
           
+          
+          
+          
           <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/>partager
+          
+          
+          
           
           
           <x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/> ce que j’ai appris pendant mes années à travailler comme développeuse web et vous aider à donner un sens à tout cela. Je suis également ici pour partager mon expérience en tant que
           
           
+          
+          
+          
           <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/>femme dans la technologie
           
           
+          
+          
+          
           <x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/> et aider celles qui le désire entrer l’industrie en la rendant moins intimidante et plus inclusive.
+        
+        
+        
         
         
         </target>
@@ -57,7 +72,7 @@
         <target>Voir Plus</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/home/home.component.ts</context>
-          <context context-type="linenumber">47</context>
+          <context context-type="linenumber">45</context>
         </context-group>
       </trans-unit>
       <trans-unit id="latest-title" datatype="html">
@@ -65,7 +80,7 @@
         <target>Les nouveautés du blog</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/home/home.component.ts</context>
-          <context context-type="linenumber">56</context>
+          <context context-type="linenumber">54</context>
         </context-group>
       </trans-unit>
       <trans-unit id="latest-desc" datatype="html">
@@ -73,7 +88,7 @@
         <target>Voir les articles publiés récemment sur le blog</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/home/home.component.ts</context>
-          <context context-type="linenumber">57</context>
+          <context context-type="linenumber">55</context>
         </context-group>
       </trans-unit>
       <trans-unit id="scroll" datatype="html">
@@ -88,8 +103,8 @@
         <source>Contact Me</source>
         <target>Contactez moi</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/contact/contact.component.ts</context>
-          <context context-type="linenumber">4</context>
+          <context context-type="sourcefile">app/pages/contact/contact.component.ts</context>
+          <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
       <trans-unit id="contact-desc" datatype="html">
@@ -100,8 +115,8 @@
                 Vous avez une question ou un commentaire? une idée pour un article? Faites le moi savoir en remplissant le formulaire ci-dessous.
             </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/contact/contact.component.ts</context>
-          <context context-type="linenumber">7</context>
+          <context context-type="sourcefile">app/pages/contact/contact.component.ts</context>
+          <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
       <trans-unit id="contact-success-msg" datatype="html">
@@ -112,20 +127,20 @@
                 J'ai bien reçu votre message et j'y répondrai dès que possible.
             </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/contact/contact.component.ts</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="sourcefile">app/pages/contact/contact.component.ts</context>
+          <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
       <trans-unit id="contact-form-name" datatype="html">
         <source>Name*</source>
         <target>Nom*</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/contact/contact.component.ts</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="sourcefile">app/pages/contact/contact.component.ts</context>
+          <context context-type="linenumber">28</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/contact/contact.component.ts</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="sourcefile">app/pages/contact/contact.component.ts</context>
+          <context context-type="linenumber">30</context>
         </context-group>
       </trans-unit>
       <trans-unit id="contact-form-name-required" datatype="html">
@@ -136,20 +151,20 @@
                                     Veuillez entrer votre nom
                                 </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/contact/contact.component.ts</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="sourcefile">app/pages/contact/contact.component.ts</context>
+          <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
       <trans-unit id="contact-form-email" datatype="html">
         <source>Email address*</source>
         <target>Adresse e-mail*</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/contact/contact.component.ts</context>
-          <context context-type="linenumber">36</context>
+          <context context-type="sourcefile">app/pages/contact/contact.component.ts</context>
+          <context context-type="linenumber">41</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/contact/contact.component.ts</context>
-          <context context-type="linenumber">38</context>
+          <context context-type="sourcefile">app/pages/contact/contact.component.ts</context>
+          <context context-type="linenumber">43</context>
         </context-group>
       </trans-unit>
       <trans-unit id="contact-form-email-required" datatype="html">
@@ -160,32 +175,32 @@
                                     Veuillez entrer votre e-mail
                                 </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/contact/contact.component.ts</context>
-          <context context-type="linenumber">43</context>
+          <context context-type="sourcefile">app/pages/contact/contact.component.ts</context>
+          <context context-type="linenumber">48</context>
         </context-group>
       </trans-unit>
       <trans-unit id="contact-form-subject" datatype="html">
         <source>Your subject</source>
         <target>Le sujet de votre message</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/contact/contact.component.ts</context>
-          <context context-type="linenumber">49</context>
+          <context context-type="sourcefile">app/pages/contact/contact.component.ts</context>
+          <context context-type="linenumber">54</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/contact/contact.component.ts</context>
-          <context context-type="linenumber">51</context>
+          <context context-type="sourcefile">app/pages/contact/contact.component.ts</context>
+          <context context-type="linenumber">56</context>
         </context-group>
       </trans-unit>
       <trans-unit id="contact-form-message" datatype="html">
         <source>Your message*</source>
         <target>Votre message*</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/contact/contact.component.ts</context>
-          <context context-type="linenumber">55</context>
+          <context context-type="sourcefile">app/pages/contact/contact.component.ts</context>
+          <context context-type="linenumber">60</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/contact/contact.component.ts</context>
-          <context context-type="linenumber">57</context>
+          <context context-type="sourcefile">app/pages/contact/contact.component.ts</context>
+          <context context-type="linenumber">62</context>
         </context-group>
       </trans-unit>
       <trans-unit id="contact-form-message-required" datatype="html">
@@ -196,8 +211,8 @@
                                     Veuillez entrer votre message
                                 </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/contact/contact.component.ts</context>
-          <context context-type="linenumber">62</context>
+          <context context-type="sourcefile">app/pages/contact/contact.component.ts</context>
+          <context context-type="linenumber">67</context>
         </context-group>
       </trans-unit>
       <trans-unit id="contact-form-submit" datatype="html">
@@ -208,8 +223,8 @@
                                 Envoyer
                             </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/contact/contact.component.ts</context>
-          <context context-type="linenumber">69</context>
+          <context context-type="sourcefile">app/pages/contact/contact.component.ts</context>
+          <context context-type="linenumber">74</context>
         </context-group>
       </trans-unit>
       <trans-unit id="contact-address" datatype="html">
@@ -235,7 +250,13 @@
           
           
           
+          
+          
+          
           <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>info@ladydev.io
+          
+          
+          
           
           
           
@@ -266,7 +287,13 @@
           
           
           
+          
+          
+          
           <x id="INTERPOLATION" equiv-text="{{ year }}"/>. Tous droits réservés. ladydev.io
+        
+        
+        
         
         
         
@@ -297,7 +324,13 @@
           
           
           
+          
+          
+          
           <x id="START_LINK" ctype="x-a" equiv-text="&lt;a>"/>Bootstrap Temple
+          
+          
+          
           
           
           
@@ -347,7 +380,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/@theme/components/header/header.component.ts</context>
-          <context context-type="linenumber">53</context>
+          <context context-type="linenumber">61</context>
         </context-group>
       </trans-unit>
       <trans-unit id="link-home" datatype="html">
@@ -355,33 +388,33 @@
         <target>Accueil</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/@theme/components/header/header.component.ts</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">49</context>
         </context-group>
       </trans-unit>
       <trans-unit id="link-blog" datatype="html">
         <source>
-							Blog
-						</source>
+                            Blog
+                        </source>
         <target>Blog</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/@theme/components/header/header.component.ts</context>
-          <context context-type="linenumber">48</context>
+          <context context-type="linenumber">54</context>
         </context-group>
       </trans-unit>
       <trans-unit id="widget-search-title" datatype="html">
         <source>Search the blog</source>
         <target>Chercher le blog</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/@theme/layout/blog/blog.component.ts</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="sourcefile">app/@theme/widgets/search/search.component.ts</context>
+          <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
       <trans-unit id="widget-search-placeholder" datatype="html">
         <source>What are you looking for?</source>
         <target>Que cherchez-vous?</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/@theme/layout/blog/blog.component.ts</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="sourcefile">app/@theme/widgets/search/search.component.ts</context>
+          <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
       <trans-unit id="widget-category-title" datatype="html">
@@ -410,10 +443,13 @@
           <x id="ICU" equiv-text="{count, plural, =0 {...} =1 {...} many {...}}"/> disponible
         
         
+        
+        
+        
         </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/blog/list/list.component.ts</context>
-          <context context-type="linenumber">6</context>
+          <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
       <trans-unit id="baa8a5a4bc13f9ccaca2a759a355a72415de18e4" datatype="html">
@@ -421,7 +457,7 @@
         <target>{VAR_PLURAL, plural, =0 {article} =1 {article} many {articles} }</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/blog/list/list.component.ts</context>
-          <context context-type="linenumber">6</context>
+          <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
       <trans-unit id="comment-title" datatype="html">
@@ -432,9 +468,18 @@
         </source>
         <target>Conversation
           
+          
+          
+          
           <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span>"/>(
           
+          
+          
+          
           <x id="INTERPOLATION" equiv-text="{{ count }}"/>)
+          
+          
+          
           
           <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span>"/>
         </target>
@@ -508,6 +553,9 @@
           <x id="INTERPOLATION" equiv-text="{{ page }}"/>
         </source>
         <target>Aller à la page #
+          
+          
+          
           <x id="INTERPOLATION" equiv-text="{{ page }}"/>
         </target>
         <context-group purpose="location">
@@ -521,6 +569,54 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/@shared/pagination/pagination.component.ts</context>
           <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contact-metatitle" datatype="html">
+        <source>Contact Me - ladydev.io</source>
+        <target>Contactez Moi - ladydev.io</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/contact/contact.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contact-metadesc" datatype="html">
+        <source>You have a question or a comment? a post idea? Let me know!</source>
+        <target>Vous avez une question ou un commentaire? une idée pour un article? Faites le moi savoir!</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/contact/contact.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="about-metatitle" datatype="html">
+        <source>About Me - ladydev.io</source>
+        <target>À propos - ladydev.io</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/about/about.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="about-metadesc" datatype="html">
+        <source>Learn a little more about the author of this blog, what she does for a living, what made her go in tech.</source>
+        <target>Apprenez-en un peu plus sur l'auteure de ce blog, ce qu'elle fait dans la vie, ce qui l'a ammenée en programmation.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/pages/about/about.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="error-500-metatitle" datatype="html">
+        <source>Server failed - ladydev.io</source>
+        <target>Serveur a planté - ladydev.io</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/error/error.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="error-404-metatitle" datatype="html">
+        <source>Page not found - ladydev.io</source>
+        <target>Page non trouvée - ladydev.io</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/error/error.component.ts</context>
+          <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
     </body>

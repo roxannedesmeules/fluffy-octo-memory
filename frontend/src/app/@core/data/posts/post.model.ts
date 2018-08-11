@@ -58,6 +58,17 @@ export class Post {
 		return list;
 	}
 
+	public getSummary (): string {
+		if (this.summary) {
+			return this.summary;
+		}
+
+		const tempDiv = document.createElement("div");
+			  tempDiv.innerHTML = this.content;
+
+		return tempDiv.innerText.substring(0, 160);
+	}
+
 	public getUrl (): string {
 		if (this.id === null) {
 			return "";

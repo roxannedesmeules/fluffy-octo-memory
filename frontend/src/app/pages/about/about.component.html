@@ -1,8 +1,12 @@
+<ng-template #metadataTranslation class="hidden">
+    <span i18n="@@about-metatitle">About Me - ladydev.io</span>
+    <span i18n="@@about-metadesc">Learn a little more about the author of this blog, what she does for a living, what made her go in tech.</span>
+</ng-template>
+
 <div class="container">
     <div class="row">
         <div class="author">
             <img [src]="author.picture" [alt]="author.fullname" class="author-img img-rounded">
-            <h1 class="h2">About {{ author.fullname }}</h1>
             <div class="biography" [innerHtml]="author.biography | safeHtml"></div>
         </div>
     </div>
