@@ -1,4 +1,5 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from "@angular/core";
+import { Meta, Title } from "@angular/platform-browser";
 import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
 import { ErrorResponse } from "@core/data/error-response.model";
 import { Subscription } from "rxjs/Subscription";
@@ -14,7 +15,7 @@ import { Pagination } from "@shared/pagination/pagination.model";
 	styleUrls   : [ "./list.component.scss" ],
 })
 export class ListComponent implements OnInit, OnDestroy {
-	private _subscriptions: Subscription[] = [];
+	private subscriptions: Subscription[] = [];
 
 	public pagination: Pagination = new Pagination();
 	public list: Post[]           = [];
@@ -27,20 +28,25 @@ export class ListComponent implements OnInit, OnDestroy {
 	public waitingRelation: boolean = true;
 	public waitingPosts: boolean    = true;
 
+	@ViewChild('metadataTranslation') metadataTranslation: TemplateRef<any>;
+
 	constructor ( private router: Router,
 				  private route: ActivatedRoute,
+				  private title: Title,
+				  private meta: Meta,
 				  private categoryService: CategoryService,
 				  private postService: PostService,
 				  private tagService: TagService ) {
 	}
 
 	ngOnInit () {
+		this.setMetadata();
 		this._initData();
 
-		this._subscriptions[ "pagination" ] = this.pagination.getService().subscribe(( res ) => {
+		this.subscriptions[ "pagination" ] = this.pagination.getService().subscribe(( res ) => {
 			this.updatePagination(res);
 		});
-		this._subscriptions[ "navigation" ] = this.router.events.subscribe(( ev: any ) => {
+		this.subscriptions[ "navigation" ] = this.router.events.subscribe(( ev: any ) => {
 			if (ev instanceof NavigationEnd) {
 				this._initData();
 			}
@@ -48,8 +54,8 @@ export class ListComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy () {
-		this._subscriptions[ "pagination" ].unsubscribe();
-		this._subscriptions[ "navigation" ].unsubscribe();
+		this.subscriptions[ "pagination" ].unsubscribe();
+		this.subscriptions[ "navigation" ].unsubscribe();
 	}
 
 	/**
@@ -115,6 +121,8 @@ export class ListComponent implements OnInit, OnDestroy {
 			.subscribe(( result: Category ) => {
 				this.waitingRelation = false;
 				this.category        = result;
+
+				this.title.setTitle(this.category.name + " - ladydev.io");
 			}, this._handleError);
 	}
 
@@ -172,7 +180,20 @@ export class ListComponent implements OnInit, OnDestroy {
 			.subscribe(( result: Tag ) => {
 				this.waitingRelation = false;
 				this.tag             = result;
+
+				this.title.setTitle(this.tag.name + " - ladydev.io");
 			}, this._handleError);
+	}
+
+	/**
+	 * Set page meta data and title
+	 */
+	private setMetadata() {
+		this.title.setTitle("ladydev.io");
+
+		const nodes = this.metadataTranslation.createEmbeddedView({}).rootNodes
+
+		this.meta.updateTag({ name: "description", content: nodes[1].innerText }, "name='description'");
 	}
 
 	/**

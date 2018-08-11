@@ -1,4 +1,5 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, TemplateRef, ViewChild } from "@angular/core";
+import { Meta, Title } from "@angular/platform-browser";
 import { Post, PostService } from "@core/data/posts";
 
 @Component({
@@ -11,15 +12,20 @@ export class HomeComponent implements OnInit {
 	public latest: Post[] = [];
 	public featured: Post[] = [];
 
-	constructor (private postService: PostService) {
+	@ViewChild('metadataTranslation') metadataTranslation: TemplateRef<any>;
+
+	constructor (private title: Title,
+				 private meta: Meta,
+				 private postService: PostService) {
 	}
 
 	ngOnInit () {
-		this._getFeaturedPost();
-		this._getLatestPosts();
+		this.setMetadata();
+		this.getFeaturedPost();
+		this.getLatestPosts();
 	}
 
-	private _getLatestPosts () {
+	private getLatestPosts () {
 		this.latest = [ new Post(), new Post(), new Post() ];
 
 		this.postService
@@ -27,7 +33,7 @@ export class HomeComponent implements OnInit {
 			.subscribe((result: Post[]) => { this.latest = result; });
 	}
 
-	private _getFeaturedPost () {
+	private getFeaturedPost () {
 		this.postService
 			.featured()
 			.subscribe((result: Post[]) => { this.featured = result; });
@@ -35,5 +41,13 @@ export class HomeComponent implements OnInit {
 
 	public scroll ( target ) {
 		target.scrollIntoView({ behavior : "smooth" });
+	}
+
+	private setMetadata() {
+		this.title.setTitle("ladydev.io");
+
+		const nodes = this.metadataTranslation.createEmbeddedView({}).rootNodes
+
+		this.meta.updateTag({ name: "description", content: nodes[1].innerText }, "name='description'");
 	}
 }
