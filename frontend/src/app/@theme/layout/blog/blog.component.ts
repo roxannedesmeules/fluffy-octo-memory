@@ -2,19 +2,19 @@ import { Component } from "@angular/core";
 import { Router } from "@angular/router";
 
 @Component({
-	selector    : "app-layout-blog",
-	templateUrl : "./blog.component.html",
-	styleUrls   : [ "./blog.component.scss" ],
+    selector    : "app-layout-blog",
+    templateUrl : "./blog.component.html",
+    styleUrls   : [ "./blog.component.scss" ],
 })
 export class BlogComponent {
 
-	constructor (private router: Router) {
-	}
+    constructor(private router: Router) {
+    }
 
-	currentPageList (): boolean {
-		let isBlog = this.router.url.includes("/blog");
-		let isPost = ((this.router.url.match(/\//g) || []).length === 3);
+    currentPageList(): boolean {
+        const isBlog = this.router.url.includes("/blog");
+        const isPost = ((this.router.url.match(/\//g) || []).length === 3);
 
-		return (isBlog && !isPost);
-	}
+        return (isBlog && !isPost);
+    }
 }

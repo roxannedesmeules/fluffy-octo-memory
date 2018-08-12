@@ -5,12 +5,12 @@ import { Category } from "@core/data/categories/category.model";
 
 @Injectable()
 export class CategoryService extends BaseService {
-	public modelName = 'categories';
+    public modelName = "categories";
 
-	constructor ( @Inject(HttpClient) http: HttpClient ) {
-		super(http);
+    constructor(@Inject(HttpClient) http: HttpClient) {
+        super(http);
 
-		this.model = ( construct: any ) => new Category(construct);
-	}
+        this.model = (construct: any) => new Category(construct);
+    }
 
 }

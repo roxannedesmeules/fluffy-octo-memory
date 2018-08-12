@@ -8,24 +8,24 @@ declare const ga: any;
 
 @Injectable()
 export class AnalyticsService {
-	private enabled: boolean;
+    private enabled: boolean;
 
-	constructor (private location: Location, private router: Router) {
-		this.enabled = false;
-	}
+    constructor(private location: Location, private router: Router) {
+        this.enabled = false;
+    }
 
-	trackPageViews () {
-		if (this.enabled) {
-			filter.call(this.router.events, (event) => event instanceof NavigationEnd)
-				.subscribe(() => {
-					ga("send", { hitType : "pageview", page : this.location.path() });
-				});
-		}
-	}
+    trackPageViews() {
+        if (this.enabled) {
+            filter.call(this.router.events, (event) => event instanceof NavigationEnd)
+                  .subscribe(() => {
+                      ga("send", { hitType : "pageview", page : this.location.path() });
+                  });
+        }
+    }
 
-	trackEvent (eventName: string) {
-		if (this.enabled) {
-			ga("send", "event", eventName);
-		}
-	}
+    trackEvent(eventName: string) {
+        if (this.enabled) {
+            ga("send", "event", eventName);
+        }
+    }
 }

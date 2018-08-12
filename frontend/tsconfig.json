@@ -32,5 +32,10 @@
             ]
         },
         "module"                       : "es2015"
-    }
+    },
+    "angularCompilerOptions" : {
+        "fullTemplateTypeCheck" : true,
+        "preserveWhitespaces"   : true,
+        "trace" : true
+    },
 }

@@ -4,20 +4,20 @@ import { CommonModule } from "@angular/common";
 import { SafeHtmlPipe } from "./string/safe-html.pipe";
 
 const PIPES = [
-	// third party pipes
-	// TimeAgoPipe,
+    // third party pipes
+    // TimeAgoPipe,
 
-	// custom pipes
-	SafeHtmlPipe,
+    // custom pipes
+    SafeHtmlPipe,
 ];
 
 @NgModule({
-	imports      : [
-		CommonModule,
-	],
-	declarations : [ ...PIPES ],
-	exports      : [ ...PIPES ],
-	providers    : [ ...PIPES ],
+    imports      : [
+        CommonModule,
+    ],
+    declarations : [ ...PIPES ],
+    exports      : [ ...PIPES ],
+    providers    : [ ...PIPES ],
 })
 export class PipesModule {
 }

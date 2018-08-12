@@ -12,47 +12,47 @@ import { CategoriesComponent, SearchComponent, TagsComponent } from "./widgets";
 
 
 const BASE_MODULES = [
-	CommonModule,
-	RouterModule,
-	BrowserAnimationsModule,
-	FormsModule,
-	ReactiveFormsModule,
+    CommonModule,
+    RouterModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
 ];
 
 const MODULES = [
-	NgbModule,
-	DirectivesModule,
+    NgbModule,
+    DirectivesModule,
 ];
 
 const COMPONENTS = [
-	//  components
-	FooterComponent,
-	HeaderComponent,
+    //  components
+    FooterComponent,
+    HeaderComponent,
 
-	//  Layouts
-	AppComponent,
-	HomeComponent,
-	BlogComponent,
+    //  Layouts
+    AppComponent,
+    HomeComponent,
+    BlogComponent,
 
-	//  widgets
-	CategoriesComponent,
-	SearchComponent,
-	TagsComponent,
+    //  widgets
+    CategoriesComponent,
+    SearchComponent,
+    TagsComponent,
 ];
 
 const PROVIDERS = [];
 
 @NgModule({
-	imports      : [ ...BASE_MODULES, ...MODULES ],
-	declarations : [ ...COMPONENTS ],
-	exports      : [ ...COMPONENTS ],
+    imports      : [ ...BASE_MODULES, ...MODULES ],
+    declarations : [ ...COMPONENTS ],
+    exports      : [ ...COMPONENTS ],
 })
 export class ThemeModule {
-	static forRoot (): ModuleWithProviders {
-		return <ModuleWithProviders>{
-			ngModule  : ThemeModule,
-			providers : [ ...PROVIDERS ],
-		};
-	}
+    static forRoot(): ModuleWithProviders {
+        return <ModuleWithProviders>{
+            ngModule  : ThemeModule,
+            providers : [ ...PROVIDERS ],
+        };
+    }
 }
 

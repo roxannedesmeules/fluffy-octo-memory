@@ -5,12 +5,12 @@ import { Tag } from "@core/data/tags/tag.model";
 
 @Injectable()
 export class TagService extends BaseService {
-	public modelName = "tags";
+    public modelName = "tags";
 
-	constructor ( @Inject(HttpClient) http: HttpClient ) {
-		super(http);
+    constructor(@Inject(HttpClient) http: HttpClient) {
+        super(http);
 
-		this.model = ( construct: any ) => new Tag(construct);
-	}
+        this.model = (construct: any) => new Tag(construct);
+    }
 
 }

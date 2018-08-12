@@ -4,23 +4,23 @@ import { CommonModule } from "@angular/common";
 import { DataModule } from "./data/data.module";
 
 const PROVIDERS = [
-	...DataModule.forRoot().providers,
+    ...DataModule.forRoot().providers,
 ];
 
 @NgModule({
-	imports      : [
-		CommonModule,
-		HttpClientModule,
-	],
-	declarations : [],
+    imports      : [
+        CommonModule,
+        HttpClientModule,
+    ],
+    declarations : [],
 })
 export class CoreModule {
-	static forRoot (): ModuleWithProviders {
-		return <ModuleWithProviders>{
-			ngModule  : CoreModule,
-			providers : [
-				... PROVIDERS,
-			],
-		};
-	}
+    static forRoot(): ModuleWithProviders {
+        return <ModuleWithProviders>{
+            ngModule  : CoreModule,
+            providers : [
+                ...PROVIDERS,
+            ],
+        };
+    }
 }

@@ -2,26 +2,26 @@ import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { Post, PostComment } from "@core/data/posts";
 
 @Component({
-	selector    : "app-blog-post-comments",
-	templateUrl : "./comment.component.html",
-	styleUrls   : [ "./comment.component.scss" ],
+    selector    : "app-blog-post-comments",
+    templateUrl : "./comment.component.html",
+    styleUrls   : [ "./comment.component.scss" ],
 })
 export class CommentComponent implements OnInit {
 
-	@Input() postId: number;
-	@Input() enabled: boolean = true;
-	@Input() count: number;
-	@Input() comments: PostComment[];
+    @Input() postId: number;
+    @Input() count: number;
+    @Input() comments: PostComment[];
+    @Input() enabled = true;
 
-	@Output() onCreate: EventEmitter<Post> = new EventEmitter<Post>();
+    @Output() create = new EventEmitter<Post>();
 
-	constructor () {
-	}
+    constructor() {
+    }
 
-	ngOnInit () {
-	}
+    ngOnInit() {
+    }
 
-	passToParent ( $event ) {
-		this.onCreate.next($event);
-	}
+    passToParent($event) {
+        this.create.next($event);
+    }
 }

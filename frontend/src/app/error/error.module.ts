@@ -5,11 +5,11 @@ import { ErrorRoutingModule } from "./error-routing.module";
 import { ErrorComponent } from "./error.component";
 
 @NgModule({
-	imports      : [
-		CommonModule,
-		ErrorRoutingModule,
-	],
-	declarations : [ ErrorComponent ],
+    imports      : [
+        CommonModule,
+        ErrorRoutingModule,
+    ],
+    declarations : [ ErrorComponent ],
 })
 export class ErrorModule {
 }

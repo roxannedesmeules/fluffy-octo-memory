@@ -2,38 +2,38 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 
 @Component({
-	selector    : "app-widget-search",
-	templateUrl : "./search.component.html",
-	styleUrls   : [ "./search.component.scss" ],
+    selector    : "app-widget-search",
+    templateUrl : "./search.component.html",
+    styleUrls   : [ "./search.component.scss" ],
 })
 export class SearchComponent implements OnInit {
 
-	public search;
+    public search;
 
-	constructor ( private router: Router ) {
-	}
+    constructor(private router: Router) {
+    }
 
-	ngOnInit () {
-	}
+    ngOnInit() {
+    }
 
-	searchFor ( event ) {
-		if (event === null || event.key === "Enter") {
-			const params = {
-				queryParams : {
-					"page"     : 0,
-					"per-page" : 10,
-				},
-			};
+    searchFor(event) {
+        if (event === null || event.key === "Enter") {
+            const params = {
+                queryParams : {
+                    "page"     : 0,
+                    "per-page" : 10,
+                },
+            };
 
-			if (this.search !== "") {
-				params.queryParams[ "search" ] = this.search;
-			}
+            if (this.search !== "") {
+                params.queryParams[ "search" ] = this.search;
+            }
 
-			//  navigate to the blog list with the search value as query param
-			this.router.navigate([ "/blog" ], params);
+            //  navigate to the blog list with the search value as query param
+            this.router.navigate([ "/blog" ], params);
 
-			//  reset the searched value
-			this.search = "";
-		}
-	}
+            //  reset the searched value
+            this.search = "";
+        }
+    }
 }

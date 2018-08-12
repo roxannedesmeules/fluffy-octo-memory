@@ -6,21 +6,21 @@ import { DirectivesModule } from "@shared/directives/directives.module";
 
 import { HomeRoutingModule } from "./home-routing.module";
 import { HomeComponent } from "./home.component";
-import { FeaturedPostComponent } from './featured-post/featured-post.component';
+import { FeaturedPostComponent } from "./featured-post/featured-post.component";
 
 @NgModule({
-	imports      : [
-		CommonModule,
-		HomeRoutingModule,
+    imports      : [
+        CommonModule,
+        HomeRoutingModule,
 
-		DirectivesModule,
-		PipesModule,
-		PostSummaryModule,
-	],
-	declarations : [
-		HomeComponent,
-		FeaturedPostComponent,
-	],
+        DirectivesModule,
+        PipesModule,
+        PostSummaryModule,
+    ],
+    declarations : [
+        HomeComponent,
+        FeaturedPostComponent,
+    ],
 })
 export class HomeModule {
 }

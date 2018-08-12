@@ -1,15 +1,15 @@
-import { TestBed, inject } from "@angular/core/testing";
+import { inject, TestBed } from "@angular/core/testing";
 
 import { DetailResolve } from "./detail.resolve";
 
 describe("DetailsResolve", () => {
-	beforeEach(() => {
-		TestBed.configureTestingModule({
-			providers : [ DetailResolve ],
-		});
-	});
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            providers : [ DetailResolve ],
+        });
+    });
 
-	it("should be created", inject([ DetailResolve ], ( service: DetailResolve ) => {
-		expect(service).toBeTruthy();
-	}));
+    it("should be created", inject([ DetailResolve ], (service: DetailResolve) => {
+        expect(service).toBeTruthy();
+    }));
 });

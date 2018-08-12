@@ -5,79 +5,83 @@ import { Tag } from "@core/data/tags/tag.model";
 import { Author } from "@core/data/users/author.model";
 
 export class Post {
-	public static NOT_FEATURED     = 0;
-	public static FEATURED         = 1;
-	public static COMMENTS_ENABLED = 1;
+    public static NOT_FEATURED     = 0;
+    public static FEATURED         = 1;
+    public static COMMENTS_ENABLED = 1;
 
-	public id: number = null;
-	public category: Category = null;
-	public featured: number        = Post.NOT_FEATURED;
-	public comment_enabled: number = Post.COMMENTS_ENABLED;
-	public title: string = "";
-	public slug: string = "";
-	public summary: string = "";
-	public content: string = "";
-	public cover: PostCover = null;
-	public tags: Tag[] = [];
-	public comments: any = [];
-	public author: Author = null;
-	public published_on: string = "";
+    public id: number              = null;
 
-	constructor ( model: any = null ) {
-		if (!model) {
-			return;
-		}
+    public featured        = Post.NOT_FEATURED;
+    public comment_enabled = Post.COMMENTS_ENABLED;
 
-		this.id              = model.id;
-		this.featured        = parseInt(model.featured);
-		this.comment_enabled = parseInt(model.comment_enabled);
+    public title   = "";
+    public slug    = "";
+    public summary = "";
+    public content = "";
 
-		this.title        = model.title;
-		this.slug         = model.slug;
-		this.summary      = model.summary;
-		this.content      = model.content || "";
+    public category: Category      = null;
+    public cover: PostCover        = null;
+    public tags: Tag[]             = [];
+    public comments: any           = [];
+    public author: Author          = null;
 
-		this.cover        = new PostCover(model.cover);
-		this.category     = new Category(model.category);
-		this.tags         = (model.tags) ? this.mapListToModelList(Tag, model.tags) : [];
-		this.author       = new Author(model.author);
+    public published_on = "";
 
-		this.published_on = model.published_on;
+    constructor(model: any = null) {
+        if (!model) {
+            return;
+        }
 
-		this.comments     = {
-			count : model.comments.count,
-			list  : (model.comments.list) ? this.mapListToModelList(PostComment, model.comments.list) : [],
-		};
-	}
+        this.id              = model.id;
+        this.featured        = parseInt(model.featured);
+        this.comment_enabled = parseInt(model.comment_enabled);
 
-	private mapListToModelList ( model, list: any[] ) {
-		list.forEach(( val: any, idx: number ) => {
-			list[ idx ] = new model(val);
-		});
+        this.title   = model.title;
+        this.slug    = model.slug;
+        this.summary = model.summary;
+        this.content = model.content || "";
 
-		return list;
-	}
+        this.cover    = new PostCover(model.cover);
+        this.category = new Category(model.category);
+        this.tags     = (model.tags) ? this.mapListToModelList(Tag, model.tags) : [];
+        this.author   = new Author(model.author);
 
-	public getSummary (): string {
-		if (this.summary) {
-			return this.summary;
-		}
+        this.published_on = model.published_on;
 
-		const tempDiv = document.createElement("div");
-			  tempDiv.innerHTML = this.content;
+        this.comments = {
+            count : model.comments.count,
+            list  : (model.comments.list) ? this.mapListToModelList(PostComment, model.comments.list) : [],
+        };
+    }
 
-		return tempDiv.innerText.substring(0, 160);
-	}
+    private mapListToModelList(model, list: any[]) {
+        list.forEach((val: any, idx: number) => {
+            list[ idx ] = new model(val);
+        });
 
-	public getUrl (): string {
-		if (this.id === null) {
-			return "";
-		}
+        return list;
+    }
 
-		return "/blog/" + this.category.slug + "/" + this.slug;
-	}
+    public getSummary(): string {
+        if (this.summary) {
+            return this.summary;
+        }
 
-	public commentsAreEnabled (): boolean {
-		return (this.comment_enabled === Post.COMMENTS_ENABLED);
-	}
+        const tempDiv     = document.createElement("div");
+        tempDiv.innerHTML = this.content;
+
+        return tempDiv.innerText.substring(0, 160);
+    }
+
+    public getUrl(): string {
+        if (this.id === null) {
+            return "";
+        }
+
+        return "/blog/" + this.category.slug + "/" + this.slug;
+    }
+
+    public commentsAreEnabled(): boolean {
+        return (this.comment_enabled === Post.COMMENTS_ENABLED);
+    }
 }

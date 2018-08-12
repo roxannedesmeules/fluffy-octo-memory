@@ -13,12 +13,12 @@
 	<p class="reply" *ngIf="enabled" (click)="showForm = !showForm">reply</p>
 
 	<app-blog-post-comment-form *ngIf="showForm && enabled"
-	                            [postId]="postId" [replyTo]="comment.id" (onCreate)="passToParent($event)">
+	                            [postId]="postId" [replyTo]="comment.id" (create)="passToParent($event)">
 	</app-blog-post-comment-form>
 </div>
 
 <div class="replies">
 	<app-blog-post-comment class="comment" *ngFor="let reply of comment.replies"
-	                       [enabled]="enabled" [comment]="reply" (onCreate)="passToParent($event)">
+	                       [enabled]="enabled" [comment]="reply" (create)="passToParent($event)">
 	</app-blog-post-comment>
 </div>

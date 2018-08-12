@@ -1,25 +1,25 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { PostSummaryComponent } from './post-summary.component';
+import { PostSummaryComponent } from "./post-summary.component";
 
-describe('PostSummaryComponent', () => {
-  let component: PostSummaryComponent;
-  let fixture: ComponentFixture<PostSummaryComponent>;
+describe("PostSummaryComponent", () => {
+    let component: PostSummaryComponent;
+    let fixture: ComponentFixture<PostSummaryComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ PostSummaryComponent ]
-    })
-    .compileComponents();
-  }));
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+                   declarations : [ PostSummaryComponent ],
+               })
+               .compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(PostSummaryComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture   = TestBed.createComponent(PostSummaryComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it("should create", () => {
+        expect(component).toBeTruthy();
+    });
 });

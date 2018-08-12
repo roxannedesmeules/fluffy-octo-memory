@@ -5,12 +5,12 @@ import { Author } from "@core/data/users/author.model";
 
 @Injectable()
 export class AuthorService extends BaseService {
-	public modelName = "author";
+    public modelName = "author";
 
-	constructor ( @Inject(HttpClient) http: HttpClient ) {
-		super(http);
+    constructor(@Inject(HttpClient) http: HttpClient) {
+        super(http);
 
-		this.model = ( construct: any ) => new Author(construct);
-	}
+        this.model = (construct: any) => new Author(construct);
+    }
 
 }

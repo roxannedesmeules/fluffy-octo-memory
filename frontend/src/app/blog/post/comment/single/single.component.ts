@@ -2,28 +2,29 @@ import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { Post, PostComment } from "@core/data/posts";
 
 @Component({
-	selector    : "app-blog-post-comment",
-	templateUrl : "./single.component.html",
-	styleUrls   : [ "./single.component.scss" ],
+    selector    : "app-blog-post-comment",
+    templateUrl : "./single.component.html",
+    styleUrls   : [ "./single.component.scss" ],
 })
 export class SingleComponent implements OnInit {
 
-	@Input() postId: number;
-	@Input() enabled: boolean = true;
-	@Input() comment: PostComment;
-	@Output() onCreate: EventEmitter<Post> = new EventEmitter<Post>();
+    @Input() postId: number;
+    @Input() comment: PostComment;
+    @Input() enabled = true;
 
-	public showForm = false;
+    @Output() create = new EventEmitter<Post>();
 
-	constructor () {
-	}
+    public showForm = false;
 
-	ngOnInit () {
-	}
+    constructor() {
+    }
 
-	passToParent ( $event ) {
-		this.showForm = false;
+    ngOnInit() {
+    }
 
-		this.onCreate.next($event);
-	}
+    passToParent($event) {
+        this.showForm = false;
+
+        this.create.next($event);
+    }
 }

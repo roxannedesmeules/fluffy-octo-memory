@@ -12,32 +12,32 @@ import { SingleComponent } from "./post/comment/single/single.component";
 import { CommentComponent } from "./post/comment/comment.component";
 import { TagsComponent } from "./post/tags/tags.component";
 import { FooterComponent } from "./post/footer/footer.component";
-import { PostComponent } from './post/post.component';
+import { PostComponent } from "./post/post.component";
 
 const MODULES = [
-	CommonModule,
-	FormsModule,
-	ReactiveFormsModule,
-	BlogRoutingModule,
-	PaginationModule,
-	PostSummaryModule,
-	PipesModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    BlogRoutingModule,
+    PaginationModule,
+    PostSummaryModule,
+    PipesModule,
 ];
 
 const COMPONENTS = [
-	ListComponent,
-	FooterComponent,
-	PostComponent,
-	TagsComponent,
-	CommentComponent,
-	SingleComponent,
-	FormComponent,
+    ListComponent,
+    FooterComponent,
+    PostComponent,
+    TagsComponent,
+    CommentComponent,
+    SingleComponent,
+    FormComponent,
 ];
 
 
 @NgModule({
-	imports      : [ ...MODULES ],
-	declarations : [ ...COMPONENTS ],
+    imports      : [ ...MODULES ],
+    declarations : [ ...COMPONENTS ],
 })
 export class BlogModule {
 }
