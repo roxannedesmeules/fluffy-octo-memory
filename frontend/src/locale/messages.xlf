@@ -129,18 +129,29 @@
           <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="home-metadesc" datatype="html">
+        <source>Learn about web development, PHP, NodeJs, Angular2+ and others</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/blog/list/list.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/home/home.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="blog-list-count" datatype="html">
         <source> <x id="INTERPOLATION" equiv-text="{{ list.length }}"/> <x id="ICU" equiv-text="{list.length, plural, =0 {...} =1 {...} many {...}}"/> available </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/blog/list/list.component.ts</context>
-          <context context-type="linenumber">8</context>
+          <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
       <trans-unit id="baa8a5a4bc13f9ccaca2a759a355a72415de18e4" datatype="html">
         <source>{VAR_PLURAL, plural, =0 {post} =1 {post} many {posts} }</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/blog/list/list.component.ts</context>
-          <context context-type="linenumber">8</context>
+          <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
       <trans-unit id="comment-title" datatype="html">
@@ -215,21 +226,21 @@
         <source>ladydev.io sharing tips and tricks about web development</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/home/home.component.ts</context>
-          <context context-type="linenumber">5</context>
+          <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
       <trans-unit id="scroll" datatype="html">
         <source>Scroll Down</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/home/home.component.ts</context>
-          <context context-type="linenumber">10</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="intro-title" datatype="html">
         <source>Hi, I&apos;m Roxanne</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/home/home.component.ts</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
       <trans-unit id="intro" datatype="html">
@@ -240,28 +251,28 @@
                 </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/home/home.component.ts</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
       <trans-unit id="viewmore" datatype="html">
         <source>View More</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/home/home.component.ts</context>
-          <context context-type="linenumber">45</context>
+          <context context-type="linenumber">49</context>
         </context-group>
       </trans-unit>
       <trans-unit id="latest-title" datatype="html">
         <source>Latest from the blog</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/home/home.component.ts</context>
-          <context context-type="linenumber">54</context>
+          <context context-type="linenumber">58</context>
         </context-group>
       </trans-unit>
       <trans-unit id="latest-desc" datatype="html">
         <source>See latest articles published on the blog</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/home/home.component.ts</context>
-          <context context-type="linenumber">55</context>
+          <context context-type="linenumber">59</context>
         </context-group>
       </trans-unit>
       <trans-unit id="about-metatitle" datatype="html">

@@ -1,34 +1,36 @@
 {
-	"compileOnSave": false,
-	"compilerOptions": {
-		"outDir": "./dist/out-tsc",
-		"sourceMap": true,
-		"declaration": false,
-		"moduleResolution": "node",
-		"emitDecoratorMetadata": true,
-		"experimentalDecorators": true,
-		"target": "es5",
-		"typeRoots": [
-			"node_modules/@types"
-		],
-		"lib": [
-			"es2017",
-			"dom"
-		],
-		"baseUrl": "./",
-		"paths": {
-			"@core/*": [
-				"./src/app/@core/*"
-			],
-			"@shared/*": [
-				"./src/app/@shared/*"
-			],
-			"@theme/*": [
-				"./src/app/@theme/*"
-			],
-			"env/*": [
-				"./src/environments/*"
-			]
-		}
-	}
+    "compileOnSave"   : false,
+    "compilerOptions" : {
+        "outDir"                       : "./dist/out-tsc",
+        "sourceMap"                    : true,
+        "declaration"                  : false,
+        "moduleResolution"             : "node",
+        "emitDecoratorMetadata"        : true,
+        "experimentalDecorators"       : true,
+        "strictPropertyInitialization" : false,
+        "target"                       : "es5",
+        "typeRoots"                    : [
+            "node_modules/@types"
+        ],
+        "lib"                          : [
+            "es2017",
+            "dom"
+        ],
+        "baseUrl"                      : "./",
+        "paths"                        : {
+            "@core/*"   : [
+                "./src/app/@core/*"
+            ],
+            "@shared/*" : [
+                "./src/app/@shared/*"
+            ],
+            "@theme/*"  : [
+                "./src/app/@theme/*"
+            ],
+            "env/*"     : [
+                "./src/environments/*"
+            ]
+        },
+        "module"                       : "es2015"
+    }
 }
