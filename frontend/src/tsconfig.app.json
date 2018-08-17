@@ -3,7 +3,7 @@
     "compilerOptions"        : {
         "outDir"  : "../out-tsc/app",
         "baseUrl" : "./",
-        "module"  : "es2015",
+        "module"  : "commonjs",
         "types"   : [],
         "paths"   : {
             "@core/*"   : [
@@ -14,6 +14,9 @@
             ],
             "@theme/*"  : [
                 "./app/@theme/*"
+            ],
+            "app/*"     : [
+                "./app/*"
             ],
             "env/*"     : [
                 "./environments/*"
