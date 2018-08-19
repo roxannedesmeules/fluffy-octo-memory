@@ -1,6 +1,6 @@
 export class PostFilters {
-    protected static DEFAULT_CURRENT_PAGE = 0;
-    protected static DEFAULT_PER_PAGE     = 10;
+    public static DEFAULT_CURRENT_PAGE = 0;
+    public static DEFAULT_PER_PAGE     = 10;
 
     // pagination
     public pageNumber = PostFilters.DEFAULT_CURRENT_PAGE;
@@ -44,15 +44,6 @@ export class PostFilters {
 
         this.pageNumber = PostFilters.DEFAULT_CURRENT_PAGE;
         this.perPage    = PostFilters.DEFAULT_PER_PAGE;
-    }
-
-    /**
-     * set the search filter to the value passed in parameter.
-     *
-     * @param {string} value
-     */
-    public searchFor(value: string) {
-        this.search = value;
     }
 
     /**
