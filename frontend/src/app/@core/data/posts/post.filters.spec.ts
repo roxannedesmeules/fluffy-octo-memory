@@ -1,6 +1,6 @@
 import { PostFilters } from "@core/data/posts/post.filters";
 
-fdescribe("Post Filters", () => {
+describe("Post Filters", () => {
     let filters: PostFilters;
 
     //  set up for each test
