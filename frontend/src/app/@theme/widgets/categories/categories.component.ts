@@ -45,7 +45,7 @@ export class CategoriesComponent implements OnInit {
     private getCategoriesCount() {
         //  get post count for all categories
         this._categoryPostService
-            .getCount()
+            .findAll()
             .subscribe((result: any[]) => {
                 //  assign the count found to each categories
                 this.categories.forEach((cat: Category) => {

@@ -17,7 +17,7 @@ export class CommunicationService extends BaseService {
 
     create(body: any): Observable<any> {
         return this.http
-                   .post(this._url(), body, { observe : "response" })
+                   .post(this.url(), body, { observe : "response" })
                    .pipe(catchError((err: any) => observableThrowError(this.mapError(err))));
     }
 }

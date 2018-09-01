@@ -26,7 +26,7 @@ export class PostService extends BaseService {
     }
 
     public findAll(): Observable<any> {
-        return this.http.get(this._url(), this._getOptions())
+        return this.http.get(this.url(), this._getOptions())
                    .pipe(
                            map((res: HttpResponse<Post[]>) => {
                                this.responseHeaders = res.headers;

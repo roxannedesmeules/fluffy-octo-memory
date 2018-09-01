@@ -17,7 +17,7 @@ export abstract class BaseService {
     }
 
     public findAll(): Observable<any> {
-        return this.http.get(this._url(), { observe : "response" })
+        return this.http.get(this.url(), { observe : "response" })
                    .pipe(
                            map((res: any) => this.mapListToModelList(res.body)),
                            catchError((err: any) => observableThrowError(this.mapError(err))),
@@ -25,7 +25,7 @@ export abstract class BaseService {
     }
 
     public findOne(): Observable<any> {
-        return this.http.get(this._url())
+        return this.http.get(this.url())
                    .pipe(
                            map((res: any) => this.mapModel(res)),
                            catchError((err: any) => observableThrowError(this.mapError(err))),
@@ -33,7 +33,7 @@ export abstract class BaseService {
     }
 
     public findById(id: any): Observable<any> {
-        return this.http.get(this._url(id))
+        return this.http.get(this.url(id))
                    .pipe(
                            map((res: any) => this.mapModel(res)),
                            catchError((err: any) => observableThrowError(this.mapError(err))),
@@ -42,12 +42,29 @@ export abstract class BaseService {
 
     /**
      *
-     * @param {number} id
+     * @param {number|string} id
+     * @param {string} structure
+     *
      * @return {string}
-     * @private
      */
-    protected _url(id?: number | string): string {
-        return ((this.baseUrl) ? this.baseUrl + "/" : "") + this.modelName + ((id) ? "/" + id : "");
+    public url(id?: number | string, structure = ":baseUrl/:modelName/:id"): string {
+        let url = structure;
+            url = url.replace(":baseUrl", this.baseUrl);
+            url = url.replace(":modelName", this.modelName);
+
+        //  replace the ID if one passed
+        if (id) {
+            url = url.replace(":id", id.toString());
+        } else {
+            url = url.replace("/:id", "");
+        }
+
+        //  replace any slashes at the start or end of a URL
+        url = url.replace(/^\//, '');
+        url = url.replace(/$\//, '');
+
+        //  return URL
+        return url;
     }
 
     mapError(err) {

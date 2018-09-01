@@ -1,12 +1,9 @@
-import { HttpClient, HttpHeaders, HttpResponse } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 import { throwError as observableThrowError, Observable } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 
 import { BaseService } from "@core/data/base.service";
-import { PostFilters } from "@core/data/posts/post.filters";
-
-import { Post } from "@core/data/posts/post.model";
 import { CategoryCount } from "./category-count.model";
 
 @Injectable()
@@ -16,46 +13,41 @@ export class CategoryPostService extends BaseService {
 
     public responseHeaders: HttpHeaders;
 
-    public filters = new PostFilters();
-    public options = {
-        observe : "response",
-    };
-
     constructor(@Inject(HttpClient) http: HttpClient) {
         super(http);
+
+        this.model = (construct) => new CategoryCount(construct);
     }
 
-    getCount(): Observable<any> {
-        return this.http.get(this._url("count"))
+    /**
+     * Find All
+     *
+     * return an observable which will return and map a list of CategoryPost
+     * models.
+     */
+    findAll(): Observable<any> {
+        return this.http.get(this.url(null, ":baseUrl/:modelName/count"))
                    .pipe(
-                           map((res: any) => this.mapToModelList(CategoryCount, res)),
+                           map((res: any) => this.mapListToModelList(res)),
                            catchError((err: any) => observableThrowError(this.mapError(err))),
                    );
     }
 
-    getAll(categorySlug: string): Observable<any> {
-        const url = `${this.baseUrl}/${categorySlug}/${this.modelName}`;
-
-        return this.http.get(url, this._getOptions())
-                   .pipe(
-                           map((res: HttpResponse<Post[]>) => {
-                               this.responseHeaders = res.headers;
-
-                               return this.mapToModelList(Post, res.body);
-                           }),
-                           catchError((err: any) => observableThrowError(this.mapError(err))),
-                   );
+    /**
+     * Find One
+     *
+     * return an error since not implemented in API.
+     */
+    findOne(): Observable<any> {
+        return observableThrowError(this.mapError({ error : { code: 501, error: { message: "Not Implemented" } }}));
     }
 
-    mapToModelList(model: any, list: any) {
-        list.forEach((item, index) => {
-            list[ index ] = new model(item);
-        });
-
-        return list;
-    }
-
-    protected _getOptions() {
-        return Object.assign({}, this.options, this.filters.formatRequest());
+    /**
+     * Find By Id
+     *
+     * return an error since not implemented in API.
+     */
+    findById(): Observable<any> {
+        return observableThrowError(this.mapError({ error : { code: 501, error: { message: "Not Implemented" } }}));
     }
 }
