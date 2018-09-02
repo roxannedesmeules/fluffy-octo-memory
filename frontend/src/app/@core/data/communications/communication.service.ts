@@ -17,7 +17,19 @@ export class CommunicationService extends BaseService {
 
     create(body: any): Observable<any> {
         return this.http
-                   .post(this.url(), body, { observe : "response" })
+                   .post(this.url(), body)
                    .pipe(catchError((err: any) => observableThrowError(this.mapError(err))));
+    }
+
+    findAll(): Observable<any> {
+        return observableThrowError(this.mapError({ error : { code: 501, error: { message: "Not Implemented" } }}));
+    }
+
+    findById(id: number): Observable<any> {
+        return observableThrowError(this.mapError({ error : { code: 501, error: { message: "Not Implemented" } }}));
+    }
+
+    findOne(): Observable<any> {
+        return observableThrowError(this.mapError({ error : { code: 501, error: { message: "Not Implemented" } }}));
     }
 }
