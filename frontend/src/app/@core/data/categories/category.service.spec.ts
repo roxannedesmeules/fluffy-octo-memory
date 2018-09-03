@@ -67,8 +67,7 @@ describe("CategoryService", () => {
     describe("#findOne", () => {
         it("should return a 501 error", () => {
             service.findOne().subscribe(
-                    () => {
-                    },
+                    () => {},
                     err => {
                         expect(err).toEqual(jasmine.any(ErrorResponse));
                         expect(err.code).toEqual(501);

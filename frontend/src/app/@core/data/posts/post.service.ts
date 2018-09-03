@@ -37,6 +37,15 @@ export class PostService extends BaseService {
                    );
     }
 
+    /**
+     * Find One
+     *
+     * return an observable error since not implemented in API.
+     */
+    findOne(): Observable<any> {
+        return observableThrowError(this.mapError({ error : { code: 501, error: { message: "Not Implemented" } }}));
+    }
+
     public latests(): Observable<any> {
         this.filters.reset();
         this.filters.set("perPage", 3);

@@ -19,7 +19,7 @@ export class PostCommentService extends BaseService {
     }
 
     createForPost(postId: number, body: any): Observable<any> {
-        return this.http.post(this._commentUrl(postId), body, { observe : "response" })
+        return this.http.post(this.url(postId, ":baseUrl/:id/:modelName"), body)
                    .pipe(
                            map((res: any) => this.mapModel(res.body)),
                            catchError((err: any) => observableThrowError(this.mapError(err))),
@@ -27,14 +27,29 @@ export class PostCommentService extends BaseService {
     }
 
     /**
-     * Build the complete url for API calls.
+     * Find All
      *
-     * @param {number} postId
-     *
-     * @return {string}
-     * @protected
+     * return an observable error since not implemented in API.
      */
-    protected _commentUrl(postId: number): string {
-        return `${this.baseUrl}/${postId}/${this.modelName}`;
+    findAll(): Observable<any> {
+        return observableThrowError(this.mapError({ error : { code: 501, error: { message: "Not Implemented" } }}));
+    }
+
+    /**
+     * Find One
+     *
+     * return an observable error since not implemented in API.
+     */
+    findOne(): Observable<any> {
+        return observableThrowError(this.mapError({ error : { code: 501, error: { message: "Not Implemented" } }}));
+    }
+
+    /**
+     * Find by ID
+     *
+     * return an observable error since not implemented in API.
+     */
+    findById(): Observable<any> {
+        return observableThrowError(this.mapError({ error : { code: 501, error: { message: "Not Implemented" } }}));
     }
 }

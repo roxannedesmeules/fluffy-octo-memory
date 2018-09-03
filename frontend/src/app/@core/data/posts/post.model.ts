@@ -9,7 +9,7 @@ export class Post {
     public static FEATURED         = 1;
     public static COMMENTS_ENABLED = 1;
 
-    public id: number              = null;
+    public id: number = null;
 
     public featured        = Post.NOT_FEATURED;
     public comment_enabled = Post.COMMENTS_ENABLED;
@@ -19,11 +19,11 @@ export class Post {
     public summary = "";
     public content = "";
 
-    public category: Category      = null;
-    public cover: PostCover        = null;
-    public tags: Tag[]             = [];
-    public comments: any           = [];
-    public author: Author          = null;
+    public category: Category = null;
+    public cover: PostCover   = null;
+    public tags: Tag[]        = [];
+    public comments: any      = [];
+    public author: Author     = null;
 
     public published_on = "";
 
@@ -48,10 +48,12 @@ export class Post {
 
         this.published_on = model.published_on;
 
-        this.comments = {
-            count : model.comments.count,
-            list  : (model.comments.list) ? this.mapListToModelList(PostComment, model.comments.list) : [],
-        };
+        if (model.comments) {
+            this.comments = {
+                count : model.comments.count,
+                list  : (model.comments.list) ? this.mapListToModelList(PostComment, model.comments.list) : [],
+            };
+        }
     }
 
     private mapListToModelList(model, list: any[]) {
